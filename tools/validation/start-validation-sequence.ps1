@@ -7,6 +7,7 @@ param(
     [ValidateRange(1, 1024)][int]$MaxLogMiB = 32,
     [ValidateRange(64, 4096)][int]$MaxDirectoryMiB = 256,
     [ValidateRange(1, 20)][int]$MaxBatches = 20,
+    [ValidateRange(0, 300)][int]$StartupDelaySeconds = 10,
     [switch]$SkipBaseline
 )
 
@@ -49,6 +50,17 @@ function Assert-CaptureBudget {
     }
 }
 
+$startupDelayApplied = $false
+function Invoke-StartupDelayOnce {
+    if ($startupDelayApplied) { return }
+    $script:startupDelayApplied = $true
+    if ($StartupDelaySeconds -gt 0) {
+        Write-Output "Live validation sequence will start in $StartupDelaySeconds seconds."
+        Start-Sleep -Seconds $StartupDelaySeconds
+        Write-Output 'Startup delay finished; opening PCAN.'
+    }
+}
+
 function Invoke-BoundedRun([string]$Id, [string[]]$Arguments, [string]$Partial, [string]$Complete, [string]$Analyzer, [string[]]$AnalyzerArguments) {
     & $executable @Arguments
     if ($LASTEXITCODE -ne 0) { Move-Incomplete $Partial; throw "$Id capture did not complete." }
@@ -59,6 +71,7 @@ function Invoke-BoundedRun([string]$Id, [string[]]$Arguments, [string]$Partial, 
 }
 
 $planned = 0
+Write-Output "Startup delay: $StartupDelaySeconds seconds (once before the first live batch)."
 if (-not $SkipBaseline) {
     $baselineId = 'baseline-13'
     $baselineComplete = Join-Path $OutputDirectory ("${manifestHash}_${baselineId}.complete.jsonl")
@@ -71,6 +84,7 @@ if (-not $SkipBaseline) {
             $partial = Join-Path $OutputDirectory ("${manifestHash}_${baselineId}.${stamp}.partial.jsonl")
             $captureArguments = @('--road-capture','--live','--duration-seconds',[string]$BaselineDurationSeconds,
                 '--period-ms',[string]$definition.limits.period_ms,'--max-log-mib',[string]$MaxLogMiB,'--output',$partial,'--quiet')
+            Invoke-StartupDelayOnce
             & $executable @captureArguments
             if ($LASTEXITCODE -ne 0) { Move-Incomplete $partial; throw 'Baseline capture did not complete.' }
             $end = Get-Content -LiteralPath $partial -Tail 1 | ConvertFrom-Json
@@ -122,6 +136,7 @@ foreach ($batch in $definition.batches) {
         foreach ($did in $qualified) { $captureArguments += @('--did',$did) }
         $analysisArgs = @('--catalog', $catalog, '--minimum-samples', [string]$minimum,
             '--summary-json', ($partial -replace '\.jsonl$', '.summary.json'))
+        Invoke-StartupDelayOnce
         Invoke-BoundedRun -Id $batch.id -Arguments $captureArguments -Partial $partial -Complete $complete `
             -Analyzer $candidateAnalyzer -AnalyzerArguments $analysisArgs
     }

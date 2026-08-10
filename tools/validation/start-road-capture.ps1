@@ -10,6 +10,9 @@ param(
     [ValidateRange(1, 1024)]
     [int]$MaxLogMiB = 64,
 
+    [ValidateRange(0, 300)]
+    [int]$StartupDelaySeconds = 10,
+
     [string]$OutputDirectory,
 
     [switch]$ShowSamples
@@ -56,7 +59,14 @@ Write-Output ([pscustomobject]@{
     DurationSeconds = $DurationSeconds
     PeriodMs = $PeriodMs
     MaxLogMiB = $MaxLogMiB
+    StartupDelaySeconds = $StartupDelaySeconds
 })
+
+if ($Live -and $StartupDelaySeconds -gt 0) {
+    Write-Output "Live capture will start in $StartupDelaySeconds seconds."
+    Start-Sleep -Seconds $StartupDelaySeconds
+    Write-Output 'Startup delay finished; opening PCAN.'
+}
 
 & $executable @arguments
 if ($LASTEXITCODE -ne 0) {

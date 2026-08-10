@@ -72,6 +72,8 @@ At the safe test location, start the road sequence once and do not interact with
 
 The sequence first captures the existing 13 signals for 45 seconds, then runs every not-yet-complete qualified candidate batch. Completed batches are skipped on a later invocation. Use `-MaxBatches 1` for a rehearsal or `-SkipBaseline` only when an adequate baseline from this manifest revision is already complete.
 
+A live sequence waits 10 seconds before opening PCAN, applied once before its first unfinished batch and not between batches. Set `-StartupDelaySeconds N` to change it, or use zero to start immediately.
+
 Captures default to the ignored sibling `XA50-workbench/captures/vehicle-a/` tree. They contain no VIN, GPS, adapter serial, or explicit location, but timestamps and vehicle behavior still make them private by default.
 
 ## Offline evidence and confidence

@@ -56,7 +56,7 @@ Parking-lot run:
 .\tools\validation\start-road-capture.ps1 -Live -DurationSeconds 900
 ```
 
-The wrapper automatically selects a timestamped file under `../XA50-workbench/captures/vehicle-a`. Per-sample console output is suppressed unless `-ShowSamples` is supplied.
+The wrapper automatically selects a timestamped file under `../XA50-workbench/captures/vehicle-a`. Per-sample console output is suppressed unless `-ShowSamples` is supplied. A live run waits 10 seconds before opening PCAN so the operator can secure the computer; change this with `-StartupDelaySeconds N`, or use zero to disable it.
 
 ## Low-risk maneuver sequence
 
