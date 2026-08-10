@@ -8,6 +8,9 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+if ($args.Count -ne 0) {
+    throw "Unknown argument(s): $($args -join ' ')."
+}
 $repositoryRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $workspaceRoot = Split-Path -Parent $repositoryRoot
 $Manifest = [IO.Path]::GetFullPath($Manifest)

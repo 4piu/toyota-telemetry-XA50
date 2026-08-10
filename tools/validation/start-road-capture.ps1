@@ -19,6 +19,10 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+if ($args.Count -ne 0) {
+    $unknown = $args -join ' '
+    throw "Unknown argument(s): $unknown. For -SkipBaseline and candidate batches, use start-validation-sequence.ps1."
+}
 
 $repositoryRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
 $workspaceRoot = Split-Path -Parent $repositoryRoot
@@ -54,6 +58,7 @@ if (-not $ShowSamples) {
 }
 
 Write-Output ([pscustomobject]@{
+    Workflow = 'Standalone 13-signal baseline only'
     Mode = if ($Live) { 'LIVE' } else { 'DRY RUN' }
     Output = $outputPath
     DurationSeconds = $DurationSeconds
@@ -63,6 +68,7 @@ Write-Output ([pscustomobject]@{
 })
 
 if ($Live -and $StartupDelaySeconds -gt 0) {
+    Write-Warning 'This command records only the 13-signal baseline; it does not run qualified candidate batches.'
     Write-Output "Live capture will start in $StartupDelaySeconds seconds."
     Start-Sleep -Seconds $StartupDelaySeconds
     Write-Output 'Startup delay finished; opening PCAN.'
