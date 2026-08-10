@@ -1,0 +1,14 @@
+schema_version,profile_id,ecu_key,ecu_name,tester_can_id,response_can_id,data_id,read_request,name,first_bit,last_bit,conversion,unit,evidence_state,notes
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1060,22 10 60,Accelerator Position,0,7,raw * 0.5,%,Validated and replayed,Validated through dynamic DID F301.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1067,22 10 67,Master Cylinder Control Torque,0,15,raw * 0.125 - 4096,Nm,Correlated and replayed,Braking request/control; not physical pad contact.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1043,22 10 43,Brake Cancel Switch,14,14,boolean,,Correlated and replayed,Exact threshold remains pending.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,FR Wheel Speed,0,15,(raw - 32768) / 100,km/h,Observed and replayed,Stationary zero only; rolling validation pending.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,FL Wheel Speed,16,31,(raw - 32768) / 100,km/h,Observed and replayed,Stationary zero only; rolling validation pending.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,RR Wheel Speed,32,47,(raw - 32768) / 100,km/h,Observed and replayed,Stationary zero only; rolling validation pending.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,RL Wheel Speed,48,63,(raw - 32768) / 100,km/h,Observed and replayed,Stationary zero only; rolling validation pending.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1090,22 10 90,Steering Angle,0,15,(raw - 32768) / 10,deg,Correlated and replayed,Correlated with repeated stationary steering nudges.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1043,22 10 43,Stop Light Switch,15,15,boolean,,Correlated and replayed,Correlated with brake-pedal contact.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Revolution (MG1),0,15,raw - 32768,rpm,Validated and replayed,Validated through dynamic DID F301.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Revolution (MG2),0,15,raw - 32768,rpm,Validated and replayed,Validated through dynamic DID F301.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1069,22 10 69,Request Motor Regenerative Brake Torque,0,15,raw * 0.125 - 4096,Nm,Observed and replayed,Observed at zero in Park; rolling validation pending.
+1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1069,22 10 69,Motor Regenerate Brake Execution Torque,16,31,raw * 0.125 - 4096,Nm,Observed and replayed,Observed at zero in Park; rolling validation pending.

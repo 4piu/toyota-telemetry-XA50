@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "generated_at_utc": "2026-08-10T05:13:46.830740+00:00",
+  "generator": "tools/catalog/build-telemetry-catalog.py",
+  "generator_sha256": "ddfc52938a6060b98d114b7de36a56290e1f4ec957b7c1c1c3784d3ae6d37dfa",
+  "techstream_version": "18.0.0.3",
+  "database_region": "NA",
+  "inputs": [
+    {
+      "file": "M_English.ddb",
+      "sha256": "d88b131e2f56c71cdb60b353f410f877e0889635ec2b5df0becf4e0002aebf96",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "Engine_P5.ddb",
+      "sha256": "82b8e6faab24dffd2fc9c910f0193f98d22a70355186a46ddb8e183e8dfcbc81",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "MG_P5.ddb",
+      "sha256": "c787b7f651ec82577e367e6fa64d57c0677f8ed6d40eac98aa94f71666feb901",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "HV_P5.ddb",
+      "sha256": "245ee866a53269aeb09cb0a139c0f709fb22415e167470c71c48e672b0e7c119",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "ABS_P5.ddb",
+      "sha256": "d5e1b2f955aba6a94e7c3182833573561acc6154704adbffa08b93c60dced471",
+      "state": "hashed-local-input"
+    }
+  ],
+  "counts": {
+    "signals": 4458,
+    "ecu_did_pairs": 1605,
+    "live_evidence_rows": 13
+  },
+  "notice": "Input database files are not included. Full generated output remains local pending redistribution review."
+}

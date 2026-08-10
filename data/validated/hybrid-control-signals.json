@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "vehicle_instance_id": "vehicle-a",
+  "bit_numbering": "msb-first",
+  "transport": {
+    "network": "classical-can",
+    "bitrate": 500000,
+    "tester_id": "0x7D2",
+    "response_id": "0x7DA",
+    "addressing": "normal"
+  },
+  "dynamic_dids": [
+    {
+      "target": "0xF301",
+      "definition_hex": "2C 01 F3 01 10 A0 01 02 10 A1 01 02 10 60 01 01 1F 01 01 01",
+      "state": "replayed"
+    },
+    {
+      "target": "0xF302",
+      "definition_hex": "2C 01 F3 02 10 43 01 02 10 67 01 02 10 69 01 04",
+      "state": "replayed"
+    }
+  ],
+  "signals": [
+    {"data_id":"0x1060","name":"Accelerator Position","first_bit":0,"last_bit":7,"conversion":{"kind":"linear","a":5,"b":1,"c":0,"decimals":1},"unit":"%","evidence_state":"Validated and replayed"},
+    {"data_id":"0x1067","name":"Master Cylinder Control Torque","first_bit":0,"last_bit":15,"conversion":{"kind":"linear","a":25,"b":2,"c":-409600,"decimals":2},"unit":"Nm","evidence_state":"Correlated and replayed","semantic_limit":"Braking request/control; not physical pad contact."},
+    {"data_id":"0x1043","name":"Brake Cancel Switch","first_bit":14,"last_bit":14,"conversion":{"kind":"boolean"},"unit":"","evidence_state":"Correlated and replayed"},
+    {"data_id":"0x1075","name":"FR Wheel Speed","first_bit":0,"last_bit":15,"conversion":{"kind":"linear","a":1,"b":1,"c":-32768,"decimals":2},"unit":"km/h","evidence_state":"Observed and replayed"},
+    {"data_id":"0x1075","name":"FL Wheel Speed","first_bit":16,"last_bit":31,"conversion":{"kind":"linear","a":1,"b":1,"c":-32768,"decimals":2},"unit":"km/h","evidence_state":"Observed and replayed"},
+    {"data_id":"0x1075","name":"RR Wheel Speed","first_bit":32,"last_bit":47,"conversion":{"kind":"linear","a":1,"b":1,"c":-32768,"decimals":2},"unit":"km/h","evidence_state":"Observed and replayed"},
+    {"data_id":"0x1075","name":"RL Wheel Speed","first_bit":48,"last_bit":63,"conversion":{"kind":"linear","a":1,"b":1,"c":-32768,"decimals":2},"unit":"km/h","evidence_state":"Observed and replayed"},
+    {"data_id":"0x1090","name":"Steering Angle","first_bit":0,"last_bit":15,"conversion":{"kind":"linear","a":1,"b":1,"c":-32768,"decimals":1},"unit":"deg","evidence_state":"Correlated and replayed"},
+    {"data_id":"0x1043","name":"Stop Light Switch","first_bit":15,"last_bit":15,"conversion":{"kind":"boolean"},"unit":"","evidence_state":"Correlated and replayed"},
+    {"data_id":"0x10A0","name":"Generator Revolution (MG1)","first_bit":0,"last_bit":15,"conversion":{"kind":"linear","a":1,"b":1,"c":-32768,"decimals":0},"unit":"rpm","evidence_state":"Validated and replayed"},
+    {"data_id":"0x10A1","name":"Motor Revolution (MG2)","first_bit":0,"last_bit":15,"conversion":{"kind":"linear","a":1,"b":1,"c":-32768,"decimals":0},"unit":"rpm","evidence_state":"Validated and replayed"},
+    {"data_id":"0x1069","name":"Request Motor Regenerative Brake Torque","first_bit":0,"last_bit":15,"conversion":{"kind":"linear","a":25,"b":2,"c":-409600,"decimals":2},"unit":"Nm","evidence_state":"Observed and replayed"},
+    {"data_id":"0x1069","name":"Motor Regenerate Brake Execution Torque","first_bit":16,"last_bit":31,"conversion":{"kind":"linear","a":25,"b":2,"c":-409600,"decimals":2},"unit":"Nm","evidence_state":"Observed and replayed"}
+  ]
+}

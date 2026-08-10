@@ -1,0 +1,82 @@
+# Static XA50 telemetry catalog
+
+## Purpose and scope
+
+The catalog turns the locally installed Techstream Phase-5 database into a searchable telemetry atlas. It is deliberately broader than the future acquisition/display application's needs and is generated without communicating with the vehicle.
+
+The first profile covers four ECU datasets supported by local vehicle evidence:
+
+| Key | ECU | Database | Tester ID | Response ID | Endpoint evidence |
+|---:|---|---|---:|---:|---|
+| 372 | Engine | `Engine_P5.ddb` | `0x700` | `0x708` | Static tester ID; response inferred as tester + 8. |
+| 395 | Motor Generator | `MG_P5.ddb` | `0x724` | `0x72C` | Static tester ID; response inferred as tester + 8. |
+| 397 | Hybrid Control | `HV_P5.ddb` | `0x7D2` | `0x7DA` | Both IDs live-confirmed. |
+| 435 | Brake/EPB | `ABS_P5.ddb` | `0x7B0` | `0x7B8` | Static tester ID; response inferred as tester + 8. |
+
+The saved 2023 RAV4 HV Techstream session contains `EcuData` and `DataList` sections for keys 372, 395, and 435. Current live captures establish key 397 and its endpoint. The saved session is not a complete health-check inventory, so this four-ECU set is the first evidence-backed slice rather than the final list of every installed module.
+
+## Generated map
+
+Run:
+
+```powershell
+uv run python .\tools\catalog\build-telemetry-catalog.py
+```
+
+The generator queries the read-only local database interface and writes:
+
+- `data/catalog/generated/telemetry.csv`: one row per named signal (local/ignored);
+- `data/catalog/generated/dids.csv`: one row per ECU/DID (local/ignored);
+- `data/catalog/generated/telemetry.json`: full machine-readable map (local/ignored);
+- `data/catalog/generated/summary.md`: compact counts and limitations;
+- `data/catalog/generated/manifest.json`: input hashes, tool hash, schema, and row counts.
+
+The initial build contains 4,458 signal records across 1,605 distinct ECU/DID pairs. For every row it preserves the source ECU, internal monitor ID, acquisition flags, `22 xxxx` request candidate, response bit range, physical conversion group, coefficients, decimal divisor, unit, and live-evidence override.
+
+The exact stored conversion is:
+
+```text
+physical_value = ((raw * A / B) + C) / (10 ** N)
+```
+
+The catalog keeps that form instead of simplifying it, so the database evidence remains auditable.
+
+## Protocol-table finding
+
+Static analysis of `DataMonitorPhase5_DT.dll` shows that it obtains Phase-5 protocol records from table `0x010D`. The local query helper now exposes these through `-ProtocolInfo`. The physical tester-ID field is anchored by the known Hybrid value `0x7D2`; the other three IDs are therefore strong static candidates.
+
+```powershell
+.\tools\techstream-db\query-techstream-db.ps1 -Keys '372,395,397,435' -ProtocolInfo
+```
+
+The response ID is not directly labeled in the extracted record. `tester + 8` matches the live `0x7D2 -> 0x7DA` pair and normal Toyota 11-bit diagnostic addressing, but it remains an inference for Engine, Motor Generator, and Brake until each receives a focused positive response.
+
+## What “candidate” means
+
+Techstream ECU databases aggregate records used by more than one ECU software/calibration variant. Therefore:
+
+- a named row does not prove that this vehicle implements the DID;
+- a direct `22 xxxx` record may return a UDS negative response on the exact vehicle;
+- several names may describe the same DID slice or alternate calibration;
+- byte order, signedness, enumeration labels, invalid sentinels, and availability conditions are not yet fully represented;
+- some values may require a different diagnostic session or initialization sequence.
+
+No bulk DID scan should be sent to the vehicle. Select one useful candidate, create a byte-exact allowlist, establish the endpoint/session conservatively, and validate a small number of controlled samples.
+
+## Remaining static-analysis layers
+
+1. Extract the complete installed-ECU list from an actual Health Check or another saved session. The existing `.TSE` contains only three opened ECU sections; `inspect-techstream-session.py` can inventory those sections without printing vehicle identifiers.
+2. Decode the protocol/communication-set records beyond the physical tester ID: response routing, initialization mode, session requirements, timeouts, and keep-alives.
+3. Decode enumeration resources and unavailable/invalid value rules. Numeric coefficient coverage is complete for the initial four datasets, but identity formulas such as switch bits still need their display labels.
+4. Identify duplicate/variant monitor records so the map can rank likely-supported entries before live testing.
+5. Extend the profile to HV Battery and other installed XA50 modules only when vehicle evidence confirms the relevant Techstream key.
+
+## Techstream through USB-CAN
+
+PEAK publishes a PCAN-PassThru package implementing J2534 04.04 with 32-bit and 64-bit DLLs, CAN, ISO 15765, message filters, periodic messages, and common buffer/configuration IOCTLs. Architecturally, this is exactly the boundary Techstream needs: after installation and J2534 registration, Techstream can select it as a VIM without an internal Techstream patch.
+
+However, PEAK's license permits those APIs only with PEAK hardware or hardware from its partners and explicitly excludes third-party compatible hardware. The current STM32 adapter is a third-party PCAN-compatible board, so the official PCAN-PassThru package is not a suitable route for it. It would become the easiest Techstream option if a genuine supported PEAK adapter were used.
+
+For this board, the technically possible alternative is a custom 32-bit J2534 compatibility DLL over a lawfully usable USB-CAN firmware/API. At minimum it must correctly implement `PassThruOpen/Close`, `Connect/Disconnect`, `ReadMsgs`, `WriteMsgs`, ISO15765 `FLOW_CONTROL_FILTER`, periodic messages, relevant configuration and clear-buffer IOCTLs, error codes, timing, threading, and registry discovery. That is tractable but considerably more work and risk than continuing database-first discovery plus focused PCAN validation, or waiting for a replacement J2534.
+
+Official references: [PCAN-PassThru API product and version information](https://www.peak-system.com/support/software-information/development-kits/pcan-passthru-api/) and [PCAN-PassThru API 04.04 manual](https://www.peak-system.com/produktcd/Develop/PC%20interfaces/Windows/HighLayerProtocols/PCAN-PassThru/PCAN-PassThru-API_UserMan_eng.pdf).

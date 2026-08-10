@@ -1,0 +1,55 @@
+# Machine-local configuration
+.codex/
+.vscode/
+.idea/
+.env
+.env.*
+*.local.*
+tools.txt
+
+# Build/cache output
+__pycache__/
+*.py[cod]
+.venv/
+**/bin/
+**/obj/
+*.exe
+*.pdb
+*.dll
+*.cache
+
+# Captures and sessions
+captures/
+private/
+logs/
+*.log
+*.trc
+*.asc
+*.blf
+*.pcap
+*.pcapng
+*.tse
+*.TSE
+*.reg
+
+# Vendor/reverse-engineering artifacts
+*.ddb
+*.DDB
+ghidra-proj/
+*.gpr
+*.rep/
+*.gbf
+*.lock
+*.lock~
+
+# Full database-derived atlas is reproducible locally but not selected for
+# initial history while redistribution provenance is reviewed.
+data/catalog/generated/*
+!data/catalog/generated/summary.md
+!data/catalog/generated/manifest.json
+!data/catalog/generated/README.md
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+Desktop.ini

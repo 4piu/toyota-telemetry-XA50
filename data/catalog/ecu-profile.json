@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "vehicle_instance_id": "vehicle-a",
+  "vehicle_label": "2023 Toyota RAV4 HV (XA50, A25A-FXS)",
+  "database_region": "NA",
+  "techstream_version": "18.0.0.3",
+  "database_master_file": "M_English.ddb",
+  "scope_note": "This is a candidate catalog for the installed vehicle profile, not a claim that every database record is supported by every ECU calibration.",
+  "ecus": [
+    {
+      "key": 372,
+      "name": "Engine",
+      "database": "Engine_P5.ddb",
+      "evidence": "EcuData0372/DataList0372 sections in the saved 2023 RAV4 HV Techstream session",
+      "profile_state": "vehicle-session-confirmed",
+      "endpoint_state": "static candidate; live validation pending"
+    },
+    {
+      "key": 395,
+      "name": "Motor Generator",
+      "database": "MG_P5.ddb",
+      "evidence": "EcuData0395/DataList0395 sections in the saved 2023 RAV4 HV Techstream session",
+      "profile_state": "vehicle-session-confirmed",
+      "endpoint_state": "static candidate; live validation pending"
+    },
+    {
+      "key": 397,
+      "name": "Hybrid Control",
+      "database": "HV_P5.ddb",
+      "evidence": "Local database plus successful live 0x7D2/0x7DA diagnostic replay",
+      "profile_state": "live-confirmed",
+      "endpoint_state": "0x7D2/0x7DA live-confirmed",
+      "response_can_id": "0x7DA"
+    },
+    {
+      "key": 435,
+      "name": "Brake/EPB",
+      "database": "ABS_P5.ddb",
+      "evidence": "EcuData0435/DataList0435 sections in the saved 2023 RAV4 HV Techstream session",
+      "profile_state": "vehicle-session-confirmed",
+      "endpoint_state": "static candidate; live validation pending"
+    }
+  ],
+  "signal_overrides": [
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0055",
+      "live_state": "Validated and replayed",
+      "notes": "Accelerator Position; validated through dynamic DID F301."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0075",
+      "live_state": "Validated and replayed",
+      "notes": "Generator Revolution (MG1); validated through dynamic DID F301."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0078",
+      "live_state": "Validated and replayed",
+      "notes": "Motor Revolution (MG2); validated through dynamic DID F301."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0068",
+      "live_state": "Observed and replayed",
+      "notes": "FR Wheel Speed; stationary zero only, rolling validation pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0069",
+      "live_state": "Observed and replayed",
+      "notes": "FL Wheel Speed; stationary zero only, rolling validation pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x006A",
+      "live_state": "Observed and replayed",
+      "notes": "RR Wheel Speed; stationary zero only, rolling validation pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x006B",
+      "live_state": "Observed and replayed",
+      "notes": "RL Wheel Speed; stationary zero only, rolling validation pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0071",
+      "live_state": "Correlated and replayed",
+      "notes": "Steering Angle; correlated with repeated stationary steering nudges."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x004E",
+      "live_state": "Correlated and replayed",
+      "notes": "Stop Light Switch; correlated with brake-pedal contact."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0143",
+      "live_state": "Correlated and replayed",
+      "notes": "Brake Cancel Switch; exact threshold remains pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0059",
+      "live_state": "Correlated and replayed",
+      "notes": "Master Cylinder Control Torque; braking request/control, not physical pad contact."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x005B",
+      "live_state": "Observed and replayed",
+      "notes": "Requested MG regenerative torque; observed at zero in Park, rolling validation pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x005C",
+      "live_state": "Observed and replayed",
+      "notes": "Executed MG regenerative torque; observed at zero in Park, rolling validation pending."
+    }
+  ]
+}
