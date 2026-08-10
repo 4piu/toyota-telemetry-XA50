@@ -27,6 +27,8 @@ namespace Xa50.Pcan
 
         private const uint ErrorOk = 0x00000;
         private const uint ErrorQueueReceiveEmpty = 0x00020;
+        private const string ProfileId = "2023-rav4-hv-xa50-a25a-fxs";
+        private const int RoadLogSchemaVersion = 1;
 
         private static readonly byte[] TesterPresentFrame =
             { 0x02, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -87,6 +89,10 @@ namespace Xa50.Pcan
                 }
 
                 RunSelfChecks();
+                if (options.RoadLogSelfTest)
+                {
+                    return RunRoadLogSelfTest(options);
+                }
                 PrintPlan(options);
 
                 if (!options.Live)
@@ -115,8 +121,14 @@ namespace Xa50.Pcan
         private static int RunTelemetry(Options options)
         {
             bool initialized = false;
+            BoundedJsonlLog roadLog = null;
             try
             {
+                if (options.RoadCapture)
+                {
+                    roadLog = new BoundedJsonlLog(options.OutputPath, options.MaxLogMiB);
+                    roadLog.WriteSessionStart(options);
+                }
                 uint off = ParameterOff;
                 Check(PcanBasic.SetValue(Channel, ListenOnlyParameter, ref off, sizeof(uint)),
                     "disable listen-only preset");
@@ -140,6 +152,23 @@ namespace Xa50.Pcan
                 transport.Exchange(TesterPresent, new byte[] { 0x7E, 0x00 }, "tester present");
                 transport.Exchange(DefaultSession, new byte[] { 0x50, 0x01 }, "default session");
                 transport.Exchange(ExtendedSession, new byte[] { 0x50, 0x03 }, "extended session");
+
+                if (options.RoadCapture)
+                {
+                    transport.Exchange(ClearF301, new byte[] { 0x6C, 0x03, 0xF3, 0x01 }, "clear F301");
+                    transport.Exchange(ClearF302, new byte[] { 0x6C, 0x03, 0xF3, 0x02 }, "clear F302");
+                    transport.Exchange(DefineF301, new byte[] { 0x6C, 0x01, 0xF3, 0x01 }, "define F301");
+                    transport.Exchange(
+                        DefineF302Brake,
+                        new byte[] { 0x6C, 0x01, 0xF3, 0x02 },
+                        "define brake F302");
+                    roadLog.WriteEvent(
+                        "setup_complete",
+                        "Default/extended sessions and dynamic DIDs F301/F302 accepted.");
+                    Console.WriteLine("Road-capture setup accepted; unattended bounded sampling started.");
+                    RunRoadCapture(transport, options, roadLog);
+                    return 0;
+                }
 
                 if (options.Motion)
                 {
@@ -212,6 +241,15 @@ namespace Xa50.Pcan
                 Check(PcanBasic.GetStatus(Channel), "final CAN status");
                 return 0;
             }
+            catch (Exception ex)
+            {
+                if (roadLog != null && !roadLog.Ended)
+                {
+                    roadLog.TryWriteError(ex);
+                    roadLog.TryWriteEnd("error", 0, 0, 0, 0, 0);
+                }
+                throw;
+            }
             finally
             {
                 if (initialized)
@@ -226,7 +264,45 @@ namespace Xa50.Pcan
                         Console.WriteLine("PCAN raw-CAN ISO-TP session closed.");
                     }
                 }
+                if (roadLog != null)
+                {
+                    roadLog.Dispose();
+                }
             }
+        }
+
+        private static int RunRoadLogSelfTest(Options options)
+        {
+            using (BoundedJsonlLog log = new BoundedJsonlLog(options.OutputPath, options.MaxLogMiB))
+            {
+                log.WriteSessionStart(options);
+                log.WriteEvent("setup_complete", "Synthetic writer self-test; no PCAN API was called.");
+                log.TryWriteSample(
+                    1, "f301", 100, 114, "22 F3 01",
+                    new ExchangeResult(
+                        new byte[] { 0x62, 0xF3, 0x01, 0x80, 0x01, 0x7F, 0xFF, 0x20, 0x00 }, 14),
+                    "{\"mg1_rpm\":1,\"mg2_rpm\":-1,\"accelerator_percent\":16,\"auxiliary_raw\":0}");
+                log.TryWriteSample(
+                    2, "wheels", 200, 213, "22 10 75",
+                    new ExchangeResult(
+                        new byte[] { 0x62, 0x10, 0x75, 0x83, 0xE8, 0x83, 0xE8, 0x83, 0xE7, 0x83, 0xE7 }, 13),
+                    "{\"front_right_kmh\":10,\"front_left_kmh\":10,\"rear_right_kmh\":9.99,\"rear_left_kmh\":9.99}");
+                log.TryWriteSample(
+                    3, "f302", 300, 315, "22 F3 02",
+                    new ExchangeResult(
+                        new byte[] { 0x62, 0xF3, 0x02, 0x03, 0x03, 0x7F, 0x9C, 0x7F, 0x38, 0x7F, 0x3A }, 15),
+                    "{\"stop_light\":true,\"brake_cancel\":true,\"master_cylinder_control_torque_nm\":-12.5,\"requested_regen_torque_nm\":-25,\"executed_regen_torque_nm\":-24.75,\"switch_raw\":771}");
+                log.TryWriteSample(
+                    4, "steering", 400, 412, "22 10 90",
+                    new ExchangeResult(new byte[] { 0x62, 0x10, 0x90, 0x80, 0x64 }, 12),
+                    "{\"steering_angle_deg\":10}");
+                log.TryWriteEnd("self_test", 4, 1, 1, 1, 1);
+                Console.WriteLine(
+                    "Road-log writer self-test created {0} bytes at {1}; PCAN was not called.",
+                    log.BytesWritten.ToString(CultureInfo.InvariantCulture),
+                    log.FullPath);
+            }
+            return 0;
         }
 
         private static void RunMotion(PcanIsoTpTransport transport, Options options)
@@ -299,6 +375,202 @@ namespace Xa50.Pcan
             }
         }
 
+        private static void RunRoadCapture(
+            PcanIsoTpTransport transport,
+            Options options,
+            BoundedJsonlLog log)
+        {
+            Stopwatch schedule = Stopwatch.StartNew();
+            long nextRequestNotBefore = 0;
+            long deadlineMs = checked((long)options.DurationSeconds * 1000L);
+            int total = 0;
+            int f301Count = 0;
+            int wheelCount = 0;
+            int f302Count = 0;
+            int steeringCount = 0;
+            string endReason = "duration_limit";
+
+            try
+            {
+                while (!stopRequested && schedule.ElapsedMilliseconds < deadlineMs)
+                {
+                    WaitUntil(schedule, nextRequestNotBefore);
+                    if (stopRequested)
+                    {
+                        endReason = "user_stop";
+                        break;
+                    }
+                    if (schedule.ElapsedMilliseconds >= deadlineMs)
+                    {
+                        endReason = "duration_limit";
+                        break;
+                    }
+
+                    long requestStartedAt = schedule.ElapsedMilliseconds;
+                    ExchangeResult result;
+                    string group;
+                    string requestHex;
+                    string valuesJson;
+                    int slot = total % 4;
+
+                    if (slot == 0)
+                    {
+                        group = "f301";
+                        requestHex = "22 F3 01";
+                        result = transport.Exchange(
+                            PollF301,
+                            new byte[] { 0x62, 0xF3, 0x01 },
+                            "road poll F301");
+                        if (result.Payload.Length < 9)
+                        {
+                            throw new InvalidOperationException(
+                                "F301 response was shorter than 9 bytes: " +
+                                Hex(result.Payload, result.Payload.Length));
+                        }
+                        int mg1 = ReadUInt16BigEndian(result.Payload, 3) - 32768;
+                        int mg2 = ReadUInt16BigEndian(result.Payload, 5) - 32768;
+                        double accelerator = result.Payload[7] * 0.5;
+                        int auxiliary = result.Payload[8];
+                        valuesJson = "{\"mg1_rpm\":" +
+                            mg1.ToString(CultureInfo.InvariantCulture) +
+                            ",\"mg2_rpm\":" + mg2.ToString(CultureInfo.InvariantCulture) +
+                            ",\"accelerator_percent\":" + JsonNumber(accelerator) +
+                            ",\"auxiliary_raw\":" + auxiliary.ToString(CultureInfo.InvariantCulture) + "}";
+                    }
+                    else if (slot == 1)
+                    {
+                        group = "wheels";
+                        requestHex = "22 10 75";
+                        result = transport.Exchange(
+                            ReadWheelSpeeds,
+                            new byte[] { 0x62, 0x10, 0x75 },
+                            "road read wheel speeds");
+                        if (result.Payload.Length < 11)
+                        {
+                            throw new InvalidOperationException(
+                                "DID 1075 response was shorter than 11 bytes: " +
+                                Hex(result.Payload, result.Payload.Length));
+                        }
+                        double frontRight = (ReadUInt16BigEndian(result.Payload, 3) - 32768) / 100.0;
+                        double frontLeft = (ReadUInt16BigEndian(result.Payload, 5) - 32768) / 100.0;
+                        double rearRight = (ReadUInt16BigEndian(result.Payload, 7) - 32768) / 100.0;
+                        double rearLeft = (ReadUInt16BigEndian(result.Payload, 9) - 32768) / 100.0;
+                        valuesJson = "{\"front_right_kmh\":" + JsonNumber(frontRight) +
+                            ",\"front_left_kmh\":" + JsonNumber(frontLeft) +
+                            ",\"rear_right_kmh\":" + JsonNumber(rearRight) +
+                            ",\"rear_left_kmh\":" + JsonNumber(rearLeft) + "}";
+                    }
+                    else if (slot == 2)
+                    {
+                        group = "f302";
+                        requestHex = "22 F3 02";
+                        result = transport.Exchange(
+                            PollF302,
+                            new byte[] { 0x62, 0xF3, 0x02 },
+                            "road poll F302");
+                        if (result.Payload.Length < 11)
+                        {
+                            throw new InvalidOperationException(
+                                "F302 response was shorter than 11 bytes: " +
+                                Hex(result.Payload, result.Payload.Length));
+                        }
+                        int switchWord = ReadUInt16BigEndian(result.Payload, 3);
+                        bool brakeCancel = (switchWord & 0x0002) != 0;
+                        bool stopLight = (switchWord & 0x0001) != 0;
+                        double masterTorque = DecodeTorque(result.Payload, 5);
+                        double requestedRegenTorque = DecodeTorque(result.Payload, 7);
+                        double executedRegenTorque = DecodeTorque(result.Payload, 9);
+                        valuesJson = "{\"stop_light\":" + JsonBoolean(stopLight) +
+                            ",\"brake_cancel\":" + JsonBoolean(brakeCancel) +
+                            ",\"master_cylinder_control_torque_nm\":" + JsonNumber(masterTorque) +
+                            ",\"requested_regen_torque_nm\":" + JsonNumber(requestedRegenTorque) +
+                            ",\"executed_regen_torque_nm\":" + JsonNumber(executedRegenTorque) +
+                            ",\"switch_raw\":" + switchWord.ToString(CultureInfo.InvariantCulture) + "}";
+                    }
+                    else
+                    {
+                        group = "steering";
+                        requestHex = "22 10 90";
+                        result = transport.Exchange(
+                            ReadSteeringAngle,
+                            new byte[] { 0x62, 0x10, 0x90 },
+                            "road read steering angle");
+                        if (result.Payload.Length < 5)
+                        {
+                            throw new InvalidOperationException(
+                                "DID 1090 response was shorter than 5 bytes: " +
+                                Hex(result.Payload, result.Payload.Length));
+                        }
+                        double steeringAngle =
+                            (ReadUInt16BigEndian(result.Payload, 3) - 32768) / 10.0;
+                        valuesJson = "{\"steering_angle_deg\":" +
+                            JsonNumber(steeringAngle) + "}";
+                    }
+
+                    long responseCompletedAt = schedule.ElapsedMilliseconds;
+                    if (!log.TryWriteSample(
+                        total + 1,
+                        group,
+                        requestStartedAt,
+                        responseCompletedAt,
+                        requestHex,
+                        result,
+                        valuesJson))
+                    {
+                        endReason = "log_limit";
+                        break;
+                    }
+
+                    total++;
+                    if (group == "f301") { f301Count++; }
+                    else if (group == "wheels") { wheelCount++; }
+                    else if (group == "f302") { f302Count++; }
+                    else { steeringCount++; }
+
+                    if (!options.Quiet)
+                    {
+                        Console.WriteLine(
+                            "{0:HH:mm:ss.fff} road sequence={1:D6} group={2,-8} latency={3,3} ms elapsed={4} ms",
+                            DateTime.Now,
+                            total,
+                            group,
+                            result.LatencyMs,
+                            responseCompletedAt);
+                    }
+                    nextRequestNotBefore = requestStartedAt + options.PeriodMs;
+                }
+                Check(PcanBasic.GetStatus(Channel), "final CAN status");
+            }
+            catch (OperationCanceledException)
+            {
+                if (!stopRequested)
+                {
+                    throw;
+                }
+                endReason = "user_stop";
+            }
+            catch (Exception ex)
+            {
+                log.TryWriteError(ex);
+                log.TryWriteEnd(
+                    "error", total, f301Count, wheelCount, f302Count, steeringCount);
+                throw;
+            }
+
+            if (stopRequested)
+            {
+                endReason = "user_stop";
+            }
+            log.TryWriteEnd(
+                endReason, total, f301Count, wheelCount, f302Count, steeringCount);
+            Console.WriteLine(
+                "Road capture ended: reason={0}, records={1}, bytes={2}, file={3}",
+                endReason,
+                total.ToString(CultureInfo.InvariantCulture),
+                log.BytesWritten.ToString(CultureInfo.InvariantCulture),
+                log.FullPath);
+        }
+
         private static void RunF302(PcanIsoTpTransport transport, Options options)
         {
             Console.WriteLine("Packed brake mode: dynamic DID F302 (1043[2] + 1067[2] + 1069[4]).");
@@ -359,6 +631,10 @@ namespace Xa50.Pcan
 
         private static byte[][] GetModeAllowlist(Options options)
         {
+            if (options.RoadCapture)
+            {
+                return AllAllowedUdsRequests;
+            }
             if (options.Motion)
             {
                 return new byte[][]
@@ -1066,6 +1342,19 @@ namespace Xa50.Pcan
             AssertUdsRejected(ReadWheelSpeeds, GetModeAllowlist(new Options { F302 = true }), "F302/motion isolation");
             AssertUdsRejected(PollF301, GetModeAllowlist(new Options { F302 = true }), "F302/F301 isolation");
             AssertUdsRejected(PollF302, GetModeAllowlist(new Options { F301 = true }), "F301/F302 isolation");
+            byte[][] roadAllowlist = GetModeAllowlist(new Options { RoadCapture = true });
+            if (roadAllowlist.Length != AllAllowedUdsRequests.Length)
+            {
+                throw new InvalidOperationException("Road-capture allowlist is incomplete.");
+            }
+            foreach (byte[] request in AllAllowedUdsRequests)
+            {
+                EnforceUdsAllowlist(request, roadAllowlist);
+            }
+            AssertUdsRejected(
+                new byte[] { 0x22, 0x12, 0x34 },
+                roadAllowlist,
+                "road-capture unknown-DID isolation");
             int expectedSize = IntPtr.Size == 8 ? 16 : 16;
             if (Marshal.SizeOf(typeof(PcanMessage)) != expectedSize)
             {
@@ -1090,6 +1379,10 @@ namespace Xa50.Pcan
             {
                 title = "XA50 PCAN packed-brake F302 poller";
             }
+            else if (options.RoadCapture)
+            {
+                title = "XA50 unattended bounded road-validation recorder";
+            }
             else if (options.ObdProbe)
             {
                 title = "XA50 standardized OBD-over-CAN probe";
@@ -1100,7 +1393,17 @@ namespace Xa50.Pcan
             {
                 Console.WriteLine("Filter:    standard ID 0x7DA only");
                 Console.WriteLine("Transport: application-managed ISO-TP, 0x7D2 -> 0x7DA");
-                if (options.F301)
+                if (options.RoadCapture)
+                {
+                    Console.WriteLine("Setup:     captured sessions plus F301 and F302 definitions");
+                    Console.WriteLine("Poll:      repeating F301 / wheel speeds / F302 / steering");
+                    Console.WriteLine("Duration:  <= " +
+                        options.DurationSeconds.ToString(CultureInfo.InvariantCulture) + " seconds");
+                    Console.WriteLine("Log:       JSONL, <= " +
+                        options.MaxLogMiB.ToString(CultureInfo.InvariantCulture) + " MiB, create-new");
+                    Console.WriteLine("Output:    " + (options.OutputPath ?? "<required for --live>"));
+                }
+                else if (options.F301)
                 {
                     Console.WriteLine("Setup:     captured sessions plus dynamic DID F301 definition");
                     Console.WriteLine("Poll:      22 F3 01");
@@ -1116,7 +1419,10 @@ namespace Xa50.Pcan
                     Console.WriteLine("Poll:      22 F3 02");
                 }
                 Console.WriteLine("Schedule:  " +
-                    options.Samples.ToString(CultureInfo.InvariantCulture) + " samples, request period >= " +
+                    (options.RoadCapture
+                        ? "one request per slot"
+                        : options.Samples.ToString(CultureInfo.InvariantCulture) + " samples") +
+                    ", request period >= " +
                     options.PeriodMs.ToString(CultureInfo.InvariantCulture) + " ms");
             }
             else if (options.ObdProbe)
@@ -1179,6 +1485,20 @@ namespace Xa50.Pcan
                 text.Append(data[i].ToString("X2", CultureInfo.InvariantCulture));
             }
             return text.ToString();
+        }
+
+        private static string JsonNumber(double value)
+        {
+            if (Double.IsNaN(value) || Double.IsInfinity(value))
+            {
+                throw new InvalidOperationException("A non-finite value cannot be written to JSON.");
+            }
+            return value.ToString("0.###############", CultureInfo.InvariantCulture);
+        }
+
+        private static string JsonBoolean(bool value)
+        {
+            return value ? "true" : "false";
         }
 
         private static bool BytesEqual(byte[] left, byte[] right)
@@ -1252,9 +1572,247 @@ namespace Xa50.Pcan
             Console.WriteLine("--f301 runs the captured Hybrid Control setup and polls MG1/MG2/accelerator.");
             Console.WriteLine("--motion alternates direct wheel-speed and steering-angle reads.");
             Console.WriteLine("--f302 defines and polls synchronized brake/regen dynamic DID F302.");
+            Console.WriteLine("--road-capture polls all proven groups unattended into one bounded JSONL file.");
+            Console.WriteLine("--road-log-self-test writes four synthetic JSONL samples without opening PCAN.");
             Console.WriteLine("--samples N and --period-ms N configure telemetry sampling (defaults: 5 and 100).");
+            Console.WriteLine("--duration-seconds N caps road capture time (default: 900; maximum: 7200).");
+            Console.WriteLine("--output PATH is required for live road capture and is never overwritten.");
+            Console.WriteLine("--max-log-mib N caps the road JSONL file (default: 64 MiB).");
+            Console.WriteLine("--quiet suppresses per-sample console output; errors and the final summary remain.");
             Console.WriteLine("--verbose prints every UDS payload and raw ISO-TP CAN frame.");
             Console.WriteLine("--open-filter receives all CAN IDs locally and reports unrelated frames; it does not alter transmission.");
+        }
+
+        private sealed class BoundedJsonlLog : IDisposable
+        {
+            private const long DiskReserveBytes = 256L * 1024L * 1024L;
+            private const long EndRecordReserveBytes = 16L * 1024L;
+            private readonly long maxBytes;
+            private readonly FileStream stream;
+            private readonly StreamWriter writer;
+            private readonly UTF8Encoding encoding = new UTF8Encoding(false);
+            private bool disposed;
+
+            internal readonly string FullPath;
+            internal bool Ended { get; private set; }
+            internal long BytesWritten
+            {
+                get
+                {
+                    writer.Flush();
+                    return stream.Position;
+                }
+            }
+
+            internal BoundedJsonlLog(string path, int maxLogMiB)
+            {
+                if (String.IsNullOrWhiteSpace(path))
+                {
+                    throw new ArgumentException("A road-capture output path is required.");
+                }
+                FullPath = Path.GetFullPath(path);
+                string directory = Path.GetDirectoryName(FullPath);
+                if (String.IsNullOrEmpty(directory))
+                {
+                    throw new ArgumentException("Could not resolve the road-capture output directory.");
+                }
+                maxBytes = checked((long)maxLogMiB * 1024L * 1024L);
+                string root = Path.GetPathRoot(FullPath);
+                DriveInfo drive = new DriveInfo(root);
+                long requiredFree = checked(maxBytes + DiskReserveBytes);
+                if (drive.AvailableFreeSpace < requiredFree)
+                {
+                    throw new IOException(
+                        "Insufficient free space for bounded capture. Required at least " +
+                        requiredFree.ToString(CultureInfo.InvariantCulture) +
+                        " bytes before start; available " +
+                        drive.AvailableFreeSpace.ToString(CultureInfo.InvariantCulture) + ".");
+                }
+
+                Directory.CreateDirectory(directory);
+                stream = new FileStream(
+                    FullPath,
+                    FileMode.CreateNew,
+                    FileAccess.Write,
+                    FileShare.Read,
+                    65536,
+                    FileOptions.SequentialScan);
+                writer = new StreamWriter(stream, encoding, 65536);
+                writer.AutoFlush = true;
+            }
+
+            internal void WriteSessionStart(Options options)
+            {
+                string json =
+                    "{\"record\":\"session_start\",\"schema_version\":" +
+                    RoadLogSchemaVersion.ToString(CultureInfo.InvariantCulture) +
+                    ",\"profile_id\":\"" + JsonEscape(ProfileId) +
+                    "\",\"created_utc\":\"" +
+                    DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) +
+                    "\",\"tool\":\"xa50-pcan\",\"tool_log_format\":\"road-capture-v1\"," +
+                    "\"decoder_profile\":\"data/validated/hybrid-control-signals.json\"," +
+                    "\"mode\":\"road_capture\",\"transport\":{\"backend\":\"PCAN-Basic\",\"channel\":\"PCAN_USBBUS1\",\"network\":\"classical-can\",\"bitrate\":500000,\"tester_id\":\"0x7D2\",\"response_id\":\"0x7DA\"}," +
+                    "\"dynamic_dids\":{\"F301\":\"2C 01 F3 01 10 A0 01 02 10 A1 01 02 10 60 01 01 1F 01 01 01\"," +
+                    "\"F302\":\"2C 01 F3 02 10 43 01 02 10 67 01 02 10 69 01 04\"}," +
+                    "\"schedule\":[\"f301\",\"wheels\",\"f302\",\"steering\"]," +
+                    "\"period_ms\":" + options.PeriodMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"duration_limit_seconds\":" +
+                    options.DurationSeconds.ToString(CultureInfo.InvariantCulture) +
+                    ",\"log_limit_bytes\":" + maxBytes.ToString(CultureInfo.InvariantCulture) +
+                    ",\"timestamp_semantics\":\"host UTC after complete response plus monotonic request/response offsets\"," +
+                    "\"privacy\":\"VIN, location and adapter serial are not collected\"}";
+                WriteRequired(json);
+            }
+
+            internal void WriteEvent(string name, string message)
+            {
+                string json = "{\"record\":\"event\",\"utc\":\"" +
+                    DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) +
+                    "\",\"name\":\"" + JsonEscape(name) +
+                    "\",\"message\":\"" + JsonEscape(message) + "\"}";
+                if (!TryWriteRecord(json, true))
+                {
+                    throw new IOException("Road log reached its limit before setup completed.");
+                }
+            }
+
+            internal bool TryWriteSample(
+                int sequence,
+                string group,
+                long requestElapsedMs,
+                long responseElapsedMs,
+                string requestHex,
+                ExchangeResult result,
+                string valuesJson)
+            {
+                string json = "{\"record\":\"sample\",\"sequence\":" +
+                    sequence.ToString(CultureInfo.InvariantCulture) +
+                    ",\"group\":\"" + JsonEscape(group) +
+                    "\",\"utc\":\"" +
+                    DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) +
+                    "\",\"request_elapsed_ms\":" +
+                    requestElapsedMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"response_elapsed_ms\":" +
+                    responseElapsedMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"latency_ms\":" + result.LatencyMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"request_hex\":\"" + JsonEscape(requestHex) +
+                    "\",\"response_hex\":\"" +
+                    JsonEscape(Hex(result.Payload, result.Payload.Length)) +
+                    "\",\"values\":" + valuesJson + "}";
+                return TryWriteRecord(json, true);
+            }
+
+            internal void TryWriteError(Exception ex)
+            {
+                string json = "{\"record\":\"error\",\"utc\":\"" +
+                    DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) +
+                    "\",\"exception\":\"" + JsonEscape(ex.GetType().Name) +
+                    "\",\"message\":\"" + JsonEscape(ex.Message) + "\"}";
+                TryWriteRecord(json, true);
+            }
+
+            internal void TryWriteEnd(
+                string reason,
+                int total,
+                int f301Count,
+                int wheelCount,
+                int f302Count,
+                int steeringCount)
+            {
+                if (Ended)
+                {
+                    return;
+                }
+                string json = "{\"record\":\"session_end\",\"utc\":\"" +
+                    DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) +
+                    "\",\"reason\":\"" + JsonEscape(reason) +
+                    "\",\"sample_count\":" + total.ToString(CultureInfo.InvariantCulture) +
+                    ",\"group_counts\":{\"f301\":" +
+                    f301Count.ToString(CultureInfo.InvariantCulture) +
+                    ",\"wheels\":" + wheelCount.ToString(CultureInfo.InvariantCulture) +
+                    ",\"f302\":" + f302Count.ToString(CultureInfo.InvariantCulture) +
+                    ",\"steering\":" + steeringCount.ToString(CultureInfo.InvariantCulture) +
+                    "},\"bytes_before_end\":" +
+                    BytesWritten.ToString(CultureInfo.InvariantCulture) + "}";
+                if (!TryWriteRecord(json, false))
+                {
+                    throw new IOException("Could not write the reserved road-log end record.");
+                }
+                Ended = true;
+            }
+
+            private void WriteRequired(string json)
+            {
+                if (!TryWriteRecord(json, true))
+                {
+                    throw new IOException("Road-log header does not fit its configured size limit.");
+                }
+            }
+
+            private bool TryWriteRecord(string json, bool preserveEndReserve)
+            {
+                if (disposed)
+                {
+                    throw new ObjectDisposedException("BoundedJsonlLog");
+                }
+                byte[] bytes = encoding.GetBytes(json + "\n");
+                long allowed = preserveEndReserve ? maxBytes - EndRecordReserveBytes : maxBytes;
+                writer.Flush();
+                if (stream.Position + bytes.Length > allowed)
+                {
+                    return false;
+                }
+                writer.Write(json);
+                writer.Write('\n');
+                writer.Flush();
+                return true;
+            }
+
+            private static string JsonEscape(string value)
+            {
+                if (value == null)
+                {
+                    return String.Empty;
+                }
+                StringBuilder result = new StringBuilder(value.Length + 8);
+                foreach (char character in value)
+                {
+                    switch (character)
+                    {
+                        case '\\': result.Append("\\\\"); break;
+                        case '"': result.Append("\\\""); break;
+                        case '\b': result.Append("\\b"); break;
+                        case '\f': result.Append("\\f"); break;
+                        case '\n': result.Append("\\n"); break;
+                        case '\r': result.Append("\\r"); break;
+                        case '\t': result.Append("\\t"); break;
+                        default:
+                            if (character < 0x20)
+                            {
+                                result.Append("\\u");
+                                result.Append(((int)character).ToString("X4", CultureInfo.InvariantCulture));
+                            }
+                            else
+                            {
+                                result.Append(character);
+                            }
+                            break;
+                    }
+                }
+                return result.ToString();
+            }
+
+            public void Dispose()
+            {
+                if (disposed)
+                {
+                    return;
+                }
+                writer.Flush();
+                writer.Dispose();
+                stream.Dispose();
+                disposed = true;
+            }
         }
 
         private sealed class Options
@@ -1264,21 +1822,31 @@ namespace Xa50.Pcan
             internal bool F301;
             internal bool Motion;
             internal bool F302;
+            internal bool RoadCapture;
+            internal bool RoadLogSelfTest;
             internal bool OpenFilter;
             internal bool Verbose;
+            internal bool Quiet;
             internal bool ShowHelp;
             internal int TimeoutMs = 1500;
             internal int Samples = 5;
             internal int PeriodMs = 100;
+            internal int DurationSeconds = 900;
+            internal int MaxLogMiB = 64;
+            internal string OutputPath;
 
             internal bool IsTelemetryMode
             {
-                get { return F301 || Motion || F302; }
+                get { return F301 || Motion || F302 || RoadCapture; }
             }
 
             internal string TelemetryModeName
             {
-                get { return F301 ? "F301" : (Motion ? "motion" : "F302"); }
+                get
+                {
+                    return RoadCapture ? "road-capture" :
+                        (F301 ? "F301" : (Motion ? "motion" : "F302"));
+                }
             }
 
             internal static Options Parse(string[] args)
@@ -1311,9 +1879,21 @@ namespace Xa50.Pcan
                     {
                         options.F302 = true;
                     }
+                    else if (argument == "--road-capture")
+                    {
+                        options.RoadCapture = true;
+                    }
+                    else if (argument == "--road-log-self-test")
+                    {
+                        options.RoadLogSelfTest = true;
+                    }
                     else if (argument == "--verbose")
                     {
                         options.Verbose = true;
+                    }
+                    else if (argument == "--quiet")
+                    {
+                        options.Quiet = true;
                     }
                     else if (argument == "--open-filter")
                     {
@@ -1340,6 +1920,20 @@ namespace Xa50.Pcan
                     {
                         options.PeriodMs = ParseInt(NextValue(args, ref i, argument), argument, 70, 5000);
                     }
+                    else if (argument == "--duration-seconds")
+                    {
+                        options.DurationSeconds = ParseInt(
+                            NextValue(args, ref i, argument), argument, 10, 7200);
+                    }
+                    else if (argument == "--max-log-mib")
+                    {
+                        options.MaxLogMiB = ParseInt(
+                            NextValue(args, ref i, argument), argument, 1, 1024);
+                    }
+                    else if (argument == "--output")
+                    {
+                        options.OutputPath = NextValue(args, ref i, argument);
+                    }
                     else
                     {
                         throw new ArgumentException("Unknown argument: " + argument);
@@ -1349,15 +1943,44 @@ namespace Xa50.Pcan
                     (options.ObdProbe ? 1 : 0) +
                     (options.F301 ? 1 : 0) +
                     (options.Motion ? 1 : 0) +
-                    (options.F302 ? 1 : 0);
+                    (options.F302 ? 1 : 0) +
+                    (options.RoadCapture ? 1 : 0) +
+                    (options.RoadLogSelfTest ? 1 : 0);
                 if (selectedModes > 1)
                 {
-                    throw new ArgumentException("--obd-probe, --f301, --motion, and --f302 are mutually exclusive.");
+                    throw new ArgumentException(
+                        "--obd-probe, --f301, --motion, --f302, --road-capture, and --road-log-self-test are mutually exclusive.");
                 }
                 if (options.IsTelemetryMode && options.OpenFilter)
                 {
                     throw new ArgumentException(
                         "Telemetry modes require the strict 0x7DA filter and cannot use --open-filter.");
+                }
+                if (options.RoadLogSelfTest && options.Live)
+                {
+                    throw new ArgumentException("--road-log-self-test is offline and cannot be combined with --live.");
+                }
+                if (options.RoadCapture && options.Live &&
+                    String.IsNullOrWhiteSpace(options.OutputPath))
+                {
+                    throw new ArgumentException("--output PATH is required with --live --road-capture.");
+                }
+                if (options.RoadLogSelfTest && String.IsNullOrWhiteSpace(options.OutputPath))
+                {
+                    throw new ArgumentException("--output PATH is required with --road-log-self-test.");
+                }
+                if (!options.RoadCapture && !options.RoadLogSelfTest &&
+                    !String.IsNullOrWhiteSpace(options.OutputPath))
+                {
+                    throw new ArgumentException("--output is currently supported only with --road-capture.");
+                }
+                if (options.Verbose && options.Quiet)
+                {
+                    throw new ArgumentException("--verbose and --quiet cannot be used together.");
+                }
+                if (options.Quiet && !options.RoadCapture)
+                {
+                    throw new ArgumentException("--quiet is currently supported only with --road-capture.");
                 }
                 return options;
             }

@@ -24,6 +24,7 @@ The original XHorse J2534 adapter has failed electrically. Its client and captur
 - [Hybrid telemetry/protocol findings](docs/findings/telemetry-map.md)
 - [Diagnostic data-path evidence](docs/findings/diagnostic-data-path.md)
 - [Hardware and validation notes](docs/hardware/prototype.md)
+- [Unattended parking-lot validation protocol](docs/validation/road-test.md)
 - [Vehicle/ECU profile](data/catalog/ecu-profile.json)
 - [Generated catalog summary](data/catalog/generated/summary.md)
 - [Curated live-evidence signals](data/validated/signals.csv)

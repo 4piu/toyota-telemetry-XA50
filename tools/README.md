@@ -11,5 +11,7 @@ These are vehicle-specific forks/clients. Reusable counterparts and method docum
 | `j2534/parse-j2534-log.py` | Parse logs with embedded XA50 signal candidates. | Offline/legacy capture analysis |
 | `validation/Xa50.Pcan` | Strict PCAN-Basic raw-CAN/ISO-TP probes and pollers. | Live-confirmed |
 | `validation/Xa50.J2534` | Strict J2534 replay client. | Previously confirmed; current adapter failed |
+| `validation/start-road-capture.ps1` | Start a timestamped, unattended, time/size-bounded combined PCAN JSONL capture. | Dry-run verified; live road run pending |
+| `analysis/analyze-road-capture.py` | Validate, summarize, and optionally flatten the bounded road JSONL log. | Synthetic fixture verified |
 
 Build outputs are ignored. Use `validation/build-pcan-client.ps1` or `validation/build-j2534-client.ps1`; both place output under their project directory.
