@@ -4,7 +4,20 @@ This workflow uses short, sequential captures to gather evidence for selected Hy
 
 ## Safety boundary
 
-Do stationary qualification in Park before the road session. Qualification sends one `22 <DID>` request at a time and records either a positive response or a UDS negative-response code. A silent timeout, transport fault, or interrupted qualification is not interpreted as “unsupported”; the batch remains incomplete and must be retried or investigated while stationary.
+Do stationary qualification in Park before the road session. Qualification sends one `22 <DID>` request at a time and records either a positive response or a UDS negative-response code with a preliminary classification. A silent timeout, transport fault, or interrupted qualification is not interpreted as “unsupported”; the batch remains incomplete and must be retried or investigated while stationary.
+
+A negative reply means only that the read was refused in the tested session and vehicle state. Interpret the NRC before deciding whether the DID is absent:
+
+| NRC | Recorded classification | Initial interpretation |
+|---|---|---|
+| `0x21` | `busy_retry` | ECU was busy; retry while stationary. |
+| `0x22` | `conditions_not_correct` | State-dependent access is plausible; motion, READY state, or another prerequisite may matter. |
+| `0x31` | `request_out_of_range` | Usually absent from this calibration or not readable in this context; not proof of permanent absence. |
+| `0x33` | `security_denied` | Access control, not a motion test candidate. |
+| `0x7E`/`0x7F` | `session_restricted` | The active diagnostic session does not permit the request. |
+| `0x78` | handled internally | Response pending; the client waits up to 10 seconds for the ECU's final response. |
+
+Most live measurements that merely happen to be stationary still return a valid constant or invalid/sentinel value, so motion-only refusal is possible but is not the default assumption. Do not retry conditional DIDs while driving in the pilot; preserve them for a separately reviewed later experiment.
 
 Road capture admits only DIDs with a positive qualification response. The client enforces these limits independently of the PowerShell wrapper:
 
@@ -49,7 +62,7 @@ With the vehicle stationary in Park, IG-ON/READY, PCAN-View closed, and wiring c
 .\tools\validation\qualify-road-batches.ps1 -Live
 ```
 
-Review the qualification summaries. Negative responses are retained as useful results and automatically excluded from the later road run. A timeout stops the sequence because it does not establish whether the candidate is unsupported.
+Review the qualification summaries. Negative responses are retained with their NRC classification and automatically excluded from the pilot road run. A timeout stops the sequence because it does not establish whether the candidate is absent, slow, or temporarily unreachable.
 
 At the safe test location, start the road sequence once and do not interact with the computer:
 

@@ -31,6 +31,7 @@ namespace Xa50.Pcan
         private const int RoadLogSchemaVersion = 1;
         private const int CandidateLogSchemaVersion = 1;
         private const int MaximumCandidateDids = 6;
+        private const int ResponsePendingBudgetMs = 10000;
 
         private static readonly byte[] TesterPresentFrame =
             { 0x02, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -342,7 +343,10 @@ namespace Xa50.Pcan
                         Console.WriteLine(
                             "{0} {1} latency={2} ms payload={3}",
                             FormatDid(did),
-                            result.IsNegative ? "UNSUPPORTED NRC=0x" + result.NegativeResponseCode.ToString("X2", CultureInfo.InvariantCulture) : "SUPPORTED",
+                            result.IsNegative
+                                ? "NEGATIVE " + ClassifyNegativeResponse(result.NegativeResponseCode) +
+                                    " NRC=0x" + result.NegativeResponseCode.ToString("X2", CultureInfo.InvariantCulture)
+                                : "SUPPORTED",
                             result.LatencyMs.ToString(CultureInfo.InvariantCulture),
                             Hex(result.Payload, result.Payload.Length));
                         nextRequestNotBefore = requestStartedAt + options.PeriodMs;
@@ -445,6 +449,20 @@ namespace Xa50.Pcan
             int count;
             counts.TryGetValue(did, out count);
             counts[did] = count + 1;
+        }
+
+        private static string ClassifyNegativeResponse(byte code)
+        {
+            switch (code)
+            {
+                case 0x21: return "busy_retry";
+                case 0x22: return "conditions_not_correct";
+                case 0x31: return "request_out_of_range";
+                case 0x33: return "security_denied";
+                case 0x7E:
+                case 0x7F: return "session_restricted";
+                default: return "negative_response";
+            }
         }
 
         private static int RunRoadLogSelfTest(Options options)
@@ -1124,7 +1142,24 @@ namespace Xa50.Pcan
                 }
 
                 SendPayload(request, label);
-                byte[] response = ReceivePayload(label);
+                byte[] response = ReceivePayload(label, timeoutMs);
+
+                while (response.Length >= 3 &&
+                    response[0] == 0x7F && response[1] == request[0] && response[2] == 0x78)
+                {
+                    if (verbose)
+                    {
+                        Console.WriteLine("UDS RX " + label + ": response pending (NRC 0x78)");
+                    }
+                    long remaining = ResponsePendingBudgetMs - latency.ElapsedMilliseconds;
+                    if (remaining <= 0)
+                    {
+                        throw new TimeoutException(
+                            "ECU remained response-pending for " + label + " beyond " +
+                            ResponsePendingBudgetMs.ToString(CultureInfo.InvariantCulture) + " ms.");
+                    }
+                    response = ReceivePayload(label + " after response pending", (int)Math.Min(remaining, 5000L));
+                }
 
                 if (verbose)
                 {
@@ -1197,9 +1232,9 @@ namespace Xa50.Pcan
                 }
             }
 
-            private byte[] ReceivePayload(string label)
+            private byte[] ReceivePayload(string label, int frameTimeoutMs)
             {
-                byte[] first = ReadCanFrame(label + " response");
+                byte[] first = ReadCanFrame(label + " response", frameTimeoutMs);
                 int frameType = first[0] >> 4;
                 if (frameType == 0)
                 {
@@ -1235,7 +1270,7 @@ namespace Xa50.Pcan
                 int expectedSequence = 1;
                 while (offset < totalLength)
                 {
-                    byte[] consecutive = ReadCanFrame(label + " response CF");
+                    byte[] consecutive = ReadCanFrame(label + " response CF", frameTimeoutMs);
                     if ((consecutive[0] >> 4) != 2 ||
                         (consecutive[0] & 0x0F) != expectedSequence)
                     {
@@ -1254,7 +1289,7 @@ namespace Xa50.Pcan
 
             private FlowControl ReadFlowControl(string label)
             {
-                byte[] frame = ReadCanFrame(label + " flow control");
+                byte[] frame = ReadCanFrame(label + " flow control", timeoutMs);
                 if ((frame[0] >> 4) != 3)
                 {
                     throw new InvalidOperationException(
@@ -1271,11 +1306,11 @@ namespace Xa50.Pcan
                 return new FlowControl(frame[1], frame[2]);
             }
 
-            private byte[] ReadCanFrame(string label)
+            private byte[] ReadCanFrame(string label, int frameTimeoutMs)
             {
                 Stopwatch wait = Stopwatch.StartNew();
                 long nextStatusCheckMs = 50;
-                while (wait.ElapsedMilliseconds < timeoutMs && !stopRequested)
+                while (wait.ElapsedMilliseconds < frameTimeoutMs && !stopRequested)
                 {
                     PcanMessage received;
                     PcanTimestamp timestamp;
@@ -1317,7 +1352,7 @@ namespace Xa50.Pcan
                 }
                 throw new TimeoutException(
                     "No raw CAN frame from 0x7DA for " + label + " within " +
-                    timeoutMs.ToString(CultureInfo.InvariantCulture) + " ms.");
+                    frameTimeoutMs.ToString(CultureInfo.InvariantCulture) + " ms.");
             }
 
             private void WriteCanFrame(byte[] data, string label)
@@ -2000,6 +2035,10 @@ namespace Xa50.Pcan
                     " " + did.ToString("X4", CultureInfo.InvariantCulture).Substring(2, 2) +
                     "\",\"response_hex\":\"" + JsonEscape(Hex(result.Payload, result.Payload.Length)) +
                     "\",\"supported\":" + JsonBoolean(!result.IsNegative) +
+                    ",\"qualification_status\":\"" +
+                    (result.IsNegative
+                        ? ClassifyNegativeResponse(result.NegativeResponseCode)
+                        : "supported") + "\"" +
                     ",\"negative_response_code\":" +
                     (result.IsNegative
                         ? "\"0x" + result.NegativeResponseCode.ToString("X2", CultureInfo.InvariantCulture) + "\""

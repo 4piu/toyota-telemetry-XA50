@@ -34,6 +34,17 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     return records
 
 
+def classify_nrc(code: int) -> str:
+    return {
+        0x21: "busy_retry",
+        0x22: "conditions_not_correct",
+        0x31: "request_out_of_range",
+        0x33: "security_denied",
+        0x7E: "session_restricted",
+        0x7F: "session_restricted",
+    }.get(code, "negative_response")
+
+
 def validate(records: list[dict[str, Any]], minimum_samples: int) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     start = records[0]
     if start.get("record") != "session_start" or start.get("schema_version") != 1:
@@ -64,6 +75,8 @@ def validate(records: list[dict[str, Any]], minimum_samples: int) -> tuple[dict[
         if supported is True:
             if not response.startswith(positive_prefix) or sample.get("negative_response_code") is not None:
                 raise ValueError(f"inconsistent positive response at line {line}")
+            if sample.get("qualification_status", "supported") != "supported":
+                raise ValueError(f"inconsistent qualification status at line {line}")
         elif supported is False:
             if mode != "candidate_qualification":
                 raise ValueError(f"negative response in road batch at line {line}")
@@ -71,6 +84,9 @@ def validate(records: list[dict[str, Any]], minimum_samples: int) -> tuple[dict[
                 raise ValueError(f"invalid UDS negative response at line {line}")
             if sample.get("negative_response_code") != f"0x{response[2]:02X}":
                 raise ValueError(f"negative-response code mismatch at line {line}")
+            expected_status = classify_nrc(response[2])
+            if sample.get("qualification_status", expected_status) != expected_status:
+                raise ValueError(f"negative-response classification mismatch at line {line}")
         else:
             raise ValueError(f"supported must be boolean at line {line}")
         timing = (sample.get("request_elapsed_ms"), sample.get("response_elapsed_ms"), sample.get("latency_ms"))
@@ -160,8 +176,13 @@ def load_catalog(path: Path, dids: set[str]) -> dict[str, list[dict[str, str]]]:
 def summarize(start: dict[str, Any], samples: list[dict[str, Any]], catalog_path: Path) -> dict[str, Any]:
     dids = start["dids"]
     supported = sorted({sample["did"] for sample in samples if sample["supported"]})
-    unsupported = {
-        sample["did"]: sample["negative_response_code"]
+    negatives = {
+        sample["did"]: {
+            "nrc": sample["negative_response_code"],
+            "classification": sample.get(
+                "qualification_status", classify_nrc(int(sample["negative_response_code"], 16))
+            ),
+        }
         for sample in samples
         if not sample["supported"]
     }
@@ -206,7 +227,7 @@ def summarize(start: dict[str, Any], samples: list[dict[str, Any]], catalog_path
         "complete": True,
         "dids": dids,
         "supported_dids": supported,
-        "unsupported_dids": unsupported,
+        "negative_dids": negatives,
         "sample_counts": dict(counts),
         "latency_ms": {
             did: {"min": min(values), "median": statistics.median(values), "p95": percentile(values, 0.95), "max": max(values)}
