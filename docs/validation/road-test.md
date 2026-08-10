@@ -2,7 +2,7 @@
 
 ## Scope
 
-This run targets the 13 signals already in `data/validated`, not the 4,458-row static candidate atlas. Do not bulk-scan DIDs while driving. Add new candidates later through separate stationary, byte-exact allowlisted experiments.
+This run targets the 13 signals already in `data/validated`, not the 4,458-row static candidate atlas. Do not bulk-scan DIDs while driving. The separate [direct-DID batch workflow](candidate-batches.md) admits only reviewed candidates that first pass stationary, byte-exact allowlisted qualification.
 
 The combined PCAN mode uses one Hybrid Control session and repeats four known read transactions:
 

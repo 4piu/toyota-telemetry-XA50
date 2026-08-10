@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "manifest_id": "hybrid-control-road-v1",
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "scope": "Direct read-data-by-identifier candidates on the live-confirmed Hybrid Control endpoint only.",
+  "endpoint": {
+    "tester_can_id": "0x7D2",
+    "response_can_id": "0x7DA",
+    "bitrate": 500000
+  },
+  "limits": {
+    "maximum_dids_per_batch": 6,
+    "period_ms": 100,
+    "duration_seconds": 45,
+    "minimum_samples_per_did": 30
+  },
+  "batches": [
+    {
+      "id": "powertrain-state-01",
+      "purpose": "Compare engine state and commanded power with MG speed and torque during launch, coast, and low-speed acceleration.",
+      "dids": [
+        { "data_id": "0x1063", "signals": ["Engine Mode"] },
+        { "data_id": "0x1064", "signals": ["Target Engine Revolution"] },
+        { "data_id": "0x1065", "signals": ["Target Engine Power", "Execute Engine Power"] },
+        { "data_id": "0x10A0", "signals": ["Generator Revolution", "Target Generator Torque", "Generator Torque", "Generator control fields"] },
+        { "data_id": "0x10A1", "signals": ["Motor Revolution", "Target Motor Torque", "Motor Torque", "Motor control fields"] }
+      ]
+    },
+    {
+      "id": "electrical-energy-01",
+      "purpose": "Sanity-check low-voltage supply, state-of-charge bounds, and boost-converter voltages across EV and ICE operation.",
+      "dids": [
+        { "data_id": "0x1002", "signals": ["BATT Voltage"] },
+        { "data_id": "0x106C", "signals": ["Hybrid/EV Battery SOC after IG ON", "Maximum SOC", "Minimum SOC"] },
+        { "data_id": "0x10B0", "signals": ["VL-Voltage before Boosting", "VH-Voltage after Boosting"] },
+        { "data_id": "0x10B1", "signals": ["VH-Voltage after Boosting"] }
+      ]
+    },
+    {
+      "id": "thermal-state-01",
+      "purpose": "Check temperature plausibility, related sensor voltages, and gradual thermal movement during one drive.",
+      "dids": [
+        { "data_id": "0x103A", "signals": ["Generator Temperature", "Generator Temperature Sensor Voltage"] },
+        { "data_id": "0x103B", "signals": ["Motor Temperature", "Motor Temperature Sensor Voltage"] },
+        { "data_id": "0x1040", "signals": ["Transaxle Oil Temperature", "Transaxle Oil Temperature Sensor Voltage"] },
+        { "data_id": "0x10A4", "signals": ["Generator Inverter Calculated Temperature"] },
+        { "data_id": "0x10A5", "signals": ["Motor Inverter Temperature"] },
+        { "data_id": "0x10B2", "signals": ["Inverter Coolant Water Temperature"] }
+      ]
+    },
+    {
+      "id": "motion-context-01",
+      "purpose": "Correlate yaw, selector state, drive mode, readiness/request bits, and transmission speed with known maneuvers.",
+      "dids": [
+        { "data_id": "0x1093", "signals": ["Yaw Rate Value"] },
+        { "data_id": "0x1061", "signals": ["Shift Position", "Shift Position (Meter)"] },
+        { "data_id": "0x1047", "signals": ["Powertrain Drive Mode Switch"] },
+        { "data_id": "0x1076", "signals": ["Accelerator Pedal Status", "Ready Signal", "Engine Start Request"] },
+        { "data_id": "0x10C3", "signals": ["Calculated Vehicle Speed (Transmission)"] }
+      ]
+    }
+  ]
+}

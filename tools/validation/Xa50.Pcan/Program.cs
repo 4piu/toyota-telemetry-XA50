@@ -29,6 +29,8 @@ namespace Xa50.Pcan
         private const uint ErrorQueueReceiveEmpty = 0x00020;
         private const string ProfileId = "2023-rav4-hv-xa50-a25a-fxs";
         private const int RoadLogSchemaVersion = 1;
+        private const int CandidateLogSchemaVersion = 1;
+        private const int MaximumCandidateDids = 6;
 
         private static readonly byte[] TesterPresentFrame =
             { 0x02, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -109,7 +111,9 @@ namespace Xa50.Pcan
                     stopRequested = true;
                     Console.Error.WriteLine("Stop requested; closing the PCAN session...");
                 };
-                return options.IsTelemetryMode ? RunTelemetry(options) : RunProbe(options);
+                return options.IsCandidateMode
+                    ? RunCandidate(options)
+                    : (options.IsTelemetryMode ? RunTelemetry(options) : RunProbe(options));
             }
             catch (Exception ex)
             {
@@ -269,6 +273,178 @@ namespace Xa50.Pcan
                     roadLog.Dispose();
                 }
             }
+        }
+
+        private static int RunCandidate(Options options)
+        {
+            bool initialized = false;
+            BoundedJsonlLog log = null;
+            int sequence = 0;
+            Dictionary<int, int> counts = new Dictionary<int, int>();
+            try
+            {
+                log = new BoundedJsonlLog(options.OutputPath, options.MaxLogMiB);
+                log.WriteCandidateSessionStart(options);
+
+                uint off = ParameterOff;
+                Check(PcanBasic.SetValue(Channel, ListenOnlyParameter, ref off, sizeof(uint)),
+                    "disable listen-only preset");
+                Check(PcanBasic.Initialize(Channel, Baud500K, 0, 0, 0),
+                    "initialize PCAN_USBBUS1 at 500 kbit/s");
+                initialized = true;
+                Check(PcanBasic.GetStatus(Channel), "initial CAN status");
+
+                uint filterClose = FilterClose;
+                Check(PcanBasic.SetValue(Channel, MessageFilterParameter, ref filterClose, sizeof(uint)),
+                    "close receive filter");
+                Check(PcanBasic.FilterMessages(Channel, RxCanId, RxCanId, StandardMessage),
+                    "allow only standard ID 0x7DA");
+                DrainReceiveQueue();
+
+                PcanIsoTpTransport transport = new PcanIsoTpTransport(
+                    options.TimeoutMs,
+                    options.Verbose,
+                    GetModeAllowlist(options));
+                transport.Exchange(TesterPresent, new byte[] { 0x7E, 0x00 }, "tester present");
+                transport.Exchange(DefaultSession, new byte[] { 0x50, 0x01 }, "default session");
+                transport.Exchange(ExtendedSession, new byte[] { 0x50, 0x03 }, "extended session");
+                log.WriteEvent("setup_complete", "Default and extended sessions accepted.");
+
+                Stopwatch schedule = Stopwatch.StartNew();
+                long nextRequestNotBefore = 0;
+                if (options.CandidateQualify)
+                {
+                    foreach (int did in options.CandidateDids)
+                    {
+                        if (stopRequested)
+                        {
+                            break;
+                        }
+                        WaitUntil(schedule, nextRequestNotBefore);
+                        if (stopRequested)
+                        {
+                            break;
+                        }
+                        long requestStartedAt = schedule.ElapsedMilliseconds;
+                        byte[] request = CandidateRequest(did);
+                        ExchangeResult result = transport.ExchangeAllowNegative(
+                            request,
+                            CandidatePositivePrefix(did),
+                            "qualify DID " + FormatDid(did));
+                        sequence++;
+                        IncrementCount(counts, did);
+                        if (!log.TryWriteCandidateSample(
+                            sequence, did, requestStartedAt, schedule.ElapsedMilliseconds, result))
+                        {
+                            log.TryWriteCandidateEnd("log_limit", sequence, counts);
+                            return 2;
+                        }
+                        Console.WriteLine(
+                            "{0} {1} latency={2} ms payload={3}",
+                            FormatDid(did),
+                            result.IsNegative ? "UNSUPPORTED NRC=0x" + result.NegativeResponseCode.ToString("X2", CultureInfo.InvariantCulture) : "SUPPORTED",
+                            result.LatencyMs.ToString(CultureInfo.InvariantCulture),
+                            Hex(result.Payload, result.Payload.Length));
+                        nextRequestNotBefore = requestStartedAt + options.PeriodMs;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Qualified candidate batch started; no decoding is performed in the vehicle.");
+                    int didIndex = 0;
+                    while (!stopRequested && schedule.Elapsed.TotalSeconds < options.DurationSeconds)
+                    {
+                        WaitUntil(schedule, nextRequestNotBefore);
+                        if (stopRequested || schedule.Elapsed.TotalSeconds >= options.DurationSeconds)
+                        {
+                            break;
+                        }
+                        long requestStartedAt = schedule.ElapsedMilliseconds;
+                        int did = options.CandidateDids[didIndex];
+                        byte[] request = CandidateRequest(did);
+                        ExchangeResult result = transport.Exchange(
+                            request,
+                            CandidatePositivePrefix(did),
+                            "poll DID " + FormatDid(did));
+                        sequence++;
+                        IncrementCount(counts, did);
+                        if (!log.TryWriteCandidateSample(
+                            sequence, did, requestStartedAt, schedule.ElapsedMilliseconds, result))
+                        {
+                            log.TryWriteCandidateEnd("log_limit", sequence, counts);
+                            return 2;
+                        }
+                        if (!options.Quiet)
+                        {
+                            Console.WriteLine(
+                                "{0:HH:mm:ss.fff} sample={1:D5} DID={2} latency={3} ms payload={4}",
+                                DateTime.Now,
+                                sequence,
+                                FormatDid(did),
+                                result.LatencyMs,
+                                Hex(result.Payload, result.Payload.Length));
+                        }
+                        didIndex = (didIndex + 1) % options.CandidateDids.Count;
+                        nextRequestNotBefore = requestStartedAt + options.PeriodMs;
+                    }
+                }
+
+                string reason = stopRequested ? "user_stop" : "completed";
+                log.TryWriteCandidateEnd(reason, sequence, counts);
+                Check(PcanBasic.GetStatus(Channel), "final CAN status");
+                Console.WriteLine("Candidate capture ended: reason={0}, samples={1}.", reason, sequence);
+                return stopRequested ? 2 : 0;
+            }
+            catch (Exception ex)
+            {
+                if (log != null && !log.Ended)
+                {
+                    log.TryWriteError(ex);
+                    log.TryWriteCandidateEnd("error", sequence, counts);
+                }
+                throw;
+            }
+            finally
+            {
+                if (initialized)
+                {
+                    uint cleanup = PcanBasic.Uninitialize(Channel);
+                    if (cleanup != ErrorOk)
+                    {
+                        Console.Error.WriteLine("WARNING: PCAN uninitialize failed: " + Describe(cleanup));
+                    }
+                    else
+                    {
+                        Console.WriteLine("PCAN candidate ISO-TP session closed.");
+                    }
+                }
+                if (log != null)
+                {
+                    log.Dispose();
+                }
+            }
+        }
+
+        private static byte[] CandidateRequest(int did)
+        {
+            return new byte[] { 0x22, (byte)(did >> 8), (byte)did };
+        }
+
+        private static byte[] CandidatePositivePrefix(int did)
+        {
+            return new byte[] { 0x62, (byte)(did >> 8), (byte)did };
+        }
+
+        private static string FormatDid(int did)
+        {
+            return "0x" + did.ToString("X4", CultureInfo.InvariantCulture);
+        }
+
+        private static void IncrementCount(Dictionary<int, int> counts, int did)
+        {
+            int count;
+            counts.TryGetValue(did, out count);
+            counts[did] = count + 1;
         }
 
         private static int RunRoadLogSelfTest(Options options)
@@ -631,6 +807,18 @@ namespace Xa50.Pcan
 
         private static byte[][] GetModeAllowlist(Options options)
         {
+            if (options.IsCandidateMode)
+            {
+                List<byte[]> allowed = new List<byte[]>();
+                allowed.Add(TesterPresent);
+                allowed.Add(DefaultSession);
+                allowed.Add(ExtendedSession);
+                foreach (int did in options.CandidateDids)
+                {
+                    allowed.Add(CandidateRequest(did));
+                }
+                return allowed.ToArray();
+            }
             if (options.RoadCapture)
             {
                 return AllAllowedUdsRequests;
@@ -914,6 +1102,20 @@ namespace Xa50.Pcan
 
             internal ExchangeResult Exchange(byte[] request, byte[] expectedPrefix, string label)
             {
+                return ExchangeCore(request, expectedPrefix, label, false);
+            }
+
+            internal ExchangeResult ExchangeAllowNegative(byte[] request, byte[] expectedPrefix, string label)
+            {
+                return ExchangeCore(request, expectedPrefix, label, true);
+            }
+
+            private ExchangeResult ExchangeCore(
+                byte[] request,
+                byte[] expectedPrefix,
+                string label,
+                bool allowNegative)
+            {
                 EnforceUdsAllowlist(request, allowedRequests);
                 Stopwatch latency = Stopwatch.StartNew();
                 if (verbose)
@@ -930,6 +1132,10 @@ namespace Xa50.Pcan
                 }
                 if (response.Length >= 3 && response[0] == 0x7F && response[1] == request[0])
                 {
+                    if (allowNegative)
+                    {
+                        return new ExchangeResult(response, latency.ElapsedMilliseconds, true, response[2]);
+                    }
                     throw new InvalidOperationException(
                         "ECU negative response to " + label + ": service=0x" +
                         response[1].ToString("X2", CultureInfo.InvariantCulture) +
@@ -942,7 +1148,7 @@ namespace Xa50.Pcan
                         "Unexpected response to " + label + ": " + Hex(response, response.Length) +
                         " (expected prefix " + Hex(expectedPrefix, expectedPrefix.Length) + ")");
                 }
-                return new ExchangeResult(response, latency.ElapsedMilliseconds);
+                return new ExchangeResult(response, latency.ElapsedMilliseconds, false, 0);
             }
 
             private void SendPayload(byte[] payload, string label)
@@ -1355,6 +1561,13 @@ namespace Xa50.Pcan
                 new byte[] { 0x22, 0x12, 0x34 },
                 roadAllowlist,
                 "road-capture unknown-DID isolation");
+            Options candidateOptions = new Options { CandidateBatch = true };
+            candidateOptions.CandidateDids.Add(0x1063);
+            candidateOptions.CandidateDids.Add(0x1064);
+            byte[][] candidateAllowlist = GetModeAllowlist(candidateOptions);
+            EnforceUdsAllowlist(CandidateRequest(0x1063), candidateAllowlist);
+            EnforceUdsAllowlist(CandidateRequest(0x1064), candidateAllowlist);
+            AssertUdsRejected(CandidateRequest(0x1065), candidateAllowlist, "candidate dynamic allowlist isolation");
             int expectedSize = IntPtr.Size == 8 ? 16 : 16;
             if (Marshal.SizeOf(typeof(PcanMessage)) != expectedSize)
             {
@@ -1383,13 +1596,40 @@ namespace Xa50.Pcan
             {
                 title = "XA50 unattended bounded road-validation recorder";
             }
+            else if (options.CandidateQualify)
+            {
+                title = "XA50 stationary direct-DID qualification recorder";
+            }
+            else if (options.CandidateBatch)
+            {
+                title = "XA50 bounded direct-DID candidate batch recorder";
+            }
             else if (options.ObdProbe)
             {
                 title = "XA50 standardized OBD-over-CAN probe";
             }
             Console.WriteLine(title);
             Console.WriteLine("Channel:   PCAN_USBBUS1, Classical CAN, 500000 bit/s");
-            if (options.IsTelemetryMode)
+            if (options.IsCandidateMode)
+            {
+                Console.WriteLine("Filter:    standard ID 0x7DA only");
+                Console.WriteLine("Transport: application-managed ISO-TP, 0x7D2 -> 0x7DA");
+                Console.WriteLine("Setup:     captured default and extended sessions");
+                Console.WriteLine("Batch:     " + options.BatchId);
+                Console.WriteLine("DIDs:      " + String.Join(", ", options.CandidateDids.ConvertAll(FormatDid).ToArray()));
+                Console.WriteLine(options.CandidateQualify
+                    ? "Poll:      exactly one support read per DID; negative responses are recorded"
+                    : "Poll:      qualified DIDs in strict round-robin order");
+                Console.WriteLine("Schedule:  one outstanding request, period >= " +
+                    options.PeriodMs.ToString(CultureInfo.InvariantCulture) + " ms");
+                if (options.CandidateBatch)
+                {
+                    Console.WriteLine("Duration:  <= " + options.DurationSeconds.ToString(CultureInfo.InvariantCulture) + " seconds");
+                }
+                Console.WriteLine("Log:       JSONL, <= " + options.MaxLogMiB.ToString(CultureInfo.InvariantCulture) + " MiB, create-new");
+                Console.WriteLine("Output:    " + (options.OutputPath ?? "<required for --live>"));
+            }
+            else if (options.IsTelemetryMode)
             {
                 Console.WriteLine("Filter:    standard ID 0x7DA only");
                 Console.WriteLine("Transport: application-managed ISO-TP, 0x7D2 -> 0x7DA");
@@ -1443,7 +1683,9 @@ namespace Xa50.Pcan
             }
             Console.WriteLine("Timeout:   " + options.TimeoutMs.ToString(CultureInfo.InvariantCulture) + " ms");
             Console.WriteLine("Mode:      " + (options.Live
-                ? (options.IsTelemetryMode
+                ? (options.IsCandidateMode
+                    ? "LIVE - exact candidate DID allowlist only"
+                    : options.IsTelemetryMode
                     ? "LIVE - " + options.TelemetryModeName + " allowlist only"
                     : "LIVE - exactly one allowlisted write")
                 : "DRY RUN"));
@@ -1574,10 +1816,13 @@ namespace Xa50.Pcan
             Console.WriteLine("--f302 defines and polls synchronized brake/regen dynamic DID F302.");
             Console.WriteLine("--road-capture polls all proven groups unattended into one bounded JSONL file.");
             Console.WriteLine("--road-log-self-test writes four synthetic JSONL samples without opening PCAN.");
+            Console.WriteLine("--candidate-qualify reads each repeated --did once while stationary and records support/NRC.");
+            Console.WriteLine("--candidate-batch polls 1-6 prequalified --did values in a bounded round-robin capture.");
+            Console.WriteLine("--batch-id ID labels a candidate capture; orchestration uses the manifest batch ID.");
             Console.WriteLine("--samples N and --period-ms N configure telemetry sampling (defaults: 5 and 100).");
-            Console.WriteLine("--duration-seconds N caps road capture time (default: 900; maximum: 7200).");
-            Console.WriteLine("--output PATH is required for live road capture and is never overwritten.");
-            Console.WriteLine("--max-log-mib N caps the road JSONL file (default: 64 MiB).");
+            Console.WriteLine("--duration-seconds N caps bounded road/candidate time (default: 900; maximum: 7200).");
+            Console.WriteLine("--output PATH is required for live road/candidate capture and is never overwritten.");
+            Console.WriteLine("--max-log-mib N caps a bounded JSONL file (default: 64 MiB).");
             Console.WriteLine("--quiet suppresses per-sample console output; errors and the final summary remain.");
             Console.WriteLine("--verbose prints every UDS payload and raw ISO-TP CAN frame.");
             Console.WriteLine("--open-filter receives all CAN IDs locally and reports unrelated frames; it does not alter transmission.");
@@ -1608,13 +1853,13 @@ namespace Xa50.Pcan
             {
                 if (String.IsNullOrWhiteSpace(path))
                 {
-                    throw new ArgumentException("A road-capture output path is required.");
+                    throw new ArgumentException("A bounded-capture output path is required.");
                 }
                 FullPath = Path.GetFullPath(path);
                 string directory = Path.GetDirectoryName(FullPath);
                 if (String.IsNullOrEmpty(directory))
                 {
-                    throw new ArgumentException("Could not resolve the road-capture output directory.");
+                    throw new ArgumentException("Could not resolve the bounded-capture output directory.");
                 }
                 maxBytes = checked((long)maxLogMiB * 1024L * 1024L);
                 string root = Path.GetPathRoot(FullPath);
@@ -1664,6 +1909,41 @@ namespace Xa50.Pcan
                 WriteRequired(json);
             }
 
+            internal void WriteCandidateSessionStart(Options options)
+            {
+                StringBuilder dids = new StringBuilder();
+                for (int i = 0; i < options.CandidateDids.Count; i++)
+                {
+                    if (i != 0)
+                    {
+                        dids.Append(',');
+                    }
+                    dids.Append('"');
+                    dids.Append(FormatDid(options.CandidateDids[i]));
+                    dids.Append('"');
+                }
+                string mode = options.CandidateQualify ? "candidate_qualification" : "candidate_batch";
+                string json =
+                    "{\"record\":\"session_start\",\"schema_version\":" +
+                    CandidateLogSchemaVersion.ToString(CultureInfo.InvariantCulture) +
+                    ",\"profile_id\":\"" + JsonEscape(ProfileId) +
+                    "\",\"created_utc\":\"" +
+                    DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) +
+                    "\",\"tool\":\"xa50-pcan\",\"tool_log_format\":\"candidate-capture-v1\"," +
+                    "\"mode\":\"" + mode + "\",\"batch_id\":\"" +
+                    JsonEscape(options.BatchId) + "\",\"transport\":{\"backend\":\"PCAN-Basic\"," +
+                    "\"channel\":\"PCAN_USBBUS1\",\"network\":\"classical-can\",\"bitrate\":500000," +
+                    "\"tester_id\":\"0x7D2\",\"response_id\":\"0x7DA\"}," +
+                    "\"dids\":[" + dids + "],\"period_ms\":" +
+                    options.PeriodMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"duration_limit_seconds\":" +
+                    (options.CandidateQualify ? "null" : options.DurationSeconds.ToString(CultureInfo.InvariantCulture)) +
+                    ",\"log_limit_bytes\":" + maxBytes.ToString(CultureInfo.InvariantCulture) +
+                    ",\"timestamp_semantics\":\"host UTC after complete response plus monotonic request/response offsets\"," +
+                    "\"privacy\":\"VIN, location and adapter serial are not collected\"}";
+                WriteRequired(json);
+            }
+
             internal void WriteEvent(string name, string message)
             {
                 string json = "{\"record\":\"event\",\"utc\":\"" +
@@ -1702,6 +1982,31 @@ namespace Xa50.Pcan
                 return TryWriteRecord(json, true);
             }
 
+            internal bool TryWriteCandidateSample(
+                int sequence,
+                int did,
+                long requestElapsedMs,
+                long responseElapsedMs,
+                ExchangeResult result)
+            {
+                string json = "{\"record\":\"candidate_sample\",\"sequence\":" +
+                    sequence.ToString(CultureInfo.InvariantCulture) +
+                    ",\"did\":\"" + FormatDid(did) +
+                    "\",\"utc\":\"" + DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) +
+                    "\",\"request_elapsed_ms\":" + requestElapsedMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"response_elapsed_ms\":" + responseElapsedMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"latency_ms\":" + result.LatencyMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"request_hex\":\"22 " + did.ToString("X4", CultureInfo.InvariantCulture).Substring(0, 2) +
+                    " " + did.ToString("X4", CultureInfo.InvariantCulture).Substring(2, 2) +
+                    "\",\"response_hex\":\"" + JsonEscape(Hex(result.Payload, result.Payload.Length)) +
+                    "\",\"supported\":" + JsonBoolean(!result.IsNegative) +
+                    ",\"negative_response_code\":" +
+                    (result.IsNegative
+                        ? "\"0x" + result.NegativeResponseCode.ToString("X2", CultureInfo.InvariantCulture) + "\""
+                        : "null") + "}";
+                return TryWriteRecord(json, true);
+            }
+
             internal void TryWriteError(Exception ex)
             {
                 string json = "{\"record\":\"error\",\"utc\":\"" +
@@ -1737,6 +2042,42 @@ namespace Xa50.Pcan
                 if (!TryWriteRecord(json, false))
                 {
                     throw new IOException("Could not write the reserved road-log end record.");
+                }
+                Ended = true;
+            }
+
+            internal void TryWriteCandidateEnd(
+                string reason,
+                int total,
+                Dictionary<int, int> counts)
+            {
+                if (Ended)
+                {
+                    return;
+                }
+                StringBuilder countJson = new StringBuilder();
+                bool first = true;
+                foreach (KeyValuePair<int, int> pair in counts)
+                {
+                    if (!first)
+                    {
+                        countJson.Append(',');
+                    }
+                    first = false;
+                    countJson.Append('"');
+                    countJson.Append(FormatDid(pair.Key));
+                    countJson.Append("\":");
+                    countJson.Append(pair.Value.ToString(CultureInfo.InvariantCulture));
+                }
+                string json = "{\"record\":\"session_end\",\"utc\":\"" +
+                    DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture) +
+                    "\",\"reason\":\"" + JsonEscape(reason) +
+                    "\",\"sample_count\":" + total.ToString(CultureInfo.InvariantCulture) +
+                    ",\"did_counts\":{" + countJson + "},\"bytes_before_end\":" +
+                    BytesWritten.ToString(CultureInfo.InvariantCulture) + "}";
+                if (!TryWriteRecord(json, false))
+                {
+                    throw new IOException("Could not write the reserved candidate-log end record.");
                 }
                 Ended = true;
             }
@@ -1824,6 +2165,8 @@ namespace Xa50.Pcan
             internal bool F302;
             internal bool RoadCapture;
             internal bool RoadLogSelfTest;
+            internal bool CandidateQualify;
+            internal bool CandidateBatch;
             internal bool OpenFilter;
             internal bool Verbose;
             internal bool Quiet;
@@ -1834,6 +2177,13 @@ namespace Xa50.Pcan
             internal int DurationSeconds = 900;
             internal int MaxLogMiB = 64;
             internal string OutputPath;
+            internal string BatchId = "adhoc";
+            internal readonly List<int> CandidateDids = new List<int>();
+
+            internal bool IsCandidateMode
+            {
+                get { return CandidateQualify || CandidateBatch; }
+            }
 
             internal bool IsTelemetryMode
             {
@@ -1886,6 +2236,37 @@ namespace Xa50.Pcan
                     else if (argument == "--road-log-self-test")
                     {
                         options.RoadLogSelfTest = true;
+                    }
+                    else if (argument == "--candidate-qualify")
+                    {
+                        options.CandidateQualify = true;
+                    }
+                    else if (argument == "--candidate-batch")
+                    {
+                        options.CandidateBatch = true;
+                    }
+                    else if (argument == "--did")
+                    {
+                        string value = NextValue(args, ref i, argument);
+                        int did;
+                        if (value.StartsWith("0x", StringComparison.OrdinalIgnoreCase))
+                        {
+                            value = value.Substring(2);
+                        }
+                        if (!Int32.TryParse(value, NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out did) ||
+                            did < 0x0100 || did > 0xEFFF)
+                        {
+                            throw new ArgumentException("--did must be a hexadecimal DID from 0x0100 through 0xEFFF.");
+                        }
+                        if (options.CandidateDids.Contains(did))
+                        {
+                            throw new ArgumentException("Duplicate --did " + FormatDid(did) + ".");
+                        }
+                        options.CandidateDids.Add(did);
+                    }
+                    else if (argument == "--batch-id")
+                    {
+                        options.BatchId = NextValue(args, ref i, argument);
                     }
                     else if (argument == "--verbose")
                     {
@@ -1945,42 +2326,64 @@ namespace Xa50.Pcan
                     (options.Motion ? 1 : 0) +
                     (options.F302 ? 1 : 0) +
                     (options.RoadCapture ? 1 : 0) +
-                    (options.RoadLogSelfTest ? 1 : 0);
+                    (options.RoadLogSelfTest ? 1 : 0) +
+                    (options.CandidateQualify ? 1 : 0) +
+                    (options.CandidateBatch ? 1 : 0);
                 if (selectedModes > 1)
                 {
                     throw new ArgumentException(
-                        "--obd-probe, --f301, --motion, --f302, --road-capture, and --road-log-self-test are mutually exclusive.");
+                        "Probe, telemetry, road-capture, candidate, and self-test modes are mutually exclusive.");
                 }
-                if (options.IsTelemetryMode && options.OpenFilter)
+                if ((options.IsTelemetryMode || options.IsCandidateMode) && options.OpenFilter)
                 {
                     throw new ArgumentException(
-                        "Telemetry modes require the strict 0x7DA filter and cannot use --open-filter.");
+                        "Telemetry and candidate modes require the strict 0x7DA filter and cannot use --open-filter.");
                 }
                 if (options.RoadLogSelfTest && options.Live)
                 {
                     throw new ArgumentException("--road-log-self-test is offline and cannot be combined with --live.");
+                }
+                if (options.IsCandidateMode &&
+                    (options.CandidateDids.Count == 0 || options.CandidateDids.Count > MaximumCandidateDids))
+                {
+                    throw new ArgumentException(
+                        "Candidate modes require 1 through " + MaximumCandidateDids.ToString(CultureInfo.InvariantCulture) +
+                        " unique --did values.");
+                }
+                if (!options.IsCandidateMode && options.CandidateDids.Count != 0)
+                {
+                    throw new ArgumentException("--did is supported only with a candidate mode.");
+                }
+                if (options.IsCandidateMode && String.IsNullOrWhiteSpace(options.BatchId))
+                {
+                    throw new ArgumentException("--batch-id cannot be empty.");
                 }
                 if (options.RoadCapture && options.Live &&
                     String.IsNullOrWhiteSpace(options.OutputPath))
                 {
                     throw new ArgumentException("--output PATH is required with --live --road-capture.");
                 }
+                if (options.IsCandidateMode && options.Live &&
+                    String.IsNullOrWhiteSpace(options.OutputPath))
+                {
+                    throw new ArgumentException("--output PATH is required with a live candidate mode.");
+                }
                 if (options.RoadLogSelfTest && String.IsNullOrWhiteSpace(options.OutputPath))
                 {
                     throw new ArgumentException("--output PATH is required with --road-log-self-test.");
                 }
-                if (!options.RoadCapture && !options.RoadLogSelfTest &&
+                if (!options.RoadCapture && !options.RoadLogSelfTest && !options.IsCandidateMode &&
                     !String.IsNullOrWhiteSpace(options.OutputPath))
                 {
-                    throw new ArgumentException("--output is currently supported only with --road-capture.");
+                    throw new ArgumentException("--output is supported only with bounded capture/self-test modes.");
                 }
                 if (options.Verbose && options.Quiet)
                 {
                     throw new ArgumentException("--verbose and --quiet cannot be used together.");
                 }
-                if (options.Quiet && !options.RoadCapture)
+                if (options.Quiet && !options.RoadCapture && !options.CandidateBatch)
                 {
-                    throw new ArgumentException("--quiet is currently supported only with --road-capture.");
+                    throw new ArgumentException("--quiet is supported only with road and candidate batch capture.");
                 }
                 return options;
             }
@@ -2014,11 +2417,20 @@ namespace Xa50.Pcan
         {
             internal readonly byte[] Payload;
             internal readonly long LatencyMs;
+            internal readonly bool IsNegative;
+            internal readonly byte NegativeResponseCode;
 
             internal ExchangeResult(byte[] payload, long latencyMs)
+                : this(payload, latencyMs, false, 0)
+            {
+            }
+
+            internal ExchangeResult(byte[] payload, long latencyMs, bool isNegative, byte negativeResponseCode)
             {
                 Payload = payload;
                 LatencyMs = latencyMs;
+                IsNegative = isNegative;
+                NegativeResponseCode = negativeResponseCode;
             }
         }
     }
