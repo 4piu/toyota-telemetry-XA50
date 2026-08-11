@@ -14,6 +14,8 @@ These are vehicle-specific forks/clients. Reusable counterparts and method docum
 | `validation/start-road-capture.ps1` | Start a timestamped, unattended, time/size-bounded combined PCAN JSONL capture. | Live road-confirmed |
 | `validation/qualify-road-batches.ps1` | Stationary allowlisted qualification for reviewed direct DIDs. | Live-confirmed |
 | `validation/start-validation-sequence.ps1` | Resume bounded qualified road batches and retain only structurally complete runs. | Live-confirmed |
+| `validation/build-progressive-plan.py` | Build a private, tiered direct-DID plan from the Hybrid Control catalog. | Offline verified |
+| `validation/run-progressive-validation.py` | Resume per-DID qualification and tiered road batches across many sessions. | Dry-run verified; built on live-confirmed candidate transport |
 | `analysis/analyze-road-capture.py` | Validate, summarize, and optionally flatten the bounded road JSONL log. | Live captures and synthetic fixture verified |
 | `analysis/analyze-candidate-capture.py` | Validate qualification/batch JSONL and decode candidate fields against the catalog. | Live captures and fixtures verified |
 

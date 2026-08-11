@@ -15,6 +15,7 @@ These pages contain platform-specific claims and evidence. Reusable procedure is
 - [Measured throughput](hardware/throughput.md) — J2534 and PCAN response timing.
 - [Parking-lot road validation](validation/road-test.md) — unattended bounded capture, safe maneuver plan, and offline review.
 - [Direct-DID validation batches](validation/candidate-batches.md) — stationary qualification, resumable short road batches, and confidence review.
+- [Progressive catalog validation](validation/progressive-validation.md) — stable per-DID qualification and tiered multi-drive harvesting for the remaining Hybrid Control map.
 
 The [pilot road-validation evidence](evidence/pilot-road-validation.md) records capture integrity, correlation results, and the confidence decisions from the first drive.
 

@@ -26,6 +26,7 @@ The original XHorse J2534 adapter has failed electrically. Its client and captur
 - [Hardware and validation notes](docs/hardware/prototype.md)
 - [Unattended parking-lot validation protocol](docs/validation/road-test.md)
 - [Qualified sequential candidate batches](docs/validation/candidate-batches.md)
+- [Progressive multi-drive catalog validation](docs/validation/progressive-validation.md)
 - [Vehicle/ECU profile](data/catalog/ecu-profile.json)
 - [Generated catalog summary](data/catalog/generated/summary.md)
 - [Curated live-evidence signals](data/validated/signals.csv)
