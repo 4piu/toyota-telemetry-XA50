@@ -38,6 +38,13 @@ class ProgressivePlannerTests(unittest.TestCase):
 
 
 class ProgressiveProgressTests(unittest.TestCase):
+    def test_qualification_cli_omits_batch_only_quiet_flag(self):
+        arguments = runner.qualification_arguments(
+            "0x0102", Path("qualification.partial.jsonl"), 16
+        )
+        self.assertIn("--candidate-qualify", arguments)
+        self.assertNotIn("--quiet", arguments)
+
     def test_existing_fixtures_are_reconstructed_per_did(self):
         progress = runner.discover_progress(
             REPOSITORY / "tests" / "fixtures",

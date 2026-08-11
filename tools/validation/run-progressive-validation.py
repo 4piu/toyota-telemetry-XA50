@@ -268,6 +268,15 @@ def road_queue(
     return result
 
 
+def qualification_arguments(did: str, partial: Path, max_log_mib: int) -> list[str]:
+    """Build the qualification CLI without batch-only presentation flags."""
+    return [
+        "--candidate-qualify", "--live", "--batch-id", f"progressive-{did[2:].lower()}",
+        "--did", did, "--period-ms", "100", "--max-log-mib", str(max_log_mib),
+        "--output", str(partial),
+    ]
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("phase", choices=("status", "qualify", "road"))
@@ -351,11 +360,7 @@ def main() -> int:
             partial = output_root / "qualification" / f"{stem}.partial.jsonl"
             complete = output_root / "qualification" / f"{stem}.complete.jsonl"
             partial.parent.mkdir(parents=True, exist_ok=True)
-            arguments = [
-                "--candidate-qualify", "--live", "--batch-id", f"progressive-{did[2:].lower()}",
-                "--did", did, "--period-ms", "100", "--max-log-mib", str(args.max_log_mib),
-                "--output", str(partial), "--quiet",
-            ]
+            arguments = qualification_arguments(did, partial, args.max_log_mib)
             print(f"QUALIFY {did}")
             run_and_validate(arguments, partial, complete, 1)
         else:
