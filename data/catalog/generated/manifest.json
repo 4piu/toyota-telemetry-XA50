@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
-  "generated_at_utc": "2026-08-10T05:13:46.830740+00:00",
+  "generated_at_utc": "2026-08-11T17:06:00.200190+00:00",
   "generator": "tools/catalog/build-telemetry-catalog.py",
   "generator_sha256": "ddfc52938a6060b98d114b7de36a56290e1f4ec957b7c1c1c3784d3ae6d37dfa",
   "techstream_version": "18.0.0.3",
@@ -36,7 +36,7 @@
   "counts": {
     "signals": 4458,
     "ecu_did_pairs": 1605,
-    "live_evidence_rows": 13
+    "live_evidence_rows": 55
   },
   "notice": "Input database files are not included. Full generated output remains local pending redistribution review."
 }

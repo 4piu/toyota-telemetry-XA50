@@ -1,5 +1,9 @@
 # Parking-lot road-validation protocol
 
+The first execution of this protocol completed successfully. Its integrity and
+signal conclusions are recorded in the
+[pilot evidence report](../evidence/pilot-road-validation.md).
+
 ## Scope
 
 This run targets the 13 signals already in `data/validated`, not the 4,458-row static candidate atlas. Do not bulk-scan DIDs while driving. The separate [direct-DID batch workflow](candidate-batches.md) admits only reviewed candidates that first pass stationary, byte-exact allowlisted qualification.

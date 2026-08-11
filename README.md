@@ -13,7 +13,7 @@ Hybrid Control diagnostics have been independently replayed through PCAN-USB on 
 - repeated `22 F3 01` returns MG1, MG2, and accelerator with roughly 11–17 ms typical complete-response latency in the recorded runs;
 - a second composite request covers wheel speed, steering, and braking-related candidates.
 
-MG1, MG2, and accelerator are Validated/Replayed for `vehicle-a`. Several other values are only Observed or Correlated and retain those weaker states in [the curated map](data/validated/signals.csv).
+MG1, MG2, and accelerator are Validated/Replayed for `vehicle-a`. The first rolling pilot expanded the curated map to 55 signals: 22 are Correlated/Replayed and 30 remain Observed/Replayed. See [the evidence report](docs/evidence/pilot-road-validation.md) for the confidence rationale.
 
 The original XHorse J2534 adapter has failed electrically. Its client and captured conclusions remain under `tools/validation/Xa50.J2534` as reproducibility/legacy evidence; current live validation uses PCAN. No proprietary adapter DLL is stored here.
 

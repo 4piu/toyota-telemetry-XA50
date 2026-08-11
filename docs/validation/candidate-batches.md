@@ -2,6 +2,11 @@
 
 This workflow uses short, sequential captures to gather evidence for selected Hybrid Control catalog candidates while preserving the already validated 13-signal baseline. It is deliberately not an ECU scanner: every transmitted DID is present in a reviewed manifest, and only the live-confirmed `0x7D2` to `0x7DA` endpoint is used.
 
+The v1 pilot is complete: 16 of 20 candidate DIDs qualified and were retained across four
+road batches, and the curated map now contains 55 signals. See the
+[pilot evidence report](../evidence/pilot-road-validation.md) for completeness,
+correlation results, and per-family confidence decisions.
+
 ## Safety boundary
 
 Do stationary qualification in Park before the road session. Qualification sends one `22 <DID>` request at a time and records either a positive response or a UDS negative-response code with a preliminary classification. A silent timeout, transport fault, or interrupted qualification is not interpreted as “unsupported”; the batch remains incomplete and must be retried or investigated while stationary.

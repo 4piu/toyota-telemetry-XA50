@@ -64,26 +64,26 @@
     {
       "ecu_key": 397,
       "internal_id": "0x0068",
-      "live_state": "Observed and replayed",
-      "notes": "FR Wheel Speed; stationary zero only, rolling validation pending."
+      "live_state": "Correlated and replayed",
+      "notes": "FR Wheel Speed; pilot rolling range 0..71.41 km/h, with four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998."
     },
     {
       "ecu_key": 397,
       "internal_id": "0x0069",
-      "live_state": "Observed and replayed",
-      "notes": "FL Wheel Speed; stationary zero only, rolling validation pending."
+      "live_state": "Correlated and replayed",
+      "notes": "FL Wheel Speed; pilot rolling range 0..71.55 km/h, with four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998."
     },
     {
       "ecu_key": 397,
       "internal_id": "0x006A",
-      "live_state": "Observed and replayed",
-      "notes": "RR Wheel Speed; stationary zero only, rolling validation pending."
+      "live_state": "Correlated and replayed",
+      "notes": "RR Wheel Speed; pilot rolling range 0..71.16 km/h, with four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998."
     },
     {
       "ecu_key": 397,
       "internal_id": "0x006B",
-      "live_state": "Observed and replayed",
-      "notes": "RL Wheel Speed; stationary zero only, rolling validation pending."
+      "live_state": "Correlated and replayed",
+      "notes": "RL Wheel Speed; pilot rolling range 0..71.42 km/h, with four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998."
     },
     {
       "ecu_key": 397,
@@ -107,19 +107,271 @@
       "ecu_key": 397,
       "internal_id": "0x0059",
       "live_state": "Correlated and replayed",
-      "notes": "Master Cylinder Control Torque; braking request/control, not physical pad contact."
+      "notes": "Master Cylinder Control Torque; pilot road range -874.25..0 Nm and nonzero only with braking indications. This is request/control, not physical pad contact."
     },
     {
       "ecu_key": 397,
       "internal_id": "0x005B",
-      "live_state": "Observed and replayed",
-      "notes": "Requested MG regenerative torque; observed at zero in Park, rolling validation pending."
+      "live_state": "Correlated and replayed",
+      "notes": "Requested MG regenerative torque; pilot rolling range -264..0 Nm, request/execution correlation 0.9987, and braking-state association observed."
     },
     {
       "ecu_key": 397,
       "internal_id": "0x005C",
+      "live_state": "Correlated and replayed",
+      "notes": "Executed MG regenerative torque; pilot rolling range -264..0 Nm, request/execution correlation 0.9987, and braking-state association observed."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x00EA",
       "live_state": "Observed and replayed",
-      "notes": "Executed MG regenerative torque; observed at zero in Park, rolling validation pending."
+      "notes": "Engine Mode; raw state 3 throughout stationary qualification and the powertrain road batch; enum meaning remains unverified."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0056",
+      "live_state": "Observed and replayed",
+      "notes": "Target Engine Revolution; varied plausibly from 934 to 2775 rpm; independent engine-speed reference pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0057",
+      "live_state": "Correlated and replayed",
+      "notes": "Target Engine Power; pilot range 0..50380 W and correlation 0.9109 with executed engine power."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x00F8",
+      "live_state": "Correlated and replayed",
+      "notes": "Execute Engine Power; pilot range 0..56660 W and correlation 0.9109 with target engine power."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0076",
+      "live_state": "Correlated and replayed",
+      "notes": "Target Generator Torque; pilot range -57.625..0 Nm and target/actual correlation 0.9965."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0077",
+      "live_state": "Correlated and replayed",
+      "notes": "Generator Torque; pilot range -56.5..1.375 Nm and target/actual correlation 0.9965."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0146",
+      "live_state": "Observed and replayed",
+      "notes": "Generator Carrier Frequency; raw states 3..5 observed, with enum and physical-frequency mapping pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0147",
+      "live_state": "Observed and replayed",
+      "notes": "Generator Control Mode; raw states 0 and 2 observed; enum mapping pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x00F3",
+      "live_state": "Observed and replayed",
+      "notes": "Generator Inverter Operation Request; raw state 4 was constant in stationary and road observations; enum mapping pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0079",
+      "live_state": "Correlated and replayed",
+      "notes": "Target Motor Torque; pilot range -88.875..73.875 Nm and target/actual correlation 0.9989."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x007A",
+      "live_state": "Correlated and replayed",
+      "notes": "Motor Torque; pilot range -84.375..75 Nm and target/actual correlation 0.9989."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0148",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Carrier Frequency; raw states 1 and 3 observed, with enum and physical-frequency mapping pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0149",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Control Mode; raw states 0 and 1 observed; enum mapping pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x00F4",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Inverter Operation Request; raw state 4 was constant in stationary and road observations; enum mapping pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0003",
+      "live_state": "Observed and replayed",
+      "notes": "BATT Voltage; varied plausibly from 12.632 to 14.155 V during the pilot road batch."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x005F",
+      "live_state": "Observed and replayed",
+      "notes": "Hybrid/EV Battery SOC immediately after IG ON; constant 40.5% as expected for an ignition-cycle snapshot."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0060",
+      "live_state": "Correlated and replayed",
+      "notes": "Hybrid/EV Battery Maximum SOC; rose monotonically from 42.5% to 49.5%, with 14 increments and no decreases."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0061",
+      "live_state": "Observed and replayed",
+      "notes": "Hybrid/EV Battery Minimum SOC; constant 39.0%; minimum-accumulator behavior remains plausible but unexcited."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0096",
+      "live_state": "Correlated and replayed",
+      "notes": "VL before boosting; pilot range 266.5..318.5 V and coherent pairing with boosted-side voltage."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0097",
+      "live_state": "Correlated and replayed",
+      "notes": "VH after boosting; pilot range 271.5..424.5 V and boost delta up to 117.5 V."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x003D",
+      "live_state": "Observed and replayed",
+      "notes": "Generator Temperature Sensor Voltage; observed at 3.094..3.104 V with nine raw levels."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x003E",
+      "live_state": "Observed and replayed",
+      "notes": "Generator Temperature; observed at 52 degC, equal to the recorded maximum and above the 48 degC IG-ON snapshot."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x003F",
+      "live_state": "Observed and replayed",
+      "notes": "Generator Temperature just after IG ON; constant 48 degC ignition-cycle snapshot."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0040",
+      "live_state": "Observed and replayed",
+      "notes": "Generator Maximum Temperature; constant 52 degC and not below current or IG-ON temperature."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0041",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Temperature Sensor Voltage; observed at 3.082..3.108 V and inversely associated with the one-degree temperature transition."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0042",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Temperature; varied from 51 to 52 degC and remained at or below the recorded maximum."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0043",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Temperature just after IG ON; constant 47 degC ignition-cycle snapshot."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0044",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Maximum Temperature; constant 52 degC and not below current or IG-ON temperature."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0141",
+      "live_state": "Observed and replayed",
+      "notes": "Transaxle Oil Temperature Sensor Voltage; observed at 3.389..3.403 V with 13 raw levels."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0142",
+      "live_state": "Observed and replayed",
+      "notes": "Transaxle Oil Temperature; constant plausible 48 degC during the 45-second pilot batch."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0082",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Inverter Temperature; varied from 37 to 43 degC and remained below the recorded maximum."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0083",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Inverter Temperature just after IG ON; constant 41 degC ignition-cycle snapshot."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0084",
+      "live_state": "Observed and replayed",
+      "notes": "Motor Inverter Maximum Temperature; constant 48 degC and above all current/IG-ON observations."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0098",
+      "live_state": "Observed and replayed",
+      "notes": "Inverter Coolant Water Temperature; varied plausibly from 38 to 41 degC."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x00E7",
+      "live_state": "Correlated and replayed",
+      "notes": "Shift Position; raw state changed from 0 in Park qualification to 6 throughout the road batch; enum labels pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x00E8",
+      "live_state": "Correlated and replayed",
+      "notes": "Shift Position (Meter); raw state changed from 1 in Park qualification to 8 throughout the road batch; enum labels pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x0074",
+      "live_state": "Observed and replayed",
+      "notes": "Yaw Rate Value; varied from -3.480 to 10.184 deg/s with both signs; synchronized steering reference pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x04AC",
+      "live_state": "Observed and replayed",
+      "notes": "Rear MG Activate Condition; remained false in stationary and road observations on this vehicle configuration."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x006C",
+      "live_state": "Observed and replayed",
+      "notes": "Engine Start Request for battery charging; changed between qualification and road observations; exact trigger pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x006D",
+      "live_state": "Observed and replayed",
+      "notes": "Accelerator Pedal Status; visited both boolean states during the road batch; synchronized analog comparison pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x00F1",
+      "live_state": "Observed and replayed",
+      "notes": "MG Activate Condition; remained true in stationary and road observations; inactive reference pending."
+    },
+    {
+      "ecu_key": 397,
+      "internal_id": "0x006E",
+      "live_state": "Correlated and replayed",
+      "notes": "Ready Signal; true throughout known READY stationary qualification and road observations."
     }
   ]
 }

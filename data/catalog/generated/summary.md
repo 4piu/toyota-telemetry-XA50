@@ -11,7 +11,7 @@ This is a candidate catalog for the installed vehicle profile, not a claim that 
 | 397 | Hybrid Control | `0x7D2` | `0x7DA` | 0x7D2/0x7DA live-confirmed | 1424 | 593 | 1424 |
 | 435 | Brake/EPB | `0x7B0` | `0x7B8` | static candidate; live validation pending | 538 | 167 | 538 |
 
-Total records: **4458**. Records carrying prior live evidence: **13**.
+Total records: **4458**. Records carrying prior live evidence: **55**.
 
 ## Interpretation limits
 

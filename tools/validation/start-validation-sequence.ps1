@@ -38,6 +38,11 @@ function Move-Incomplete([string]$Path) {
     if (Test-Path -LiteralPath $Path) {
         $target = $Path -replace '\.partial\.jsonl$', '.incomplete.jsonl'
         Move-Item -LiteralPath $Path -Destination $target
+        $partialSummary = $Path -replace '\.jsonl$', '.summary.json'
+        if (Test-Path -LiteralPath $partialSummary -PathType Leaf) {
+            $incompleteSummary = $target -replace '\.jsonl$', '.summary.json'
+            Move-Item -LiteralPath $partialSummary -Destination $incompleteSummary
+        }
         Write-Warning "Run was quarantined as incomplete: $target"
     }
 }
@@ -65,11 +70,16 @@ function Invoke-StartupDelayOnce {
 }
 
 function Invoke-BoundedRun([string]$Id, [string[]]$Arguments, [string]$Partial, [string]$Complete, [string]$Analyzer, [string[]]$AnalyzerArguments) {
+    $partialSummary = $Partial -replace '\.jsonl$', '.summary.json'
+    $completeSummary = $Complete -replace '\.jsonl$', '.summary.json'
     & $executable @Arguments
     if ($LASTEXITCODE -ne 0) { Move-Incomplete $Partial; throw "$Id capture did not complete." }
     & uv run python $Analyzer $Partial @AnalyzerArguments
     if ($LASTEXITCODE -ne 0) { Move-Incomplete $Partial; throw "$Id failed offline structural validation." }
     Move-Item -LiteralPath $Partial -Destination $Complete
+    if (Test-Path -LiteralPath $partialSummary -PathType Leaf) {
+        Move-Item -LiteralPath $partialSummary -Destination $completeSummary
+    }
     Write-Output "COMPLETE: $Complete"
 }
 
@@ -95,9 +105,12 @@ if (-not $SkipBaseline) {
                 Move-Incomplete $partial
                 throw 'Baseline was interrupted or truncated; the next launch will restart it.'
             }
-            & uv run python $roadAnalyzer $partial --summary-json ($partial -replace '\.jsonl$', '.summary.json')
+            $partialSummary = $partial -replace '\.jsonl$', '.summary.json'
+            $completeSummary = $baselineComplete -replace '\.jsonl$', '.summary.json'
+            & uv run python $roadAnalyzer $partial --summary-json $partialSummary
             if ($LASTEXITCODE -ne 0) { Move-Incomplete $partial; throw 'Baseline failed offline validation.' }
             Move-Item -LiteralPath $partial -Destination $baselineComplete
+            Move-Item -LiteralPath $partialSummary -Destination $completeSummary
             Write-Output "COMPLETE: $baselineComplete"
         }
         $planned++

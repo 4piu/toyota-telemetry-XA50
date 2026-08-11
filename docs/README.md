@@ -16,4 +16,6 @@ These pages contain platform-specific claims and evidence. Reusable procedure is
 - [Parking-lot road validation](validation/road-test.md) — unattended bounded capture, safe maneuver plan, and offline review.
 - [Direct-DID validation batches](validation/candidate-batches.md) — stationary qualification, resumable short road batches, and confidence review.
 
+The [pilot road-validation evidence](evidence/pilot-road-validation.md) records capture integrity, correlation results, and the confidence decisions from the first drive.
+
 Confidence words follow the general guide: Candidate, Observed, Correlated, Validated, Replayed, and Ported. The profile is one tested vehicle instance, not every XA50 calibration.
