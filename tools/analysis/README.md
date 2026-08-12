@@ -27,3 +27,5 @@ uv run python .\tools\analysis\analyze-candidate-capture.py `
 ```
 
 It reports evidence hints but never promotes a signal automatically.
+For retry-capable captures, the summary also reports total retries, samples that
+required a retry, the maximum retry count for one sample, and counts by DID.

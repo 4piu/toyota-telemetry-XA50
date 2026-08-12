@@ -20,6 +20,7 @@ def load_module(name: str, relative_path: str):
 
 planner = load_module("progressive_planner", "tools/validation/build-progressive-plan.py")
 runner = load_module("progressive_runner", "tools/validation/run-progressive-validation.py")
+analyzer = load_module("candidate_analyzer", "tools/analysis/analyze-candidate-capture.py")
 
 
 class ProgressivePlannerTests(unittest.TestCase):
@@ -38,6 +39,20 @@ class ProgressivePlannerTests(unittest.TestCase):
 
 
 class ProgressiveProgressTests(unittest.TestCase):
+    def test_retry_metadata_is_validated_and_summarized(self):
+        records = analyzer.read_jsonl(
+            REPOSITORY / "tests" / "fixtures" / "candidate-batch.complete.jsonl"
+        )
+        samples = [record for record in records if record.get("record") == "candidate_sample"]
+        samples[0]["retry_count"] = 1
+        start, validated = analyzer.validate(records, 2)
+        summary = analyzer.summarize(
+            start, validated, REPOSITORY / "data" / "catalog" / "generated" / "telemetry.csv"
+        )
+        self.assertEqual(summary["transport_retries"]["total"], 1)
+        self.assertEqual(summary["transport_retries"]["samples_with_retry"], 1)
+        self.assertEqual(summary["transport_retries"]["by_did"], {"0x1063": 1})
+
     def test_qualification_cli_omits_batch_only_quiet_flag(self):
         arguments = runner.qualification_arguments(
             "0x0102", Path("qualification.partial.jsonl"), 16

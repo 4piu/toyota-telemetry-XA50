@@ -94,6 +94,9 @@ def validate(records: list[dict[str, Any]], minimum_samples: int) -> tuple[dict[
             raise ValueError(f"invalid timing at line {line}")
         if timing[1] < timing[0]:
             raise ValueError(f"response precedes request at line {line}")
+        retry_count = sample.get("retry_count", 0)
+        if not isinstance(retry_count, int) or isinstance(retry_count, bool) or retry_count < 0:
+            raise ValueError(f"invalid retry_count at line {line}")
 
     ends = [record for record in records if record.get("record") == "session_end"]
     if len(ends) != 1 or records[-1].get("record") != "session_end":
@@ -189,10 +192,12 @@ def summarize(start: dict[str, Any], samples: list[dict[str, Any]], catalog_path
     counts = Counter(sample["did"] for sample in samples)
     latency: dict[str, list[float]] = defaultdict(list)
     data_by_did: dict[str, list[bytes]] = defaultdict(list)
+    retry_counts: Counter[str] = Counter()
     for sample in samples:
         latency[sample["did"]].append(float(sample["latency_ms"]))
         if sample["supported"]:
             data_by_did[sample["did"]].append(bytes.fromhex(sample["response_hex"])[3:])
+        retry_counts[sample["did"]] += int(sample.get("retry_count", 0))
     catalog = load_catalog(catalog_path, set(supported))
     signals: list[dict[str, Any]] = []
     for did in supported:
@@ -232,6 +237,14 @@ def summarize(start: dict[str, Any], samples: list[dict[str, Any]], catalog_path
         "latency_ms": {
             did: {"min": min(values), "median": statistics.median(values), "p95": percentile(values, 0.95), "max": max(values)}
             for did, values in latency.items()
+        },
+        "transport_retries": {
+            "total": sum(retry_counts.values()),
+            "samples_with_retry": sum(int(sample.get("retry_count", 0)) > 0 for sample in samples),
+            "maximum_for_one_sample": max(
+                (int(sample.get("retry_count", 0)) for sample in samples), default=0
+            ),
+            "by_did": {did: count for did, count in sorted(retry_counts.items()) if count},
         },
         "catalog_signal_observations": signals,
         "catalog_available": catalog_path.is_file(),

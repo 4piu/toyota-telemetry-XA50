@@ -121,6 +121,14 @@ bounded to 16 MiB; the whole progressive tree defaults to 2 GiB and requires an
 additional 256 MiB free-space reserve. These can be changed explicitly with
 `--startup-delay-seconds`, `--max-log-mib`, and `--max-directory-mib`.
 
+Candidate road polling retries an individual DID transaction twice by default
+after a timeout. Each retry waits 100 ms, verifies PCAN status, drains stale
+receive frames, and repeats the exact allowlisted request. Retry events and the
+successful sample's `retry_count` are written to JSONL. Set
+`--transport-retries N` from zero through five to change the bound. A transaction
+that still fails after the configured retries ends and quarantines only the
+active batch; earlier completed batches remain progress.
+
 ## Interruption and completion
 
 Completed earlier batches survive an interruption. The active batch is renamed

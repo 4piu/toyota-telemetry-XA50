@@ -32,6 +32,7 @@ namespace Xa50.Pcan
         private const int CandidateLogSchemaVersion = 1;
         private const int MaximumCandidateDids = 6;
         private const int ResponsePendingBudgetMs = 10000;
+        private const int CandidateRetryDelayMs = 100;
 
         private static readonly byte[] TesterPresentFrame =
             { 0x02, 0x3E, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
@@ -335,7 +336,7 @@ namespace Xa50.Pcan
                         sequence++;
                         IncrementCount(counts, did);
                         if (!log.TryWriteCandidateSample(
-                            sequence, did, requestStartedAt, schedule.ElapsedMilliseconds, result))
+                            sequence, did, requestStartedAt, schedule.ElapsedMilliseconds, result, 0))
                         {
                             log.TryWriteCandidateEnd("log_limit", sequence, counts);
                             return 2;
@@ -366,14 +367,20 @@ namespace Xa50.Pcan
                         long requestStartedAt = schedule.ElapsedMilliseconds;
                         int did = options.CandidateDids[didIndex];
                         byte[] request = CandidateRequest(did);
-                        ExchangeResult result = transport.Exchange(
+                        int retryCount;
+                        ExchangeResult result = ExchangeCandidateWithRetry(
+                            transport,
                             request,
                             CandidatePositivePrefix(did),
-                            "poll DID " + FormatDid(did));
+                            "poll DID " + FormatDid(did),
+                            did,
+                            options.TransportRetries,
+                            log,
+                            out retryCount);
                         sequence++;
                         IncrementCount(counts, did);
                         if (!log.TryWriteCandidateSample(
-                            sequence, did, requestStartedAt, schedule.ElapsedMilliseconds, result))
+                            sequence, did, requestStartedAt, schedule.ElapsedMilliseconds, result, retryCount))
                         {
                             log.TryWriteCandidateEnd("log_limit", sequence, counts);
                             return 2;
@@ -389,7 +396,9 @@ namespace Xa50.Pcan
                                 Hex(result.Payload, result.Payload.Length));
                         }
                         didIndex = (didIndex + 1) % options.CandidateDids.Count;
-                        nextRequestNotBefore = requestStartedAt + options.PeriodMs;
+                        nextRequestNotBefore = retryCount == 0
+                            ? requestStartedAt + options.PeriodMs
+                            : schedule.ElapsedMilliseconds + options.PeriodMs;
                     }
                 }
 
@@ -437,6 +446,43 @@ namespace Xa50.Pcan
         private static byte[] CandidatePositivePrefix(int did)
         {
             return new byte[] { 0x62, (byte)(did >> 8), (byte)did };
+        }
+
+        private static ExchangeResult ExchangeCandidateWithRetry(
+            PcanIsoTpTransport transport,
+            byte[] request,
+            byte[] expectedPrefix,
+            string label,
+            int did,
+            int maximumRetries,
+            BoundedJsonlLog log,
+            out int retryCount)
+        {
+            retryCount = 0;
+            while (true)
+            {
+                try
+                {
+                    return transport.Exchange(request, expectedPrefix, label);
+                }
+                catch (TimeoutException ex)
+                {
+                    if (retryCount >= maximumRetries || stopRequested)
+                    {
+                        throw;
+                    }
+                    retryCount++;
+                    string message = "DID " + FormatDid(did) + " retry " +
+                        retryCount.ToString(CultureInfo.InvariantCulture) + "/" +
+                        maximumRetries.ToString(CultureInfo.InvariantCulture) +
+                        " after TimeoutException: " + ex.Message;
+                    log.WriteEvent("transport_retry", message);
+                    Console.Error.WriteLine("WARNING: " + message);
+                    Thread.Sleep(CandidateRetryDelayMs);
+                    Check(PcanBasic.GetStatus(Channel), "CAN status before candidate retry");
+                    DrainReceiveQueue();
+                }
+            }
         }
 
         private static string FormatDid(int did)
@@ -1660,6 +1706,8 @@ namespace Xa50.Pcan
                 if (options.CandidateBatch)
                 {
                     Console.WriteLine("Duration:  <= " + options.DurationSeconds.ToString(CultureInfo.InvariantCulture) + " seconds");
+                    Console.WriteLine("Retries:   <= " + options.TransportRetries.ToString(CultureInfo.InvariantCulture) +
+                        " timeout retries per DID transaction");
                 }
                 Console.WriteLine("Log:       JSONL, <= " + options.MaxLogMiB.ToString(CultureInfo.InvariantCulture) + " MiB, create-new");
                 Console.WriteLine("Output:    " + (options.OutputPath ?? "<required for --live>"));
@@ -1856,6 +1904,7 @@ namespace Xa50.Pcan
             Console.WriteLine("--batch-id ID labels a candidate capture; orchestration uses the manifest batch ID.");
             Console.WriteLine("--samples N and --period-ms N configure telemetry sampling (defaults: 5 and 100).");
             Console.WriteLine("--duration-seconds N caps bounded road/candidate time (default: 900; maximum: 7200).");
+            Console.WriteLine("--transport-retries N retries a timed-out candidate-batch DID 0-5 times (default: 2).");
             Console.WriteLine("--output PATH is required for live road/candidate capture and is never overwritten.");
             Console.WriteLine("--max-log-mib N caps a bounded JSONL file (default: 64 MiB).");
             Console.WriteLine("--quiet suppresses per-sample console output; errors and the final summary remain.");
@@ -1971,6 +2020,10 @@ namespace Xa50.Pcan
                     "\"tester_id\":\"0x7D2\",\"response_id\":\"0x7DA\"}," +
                     "\"dids\":[" + dids + "],\"period_ms\":" +
                     options.PeriodMs.ToString(CultureInfo.InvariantCulture) +
+                    ",\"transport_retries\":" +
+                    (options.CandidateBatch
+                        ? options.TransportRetries.ToString(CultureInfo.InvariantCulture)
+                        : "0") +
                     ",\"duration_limit_seconds\":" +
                     (options.CandidateQualify ? "null" : options.DurationSeconds.ToString(CultureInfo.InvariantCulture)) +
                     ",\"log_limit_bytes\":" + maxBytes.ToString(CultureInfo.InvariantCulture) +
@@ -2022,7 +2075,8 @@ namespace Xa50.Pcan
                 int did,
                 long requestElapsedMs,
                 long responseElapsedMs,
-                ExchangeResult result)
+                ExchangeResult result,
+                int retryCount)
             {
                 string json = "{\"record\":\"candidate_sample\",\"sequence\":" +
                     sequence.ToString(CultureInfo.InvariantCulture) +
@@ -2034,7 +2088,8 @@ namespace Xa50.Pcan
                     ",\"request_hex\":\"22 " + did.ToString("X4", CultureInfo.InvariantCulture).Substring(0, 2) +
                     " " + did.ToString("X4", CultureInfo.InvariantCulture).Substring(2, 2) +
                     "\",\"response_hex\":\"" + JsonEscape(Hex(result.Payload, result.Payload.Length)) +
-                    "\",\"supported\":" + JsonBoolean(!result.IsNegative) +
+                    "\",\"retry_count\":" + retryCount.ToString(CultureInfo.InvariantCulture) +
+                    ",\"supported\":" + JsonBoolean(!result.IsNegative) +
                     ",\"qualification_status\":\"" +
                     (result.IsNegative
                         ? ClassifyNegativeResponse(result.NegativeResponseCode)
@@ -2215,6 +2270,8 @@ namespace Xa50.Pcan
             internal int PeriodMs = 100;
             internal int DurationSeconds = 900;
             internal int MaxLogMiB = 64;
+            internal int TransportRetries = 2;
+            internal bool TransportRetriesSpecified;
             internal string OutputPath;
             internal string BatchId = "adhoc";
             internal readonly List<int> CandidateDids = new List<int>();
@@ -2350,6 +2407,12 @@ namespace Xa50.Pcan
                         options.MaxLogMiB = ParseInt(
                             NextValue(args, ref i, argument), argument, 1, 1024);
                     }
+                    else if (argument == "--transport-retries")
+                    {
+                        options.TransportRetries = ParseInt(
+                            NextValue(args, ref i, argument), argument, 0, 5);
+                        options.TransportRetriesSpecified = true;
+                    }
                     else if (argument == "--output")
                     {
                         options.OutputPath = NextValue(args, ref i, argument);
@@ -2423,6 +2486,10 @@ namespace Xa50.Pcan
                 if (options.Quiet && !options.RoadCapture && !options.CandidateBatch)
                 {
                     throw new ArgumentException("--quiet is supported only with road and candidate batch capture.");
+                }
+                if (!options.CandidateBatch && options.TransportRetriesSpecified)
+                {
+                    throw new ArgumentException("--transport-retries is supported only with --candidate-batch.");
                 }
                 return options;
             }

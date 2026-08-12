@@ -287,6 +287,7 @@ def main() -> int:
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--max-items", type=int, default=25, help="qualification DIDs or road batches")
     parser.add_argument("--max-qualification-attempts", type=int, default=2)
+    parser.add_argument("--transport-retries", type=int, default=2)
     parser.add_argument("--retry-terminal", action="store_true")
     parser.add_argument("--startup-delay-seconds", type=int, default=10)
     parser.add_argument("--max-log-mib", type=int, default=16)
@@ -296,6 +297,8 @@ def main() -> int:
         parser.error("--max-items and --max-qualification-attempts must be positive")
     if not 0 <= args.startup_delay_seconds <= 300:
         parser.error("--startup-delay-seconds must be 0..300")
+    if not 0 <= args.transport_retries <= 5:
+        parser.error("--transport-retries must be 0..5")
     if args.max_log_mib < 1 or args.max_directory_mib < args.max_log_mib:
         parser.error("invalid log/directory size bounds")
 
@@ -338,7 +341,8 @@ def main() -> int:
                 policy = plan["policies"][tier]
                 print(
                     f"  {tier}: {','.join(candidate['data_id'] for candidate in group)} "
-                    f"period={policy['period_ms']}ms duration={policy['duration_seconds']}s"
+                    f"period={policy['period_ms']}ms duration={policy['duration_seconds']}s "
+                    f"retries={args.transport_retries}"
                 )
         return 0
     if not queue:
@@ -376,6 +380,7 @@ def main() -> int:
                 "--candidate-batch", "--live", "--batch-id", f"progressive-{tier}-{digest}",
                 "--duration-seconds", str(policy["duration_seconds"]),
                 "--period-ms", str(policy["period_ms"]),
+                "--transport-retries", str(args.transport_retries),
                 "--max-log-mib", str(args.max_log_mib), "--output", str(partial), "--quiet",
             ]
             for did in dids:
