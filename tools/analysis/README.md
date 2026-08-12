@@ -29,3 +29,10 @@ uv run python .\tools\analysis\analyze-candidate-capture.py `
 It reports evidence hints but never promotes a signal automatically.
 For retry-capable captures, the summary also reports total retries, samples that
 required a retry, the maximum retry count for one sample, and counts by DID.
+
+Reviewed formula corrections live in
+`data/validated/decode-overrides.json`. The analyzer applies them after loading
+the generated catalog and labels each decoded observation's `formula_source` as
+`catalog` or `reviewed_override`. The generated OEM-derived catalog remains
+unchanged so source extraction and vehicle-specific correction are auditable
+separately.

@@ -30,6 +30,7 @@ The original XHorse J2534 adapter has failed electrically. Its client and captur
 - [Vehicle/ECU profile](data/catalog/ecu-profile.json)
 - [Generated catalog summary](data/catalog/generated/summary.md)
 - [Curated live-evidence signals](data/validated/signals.csv)
+- [Reviewed decode corrections](data/validated/decode-overrides.json)
 - [Tool index](tools/README.md)
 
 ## Safety and scope

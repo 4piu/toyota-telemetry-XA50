@@ -15,6 +15,10 @@ from pathlib import Path
 from typing import Any
 
 
+REPOSITORY = Path(__file__).resolve().parents[2]
+DEFAULT_DECODE_OVERRIDES = REPOSITORY / "data" / "validated" / "decode-overrides.json"
+
+
 def read_jsonl(path: Path) -> list[dict[str, Any]]:
     records: list[dict[str, Any]] = []
     with path.open("r", encoding="utf-8-sig") as handle:
@@ -145,6 +149,21 @@ def evaluate_formula(expression: str, raw: int) -> float:
             return float(raw)
         if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
             return float(node.value)
+        if (
+            isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Name)
+            and node.func.id == "signed"
+            and len(node.args) == 2
+            and not node.keywords
+        ):
+            value, width_value = visit(node.args[0]), visit(node.args[1])
+            width = int(width_value)
+            if width_value != width or width < 1 or width > 64:
+                raise ValueError("signed() width must be an integer from 1 through 64")
+            unsigned = int(value)
+            if value != unsigned or unsigned < 0 or unsigned >= (1 << width):
+                raise ValueError("signed() value does not fit the requested width")
+            return float(unsigned - (1 << width) if unsigned & (1 << (width - 1)) else unsigned)
         if isinstance(node, ast.UnaryOp) and isinstance(node.op, (ast.UAdd, ast.USub)):
             value = visit(node.operand)
             return value if isinstance(node.op, ast.UAdd) else -value
@@ -160,11 +179,36 @@ def evaluate_formula(expression: str, raw: int) -> float:
     return visit(tree)
 
 
-def load_catalog(path: Path, dids: set[str]) -> dict[str, list[dict[str, str]]]:
+def load_decode_overrides(path: Path) -> dict[tuple[str, str, str, str], dict[str, Any]]:
+    if not path.is_file():
+        return {}
+    document = json.loads(path.read_text(encoding="utf-8-sig"))
+    if document.get("schema_version") != 1:
+        raise ValueError("only decode-override schema 1 is supported")
+    result: dict[tuple[str, str, str, str], dict[str, Any]] = {}
+    for override in document.get("signals", []):
+        if int(override.get("ecu_key", -1)) != 397:
+            continue
+        key = (
+            f"0x{int(override['data_id'], 16):04X}",
+            str(override["name"]),
+            str(override["first_bit"]),
+            str(override["last_bit"]),
+        )
+        if key in result:
+            raise ValueError(f"duplicate decode override: {key}")
+        result[key] = override
+    return result
+
+
+def load_catalog(
+    path: Path, dids: set[str], decode_overrides: Path = DEFAULT_DECODE_OVERRIDES
+) -> dict[str, list[dict[str, str]]]:
     result: dict[str, list[dict[str, str]]] = defaultdict(list)
     if not path.is_file():
         return result
     normalized = {f"0x{int(did, 16):04X}" for did in dids}
+    overrides = load_decode_overrides(decode_overrides)
     with path.open("r", encoding="utf-8-sig", newline="") as handle:
         for row in csv.DictReader(handle):
             try:
@@ -172,11 +216,25 @@ def load_catalog(path: Path, dids: set[str]) -> dict[str, list[dict[str, str]]]:
             except ValueError:
                 continue
             if row.get("ecu_key") == "397" and did in normalized and row.get("first_bit") and row.get("last_bit"):
+                row = dict(row)
+                key = (did, row.get("name", ""), row["first_bit"], row["last_bit"])
+                override = overrides.get(key)
+                if override:
+                    row["formula"] = str(override["formula"])
+                    row["unit"] = str(override.get("unit", row.get("unit", "")))
+                    row["formula_source"] = "reviewed_override"
+                else:
+                    row["formula_source"] = "catalog"
                 result[did].append(row)
     return result
 
 
-def summarize(start: dict[str, Any], samples: list[dict[str, Any]], catalog_path: Path) -> dict[str, Any]:
+def summarize(
+    start: dict[str, Any],
+    samples: list[dict[str, Any]],
+    catalog_path: Path,
+    decode_overrides: Path = DEFAULT_DECODE_OVERRIDES,
+) -> dict[str, Any]:
     dids = start["dids"]
     supported = sorted({sample["did"] for sample in samples if sample["supported"]})
     negatives = {
@@ -198,7 +256,7 @@ def summarize(start: dict[str, Any], samples: list[dict[str, Any]], catalog_path
         if sample["supported"]:
             data_by_did[sample["did"]].append(bytes.fromhex(sample["response_hex"])[3:])
         retry_counts[sample["did"]] += int(sample.get("retry_count", 0))
-    catalog = load_catalog(catalog_path, set(supported))
+    catalog = load_catalog(catalog_path, set(supported), decode_overrides)
     signals: list[dict[str, Any]] = []
     for did in supported:
         for row in catalog.get(did, []):
@@ -216,6 +274,7 @@ def summarize(start: dict[str, Any], samples: list[dict[str, Any]], catalog_path
                 "name": row.get("name"),
                 "bits": f"{row['first_bit']}..{row['last_bit']}",
                 "formula": formula,
+                "formula_source": row.get("formula_source", "catalog"),
                 "unit": row.get("unit"),
                 "sample_count": len(raw_values),
                 "raw_min": min(raw_values),
@@ -256,13 +315,14 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("capture", type=Path)
     parser.add_argument("--catalog", type=Path, default=Path("data/catalog/generated/telemetry.csv"))
+    parser.add_argument("--decode-overrides", type=Path, default=DEFAULT_DECODE_OVERRIDES)
     parser.add_argument("--minimum-samples", type=int, default=0)
     parser.add_argument("--summary-json", type=Path)
     args = parser.parse_args()
     try:
         records = read_jsonl(args.capture)
         start, samples = validate(records, args.minimum_samples)
-        report = summarize(start, samples, args.catalog)
+        report = summarize(start, samples, args.catalog, args.decode_overrides)
     except (OSError, ValueError) as exc:
         print(f"ERROR: {exc}", file=sys.stderr)
         return 1

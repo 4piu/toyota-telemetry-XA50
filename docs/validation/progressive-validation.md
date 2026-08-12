@@ -112,9 +112,11 @@ uv run python .\tools\validation\run-progressive-validation.py road --live
 ```
 
 The default road limit is 25 batches per invocation. Batches contain at most six
-DIDs from one tier, with one outstanding request at a time. Fast batches run
-first, followed by normal, slow, and archive. Narrow a trip with, for example,
-`--tiers slow,archive --max-items 3`.
+DIDs from one tier, with one outstanding request at a time. Road mode defaults
+to fast, normal, and slow tiers; archive is opt-in because its current sole DID
+has no mapped field inside the calibration-specific response length. Fast
+batches run first, followed by normal and slow. Select archive deliberately or
+narrow a trip with, for example, `--tiers slow,archive --max-items 3`.
 
 The startup delay defaults to ten seconds. Every capture is create-new and
 bounded to 16 MiB; the whole progressive tree defaults to 2 GiB and requires an

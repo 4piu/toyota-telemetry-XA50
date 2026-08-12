@@ -19,4 +19,6 @@ These pages contain platform-specific claims and evidence. Reusable procedure is
 
 The [pilot road-validation evidence](evidence/pilot-road-validation.md) records capture integrity, correlation results, and the confidence decisions from the first drive.
 
+The [first progressive-road interim review](evidence/progressive-road-interim-1.md) records completed-batch quality, signal excitation, decode anomalies, and rerun decisions after the fast tier and two normal batches.
+
 Confidence words follow the general guide: Candidate, Observed, Correlated, Validated, Replayed, and Ported. The profile is one tested vehicle instance, not every XA50 calibration.

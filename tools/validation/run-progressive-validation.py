@@ -283,7 +283,10 @@ def main() -> int:
     parser.add_argument("--plan", type=Path, default=DEFAULT_PLAN)
     parser.add_argument("--capture-root", type=Path, default=DEFAULT_CAPTURE_ROOT)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
-    parser.add_argument("--tiers", default="fast,normal,slow,archive")
+    parser.add_argument(
+        "--tiers",
+        help="comma-separated tiers; road defaults to fast,normal,slow and other phases to all",
+    )
     parser.add_argument("--live", action="store_true")
     parser.add_argument("--max-items", type=int, default=25, help="qualification DIDs or road batches")
     parser.add_argument("--max-qualification-attempts", type=int, default=2)
@@ -305,7 +308,10 @@ def main() -> int:
     plan_path = args.plan.resolve()
     plan = load_plan(plan_path)
     available_tiers = set(plan["policies"])
-    tiers = {tier.strip() for tier in args.tiers.split(",") if tier.strip()}
+    tier_text = args.tiers
+    if tier_text is None:
+        tier_text = "fast,normal,slow" if args.phase == "road" else ",".join(sorted(available_tiers))
+    tiers = {tier.strip() for tier in tier_text.split(",") if tier.strip()}
     unknown = tiers - available_tiers
     if not tiers or unknown:
         parser.error(f"invalid --tiers; unknown values: {sorted(unknown)}")

@@ -39,6 +39,18 @@ class ProgressivePlannerTests(unittest.TestCase):
 
 
 class ProgressiveProgressTests(unittest.TestCase):
+    def test_signed_formula_and_reviewed_override(self):
+        self.assertEqual(analyzer.evaluate_formula("signed(raw, 16) / 10", 0xFF9B), -10.1)
+        catalog = analyzer.load_catalog(
+            REPOSITORY / "data" / "catalog" / "generated" / "telemetry.csv",
+            {"0x1F9A"},
+        )
+        current = next(
+            row for row in catalog["0x1F9A"] if row["name"] == "Hybrid/EV Battery Current"
+        )
+        self.assertEqual(current["formula"], "signed(raw, 16) / 10")
+        self.assertEqual(current["formula_source"], "reviewed_override")
+
     def test_retry_metadata_is_validated_and_summarized(self):
         records = analyzer.read_jsonl(
             REPOSITORY / "tests" / "fixtures" / "candidate-batch.complete.jsonl"
