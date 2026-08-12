@@ -96,6 +96,11 @@ Use these evidence levels conservatively:
 
 Review signals individually, even when they share a DID. One field can correlate while another field in the same payload remains merely observed. Preserve the completed raw log and analysis summary as the evidence link when editing the curated map.
 
+A constant value during one batch is not a failed signal. Event-driven fields
+should be marked for safe controlled follow-up, passive extended observation, or
+"do not induce" review. Never deliberately trigger ABS, TCS/VSC, PCS/AEB,
+collision, airbag, or comparable safety states merely to obtain a transition.
+
 ## Initial batches
 
 The v1 manifest has four deliberately small groups:

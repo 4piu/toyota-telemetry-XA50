@@ -144,3 +144,33 @@ Qualification establishes availability, not telemetry identity. Road capture
 establishes repeated raw observations. Confidence is promoted only later after
 offline plausibility, relationship, and reference review; the runner never
 edits `data/validated/signals.csv`.
+
+## Constant and safely untestable signals
+
+`constant_in_this_run` is an excitation result, not evidence that a signal is
+wrong or useless. A short batch can legitimately miss changes in selector
+position, turn indicators, door locks, charge/thermal states, accumulated
+limits, warning states, and many other event-driven fields. Such a field may be
+recorded as transport-supported and repeatedly observed while its identity or
+enum mapping remains uncorrelated.
+
+Classify post-drive candidates by testability before scheduling follow-up work:
+
+- **Safe controlled:** a parked or ordinary-driving action can provide a clear
+  reference without increasing risk. Examples include selecting ordinary gear
+  positions while stationary, operating turn signals, or cycling door locks
+  while parked.
+- **Passive extended observation:** the state may occur naturally but should not
+  be forced. Preserve it for a longer targeted capture across normal trips and
+  promote confidence only if an event and the decoded transition can be aligned.
+- **Do not induce:** intentional activation would require unsafe, emergency, or
+  abusive operation. TCS/VSC intervention, PCS/AEB activation, ABS, collision
+  states, airbag-related states, and similar signals remain untested unless a
+  naturally occurring event or a proper controlled test facility provides
+  evidence.
+
+Never interpret an absence of transitions as a negative test for the latter two
+classes. The first progressive pass should identify constant fields; only a
+small reviewed subset should be scheduled for extended observation. Raw support,
+formula plausibility, enum meaning, and behavioral correlation remain separate
+claims in the evidence record.
