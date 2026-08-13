@@ -21,12 +21,15 @@ git fetch upstream
 The intended update model is:
 
 1. Fetch `upstream` and review changes since the marker's pinned revision.
-2. Update versioned generic-tool dependencies or explicitly port applicable
-   template/schema changes.
+2. Update the pinned dependency in `toolkit-requirement.txt` or explicitly port
+   applicable template/schema changes.
 3. Run the XA50 tests and inspect the diff.
 4. Advance `upstream.revision` only to the revision actually reviewed.
 
-As reusable code is extracted from the current vehicle-specific forks, it will
-be exposed by the upstream repository as a versioned toolkit. The XA50 profile,
-endpoint restrictions, allowlists, decode overrides, and evidence remain here.
-
+The progressive planner, candidate-capture analyzer, immutable progress engine,
+bounded runner, and executable backend contract have been extracted as the
+`toyota-telemetry-tools` package. The XA50 profile, endpoint restrictions,
+allowlists, PCAN/J2534 implementations, baseline decoder, and evidence remain
+here. The live-proven XA50 orchestration copies remain temporarily for
+collection continuity; remove them only after the pinned package revision is
+published and its CLI has passed live parity testing.

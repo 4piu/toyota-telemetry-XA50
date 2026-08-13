@@ -33,6 +33,7 @@ The original XHorse J2534 adapter has failed electrically. Its client and captur
 - [Generated catalog summary](data/catalog/generated/summary.md)
 - [Curated live-evidence signals](data/validated/signals.csv)
 - [Reviewed decode corrections](data/validated/decode-overrides.json)
+- [Reusable-toolkit XA50 profile](data/validation/validation-profile.json)
 - [Tool index](tools/README.md)
 - [Field-guide upstream and update policy](docs/upstream.md)
 

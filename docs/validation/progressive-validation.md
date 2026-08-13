@@ -5,6 +5,27 @@ qualification and road-capture work. It is intended for many sessions: progress
 is reconstructed from completed JSONL captures rather than a mutable checklist,
 so adding candidates or rebuilding the plan does not erase prior work.
 
+The reusable planner, analyzer, progress engine, and non-baseline runner now
+live in the pinned `toyota-telemetry-tools` package. This repository's
+[`validation-profile.json`](../../data/validation/validation-profile.json)
+contains the XA50 endpoint and scheduling policy. The commands below retain the
+live-proven local entry point until the pinned toolkit revision is published and
+passes a live parity run; new platform projects should use the generic CLI
+documented by the field guide.
+
+After the pinned toolkit revision is available from its canonical repository,
+the equivalent generic status and dry-run commands are:
+
+```powershell
+$toolkit = (Get-Content .\toolkit-requirement.txt -Raw).Trim()
+uvx --from $toolkit telemetry-validate status `
+  --project-root . --config data/validation/validation-profile.json
+uvx --from $toolkit telemetry-validate road `
+  --project-root . --config data/validation/validation-profile.json
+```
+
+Do not substitute an unpinned branch name for the reviewed commit.
+
 ## Current scope
 
 The current PCAN client is hard-coded to the live-confirmed Hybrid Control route

@@ -4,7 +4,7 @@ project_id = "xa50-hybrid-vehicle-a"
 
 [upstream]
 repository = "https://github.com/4piu/70Y074-telemetry.git"
-revision = "078e4b3b5793faa4ce553f8c308625ab0c4d4eee"
+revision = "d004d4b0538a6c5b8b29666bf44dc73ca0f709c8"
 
 [paths]
 scratch = "scratch"
