@@ -23,11 +23,10 @@ from typing import Any, Iterable
 
 
 REPOSITORY = Path(__file__).resolve().parents[2]
-WORKSPACE = REPOSITORY.parent
 DEFAULT_PLAN = (
-    WORKSPACE / "XA50-workbench" / "plans" / "vehicle-a" / "hybrid-control-progressive.json"
+    REPOSITORY / "scratch" / "plans" / "vehicle-a" / "hybrid-control-progressive.json"
 )
-DEFAULT_CAPTURE_ROOT = WORKSPACE / "XA50-workbench" / "captures" / "vehicle-a"
+DEFAULT_CAPTURE_ROOT = REPOSITORY / "scratch" / "captures" / "vehicle-a"
 DEFAULT_OUTPUT_ROOT = DEFAULT_CAPTURE_ROOT / "progressive"
 EXECUTABLE = REPOSITORY / "tools" / "validation" / "Xa50.Pcan" / "bin" / "Release" / "xa50-pcan.exe"
 ANALYZER = REPOSITORY / "tools" / "analysis" / "analyze-candidate-capture.py"

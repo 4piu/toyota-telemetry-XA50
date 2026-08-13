@@ -79,7 +79,7 @@ The sequence first captures the existing 13 signals for 45 seconds, then runs ev
 
 A live sequence waits 10 seconds before opening PCAN, applied once before its first unfinished batch and not between batches. Set `-StartupDelaySeconds N` to change it, or use zero to start immediately.
 
-Captures default to the ignored sibling `XA50-workbench/captures/vehicle-a/` tree. They contain no VIN, GPS, adapter serial, or explicit location, but timestamps and vehicle behavior still make them private by default.
+Captures default to the repository-local, ignored `scratch/captures/vehicle-a/` tree. They contain no VIN, GPS, adapter serial, or explicit location, but timestamps and vehicle behavior still make them private by default.
 
 ## Offline evidence and confidence
 

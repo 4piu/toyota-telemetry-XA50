@@ -4,6 +4,8 @@ This repository records vehicle-specific telemetry discovery and read-only repla
 
 It is not a universal XA50 database and it is not the dashboard application. ECU calibration and market differences can change availability, identifiers, routing, scaling, and validity. The future acquisition/display application has its own boundary in `../XA50-dashboard`; the reusable discovery process lives in `../70Y074-telemetry`.
 
+All tools use the ignored repository-local `scratch/` directory for raw captures, generated plans, and private analysis unless an explicit output path is supplied. This keeps a cloned vehicle project self-contained without making private material part of Git history.
+
 ## Current result
 
 Hybrid Control diagnostics have been independently replayed through PCAN-USB on the DLC3 gateway at 500 kbit/s:
@@ -32,6 +34,7 @@ The original XHorse J2534 adapter has failed electrically. Its client and captur
 - [Curated live-evidence signals](data/validated/signals.csv)
 - [Reviewed decode corrections](data/validated/decode-overrides.json)
 - [Tool index](tools/README.md)
+- [Field-guide upstream and update policy](docs/upstream.md)
 
 ## Safety and scope
 

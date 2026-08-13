@@ -16,13 +16,12 @@ if ($args.Count -ne 0) {
     throw "Unknown argument(s): $($args -join ' ')."
 }
 $repositoryRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
-$workspaceRoot = Split-Path -Parent $repositoryRoot
 $Manifest = [IO.Path]::GetFullPath($Manifest)
 if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
-    $OutputDirectory = Join-Path $workspaceRoot 'XA50-workbench\captures\vehicle-a\road-batches'
+    $OutputDirectory = Join-Path $repositoryRoot 'scratch\captures\vehicle-a\road-batches'
 }
 if ([string]::IsNullOrWhiteSpace($QualificationDirectory)) {
-    $QualificationDirectory = Join-Path $workspaceRoot 'XA50-workbench\captures\vehicle-a\qualification'
+    $QualificationDirectory = Join-Path $repositoryRoot 'scratch\captures\vehicle-a\qualification'
 }
 $OutputDirectory = [IO.Path]::GetFullPath($OutputDirectory)
 $QualificationDirectory = [IO.Path]::GetFullPath($QualificationDirectory)

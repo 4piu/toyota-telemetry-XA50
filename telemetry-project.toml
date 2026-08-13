@@ -1,0 +1,11 @@
+schema_version = 1
+project_kind = "vehicle"
+project_id = "xa50-hybrid-vehicle-a"
+
+[upstream]
+repository = "https://github.com/4piu/70Y074-telemetry.git"
+revision = "18b2e5bd773735cc103eb090194b688d895882d4"
+
+[paths]
+scratch = "scratch"
+

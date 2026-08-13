@@ -7,6 +7,10 @@
 *.local.*
 tools.txt
 
+# Repository-local private workspace. Raw captures, reverse-engineering state,
+# generated plans, and local analysis remain outside Git history.
+/scratch/
+
 # Build/cache output
 __pycache__/
 *.py[cod]

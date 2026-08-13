@@ -44,7 +44,7 @@ positive responses from UDS negatives before any road polling.
 ## Build or refresh the private plan
 
 The default output is
-`../XA50-workbench/plans/vehicle-a/hybrid-control-progressive.json`:
+`scratch/plans/vehicle-a/hybrid-control-progressive.json`:
 
 ```powershell
 uv run python .\tools\validation\build-progressive-plan.py
@@ -64,7 +64,7 @@ uv run python .\tools\validation\run-progressive-validation.py status
 ```
 
 The runner scans completed candidate captures below
-`../XA50-workbench/captures/vehicle-a`, including the v1 pilot, and writes a
+`scratch/captures/vehicle-a`, including the v1 pilot, and writes a
 machine-readable `progress.snapshot.json` below the progressive output tree.
 The initial post-pilot state is 16 qualified/road-complete DIDs, four terminal
 NRC `0x31` negatives, and 568 untried DIDs.

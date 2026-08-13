@@ -12,11 +12,10 @@ if ($args.Count -ne 0) {
     throw "Unknown argument(s): $($args -join ' ')."
 }
 $repositoryRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
-$workspaceRoot = Split-Path -Parent $repositoryRoot
 $Manifest = [IO.Path]::GetFullPath($Manifest)
 if (-not (Test-Path -LiteralPath $Manifest -PathType Leaf)) { throw "Manifest not found: $Manifest" }
 if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
-    $OutputDirectory = Join-Path $workspaceRoot 'XA50-workbench\captures\vehicle-a\qualification'
+    $OutputDirectory = Join-Path $repositoryRoot 'scratch\captures\vehicle-a\qualification'
 }
 $OutputDirectory = [IO.Path]::GetFullPath($OutputDirectory)
 $executable = Join-Path $PSScriptRoot 'Xa50.Pcan\bin\Release\xa50-pcan.exe'

@@ -25,9 +25,8 @@ if ($args.Count -ne 0) {
 }
 
 $repositoryRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '..\..'))
-$workspaceRoot = Split-Path -Parent $repositoryRoot
 if ([string]::IsNullOrWhiteSpace($OutputDirectory)) {
-    $OutputDirectory = Join-Path $workspaceRoot 'XA50-workbench\captures\vehicle-a'
+    $OutputDirectory = Join-Path $repositoryRoot 'scratch\captures\vehicle-a'
 }
 $OutputDirectory = [IO.Path]::GetFullPath($OutputDirectory)
 $executable = Join-Path $PSScriptRoot 'Xa50.Pcan\bin\Release\xa50-pcan.exe'

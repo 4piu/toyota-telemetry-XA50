@@ -18,11 +18,10 @@ from typing import Any
 
 
 REPOSITORY = Path(__file__).resolve().parents[2]
-WORKSPACE = REPOSITORY.parent
 DEFAULT_CATALOG = REPOSITORY / "data" / "catalog" / "generated" / "telemetry.csv"
 DEFAULT_OUTPUT = (
-    WORKSPACE
-    / "XA50-workbench"
+    REPOSITORY
+    / "scratch"
     / "plans"
     / "vehicle-a"
     / "hybrid-control-progressive.json"
