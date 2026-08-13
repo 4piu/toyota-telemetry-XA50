@@ -1,26 +1,24 @@
-```sh
-# Review without transmitting
-.\tools\validation\start-road-capture.ps1 -DurationSeconds 30
-
-# Mandatory stationary rehearsal
-.\tools\validation\start-road-capture.ps1 -Live -DurationSeconds 30
-
-# Later parking-lot run
-.\tools\validation\start-road-capture.ps1 -Live -DurationSeconds 900
-```
-
-For the short baseline plus experimental direct-DID batches:
-
 ```powershell
-# Inspect both plans; neither command transmits without -Live
-.\tools\validation\qualify-road-batches.ps1
-.\tools\validation\start-validation-sequence.ps1
+# Preview or record the established 13-signal baseline
+uv run python .\tools\validation\run-progressive-validation.py baseline
+uv run python .\tools\validation\run-progressive-validation.py baseline --live --duration-seconds 30
 
-# Run this while stationary in Park, before the driving session
-.\tools\validation\qualify-road-batches.ps1 -Live
+# Preview the next 25 qualifications
+uv run python .\tools\validation\run-progressive-validation.py qualify
 
-# One unattended command at the safe test location
-.\tools\validation\start-validation-sequence.ps1 -Live
+# Then perform them in Park, IG-ON/READY
+uv run python .\tools\validation\run-progressive-validation.py qualify --live --startup-delay-seconds 0 --max-items 100
+
+# Preview qualified road batches
+uv run python .\tools\validation\run-progressive-validation.py road
+
+# Start the unattended sequence
+uv run python .\tools\validation\run-progressive-validation.py road --live
 ```
 
-See [candidate-batches.md](../../docs/validation/candidate-batches.md) for completion, restart, bus-load, and confidence rules.
+The runner is dry-run by default. See
+[progressive-validation.md](../../docs/validation/progressive-validation.md) for
+completion, restart, bus-load, and confidence rules. The fixed v1 pilot plan is
+retained in [candidate-batches.md](../../docs/validation/candidate-batches.md)
+as historical evidence, but its temporary PowerShell wrappers have been
+removed.

@@ -45,22 +45,22 @@ The expected default volume is only a few megabytes, but the hard limits are enf
 Dry run:
 
 ```powershell
-.\tools\validation\start-road-capture.ps1 -DurationSeconds 900
+uv run python .\tools\validation\run-progressive-validation.py baseline --duration-seconds 900
 ```
 
 Stationary rehearsal:
 
 ```powershell
-.\tools\validation\start-road-capture.ps1 -Live -DurationSeconds 30
+uv run python .\tools\validation\run-progressive-validation.py baseline --live --duration-seconds 30
 ```
 
 Parking-lot run:
 
 ```powershell
-.\tools\validation\start-road-capture.ps1 -Live -DurationSeconds 900
+uv run python .\tools\validation\run-progressive-validation.py baseline --live --duration-seconds 900
 ```
 
-The wrapper automatically selects a timestamped file under `$REPO_ROOT/scratch/captures/vehicle-a`. Per-sample console output is suppressed unless `-ShowSamples` is supplied. A live run waits 10 seconds before opening PCAN so the operator can secure the computer; change this with `-StartupDelaySeconds N`, or use zero to disable it.
+The runner selects a timestamped partial/complete file below `$REPO_ROOT/scratch/captures/vehicle-a/progressive/baseline`. Per-sample console output is suppressed. A live run waits 10 seconds before opening PCAN so the operator can secure the computer; change this with `--startup-delay-seconds N`, or use zero to disable it. A baseline is promoted to `.complete.jsonl` only after it ends at the duration limit, contains every expected sample group, and passes offline analysis.
 
 ## Low-risk maneuver sequence
 

@@ -58,7 +58,7 @@ The `--open-filter` mode remains available as a troubleshooting tool, but is no 
 
 The three telemetry modes have independent UDS and raw-frame allowlists. A selected mode cannot transmit requests belonging to either of the others. Offline self-checks assert the exact single, first, consecutive, and flow-control CAN frames before PCAN-Basic is opened. All three modes have now also completed live stationary tests.
 
-For the deferred rolling validation, `--road-capture` combines those proven requests in one session and writes a bounded JSONL record. It is dry-run/offline-writer tested but not yet live-tested. Use the [parking-lot protocol](../validation/road-test.md) and `tools/validation/start-road-capture.ps1`; do not operate the computer while driving.
+For rolling validation, `--road-capture` combines those proven requests in one session and writes a bounded JSONL record. It has completed live road tests and is orchestrated by `run-progressive-validation.py baseline`. Use the [parking-lot protocol](../validation/road-test.md); do not operate the computer while driving.
 
 The future dashboard repository can still use the MCP2515 module through an SBC SPI interface. The following RP2040 bridge remains a useful fallback and an independent hardware-development path. These arrangements are planned, not yet ported or live-validated.
 

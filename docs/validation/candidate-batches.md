@@ -51,20 +51,26 @@ A run is progress only when it has all of the following:
 
 Ctrl+C, a disk/log limit, an ECU/transport error, or failed analysis leaves the batch logically incomplete. The wrapper renames its file to `.incomplete.jsonl` for troubleshooting and does not advance. The next invocation starts that same batch from the beginning. Raw incomplete files are not evidence for confidence promotion and may be removed from the private workbench after review.
 
-## Procedure
+## Historical procedure
 
-Build once, then inspect both plans without transmitting:
+The fixed v1 manifest and completed captures remain evidence for the pilot, but
+its temporary PowerShell qualification and sequence wrappers have been removed.
+The progressive runner now provides the same stationary qualification and road
+batch completion semantics for the complete candidate plan.
+
+Build the PCAN client once, then preview the relevant queues without
+transmitting:
 
 ```powershell
 .\tools\validation\build-pcan-client.ps1
-.\tools\validation\qualify-road-batches.ps1
-.\tools\validation\start-validation-sequence.ps1
+uv run python .\tools\validation\run-progressive-validation.py qualify
+uv run python .\tools\validation\run-progressive-validation.py road
 ```
 
 With the vehicle stationary in Park, IG-ON/READY, PCAN-View closed, and wiring checked, qualify the batches:
 
 ```powershell
-.\tools\validation\qualify-road-batches.ps1 -Live
+uv run python .\tools\validation\run-progressive-validation.py qualify --live
 ```
 
 Review the qualification summaries. Negative responses are retained with their NRC classification and automatically excluded from the pilot road run. A timeout stops the sequence because it does not establish whether the candidate is absent, slow, or temporarily unreachable.
@@ -72,12 +78,16 @@ Review the qualification summaries. Negative responses are retained with their N
 At the safe test location, start the road sequence once and do not interact with the computer:
 
 ```powershell
-.\tools\validation\start-validation-sequence.ps1 -Live
+uv run python .\tools\validation\run-progressive-validation.py baseline --live --duration-seconds 45
+uv run python .\tools\validation\run-progressive-validation.py road --live
 ```
 
-The sequence first captures the existing 13 signals for 45 seconds, then runs every not-yet-complete qualified candidate batch. Completed batches are skipped on a later invocation. Use `-MaxBatches 1` for a rehearsal or `-SkipBaseline` only when an adequate baseline from this manifest revision is already complete.
+The first command captures the established 13 signals. Road mode then runs
+not-yet-complete qualified candidate batches, skipping DIDs already represented
+by a structurally valid completed capture. Use `--max-items 1` for a rehearsal.
 
-A live sequence waits 10 seconds before opening PCAN, applied once before its first unfinished batch and not between batches. Set `-StartupDelaySeconds N` to change it, or use zero to start immediately.
+Each live invocation waits 10 seconds before opening PCAN. Set
+`--startup-delay-seconds N` to change it, or use zero to start immediately.
 
 Captures default to the repository-local, ignored `scratch/captures/vehicle-a/` tree. They contain no VIN, GPS, adapter serial, or explicit location, but timestamps and vehicle behavior still make them private by default.
 

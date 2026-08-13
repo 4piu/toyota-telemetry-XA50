@@ -72,6 +72,20 @@ class ProgressiveProgressTests(unittest.TestCase):
         self.assertIn("--candidate-qualify", arguments)
         self.assertNotIn("--quiet", arguments)
 
+    def test_baseline_cli_is_bounded_and_quiet(self):
+        arguments = runner.baseline_arguments(
+            Path("baseline.partial.jsonl"), 900, 100, 64
+        )
+        self.assertEqual(arguments[0:2], ["--road-capture", "--live"])
+        self.assertIn("--duration-seconds", arguments)
+        self.assertIn("--max-log-mib", arguments)
+        self.assertIn("--quiet", arguments)
+
+    def test_synthetic_baseline_has_complete_final_marker(self):
+        runner.validate_baseline_completion(
+            REPOSITORY / "tools" / "analysis" / "fixtures" / "road-capture-synthetic.jsonl"
+        )
+
     def test_existing_fixtures_are_reconstructed_per_did(self):
         progress = runner.discover_progress(
             REPOSITORY / "tests" / "fixtures",

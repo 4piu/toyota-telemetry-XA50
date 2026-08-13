@@ -69,6 +69,19 @@ machine-readable `progress.snapshot.json` below the progressive output tree.
 The initial post-pilot state is 16 qualified/road-complete DIDs, four terminal
 NRC `0x31` negatives, and 568 untried DIDs.
 
+## Capture the established baseline
+
+The same entry point retains the XA50-specific 13-signal F301/wheel/F302/
+steering capture formerly provided by a temporary PowerShell wrapper:
+
+```powershell
+uv run python .\tools\validation\run-progressive-validation.py baseline
+uv run python .\tools\validation\run-progressive-validation.py baseline --live --duration-seconds 900
+```
+
+Baseline captures use separate partial/complete files and the dedicated road
+analyzer. They do not alter per-DID progressive completion state.
+
 Progress is per DID. A positive qualification in any complete capture wins over
 an earlier state-dependent negative. Only a candidate road capture whose final
 record says `reason=completed` and which passes the offline analyzer marks its

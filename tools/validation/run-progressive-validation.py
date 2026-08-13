@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Resume stationary qualification or road capture from a progressive XA50 plan.
+"""Run baseline or progressive road validation for the XA50 Hybrid Control ECU.
 
 Dry-run is the default. Add --live explicitly to open PCAN and transmit the
 plan's allowlisted ReadDataByIdentifier requests.
@@ -30,6 +30,7 @@ DEFAULT_CAPTURE_ROOT = REPOSITORY / "scratch" / "captures" / "vehicle-a"
 DEFAULT_OUTPUT_ROOT = DEFAULT_CAPTURE_ROOT / "progressive"
 EXECUTABLE = REPOSITORY / "tools" / "validation" / "Xa50.Pcan" / "bin" / "Release" / "xa50-pcan.exe"
 ANALYZER = REPOSITORY / "tools" / "analysis" / "analyze-candidate-capture.py"
+BASELINE_ANALYZER = REPOSITORY / "tools" / "analysis" / "analyze-road-capture.py"
 CATALOG = REPOSITORY / "data" / "catalog" / "generated" / "telemetry.csv"
 TERMINAL_NRCS = {"0x31", "0x33"}
 DID_PATTERN = re.compile(r"0x[0-9A-F]{4}\Z")
@@ -276,9 +277,65 @@ def qualification_arguments(did: str, partial: Path, max_log_mib: int) -> list[s
     ]
 
 
+def baseline_arguments(
+    partial: Path, duration_seconds: int, period_ms: int, max_log_mib: int
+) -> list[str]:
+    return [
+        "--road-capture", "--live", "--duration-seconds", str(duration_seconds),
+        "--period-ms", str(period_ms), "--max-log-mib", str(max_log_mib),
+        "--output", str(partial), "--quiet",
+    ]
+
+
+def validate_baseline_completion(path: Path) -> None:
+    records = jsonl_records(path)
+    if not records or records[-1].get("record") != "session_end":
+        raise ValueError("baseline capture has no final session_end record")
+    end = records[-1]
+    if end.get("reason") != "duration_limit":
+        raise ValueError(f"baseline capture ended with reason {end.get('reason')!r}")
+    counts = end.get("group_counts")
+    expected = {"f301", "wheels", "f302", "steering"}
+    if not isinstance(counts, dict) or any(
+        not isinstance(counts.get(group), int) or counts[group] < 1 for group in expected
+    ):
+        raise ValueError("baseline capture did not contain every expected sample group")
+
+
+def run_baseline_and_validate(arguments: list[str], partial: Path, complete: Path) -> None:
+    summary_partial = partial.with_name(partial.name.replace(".jsonl", ".summary.json"))
+    summary_complete = complete.with_name(complete.name.replace(".jsonl", ".summary.json"))
+    try:
+        capture = subprocess.run([str(EXECUTABLE), *arguments], cwd=REPOSITORY, check=False)
+        if capture.returncode:
+            raise RuntimeError(f"PCAN client exited with code {capture.returncode}")
+        validate_baseline_completion(partial)
+        analysis = subprocess.run(
+            [
+                sys.executable, str(BASELINE_ANALYZER), str(partial),
+                "--summary-json", str(summary_partial),
+            ],
+            cwd=REPOSITORY,
+            stdout=subprocess.DEVNULL,
+            check=False,
+        )
+        if analysis.returncode:
+            raise RuntimeError(f"baseline analyzer exited with code {analysis.returncode}")
+        summary_partial.replace(summary_complete)
+        partial.replace(complete)
+    except BaseException:
+        if summary_complete.exists() and not complete.exists():
+            incomplete_summary = Path(
+                str(partial).replace(".partial.jsonl", ".incomplete.summary.json")
+            )
+            summary_complete.replace(incomplete_summary)
+        quarantine(partial)
+        raise
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("phase", choices=("status", "qualify", "road"))
+    parser.add_argument("phase", choices=("status", "baseline", "qualify", "road"))
     parser.add_argument("--plan", type=Path, default=DEFAULT_PLAN)
     parser.add_argument("--capture-root", type=Path, default=DEFAULT_CAPTURE_ROOT)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
@@ -292,6 +349,8 @@ def main() -> int:
     parser.add_argument("--transport-retries", type=int, default=2)
     parser.add_argument("--retry-terminal", action="store_true")
     parser.add_argument("--startup-delay-seconds", type=int, default=10)
+    parser.add_argument("--duration-seconds", type=int, default=900, help="baseline duration")
+    parser.add_argument("--period-ms", type=int, default=100, help="baseline request-slot period")
     parser.add_argument("--max-log-mib", type=int, default=16)
     parser.add_argument("--max-directory-mib", type=int, default=2048)
     args = parser.parse_args()
@@ -301,8 +360,50 @@ def main() -> int:
         parser.error("--startup-delay-seconds must be 0..300")
     if not 0 <= args.transport_retries <= 5:
         parser.error("--transport-retries must be 0..5")
+    if not 10 <= args.duration_seconds <= 7200:
+        parser.error("--duration-seconds must be 10..7200")
+    if not 70 <= args.period_ms <= 5000:
+        parser.error("--period-ms must be 70..5000")
     if args.max_log_mib < 1 or args.max_directory_mib < args.max_log_mib:
         parser.error("invalid log/directory size bounds")
+
+    capture_root = args.capture_root.resolve()
+    output_root = args.output_root.resolve()
+    try:
+        output_root.relative_to(capture_root)
+    except ValueError:
+        parser.error("--output-root must be inside --capture-root so completed progress is discoverable")
+    if args.phase == "baseline":
+        print(json.dumps({
+            "phase": "baseline",
+            "mode": "LIVE" if args.live else "DRY RUN",
+            "duration_seconds": args.duration_seconds,
+            "period_ms": args.period_ms,
+            "output_root": str(output_root / "baseline"),
+        }, indent=2))
+        if not args.live:
+            return 0
+        if not EXECUTABLE.exists():
+            raise FileNotFoundError(f"build the PCAN client first: {EXECUTABLE}")
+        print(f"Live baseline will start in {args.startup_delay_seconds} seconds.")
+        if args.startup_delay_seconds:
+            time.sleep(args.startup_delay_seconds)
+        print("Startup delay finished; opening PCAN.")
+        assert_budget(output_root, args.max_directory_mib, args.max_log_mib)
+        stamp = timestamp()
+        baseline_root = output_root / "baseline"
+        baseline_root.mkdir(parents=True, exist_ok=True)
+        partial = baseline_root / f"xa50-baseline-{stamp}.partial.jsonl"
+        complete = baseline_root / f"xa50-baseline-{stamp}.complete.jsonl"
+        run_baseline_and_validate(
+            baseline_arguments(
+                partial, args.duration_seconds, args.period_ms, args.max_log_mib
+            ),
+            partial,
+            complete,
+        )
+        print(f"Baseline complete: {complete}")
+        return 0
 
     plan_path = args.plan.resolve()
     plan = load_plan(plan_path)
@@ -314,12 +415,6 @@ def main() -> int:
     unknown = tiers - available_tiers
     if not tiers or unknown:
         parser.error(f"invalid --tiers; unknown values: {sorted(unknown)}")
-    capture_root = args.capture_root.resolve()
-    output_root = args.output_root.resolve()
-    try:
-        output_root.relative_to(capture_root)
-    except ValueError:
-        parser.error("--output-root must be inside --capture-root so completed progress is discoverable")
     progress = discover_progress(capture_root, plan["profile_id"])
     status = summarize(plan, progress, tiers)
     print(json.dumps(status, indent=2))
