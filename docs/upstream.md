@@ -31,5 +31,6 @@ bounded runner, and executable backend contract have been extracted as the
 `toyota-telemetry-tools` package. The XA50 profile, endpoint restrictions,
 allowlists, PCAN/J2534 implementations, baseline decoder, and evidence remain
 here. The live-proven XA50 orchestration copies remain temporarily for
-collection continuity; remove them only after the pinned package revision is
-published and its CLI has passed live parity testing.
+collection continuity. The pinned package revision is published and has passed
+canonical-install, plan, progress, dry-run, and fixture-analysis parity. Remove
+the compatibility copies only after its CLI also passes one live batch.

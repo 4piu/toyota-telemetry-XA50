@@ -9,12 +9,12 @@ The reusable planner, analyzer, progress engine, and non-baseline runner now
 live in the pinned `toyota-telemetry-tools` package. This repository's
 [`validation-profile.json`](../../data/validation/validation-profile.json)
 contains the XA50 endpoint and scheduling policy. The commands below retain the
-live-proven local entry point until the pinned toolkit revision is published and
-passes a live parity run; new platform projects should use the generic CLI
-documented by the field guide.
+live-proven local entry point until the published toolkit passes a live parity
+run; canonical installation, plan construction, progress reconstruction,
+dry-run scheduling, and fixture analysis already match. New platform projects
+should use the generic CLI documented by the field guide.
 
-After the pinned toolkit revision is available from its canonical repository,
-the equivalent generic status and dry-run commands are:
+The equivalent published-toolkit status and dry-run commands are:
 
 ```powershell
 $toolkit = (Get-Content .\toolkit-requirement.txt -Raw).Trim()
@@ -25,6 +25,30 @@ uvx --from $toolkit telemetry-validate road `
 ```
 
 Do not substitute an unpinned branch name for the reviewed commit.
+
+### Live migration gate
+
+At the next safe road session, preview and then run exactly one pending batch
+through the published package:
+
+```powershell
+$toolkit = (Get-Content .\toolkit-requirement.txt -Raw).Trim()
+uvx --from $toolkit telemetry-validate road `
+  --project-root . --config data/validation/validation-profile.json `
+  --max-items 1
+
+# Only after reviewing the dry-run output:
+uvx --from $toolkit telemetry-validate road `
+  --project-root . --config data/validation/validation-profile.json `
+  --live --max-items 1
+```
+
+The default ten-second startup delay, 16-MiB file cap, 2-GiB directory cap,
+transport retries, partial-file quarantine, and offline validation still apply.
+After success, compare this command's `status` output with the compatibility
+runner. Matching completion state clears the gate for replacing the duplicated
+planner/analyzer/progressive orchestration; the XA50 baseline and hardware
+backend remain platform code.
 
 ## Current scope
 
