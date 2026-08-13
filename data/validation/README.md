@@ -21,3 +21,9 @@ fixture analysis without a sibling checkout. The existing XA50 Python
 orchestration remains temporarily as a live-proven compatibility implementation
 until one generic-toolkit batch passes live parity. Both planners select 588
 candidates with tier counts 245/229/68/46 and the same DID/tier ordering.
+
+Toolkit v0.1.1 also handles Ctrl+C at the installed console entry point. It
+waits briefly for the backend to flush `reason: user_stop` and close PCAN,
+quarantines the active file as `.incomplete.jsonl`, exits with status 130, and
+does not print a Python traceback. A bounded terminate/kill fallback prevents a
+misbehaving backend from remaining attached to the adapter.

@@ -196,6 +196,12 @@ to `.incomplete.jsonl` and does not count; the next invocation rebuilds its
 batch from the still-pending DIDs. Analyzer summaries follow the same
 `.complete.summary.json` or `.incomplete.summary.json` convention.
 
+With toolkit v0.1.1, Ctrl+C at either the installed `telemetry-validate` command
+or its backend is handled as an intentional stop. The runner waits up to five
+seconds for the backend to write `reason: user_stop` and close PCAN, then uses a
+bounded terminate/kill fallback if necessary. It exits with status 130 and a
+short message instead of a Python traceback.
+
 This is logical discard rather than immediate deletion, retaining enough data
 to diagnose a loose cable or transport failure without contaminating evidence.
 Incomplete files can be removed from the private workbench after review.

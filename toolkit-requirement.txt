@@ -1,1 +1,1 @@
-toyota-telemetry-tools @ git+https://github.com/4piu/70Y074-telemetry.git@d004d4b0538a6c5b8b29666bf44dc73ca0f709c8
+toyota-telemetry-tools @ git+https://github.com/4piu/70Y074-telemetry.git@1bbad1fd7d3a7ac368df47f67e244af21630c5df
