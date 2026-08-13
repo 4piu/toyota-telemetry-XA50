@@ -1,6 +1,6 @@
 # XA50 tools
 
-These are vehicle-specific forks/clients. Reusable counterparts and method documentation live in `../../70Y074-telemetry`.
+These are vehicle-specific forks and clients. Reusable counterparts and method documentation live in the [`70Y074-telemetry` repository](https://github.com/4piu/70Y074-telemetry).
 
 | Path | Role | State |
 |---|---|---|

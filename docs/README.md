@@ -1,6 +1,6 @@
 # XA50 documentation
 
-These pages contain platform-specific claims and evidence. Reusable procedure is maintained in `../../70Y074-telemetry/docs`.
+These pages contain platform-specific claims and evidence. Reusable procedure is maintained in the [`70Y074-telemetry` documentation](https://github.com/4piu/70Y074-telemetry/tree/main/docs).
 
 ## Findings
 

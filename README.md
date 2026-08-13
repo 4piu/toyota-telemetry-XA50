@@ -2,7 +2,7 @@
 
 This repository records vehicle-specific telemetry discovery and read-only replay results for one tested Toyota RAV4 Hybrid XA50 profile. It contains a static candidate atlas, a small curated live-evidence map, transport findings, and validation clients.
 
-It is not a universal XA50 database and it is not the dashboard application. ECU calibration and market differences can change availability, identifiers, routing, scaling, and validity. The future acquisition/display application has its own boundary in `../XA50-dashboard`; the reusable discovery process lives in `../70Y074-telemetry`.
+It is not a universal XA50 database and it is not the dashboard application. ECU calibration and market differences can change availability, identifiers, routing, scaling, and validity. The future acquisition/display application has a separate repository boundary. The reusable discovery process lives in the [`70Y074-telemetry` field guide](https://github.com/4piu/70Y074-telemetry).
 
 All tools use the ignored repository-local `scratch/` directory for raw captures, generated plans, and private analysis unless an explicit output path is supplied. This keeps a cloned vehicle project self-contained without making private material part of Git history.
 
