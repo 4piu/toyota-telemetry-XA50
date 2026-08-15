@@ -238,7 +238,7 @@ Five initial samples and a later 75-sample session returned the same values with
 The same direct reads are implemented over PCAN raw-CAN ISO-TP with a separate per-mode allowlist. The first stationary live test completed five paired samples:
 
 ```powershell
-.\tools\validation\Xa50.Pcan\bin\Release\xa50-pcan.exe `
+.\tools\validation\Xa50.Pcan\bin\Release\telemetry-pcan.exe `
   --live --motion --samples 5 --period-ms 100 --verbose
 ```
 
@@ -297,7 +297,7 @@ This makes stop-light state and master-cylinder torque **Correlated**, not yet d
 The PCAN client reproduces the same `F302` definition, fragmentation, polling, and decoder under its own strict allowlist. The first stationary live test completed five samples during one brake application:
 
 ```powershell
-.\tools\validation\Xa50.Pcan\bin\Release\xa50-pcan.exe `
+.\tools\validation\Xa50.Pcan\bin\Release\telemetry-pcan.exe `
   --live --f302 --samples 5 --period-ms 100 --verbose
 ```
 

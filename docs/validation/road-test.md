@@ -6,7 +6,7 @@ signal conclusions are recorded in the
 
 ## Scope
 
-This run targets the 13 signals already in `data/validated`, not the 4,458-row static candidate atlas. Do not bulk-scan DIDs while driving. The separate [direct-DID batch workflow](candidate-batches.md) admits only reviewed candidates that first pass stationary, byte-exact allowlisted qualification.
+This run targets the 13 signals already in `data/validated`, not the 4,458-row static candidate atlas. Do not bulk-scan DIDs while driving. The separate [validation status and policy](README.md) admits only reviewed candidates that first pass stationary, byte-exact allowlisted qualification.
 
 The combined PCAN mode uses one Hybrid Control session and repeats four known read transactions:
 
@@ -94,7 +94,7 @@ A secured instrument-cluster video can provide an approximate speed/reference ti
 ## After the run
 
 1. Confirm the JSONL ends with `session_end`; an `error` or missing end record requires investigation.
-2. Run `tools/analysis/analyze-road-capture.py` and preserve its summary beside the private capture.
+2. Run `the retired road-capture analyzer` and preserve its summary beside the private capture.
 3. Review raw payloads around minima, maxima, sign changes, switch transitions, and any discontinuity.
 4. Write down the actual maneuver timeline while it is fresh.
 5. Promote only reviewed conclusions and sanitized excerpts into `data/validated`; keep the full road log, video, GPS, and exact timestamps in the workbench.

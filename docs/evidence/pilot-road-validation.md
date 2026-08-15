@@ -1,5 +1,7 @@
 # Pilot road-validation evidence
 
+> **Tooling note.** The commands quoted below ran against the `run-progressive-validation.py` wrapper and the XA50 C# clients, which have since been replaced by the pinned toolkit and the generic backends. The evidence is unchanged; see [reproduce.md](../reproduce.md) for the current equivalents.
+
 This report records the first completed rolling validation of the Hybrid Control
 signal set on `vehicle-a`. Raw captures remain in the private workbench; this
 document deliberately omits exact trip timestamps, raw filenames, and any
@@ -119,8 +121,8 @@ so correlations are only claimed for fields sampled together in the same batch.
 Re-run structural checks with:
 
 ```powershell
-uv run python tools/analysis/analyze-road-capture.py <baseline.jsonl>
-uv run python tools/analysis/analyze-candidate-capture.py <batch.jsonl> `
+uv run python the retired road-capture analyzer <baseline.jsonl>
+uv run python telemetry-analyze-capture <batch.jsonl> `
   --catalog data/catalog/generated/telemetry.csv --minimum-samples 30
 ```
 

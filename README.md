@@ -1,44 +1,80 @@
-# XA50 diagnostic telemetry knowledge base
+# XA50 diagnostic telemetry map
 
-This repository records vehicle-specific telemetry discovery and read-only replay results for one tested Toyota RAV4 Hybrid XA50 profile. It contains a static candidate atlas, a small curated live-evidence map, transport findings, and validation clients.
+A read-only telemetry map for one tested Toyota RAV4 Hybrid XA50 (A25A-FXS),
+produced with the [`70Y074-telemetry` field guide](https://github.com/4piu/70Y074-telemetry)
+and published as a worked reference for anyone repeating the method on a
+comparable vehicle.
 
-It is not a universal XA50 database and it is not the dashboard application. ECU calibration and market differences can change availability, identifiers, routing, scaling, and validity. The future acquisition/display application has a separate repository boundary. The reusable discovery process lives in the [`70Y074-telemetry` field guide](https://github.com/4piu/70Y074-telemetry).
+This repository contains **configuration, findings, and results — no tooling**.
+Every program used here comes from the pinned field guide. If something here
+needs a script that the field guide does not provide, that is a gap in the field
+guide, not something to solve locally.
 
-All tools use the ignored repository-local `scratch/` directory for raw captures, generated plans, and private analysis unless an explicit output path is supplied. This keeps a cloned vehicle project self-contained without making private material part of Git history.
+It is not a universal XA50 database, and it is not the dashboard application.
+ECU calibration and market differences change availability, identifiers,
+routing, scaling, and validity.
 
-## Current result
+## Result
 
-Hybrid Control diagnostics have been independently replayed through PCAN-USB on the DLC3 gateway at 500 kbit/s:
+Hybrid Control diagnostics are independently replayed over CAN at the DLC3
+gateway, 500 kbit/s, tester `0x7D2` to response `0x7DA`.
 
-- tester `0x7D2`, response `0x7DA`;
-- session setup and dynamic DID definition reproduced over raw CAN/ISO-TP;
-- repeated `22 F3 01` returns MG1, MG2, and accelerator with roughly 11–17 ms typical complete-response latency in the recorded runs;
-- a second composite request covers wheel speed, steering, and braking-related candidates.
+| Measure | Count |
+|---|---:|
+| Plan candidates (ECU key 397) | 588 |
+| Qualified | 128 |
+| Road-complete | 127 |
+| Curated signals in the map | 55 |
+| Catalog signals observed across all captures | 291 |
 
-MG1, MG2, and accelerator are Validated/Replayed for `vehicle-a`. The first rolling pilot expanded the curated map to 55 signals: 22 are Correlated/Replayed and 30 remain Observed/Replayed. See [the evidence report](docs/evidence/pilot-road-validation.md) for the confidence rationale.
+Of the 291 observed signals, 12 varied across independent runs, 137 were seen
+in a single run, and 142 stayed constant — mostly event-driven fields whose
+event has not yet occurred during a capture. Regenerate any of these with
+`telemetry-review`; see [validation status](docs/validation/README.md).
 
-The original XHorse J2534 adapter has failed electrically. Its client and captured conclusions remain under `tools/validation/Xa50.J2534` as reproducibility/legacy evidence; current live validation uses PCAN. No proprietary adapter DLL is stored here.
+Typical complete-response latency is 11–17 ms, and sustained 10 Hz polling is
+validated. See [throughput](docs/hardware/throughput.md).
 
-## Navigate
+## Start here
 
+- **[Reproduce this on your own XA50](docs/reproduce.md)** — every command, in
+  order, from clone to map.
 - [Documentation index](docs/README.md)
-- [Static catalog and limitations](docs/findings/static-catalog.md)
-- [Hybrid telemetry/protocol findings](docs/findings/telemetry-map.md)
-- [Diagnostic data-path evidence](docs/findings/diagnostic-data-path.md)
-- [Hardware and validation notes](docs/hardware/prototype.md)
-- [Unattended parking-lot validation protocol](docs/validation/road-test.md)
-- [Qualified sequential candidate batches](docs/validation/candidate-batches.md)
-- [Progressive multi-drive catalog validation](docs/validation/progressive-validation.md)
-- [Vehicle/ECU profile](data/catalog/ecu-profile.json)
-- [Generated catalog summary](data/catalog/generated/summary.md)
-- [Curated live-evidence signals](data/validated/signals.csv)
-- [Reviewed decode corrections](data/validated/decode-overrides.json)
-- [Reusable-toolkit XA50 profile](data/validation/validation-profile.json)
-- [Tool index](tools/README.md)
-- [Field-guide upstream and update policy](docs/upstream.md)
+- [The curated map](data/validated/signals.csv) — the deliverable, with an
+  evidence state per signal.
+
+## Layout
+
+| Path | Contents |
+|---|---|
+| [`data/validated/`](data/validated/) | The curated signal map, decode overrides, and the application-facing JSON. |
+| [`data/validation/`](data/validation/) | Endpoint, session setup, tier policy, and experiment schedules consumed by the toolkit. |
+| [`data/catalog/`](data/catalog/) | ECU profile and generated static candidate atlas. |
+| [`docs/findings/`](docs/findings/) | How endpoints, transport, and formulas were established. |
+| [`docs/evidence/`](docs/evidence/) | Capture integrity and correlation results per campaign. |
+| [`docs/hardware/`](docs/hardware/) | The CAN adapter, wiring, and measured timing. |
+| `scratch/` | Raw captures, generated plans, backend binaries, reverse-engineering state. Ignored in full. |
+
+## Hardware
+
+A CANable v1.0 with PCAN-compatible firmware, connected to DLC3 pins 5, 6, and
+14 only. A genuine PEAK PCAN-USB works identically. See
+[CAN adapter](docs/hardware/can-adapter.md).
+
+The original XHorse J2534 adapter failed electrically partway through the
+project. Its conclusions are preserved in
+[the data-path findings](docs/findings/diagnostic-data-path.md); no proprietary
+adapter DLL is stored here.
 
 ## Safety and scope
 
-All clients default to dry-run or require explicit live authorization and use narrow read-only allowlists. Do not use this work for vehicle control, coding, security access, DTC clearing, memory operations, or programming. Validate stationary; road tests require a passenger or unattended logger.
+All tooling defaults to dry-run and requires explicit live authorization, with
+narrow read-only allowlists enforced byte-exactly in the vehicle-facing process.
 
-See [PRIVATE_DATA.md](PRIVATE_DATA.md) before adding captures or vehicle identifiers.
+Do not use this work for vehicle control, coding, security access, DTC
+clearing, memory operations, or programming. Validate stationary; road tests
+require a passenger or an unattended logger. Do not operate the computer while
+driving.
+
+Raw captures are not published. See [PRIVATE_DATA.md](PRIVATE_DATA.md) before
+adding captures or vehicle identifiers.

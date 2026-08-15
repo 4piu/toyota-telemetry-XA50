@@ -56,7 +56,7 @@ No registry modification or replacement DLL is needed. This behavior is similar 
 
 ## Logger semantics
 
-`save-j2534-log.ps1` triggers an immediate snapshot of the shim's existing in-memory circular buffer. `-WaitForLoggerSeconds` waits for the named logger event to become available; it does not record for that duration.
+`save-techstream-log.ps1` (in the field-guide checkout) triggers an immediate snapshot of the shim's existing in-memory circular buffer. `-WaitForLoggerSeconds` waits for the named logger event to become available; it does not record for that duration.
 
 For a controlled interval:
 
@@ -121,7 +121,7 @@ The later focused trace identified Hybrid Control at `0x7D2 -> 0x7DA`; its full 
 
 ## Independent x86 replay client
 
-`tools/validation/Xa50.J2534` contains a .NET Framework console client compiled explicitly for x86. It dynamically loads a configured vendor DLL and refuses to run live unless `--live` is supplied. The original XHorse adapter later failed; this client is retained as legacy/reproducibility evidence until another compatible VIM is available.
+An x86 .NET console client replayed the captured conversation independently of Techstream, dynamically loading the configured vendor DLL and refusing to run live without an explicit flag. The original XHorse adapter later failed electrically, and the client itself has since been replaced by the field guide's generic `telemetry-j2534` backend; the constraints and findings below carried over to it. It dynamically loads a configured vendor DLL and refuses to run live unless `--live` is supplied. The original XHorse adapter later failed; this client is retained as legacy/reproducibility evidence until another compatible VIM is available.
 
 Built-in constraints include:
 
