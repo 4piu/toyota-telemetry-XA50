@@ -6,7 +6,10 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $projectRoot = Join-Path $PSScriptRoot 'Xa50.J2534'
-$source = Join-Path $projectRoot 'Program.cs'
+$sources = @(
+    (Join-Path $projectRoot 'Program.cs'),
+    (Join-Path $projectRoot 'Adapters\J2534Api.cs')
+)
 $compiler = Join-Path $env:WINDIR 'Microsoft.NET\Framework\v4.0.30319\csc.exe'
 $outputDirectory = Join-Path $projectRoot "bin\$Configuration"
 $executable = Join-Path $outputDirectory 'xa50-j2534.exe'
@@ -33,7 +36,7 @@ else {
     $compilerArguments += '/debug:full'
     $compilerArguments += '/define:DEBUG;TRACE'
 }
-$compilerArguments += $source
+$compilerArguments += $sources
 
 & $compiler @compilerArguments
 if ($LASTEXITCODE -ne 0) {

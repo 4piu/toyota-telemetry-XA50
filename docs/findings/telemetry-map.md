@@ -194,7 +194,7 @@ The parser can learn the dynamic definition from the earlier log and apply it to
 ```powershell
 uv run python .\tools\j2534\parse-j2534-log.py `
   'C:\Users\Public\Documents\Techstream\ErrorReport\j2534_08082026034256.log' `
-  --decode-xa50 --changes-only `
+  --signals data\catalog\xa50-j2534-signals.json --changes-only `
   --definitions-from 'C:\Users\Public\Documents\Techstream\ErrorReport\j2534_08082026034222.log'
 ```
 

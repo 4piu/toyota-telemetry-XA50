@@ -6,7 +6,10 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $projectRoot = Join-Path $PSScriptRoot 'Xa50.Pcan'
-$source = Join-Path $projectRoot 'Program.cs'
+$sources = @(
+    (Join-Path $projectRoot 'Program.cs'),
+    (Join-Path $projectRoot 'Adapters\PcanBasic.cs')
+)
 $compiler = Join-Path $env:WINDIR 'Microsoft.NET\Framework64\v4.0.30319\csc.exe'
 $outputDirectory = Join-Path $projectRoot "bin\$Configuration"
 $executable = Join-Path $outputDirectory 'xa50-pcan.exe'
@@ -33,7 +36,7 @@ else {
     $compilerArguments += '/debug:full'
     $compilerArguments += '/define:DEBUG;TRACE'
 }
-$compilerArguments += $source
+$compilerArguments += $sources
 
 & $compiler @compilerArguments
 if ($LASTEXITCODE -ne 0) {
