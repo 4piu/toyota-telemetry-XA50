@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "description": "XA50 Hybrid Control (ECU key 397) diagnostic endpoint. The session setup was recovered from a captured Techstream/J2534 conversation; see docs/findings/diagnostic-data-path.md.",
+
+  "transport": {
+    "network": "classical-can",
+    "bitrate": 500000,
+    "tester_can_id": "0x7D2",
+    "response_can_id": "0x7DA",
+    "addressing": "normal"
+  },
+
+  "session_setup": [
+    {
+      "request": "3E 00",
+      "expect": "7E 00",
+      "label": "tester present"
+    },
+    {
+      "request": "10 01",
+      "expect": "50 01",
+      "label": "default session"
+    },
+    {
+      "request": "10 03",
+      "expect": "50 03",
+      "label": "extended session"
+    }
+  ],
+
+  "limits": {
+    "maximum_candidate_dids": 6,
+    "did_min": "0x0100",
+    "did_max": "0xEFFF",
+    "response_pending_budget_ms": 10000
+  },
+
+  "device": {
+    "pcan": {
+      "channel": "PCAN_USBBUS1"
+    },
+    "j2534": {
+      "dll": "C:\\Program Files (x86)\\XHorse Electronics\\MVCI Driver for TOYOTA TIS\\MVCI32.dll"
+    }
+  }
+}

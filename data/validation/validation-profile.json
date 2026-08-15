@@ -45,8 +45,8 @@
   },
   "backend": {
     "schema_version": 1,
-    "executable": "tools/validation/Xa50.Pcan/bin/Release/xa50-pcan.exe",
-    "arguments": [],
+    "executable": "scratch/bin/telemetry-pcan.exe",
+    "arguments": ["--config", "data/validation/backend-config.json"],
     "mode_arguments": {
       "qualification": ["--candidate-qualify", "--live"],
       "road": ["--candidate-batch", "--live"]
