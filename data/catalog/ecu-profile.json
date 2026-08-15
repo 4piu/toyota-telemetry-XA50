@@ -370,8 +370,8 @@
     {
       "ecu_key": 397,
       "internal_id": "0x006E",
-      "live_state": "Correlated and replayed",
-      "notes": "Ready Signal; true throughout known READY stationary qualification and road observations."
+      "live_state": "Observed and replayed",
+      "notes": "Ready Signal; true in every observation so far (148 samples, one run) and never seen false. The transition is not correlated; correlating it needs a capture spanning a READY state change."
     }
   ]
 }
