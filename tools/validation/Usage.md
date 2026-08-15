@@ -16,6 +16,12 @@ uv run python .\tools\validation\run-progressive-validation.py road
 uv run python .\tools\validation\run-progressive-validation.py road --live
 ```
 
+Focused reruns of already-complete DIDs use the generic toolkit's custom
+experiment mode rather than altering progressive completion records. See
+[custom-experiments.md](../../docs/validation/custom-experiments.md) for the
+reviewed XA50 stationary and extended-road schedules and commands. Start with
+a dry run, then select one batch explicitly for live collection.
+
 The runner is dry-run by default. See
 [progressive-validation.md](../../docs/validation/progressive-validation.md) for
 completion, restart, bus-load, and confidence rules. The fixed v1 pilot plan is

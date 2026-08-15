@@ -103,6 +103,11 @@ def discover_progress(capture_root: Path, profile_id: str) -> Progress:
             start, end = records[0], records[-1]
             if end.get("record") != "session_end" or end.get("reason") != "completed":
                 continue
+            batch_id = start.get("batch_id")
+            if isinstance(batch_id, str) and batch_id.startswith("experiment-"):
+                # Focused reruns are independent evidence and must not alter
+                # progressive catalog completion.
+                continue
             mode = start.get("mode")
             samples = [record for record in records if record.get("record") == "candidate_sample"]
             if mode == "candidate_qualification":

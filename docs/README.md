@@ -16,6 +16,7 @@ These pages contain platform-specific claims and evidence. Reusable procedure is
 - [Parking-lot road validation](validation/road-test.md) — unattended bounded capture, safe maneuver plan, and offline review.
 - [Direct-DID validation batches](validation/candidate-batches.md) — stationary qualification, resumable short road batches, and confidence review.
 - [Progressive catalog validation](validation/progressive-validation.md) — stable per-DID qualification and tiered multi-drive harvesting for the remaining Hybrid Control map.
+- [Focused custom experiments](validation/custom-experiments.md) — configuration-hashed reruns for selected already-complete DIDs without changing progressive status.
 - [Shared-toolkit profile](../data/validation/README.md) — XA50 endpoint, policy, paths, and backend configuration consumed by generic tooling.
 
 The [pilot road-validation evidence](evidence/pilot-road-validation.md) records capture integrity, correlation results, and the confidence decisions from the first drive.

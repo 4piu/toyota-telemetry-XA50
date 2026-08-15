@@ -1,0 +1,34 @@
+schema_version = 1
+experiment_id = "stationary-controls-v1"
+profile_id = "2023-rav4-hv-xa50-a25a-fxs"
+description = "Stationary operator-controlled transitions for selector and cabin-switch signal mapping."
+
+[defaults]
+period_ms = 100
+duration_seconds = 180
+minimum_samples_per_did = 200
+transport_retries = 2
+
+[[batches]]
+batch_id = "selector-core"
+dids = ["0x1035", "0x104B", "0x104C", "0x1061", "0x1F65"]
+description = "Correlate backup-light, selector-sensor, and primary shift-position fields with deliberate stationary selector changes."
+vehicle_state = "READY on level ground in a clear area; vehicle remains stopped and the service brake is held during selector changes."
+duration_seconds = 150
+minimum_samples_per_did = 200
+
+[[batches]]
+batch_id = "selector-secondary"
+dids = ["0x104B", "0x104C", "0x1052", "0x1061", "0x1062", "0x1F65"]
+description = "Repeat the selector sequence for secondary sports/B-position and shift-lock fields with primary selector fields retained as timing references."
+vehicle_state = "READY on level ground in a clear area; vehicle remains stopped and the service brake is held during selector changes."
+duration_seconds = 150
+minimum_samples_per_did = 200
+
+[[batches]]
+batch_id = "drive-mode-switches"
+dids = ["0x1045", "0x104F", "0x1050", "0x1057", "0x107A"]
+description = "Correlate fitted EV, normal, sport, Auto-LSD/traction, and VSC/TRC-off switch fields while parked."
+vehicle_state = "READY and stationary in Park; operate only fitted normal cabin controls and restore normal/VSC-on state before motion."
+duration_seconds = 180
+minimum_samples_per_did = 250

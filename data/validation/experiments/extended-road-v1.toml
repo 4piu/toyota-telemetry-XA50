@@ -1,0 +1,35 @@
+schema_version = 1
+experiment_id = "extended-road-v1"
+profile_id = "2023-rav4-hv-xa50-a25a-fxs"
+description = "Focused ordinary-driving follow-up after the completed progressive pass."
+
+[defaults]
+period_ms = 100
+duration_seconds = 600
+minimum_samples_per_did = 800
+transport_retries = 2
+
+[[batches]]
+batch_id = "battery-current-crosscheck"
+dids = ["0x1F9A", "0x1817", "0x1210", "0x1060", "0x1069", "0x1075"]
+description = "Compare two battery-current paths with inverter current, pedal, regenerative torque, and wheel speed."
+vehicle_state = "Ordinary mixed driving with natural acceleration and deceleration."
+duration_seconds = 300
+minimum_samples_per_did = 400
+
+[[batches]]
+batch_id = "rear-regeneration"
+dids = ["0x106A", "0x1078", "0x10A2", "0x1069", "0x1075"]
+description = "Look for rear regenerative request/execution while retaining rear-motor and motion context."
+vehicle_state = "Ordinary mixed driving; do not induce traction or stability-control intervention."
+duration_seconds = 600
+minimum_samples_per_did = 900
+
+[[batches]]
+batch_id = "battery-cooling-fan"
+dids = ["0x1802", "0x1079", "0x1814", "0x180B", "0x1F5B"]
+description = "Passively observe cooling requests against battery, intake-air, and SOC context."
+vehicle_state = "Naturally warm battery or hot-weather driving; do not deliberately overheat the vehicle."
+period_ms = 500
+duration_seconds = 1800
+minimum_samples_per_did = 600
