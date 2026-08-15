@@ -22,6 +22,11 @@ experiment mode rather than altering progressive completion records. See
 reviewed XA50 stationary and extended-road schedules and commands. Start with
 a dry run, then select one batch explicitly for live collection.
 
+For custom experiments only, a graceful Ctrl+C is valid completion after all
+configured DIDs reach their minimum sample counts. Set `duration_seconds = 0`
+for a time-unbounded operator sequence. Qualification and progressive road
+captures retain the strict incomplete-on-interruption rule.
+
 The runner is dry-run by default. See
 [progressive-validation.md](../../docs/validation/progressive-validation.md) for
 completion, restart, bus-load, and confidence rules. The fixed v1 pilot plan is

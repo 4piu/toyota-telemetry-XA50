@@ -58,8 +58,14 @@ local scratch experiment note so it can be adjusted without treating a test
 log as a durable platform claim.
 
 The default ten-second startup delay, disk bounds, transport retries,
-create-new logs, offline validation, and interruption quarantine all apply.
-Completed experiment runs are configuration-hashed and skipped on restart.
+create-new logs, and offline validation all apply. A custom experiment may
+finish at its duration bound or with Ctrl+C after the planned operator sequence.
+The manual stop counts only when every DID reached its minimum sample count and
+the final log, endpoint, schedule, and transport integrity checks pass. An early
+or malformed stop remains quarantined. Set `duration_seconds = 0` in a custom
+batch when it should have no time deadline; the byte and directory limits still
+bound disk use. Completed experiment runs are configuration-hashed and skipped
+on restart.
 Their captures and snapshots live below the corresponding experiment ID under
 `scratch/captures/vehicle-a/progressive/experiments/`.
 

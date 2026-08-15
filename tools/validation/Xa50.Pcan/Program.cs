@@ -357,10 +357,13 @@ namespace Xa50.Pcan
                 {
                     Console.WriteLine("Qualified candidate batch started; no decoding is performed in the vehicle.");
                     int didIndex = 0;
-                    while (!stopRequested && schedule.Elapsed.TotalSeconds < options.DurationSeconds)
+                    bool hasDurationLimit = options.DurationSeconds > 0;
+                    while (!stopRequested &&
+                        (!hasDurationLimit || schedule.Elapsed.TotalSeconds < options.DurationSeconds))
                     {
                         WaitUntil(schedule, nextRequestNotBefore);
-                        if (stopRequested || schedule.Elapsed.TotalSeconds >= options.DurationSeconds)
+                        if (stopRequested ||
+                            (hasDurationLimit && schedule.Elapsed.TotalSeconds >= options.DurationSeconds))
                         {
                             break;
                         }
@@ -1683,7 +1686,7 @@ namespace Xa50.Pcan
             }
             else if (options.CandidateBatch)
             {
-                title = "XA50 bounded direct-DID candidate batch recorder";
+                title = "XA50 direct-DID candidate batch recorder";
             }
             else if (options.ObdProbe)
             {
@@ -1705,7 +1708,9 @@ namespace Xa50.Pcan
                     options.PeriodMs.ToString(CultureInfo.InvariantCulture) + " ms");
                 if (options.CandidateBatch)
                 {
-                    Console.WriteLine("Duration:  <= " + options.DurationSeconds.ToString(CultureInfo.InvariantCulture) + " seconds");
+                    Console.WriteLine(options.DurationSeconds == 0
+                        ? "Duration:  manual stop; no time limit"
+                        : "Duration:  <= " + options.DurationSeconds.ToString(CultureInfo.InvariantCulture) + " seconds");
                     Console.WriteLine("Retries:   <= " + options.TransportRetries.ToString(CultureInfo.InvariantCulture) +
                         " timeout retries per DID transaction");
                 }
@@ -1900,10 +1905,11 @@ namespace Xa50.Pcan
             Console.WriteLine("--road-capture polls all proven groups unattended into one bounded JSONL file.");
             Console.WriteLine("--road-log-self-test writes four synthetic JSONL samples without opening PCAN.");
             Console.WriteLine("--candidate-qualify reads each repeated --did once while stationary and records support/NRC.");
-            Console.WriteLine("--candidate-batch polls 1-6 prequalified --did values in a bounded round-robin capture.");
+            Console.WriteLine("--candidate-batch polls 1-6 prequalified --did values in a round-robin capture.");
             Console.WriteLine("--batch-id ID labels a candidate capture; orchestration uses the manifest batch ID.");
             Console.WriteLine("--samples N and --period-ms N configure telemetry sampling (defaults: 5 and 100).");
-            Console.WriteLine("--duration-seconds N caps bounded road/candidate time (default: 900; maximum: 7200).");
+            Console.WriteLine("--duration-seconds N caps road/candidate time (default: 900; maximum: 7200).");
+            Console.WriteLine("For --candidate-batch only, 0 disables the time limit; the log-size cap remains active.");
             Console.WriteLine("--transport-retries N retries a timed-out candidate-batch DID 0-5 times (default: 2).");
             Console.WriteLine("--output PATH is required for live road/candidate capture and is never overwritten.");
             Console.WriteLine("--max-log-mib N caps a bounded JSONL file (default: 64 MiB).");
@@ -2025,7 +2031,9 @@ namespace Xa50.Pcan
                         ? options.TransportRetries.ToString(CultureInfo.InvariantCulture)
                         : "0") +
                     ",\"duration_limit_seconds\":" +
-                    (options.CandidateQualify ? "null" : options.DurationSeconds.ToString(CultureInfo.InvariantCulture)) +
+                    (options.CandidateQualify || options.DurationSeconds == 0
+                        ? "null"
+                        : options.DurationSeconds.ToString(CultureInfo.InvariantCulture)) +
                     ",\"log_limit_bytes\":" + maxBytes.ToString(CultureInfo.InvariantCulture) +
                     ",\"timestamp_semantics\":\"host UTC after complete response plus monotonic request/response offsets\"," +
                     "\"privacy\":\"VIN, location and adapter serial are not collected\"}";
@@ -2400,7 +2408,7 @@ namespace Xa50.Pcan
                     else if (argument == "--duration-seconds")
                     {
                         options.DurationSeconds = ParseInt(
-                            NextValue(args, ref i, argument), argument, 10, 7200);
+                            NextValue(args, ref i, argument), argument, 0, 7200);
                     }
                     else if (argument == "--max-log-mib")
                     {
@@ -2490,6 +2498,11 @@ namespace Xa50.Pcan
                 if (!options.CandidateBatch && options.TransportRetriesSpecified)
                 {
                     throw new ArgumentException("--transport-retries is supported only with --candidate-batch.");
+                }
+                if (options.DurationSeconds == 0 && !options.CandidateBatch)
+                {
+                    throw new ArgumentException(
+                        "--duration-seconds 0 is supported only with --candidate-batch.");
                 }
                 return options;
             }
