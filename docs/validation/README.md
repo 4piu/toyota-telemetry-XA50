@@ -77,6 +77,35 @@ map carries no observed values. See [PRIVATE_DATA.md](../../PRIVATE_DATA.md)
 before publishing an example capture — that is where sanitization matters,
 because a raw capture of an identity-bearing DID does contain the identifier.
 
+## ECUs that answer but cannot be read
+
+Four of the sixteen ECUs on this vehicle respond at their endpoint yet do not
+implement ReadDataByIdentifier, so they contribute no signals and are absent
+from `validation-profile.json`:
+
+| ECU | Endpoint | `3E 00` | `10 01` | `10 03` | `22 xxxx` |
+|---|---|---|---|---|---|
+| 405 EMPS | `0x7A1` | NRC 0x12 | positive, bare `50` | NRC 0x12 | NRC 0x11 x175 |
+| 444 SRS Airbag | `0x780` | NRC 0x12 | positive, bare `50` | NRC 0x12 | NRC 0x10 x91 |
+| 445 Steering Angle Sensor | `0x7B3` | NRC 0x12 | positive, bare `50` | NRC 0x12 | NRC 0x11 x9 |
+| 450 Air Conditioner | `0x7C4` | NRC 0x11 | positive, bare `50` | NRC 0x12 | NRC 0x11 x226 |
+
+Every refusal is at the subfunction or service level and is uniform across all
+501 catalog DIDs, so this is not a question of which identifiers exist. A
+positive session-control response that omits the subfunction echo, tester
+present rejected for its subfunction, and ReadDataByIdentifier rejected
+outright are together consistent with a different diagnostic generation from
+the twelve ECUs that do answer - but which one is not established here.
+
+The catalog claims `22` reads for all four, so the database and the vehicle
+disagree, and the database is not a reliable guide to how these are addressed.
+Settling it needs a capture of Techstream reading one of them, the same route
+that recovered the session setup in the first place. See
+[open questions](https://github.com/4piu/70Y074-telemetry/blob/main/docs/open-questions.md).
+
+Their endpoints remain in `backend-config.json` and in `ecu-profile.json`, so
+nothing has to be rediscovered when that work happens.
+
 ## Negative-response policy
 
 A negative reply means the read was refused in the tested session and vehicle

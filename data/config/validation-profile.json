@@ -1,7 +1,7 @@
 {
   "schema_version": 2,
   "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
-  "description": "Catalog, selection rules, tier policy, and backend are shared by every ECU behind the DLC3 gateway; each entry adds only its endpoint and paths.",
+  "description": "Catalog, selection rules, tier policy, and backend are shared by every ECU behind the DLC3 gateway; each entry adds only its endpoint and paths. ECUs that answer but do not implement ReadDataByIdentifier are recorded in ecu-profile.json and are absent here: they have no DIDs to plan.",
   "transport": {
     "bitrate": 500000,
     "addressing": "normal"
@@ -189,18 +189,6 @@
       }
     },
     {
-      "key": 405,
-      "name": "EMPS",
-      "plan_id": "405-emps-progressive-v1",
-      "tester_can_id": "0x7A1",
-      "response_can_id": "0x7A9",
-      "paths": {
-        "plan": "scratch/plans/vehicle-a/405-emps-progressive.json",
-        "capture_root": "scratch/captures/vehicle-a/405-emps",
-        "output_root": "scratch/captures/vehicle-a/405-emps/progressive"
-      }
-    },
-    {
       "key": 409,
       "name": "Combination Meter",
       "plan_id": "409-combination-meter-progressive-v1",
@@ -246,42 +234,6 @@
         "plan": "scratch/plans/vehicle-a/435-brake-epb-progressive.json",
         "capture_root": "scratch/captures/vehicle-a/435-brake-epb",
         "output_root": "scratch/captures/vehicle-a/435-brake-epb/progressive"
-      }
-    },
-    {
-      "key": 444,
-      "name": "SRS Airbag",
-      "plan_id": "444-srs-airbag-progressive-v1",
-      "tester_can_id": "0x780",
-      "response_can_id": "0x788",
-      "paths": {
-        "plan": "scratch/plans/vehicle-a/444-srs-airbag-progressive.json",
-        "capture_root": "scratch/captures/vehicle-a/444-srs-airbag",
-        "output_root": "scratch/captures/vehicle-a/444-srs-airbag/progressive"
-      }
-    },
-    {
-      "key": 445,
-      "name": "Steering Angle Sensor",
-      "plan_id": "445-steering-angle-sensor-progressive-v1",
-      "tester_can_id": "0x7B3",
-      "response_can_id": "0x7BB",
-      "paths": {
-        "plan": "scratch/plans/vehicle-a/445-steering-angle-sensor-progressive.json",
-        "capture_root": "scratch/captures/vehicle-a/445-steering-angle-sensor",
-        "output_root": "scratch/captures/vehicle-a/445-steering-angle-sensor/progressive"
-      }
-    },
-    {
-      "key": 450,
-      "name": "Air Conditioner",
-      "plan_id": "450-air-conditioner-progressive-v1",
-      "tester_can_id": "0x7C4",
-      "response_can_id": "0x7CC",
-      "paths": {
-        "plan": "scratch/plans/vehicle-a/450-air-conditioner-progressive.json",
-        "capture_root": "scratch/captures/vehicle-a/450-air-conditioner",
-        "output_root": "scratch/captures/vehicle-a/450-air-conditioner/progressive"
       }
     },
     {
