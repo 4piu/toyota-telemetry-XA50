@@ -48,10 +48,9 @@ ghidra-proj/
 
 # Full database-derived atlas is reproducible locally but not selected for
 # initial history while redistribution provenance is reviewed.
-data/catalog/generated/*
-!data/catalog/generated/summary.md
-!data/catalog/generated/manifest.json
-!data/catalog/generated/README.md
+data/catalog/*
+!data/catalog/manifest.json
+!data/catalog/summary.md
 
 # OS/editor noise
 .DS_Store

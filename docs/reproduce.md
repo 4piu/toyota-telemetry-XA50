@@ -10,7 +10,7 @@ first.** Everything here is read-only diagnostics. Do not use it for vehicle
 control, coding, security access, DTC clearing, or programming.
 
 Your calibration and market may differ. Treat every value in
-`data/validated/` as a claim to re-verify, not a specification.
+`data/map/` as a claim to re-verify, not a specification.
 
 ## What you need
 
@@ -48,7 +48,7 @@ cd ..\field-guide; git checkout <pinned revision>
 cd ..\xa50
 ```
 
-[`validation-profile.json`](../data/validation/validation-profile.json) already
+[`validation-profile.json`](../data/config/validation-profile.json) already
 points at `scratch/bin/telemetry-pcan.exe`. Verify offline:
 
 ```powershell
@@ -57,16 +57,16 @@ points at `scratch/bin/telemetry-pcan.exe`. Verify offline:
 
 ## 3. Rebuild the catalog (optional)
 
-[`data/catalog/generated/`](../data/catalog/generated/) ships only the summary
+[`data/catalog/`](../data/catalog/) ships only the summary
 and manifest; the full atlas is derived from the OEM database and is not
 redistributed. With Techstream installed:
 
 ```powershell
 ..\field-guide\tools\techstream\query-techstream-db.ps1 -Keys 397,395,435,466 -Catalog
-python ..\field-guide\tools\catalog\build-catalog.py --profile data\catalog\ecu-profile.json
+python ..\field-guide\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
 ```
 
-[`ecu-profile.json`](../data/catalog/ecu-profile.json) records the four ECU keys
+[`ecu-profile.json`](../data/config/ecu-profile.json) records the four ECU keys
 and which are live-confirmed. Compare your `summary.md` against the committed
 one; a different Techstream version or market will produce different counts.
 
@@ -75,7 +75,7 @@ one; a different Techstream version or market will produce different counts.
 Stationary, in Park, parking brake on, IG-ON/READY, with PCAN-View closed.
 
 ```powershell
-$cfg = "data\validation\backend-config.json"
+$cfg = "data\config\backend-config.json"
 
 .\scratch\bin\telemetry-pcan.exe --config $cfg --probe              # offline plan
 .\scratch\bin\telemetry-pcan.exe --config $cfg --obd-probe --live   # wiring and timing
@@ -92,7 +92,7 @@ happily throughout. See [CAN adapter](hardware/can-adapter.md).
 ## 5. Plan and qualify
 
 ```powershell
-$profile = "data\validation\validation-profile.json"
+$profile = "data\config\validation-profile.json"
 
 telemetry-build-plan --config $profile
 telemetry-validate status  --config $profile
@@ -125,7 +125,7 @@ capture is quarantined.
 ```powershell
 telemetry-review --config $profile
 telemetry-review --config $profile --pending
-telemetry-review --config $profile --check data\validated\signals.csv
+telemetry-review --config $profile --check data\map\signals.csv
 ```
 
 The ledger is the point of comparison. If your vehicle produces a materially
@@ -137,7 +137,7 @@ repository is authoritative.
 
 ```powershell
 telemetry-validate experiment --config $profile `
-  --experiment data\validation\experiments\stationary-controls-v1.toml
+  --experiment data\config\experiments\stationary-controls-v1.toml
 ```
 
 Two reviewed schedules ship here: stationary selector and cabin-switch passes,
@@ -148,9 +148,9 @@ and extended ordinary-driving batches. See
 
 | Path | Contents |
 |---|---|
-| [`data/validated/signals.csv`](../data/validated/signals.csv) | The curated map, with an evidence state per signal. |
-| [`data/validated/hybrid-control-signals.json`](../data/validated/hybrid-control-signals.json) | The same map plus transport and dynamic-DID definitions, for applications. |
-| [`data/validated/decode-overrides.json`](../data/validated/decode-overrides.json) | Reviewed corrections to OEM catalog formulas. |
+| [`data/map/signals.csv`](../data/map/signals.csv) | The curated map, with an evidence state per signal. |
+| [`data/map/transport.json`](../data/map/transport.json) | Endpoint and dynamic-DID definitions — the parts not expressible per signal. |
+| [`data/config/decode-overrides.json`](../data/config/decode-overrides.json) | Reviewed corrections to OEM catalog formulas. |
 | [`docs/findings/`](findings/) | How the endpoints, transport, and formulas were established. |
 | [`docs/evidence/`](evidence/) | Capture integrity and correlation results per campaign. |
 

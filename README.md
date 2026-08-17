@@ -40,16 +40,16 @@ validated. See [throughput](docs/hardware/throughput.md).
 - **[Reproduce this on your own XA50](docs/reproduce.md)** — every command, in
   order, from clone to map.
 - [Documentation index](docs/README.md)
-- [The curated map](data/validated/signals.csv) — the deliverable, with an
+- [The curated map](data/map/signals.csv) — the deliverable, with an
   evidence state per signal.
 
 ## Layout
 
 | Path | Contents |
 |---|---|
-| [`data/validated/`](data/validated/) | The curated signal map, decode overrides, and the application-facing JSON. |
-| [`data/validation/`](data/validation/) | Endpoint, session setup, tier policy, and experiment schedules consumed by the toolkit. |
-| [`data/catalog/`](data/catalog/) | ECU profile and generated static candidate atlas. |
+| [`data/map/`](data/map/) | **The deliverable.** Curated signals with an evidence state each, plus the endpoint and dynamic-DID definitions. |
+| [`data/config/`](data/config/) | The verified inputs used to produce it: endpoint, session setup, tier policy, decode corrections, experiment schedules. |
+| [`data/catalog/`](data/catalog/) | Generated from the OEM database. Provenance is tracked; the bulk atlas is local-only. |
 | [`docs/findings/`](docs/findings/) | How endpoints, transport, and formulas were established. |
 | [`docs/evidence/`](docs/evidence/) | Capture integrity and correlation results per campaign. |
 | [`docs/hardware/`](docs/hardware/) | The CAN adapter, wiring, and measured timing. |

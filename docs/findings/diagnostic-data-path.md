@@ -82,7 +82,7 @@ uv run python .\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
 
 # Decode known XA50 values and show changes
 uv run python .\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
-  --signals data\catalog\xa50-j2534-signals.json --changes-only
+  --timeline
 ```
 
 Raw logs may contain a VIN or calibration identifiers. Review them before publication or committing them to a repository.

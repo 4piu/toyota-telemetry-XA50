@@ -25,11 +25,11 @@ uv run python .\tools\catalog\build-telemetry-catalog.py
 
 The generator queries the read-only local database interface and writes:
 
-- `data/catalog/generated/telemetry.csv`: one row per named signal (local/ignored);
-- `data/catalog/generated/dids.csv`: one row per ECU/DID (local/ignored);
-- `data/catalog/generated/telemetry.json`: full machine-readable map (local/ignored);
-- `data/catalog/generated/summary.md`: compact counts and limitations;
-- `data/catalog/generated/manifest.json`: input hashes, tool hash, schema, and row counts.
+- `data/catalog/telemetry.csv`: one row per named signal (local/ignored);
+- `data/catalog/dids.csv`: one row per ECU/DID (local/ignored);
+- `data/catalog/telemetry.json`: full machine-readable map (local/ignored);
+- `data/catalog/summary.md`: compact counts and limitations;
+- `data/catalog/manifest.json`: input hashes, tool hash, schema, and row counts.
 
 The initial build contains 4,458 signal records across 1,605 distinct ECU/DID pairs. For every row it preserves the source ECU, internal monitor ID, acquisition flags, `22 xxxx` request candidate, response bit range, physical conversion group, coefficients, decimal divisor, unit, and live-evidence override.
 

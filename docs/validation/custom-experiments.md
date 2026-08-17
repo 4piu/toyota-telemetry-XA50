@@ -7,10 +7,10 @@ toolkit's `experiment` phase and a reviewed TOML schedule.
 
 The reviewed XA50 schedules are:
 
-- [`stationary-controls-v1.toml`](../../data/validation/experiments/stationary-controls-v1.toml),
+- [`stationary-controls-v1.toml`](../../data/config/experiments/stationary-controls-v1.toml),
   with two bounded selector passes and an independently selectable cabin-switch
   batch (the split preserves the profile's six-DID wire-load cap);
-- [`extended-road-v1.toml`](../../data/validation/experiments/extended-road-v1.toml),
+- [`extended-road-v1.toml`](../../data/config/experiments/extended-road-v1.toml),
   with three independently selectable ordinary-driving batches:
 
   - battery-current cross-check: five minutes;
@@ -23,8 +23,8 @@ Preview the whole sequence from the repository root:
 $toolkit = (Get-Content .\toolkit-requirement.txt -Raw).Trim()
 uvx --from $toolkit telemetry-validate experiment `
   --project-root . `
-  --config data/validation/validation-profile.json `
-  --experiment data/validation/experiments/extended-road-v1.toml
+  --config data/config/validation-profile.json `
+  --experiment data/config/experiments/extended-road-v1.toml
 ```
 
 Add `--live` only after reviewing the schedule. To use a shorter trip or a
@@ -33,8 +33,8 @@ particular vehicle condition, select one or more batch IDs:
 ```powershell
 uvx --from $toolkit telemetry-validate experiment `
   --project-root . `
-  --config data/validation/validation-profile.json `
-  --experiment data/validation/experiments/extended-road-v1.toml `
+  --config data/config/validation-profile.json `
+  --experiment data/config/experiments/extended-road-v1.toml `
   --experiment-batch battery-current-crosscheck `
   --live
 ```
@@ -44,8 +44,8 @@ The stationary schedule is also run one batch at a time. For example:
 ```powershell
 uvx --from $toolkit telemetry-validate experiment `
   --project-root . `
-  --config data/validation/validation-profile.json `
-  --experiment data/validation/experiments/stationary-controls-v1.toml `
+  --config data/config/validation-profile.json `
+  --experiment data/config/experiments/stationary-controls-v1.toml `
   --experiment-batch selector-core `
   --live
 ```

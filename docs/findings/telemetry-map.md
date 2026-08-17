@@ -194,7 +194,7 @@ The parser can learn the dynamic definition from the earlier log and apply it to
 ```powershell
 uv run python .\tools\j2534\parse-j2534-log.py `
   'C:\Users\Public\Documents\Techstream\ErrorReport\j2534_08082026034256.log' `
-  --signals data\catalog\xa50-j2534-signals.json --changes-only `
+  --timeline `
   --definitions-from 'C:\Users\Public\Documents\Techstream\ErrorReport\j2534_08082026034222.log'
 ```
 
@@ -302,3 +302,8 @@ The PCAN client reproduces the same `F302` definition, fragmentation, polling, a
 ```
 
 Every setup and poll response was positive and the expected ISO-TP flow-control exchange completed. Switch word `0x0303` was already active in the first sample, so this run contains no released baseline. Master-cylinder control torque then progressed monotonically from -164.250 through -315.125, -457.125, and -532.500 to -696.750 Nm. Requested and executed regenerative torque remained 0 Nm in Park. Complete-response latency was 12-18 ms with a 15-ms mean and median. This is a strong independent PCAN confirmation of the previously established brake-input correlation; it is not evidence of physical pad engagement.
+
+Decoding a log against XA50 signal names needs a profile in the parser's
+`--signals` format. The hand-maintained one was removed because it duplicated
+catalog bit ranges with nothing keeping the two in sync; build one from
+`data/catalog/telemetry.csv` if you need it.

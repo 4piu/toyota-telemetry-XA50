@@ -3,7 +3,7 @@
 Procedure lives in the field guide's [quickstart](https://github.com/4piu/70Y074-telemetry/blob/main/docs/quickstart.md)
 and [progressive validation](https://github.com/4piu/70Y074-telemetry/blob/main/docs/06-verify/progressive-validation.md).
 This page records what is XA50-specific: the scope, the policy choices in
-[`validation-profile.json`](../../data/validation/validation-profile.json), and
+[`validation-profile.json`](../../data/config/validation-profile.json), and
 where the campaign currently stands.
 
 ## Scope
@@ -62,7 +62,7 @@ stays incomplete and is retried.
 ## Current state
 
 As of the last review — regenerate with
-`telemetry-validate status --config data/validation/validation-profile.json`:
+`telemetry-validate status --config data/config/validation-profile.json`:
 
 | Measure | Count |
 |---|---:|
@@ -73,7 +73,7 @@ As of the last review — regenerate with
 | Pending road capture | 1 |
 
 The evidence ledger over all completed captures
-(`telemetry-review --config data/validation/validation-profile.json`) reports
+(`telemetry-review --config data/config/validation-profile.json`) reports
 291 observed catalog signals: 12 varied across independent runs, 137 seen in a
 single run, and 142 constant in every run so far.
 
@@ -99,7 +99,7 @@ from it, classify by testability:
 Never read an absence of transitions as a negative test for the latter two.
 
 Reviewed follow-up schedules live in
-[`data/validation/experiments/`](../../data/validation/experiments/); see
+[`data/config/experiments/`](../../data/config/experiments/); see
 [focused custom experiments](custom-experiments.md).
 
 ## Promotion
@@ -107,11 +107,11 @@ Reviewed follow-up schedules live in
 Qualification establishes availability. Road capture establishes repeated raw
 observation. Neither promotes a signal. Confidence is raised only after offline
 plausibility, relationship, and reference review, and the tooling never edits
-[`data/validated/signals.csv`](../../data/validated/signals.csv).
+[`data/map/signals.csv`](../../data/map/signals.csv).
 
 Hold the curated map to the observations with:
 
 ```powershell
-telemetry-review --config data\validation\validation-profile.json `
-  --check data\validated\signals.csv
+telemetry-review --config data\config\validation-profile.json `
+  --check data\map\signals.csv
 ```

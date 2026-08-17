@@ -49,7 +49,7 @@ sibling checkout. See [reproduce.md](reproduce.md).
 3. Run `telemetry-validate status` and confirm progress numbers are unchanged —
    progress is reconstructed from immutable captures, so a difference means a
    behaviour change worth understanding before going further.
-4. Run `telemetry-review --check data/validated/signals.csv`.
+4. Run `telemetry-review --check data/map/signals.csv`.
 5. Advance `upstream.revision` and `toolkit-requirement.txt` only to the
    revision actually reviewed.
 

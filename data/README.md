@@ -1,0 +1,82 @@
+# Data
+
+Three directories, by what the file *is* rather than which workflow phase
+produced it:
+
+| Directory | Kind | Hand-written or generated | In Git |
+|---|---|---|---|
+| [`config/`](config/) | Inputs you fill in | Hand-written, verified by use | Yes |
+| [`map/`](map/) | The deliverable | Hand-curated from reviewed evidence | Yes |
+| [`catalog/`](catalog/) | Machine output | Generated from the OEM database | Mostly no |
+
+If you only want a working formula for a signal, you want
+[`map/signals.csv`](map/signals.csv) and nothing else.
+
+## config/ — verified inputs
+
+Everything here was written by hand and proven by producing the results in
+`map/`. These are the files a fork would copy and edit for its own vehicle.
+
+| File | Purpose | Consumed by |
+|---|---|---|
+| [`validation-profile.json`](config/validation-profile.json) | Endpoint, DID range, tier and privacy policy, paths, backend command | every toolkit CLI |
+| [`backend-config.json`](config/backend-config.json) | CAN bitrate, tester/response IDs, session setup, device selection | `telemetry-pcan`, `telemetry-j2534` |
+| [`ecu-profile.json`](config/ecu-profile.json) | The four ECU keys, their databases, and per-signal live-state notes | `build-catalog.py` |
+| [`decode-overrides.json`](config/decode-overrides.json) | Reviewed corrections to OEM catalog formulas | `telemetry-analyze-capture`, `telemetry-review` |
+| [`experiments/*.toml`](config/experiments/) | Named follow-up batches with an explicit purpose and vehicle state | `telemetry-validate experiment` |
+
+`validation-profile.json` and `backend-config.json` both describe the endpoint
+and must agree; the toolkit validates every capture against the profile, so a
+mismatch surfaces as a rejected capture rather than as bad data.
+
+## map/ — the result
+
+| File | Contents |
+|---|---|
+| [`signals.csv`](map/signals.csv) | 55 curated signals: DID, request bytes, bit range, conversion, unit, **evidence state**, and a note. The single source for per-signal facts. |
+| [`transport.json`](map/transport.json) | Endpoint and the two dynamic-DID definitions. Only what cannot be expressed per signal. |
+
+Read `evidence_state` before using a row. The words are the field guide's and
+they are not interchangeable:
+
+| State | Means |
+|---|---|
+| Observed | The bytes were seen and reproduced. Nothing about whether the value is right. |
+| Correlated | A stimulus moved it in the expected direction and timing. |
+| Validated | Decoded values matched an independent reference at several points. |
+| Replayed | An independent client reproduced the exchange. |
+
+A field that never changed during capture cannot be Correlated, however
+plausible its values look.
+
+Hold the map to the observations at any time:
+
+```powershell
+telemetry-review --config data\config\validation-profile.json `
+  --check data\map\signals.csv
+```
+
+This is one tested vehicle. Calibration and market differences change
+availability, scaling, and validity — re-verify before relying on a row.
+
+## catalog/ — generated
+
+Built from the local Techstream ECU databases by `build-catalog.py`. Rows here
+are *Candidate* evidence: names and bit ranges the OEM database claims, not
+things this vehicle was observed to answer.
+
+| File | In Git | Why |
+|---|---|---|
+| `manifest.json` | Yes | Provenance: generator, hash, Techstream version, region. |
+| `summary.md` | Yes | What the last build produced. |
+| `telemetry.csv`, `dids.csv`, `telemetry.json` | No | A bulk OEM-database-derived atlas; redistribution rights are unreviewed. Regenerate locally — see [reproduce.md](../docs/reproduce.md). |
+
+The toolkit reads `telemetry.csv`, so the plan and analyzer need a local build
+even though the file is not committed.
+
+## Not here
+
+Raw captures, generated plans, backend binaries, and reverse-engineering state
+live in the ignored `scratch/` tree. Nothing in `data/` is a capture; nothing
+here contains a VIN, location, or adapter serial. See
+[PRIVATE_DATA.md](../PRIVATE_DATA.md).

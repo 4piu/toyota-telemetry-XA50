@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "vehicle_instance_id": "vehicle-a",
+  "description": "Endpoint and dynamic-DID definitions for the Hybrid Control ECU. Per-signal bit ranges, formulas, and evidence states live in signals.csv, which is the single source for those; this file holds only what is not expressible per signal.",
+  "ecu": {
+    "key": 397,
+    "name": "Hybrid Control"
+  },
+  "transport": {
+    "network": "classical-can",
+    "bitrate": 500000,
+    "tester_id": "0x7D2",
+    "response_id": "0x7DA",
+    "addressing": "normal"
+  },
+  "dynamic_dids": [
+    {
+      "target": "0xF301",
+      "definition_hex": "2C 01 F3 01 10 A0 01 02 10 A1 01 02 10 60 01 01 1F 01 01 01",
+      "state": "replayed"
+    },
+    {
+      "target": "0xF302",
+      "definition_hex": "2C 01 F3 02 10 43 01 02 10 67 01 02 10 69 01 04",
+      "state": "replayed"
+    }
+  ]
+}

@@ -123,7 +123,7 @@ Re-run structural checks with:
 ```powershell
 uv run python the retired road-capture analyzer <baseline.jsonl>
 uv run python telemetry-analyze-capture <batch.jsonl> `
-  --catalog data/catalog/generated/telemetry.csv --minimum-samples 30
+  --catalog data/catalog/telemetry.csv --minimum-samples 30
 ```
 
 Only `.complete.jsonl` candidate-batch files count as completed progress.
