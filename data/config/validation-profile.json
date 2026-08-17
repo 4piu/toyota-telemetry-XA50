@@ -167,13 +167,13 @@
     {
       "key": 397,
       "name": "Hybrid Control",
-      "plan_id": "hybrid-control-progressive-v1",
+      "plan_id": "397-hybrid-control-progressive-v1",
       "tester_can_id": "0x7D2",
       "response_can_id": "0x7DA",
       "paths": {
-        "plan": "scratch/plans/vehicle-a/hybrid-control-progressive.json",
-        "capture_root": "scratch/captures/vehicle-a",
-        "output_root": "scratch/captures/vehicle-a/progressive"
+        "plan": "scratch/plans/vehicle-a/397-hybrid-control-progressive.json",
+        "capture_root": "scratch/captures/vehicle-a/397-hybrid-control",
+        "output_root": "scratch/captures/vehicle-a/397-hybrid-control/progressive"
       }
     },
     {
