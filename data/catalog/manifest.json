@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
-  "generated_at_utc": "2026-08-11T17:06:00.200190+00:00",
-  "generator": "tools/catalog/build-telemetry-catalog.py",
-  "generator_sha256": "ddfc52938a6060b98d114b7de36a56290e1f4ec957b7c1c1c3784d3ae6d37dfa",
+  "generated_at_utc": "2026-08-17T15:29:51.489023+00:00",
+  "generator": "tools/catalog/build-catalog.py",
+  "generator_sha256": "22c4453906b0ca3a17ce9cd23aaf51f4bd4c424336cb725d6ef1636e5da57f97",
   "techstream_version": "18.0.0.3",
   "database_region": "NA",
   "inputs": [
@@ -18,8 +18,18 @@
       "state": "hashed-local-input"
     },
     {
+      "file": "CCS_P5.ddb",
+      "sha256": "94ce5b9cf15e6d3ad79f8167b366f2b5aa0fbd898d5f758cdab9779006a5a3f3",
+      "state": "hashed-local-input"
+    },
+    {
       "file": "MG_P5.ddb",
       "sha256": "c787b7f651ec82577e367e6fa64d57c0677f8ed6d40eac98aa94f71666feb901",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "RearMG_P5.ddb",
+      "sha256": "44fcc6ff73573316199a1ead1a9c756d3e6403996ec17b7c3a702b64354cfaee",
       "state": "hashed-local-input"
     },
     {
@@ -28,15 +38,65 @@
       "state": "hashed-local-input"
     },
     {
+      "file": "HV_CCS_P5.ddb",
+      "sha256": "eb04a4add19199d49af66c95d023f22f221e0af71bcf93a69eeb1220625156ea",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "EMPS_P5.ddb",
+      "sha256": "1e5ffc4f998570458fa86dd0d563949006f9e0781f15d118d01e80656fadd199",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "Meter_P5.ddb",
+      "sha256": "4d32101a403e7d05377757675193585fa28f2513a87b807b30ab0d86fbe1e868",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "RCS2_P5.ddb",
+      "sha256": "773afd888428057ed7d2be2b805b01e92044eaf27c56027d5aab65978ea793b7",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "PCS2_P5.ddb",
+      "sha256": "69a74be891efe19208ad862bfd21b3a63ee1b9bcd596a48bea6f4173c2815f4b",
+      "state": "hashed-local-input"
+    },
+    {
       "file": "ABS_P5.ddb",
       "sha256": "d5e1b2f955aba6a94e7c3182833573561acc6154704adbffa08b93c60dced471",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "A_B_CAN_P5.ddb",
+      "sha256": "a65a21cada99ac0ca60ee21b13c1bd3c9a210be86398bd3e1260292bdcbebff4",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "StrAngleSnsr_P5.ddb",
+      "sha256": "b6ced2739058760cb3e199bae412b0b24e1da18f5dc6dbbadf84dca53f31fe36",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "A_C_P5.ddb",
+      "sha256": "270ae8c7b02348eb6321f9026a27dc8fadb6a3eccd495f04fee10f969960c5e8",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "RC_P5.ddb",
+      "sha256": "0540b3922ff1ebbfe557e50c8ba02d3cee141b1bccc0318c6aa6cf86d14ace65",
+      "state": "hashed-local-input"
+    },
+    {
+      "file": "FCHV_P5.ddb",
+      "sha256": "487074933a27ac6c96a59a287ad205ea2323a6f669fa755fd09085ae40e4bc14",
       "state": "hashed-local-input"
     }
   ],
   "counts": {
-    "signals": 4458,
-    "ecu_did_pairs": 1605,
+    "signals": 6892,
+    "ecu_did_pairs": 2546,
     "live_evidence_rows": 55
   },
-  "notice": "Input database files are not included. Full generated output remains local pending redistribution review."
+  "notice": "Database inputs are not included; review generated output before publication."
 }

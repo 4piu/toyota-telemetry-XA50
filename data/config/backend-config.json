@@ -11,7 +11,8 @@
     {
       "request": "3E 00",
       "expect": "7E 00",
-      "label": "tester present"
+      "label": "tester present (tolerant)",
+      "tolerate_negative": true
     },
     {
       "request": "10 01",
