@@ -14,7 +14,7 @@
     "did_min": "0x0100",
     "did_max": "0xEFFF",
     "max_response_bytes": 512,
-    "maximum_dids_per_road_batch": 6,
+    "maximum_dids_per_road_batch": 12,
     "default_tier": "normal",
     "identity_words": [],
     "private_words": [],
@@ -66,22 +66,26 @@
     "fast": {
       "period_ms": 100,
       "duration_seconds": 120,
-      "minimum_samples_per_did": 100
+      "minimum_samples_per_did": 100,
+      "maximum_dids_per_batch": 9
     },
     "normal": {
       "period_ms": 250,
       "duration_seconds": 300,
-      "minimum_samples_per_did": 120
+      "minimum_samples_per_did": 120,
+      "maximum_dids_per_batch": 8
     },
     "slow": {
       "period_ms": 1000,
       "duration_seconds": 900,
-      "minimum_samples_per_did": 60
+      "minimum_samples_per_did": 60,
+      "maximum_dids_per_batch": 12
     },
     "archive": {
       "period_ms": 2000,
       "duration_seconds": 600,
-      "minimum_samples_per_did": 20
+      "minimum_samples_per_did": 20,
+      "maximum_dids_per_batch": 12
     }
   },
   "road_default_tiers": [

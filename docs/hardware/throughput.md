@@ -27,3 +27,24 @@ The first PCAN-Basic raw-CAN ISO-TP run completed five `F301` samples at the sam
 The follow-up PCAN stability run completed all 100 requested samples and closed normally. In the retained 72-sample excerpt (samples 29-100), complete-response latency was 11-ms minimum, 14-ms median, 14.03-ms mean, 17-ms p95, and 27-ms maximum. Reconstructed request-start intervals were 99-112 ms with a 101-ms median and 100.96-ms mean; the scheduler did not attempt to catch up after the isolated latency outlier. This validates sustained 10-Hz `F301` polling while leaving considerable timing headroom. Faster polling remains optional rather than necessary for the first dashboard.
 
 The first live PCAN motion and `F302` runs also completed without transport or validation errors. Direct wheel responses took 12-19 ms and steering responses 7-9 ms. The nine-byte packed-brake response, including ECU first frame, tester flow control, and the consecutive frame, took 12-18 ms with a 15-ms mean and median. These results show that all three implemented telemetry modes fit comfortably within the initial 100-ms scheduling interval.
+
+## Why the bus runs at 500 kbit/s
+
+500 kbit/s is a property of the vehicle's diagnostic network, not a setting this
+project chose. The 2026-08-08 Techstream trace shows `PassThruConnect` at
+500,000 bit/s, and the standardized OBD probe answers at that rate, so it is
+what the gateway and the ECUs behind it are configured for.
+
+An adapter rated for a higher bitrate does not change that. Both ends of a CAN
+network must agree on bit timing: configure an adapter for 1 Mbit/s on a
+500-kbit/s bus and it cannot decode a single frame, and anything it transmits
+is malformed from every other node's point of view. Sustained error frames on a
+live vehicle bus can drive nodes into bus-off. Do not raise it to match what an
+adapter supports.
+
+Bandwidth was never the limit in any case. One diagnostic transaction at a
+100-ms request interval is four Classical-CAN frames, roughly 1-2% of the bus
+after overhead and stuffing. What bounds the sample rate is the round trip -
+11-17 ms typical, 27 ms worst case in the stability run - and how hard it is
+reasonable to work an ECU that is simultaneously doing its real job while the
+vehicle moves.

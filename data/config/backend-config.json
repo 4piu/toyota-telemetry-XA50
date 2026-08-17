@@ -26,7 +26,7 @@
     }
   ],
   "limits": {
-    "maximum_candidate_dids": 6,
+    "maximum_candidate_dids": 12,
     "did_min": "0x0100",
     "did_max": "0xEFFF",
     "response_pending_budget_ms": 10000
