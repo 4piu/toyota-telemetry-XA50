@@ -8,6 +8,21 @@ where the campaign currently stands.
 
 ## Scope
 
+**One ECU of four.** Every capture in this repository went to `0x7D2 -> 0x7DA`;
+596 of 596 completed captures used that endpoint and no other. The remaining
+three ECUs have candidate endpoints from the static protocol table, written as
+configs under [`data/config/`](../../data/config/) and awaiting a stationary
+`--probe --live`:
+
+| ECU | Endpoint | Catalog rows | State |
+|---|---|---:|---|
+| 372 Engine | `0x700 -> 0x708` | 2,147 | Observed answering in the J2534 trace; not yet probed by this project |
+| 395 Motor Generator | `0x724 -> 0x72C` | 349 | Static protocol table only |
+| 435 Brake/EPB | `0x7B0 -> 0x7B8` | 538 | Static protocol table only |
+
+Engine matters most: it is the largest database of the four and the only one a
+gas XA50 also carries.
+
 Only the Hybrid Control ECU (key 397) at the live-confirmed `0x7D2 -> 0x7DA`
 endpoint. The generated plan contains **588 direct DIDs** covering 1,356 unique
 catalog signal names — most of that ECU's 593 static direct DIDs, but not the
@@ -85,10 +100,10 @@ As of the last review — regenerate with
 | Road-complete | 127 |
 | Pending road capture | 1 |
 
-The evidence ledger over all completed captures
-(`telemetry-review --config data/config/validation-profile.json`) reports
-291 observed catalog signals: 12 varied across independent runs, 137 seen in a
-single run, and 142 constant in every run so far.
+The generated map (`telemetry-map --config data/config/validation-profile.json`)
+carries 329 signals on the 128 answering DIDs: 12 varied across independent
+runs, 137 seen in a single run, 143 constant in every run so far, and 37 that
+the catalog maps past the end of this vehicle's reply.
 
 Constant is an excitation result, not a defect. A short batch can legitimately
 miss selector changes, indicator states, charge/thermal transitions, and other

@@ -1,0 +1,466 @@
+ecu_key,ecu_name,data_id,read_request,result,negative_response_code,classification,attempts,catalog_signal_count,catalog_signal_names
+397,Hybrid Control,0x0000,22 00 00,withheld,,reserved_or_client_disallowed_did,0,28,Target P Position; P Position Status; P Position Status before Last; Parking Lock Motor Position; Parking Lock Motor Revolution; Parking Lock Motor Rotation Direction; Parking Lock Motor Control Mode; Parking Lock Motor Drive Mode; Fail Safe Status (Shift Sensor); Fail Safe Status (Parking Lock Motor); Fail Safe History (Parking Lock Motor Inoperative); Backup Status of Parking Lock Motor Control (Initial Drive); Backup Status of Parking Lock Motor Control (P Position Change); Parking Lock Motor Circuit History; P Position Change Delayed History; Meter Display Request (P Position Switch ON when Running); Meter Display Request (Shift N Operation when Running); Meter Display Request (Shift Operation Rejection); Identifying Signal of Shift R/D Operation during Ready OFF; Grille Shutter Position
+397,Hybrid Control,0x0103,22 01 03,withheld,,privacy_sensitive_requires_opt_in,0,7,Total Distance Traveled; Total Distance Traveled - Unit
+397,Hybrid Control,0x0109,22 01 09,withheld,,privacy_sensitive_requires_opt_in,0,6,Absolute Value Time (Year); Absolute Value Time (Month); Absolute Value Time (Day); Absolute Value Time (Hour); Absolute Value Time (Minute); Absolute Value Time (Second)
+397,Hybrid Control,0x0115,22 01 15,refused,0x31,request_out_of_range,1,2,Clock Type; IG-ON Elapsed Time
+397,Hybrid Control,0x1004,22 10 04,refused,0x31,request_out_of_range,1,1,Drive Mode Select Status
+397,Hybrid Control,0x1005,22 10 05,refused,0x31,request_out_of_range,1,1,Snow Mode Status
+397,Hybrid Control,0x1006,22 10 06,refused,0x31,request_out_of_range,1,17,Number of Specification Information Switching; Suspension Control Module Specification Information Switching; Suspension Control Module Specification Information; IGS Available Specification Information Switching; IGS Available Specification Information; Advanced Park Available Specification Information Switching; Advanced Park Available Specification Information; Solar Available Specification Information Switching; Solar Available Specification Information; Power Steering Available Specification Information Switching; Power Steering Available Specification Information; Power Steering Available Specification Information Switching (Gear Shift Control Module); Power Steering Available Specification Information (Gear Shift Control Module); Entry System RL Available Specification Information Switching; Entry System RL Available Specification Information; Entry System RR Available Specification Information Switching; Entry System RR Available Specification Information
+397,Hybrid Control,0x1012,22 10 12,refused,0x31,request_out_of_range,1,2,Transmission Solenoid Emergency Shutdown Signal (Main CPU); Transmission Solenoid Emergency Shutdown Signal (Sub CPU)
+397,Hybrid Control,0x101E,22 10 1E,refused,0x31,request_out_of_range,1,3,Key Cycle; IG-ON Elapsed Time; Master Sync Information
+397,Hybrid Control,0x102E,22 10 2E,refused,0x31,request_out_of_range,1,1,Downhill Control Operation Status
+397,Hybrid Control,0x102F,22 10 2F,refused,0x31,request_out_of_range,1,1,Downhill Control Level
+397,Hybrid Control,0x1034,22 10 34,refused,0x31,request_out_of_range,1,1,AC Inverter Shutdown Request
+397,Hybrid Control,0x1036,22 10 36,refused,0x31,request_out_of_range,1,3,Target Motor/Generator Cooling Oil Pump Motor Duty; Motor/Generator Cooling Oil Pump Motor Revolution; Motor/Generator Cooling Oil Pump Motor Power Relay Request
+397,Hybrid Control,0x1038,22 10 38,refused,0x31,request_out_of_range,1,3,Airbag Status (Collision); Airbag Status (Safing); Airbag Status (Normal)
+397,Hybrid Control,0x103D,22 10 3D,refused,0x31,request_out_of_range,1,1,P Position Switch Terminal Voltage
+397,Hybrid Control,0x103E,22 10 3E,refused,0x31,request_out_of_range,1,4,Shift Sensor Voltage (VSI1); Shift Sensor Voltage (VSI2); Shift Sensor Voltage (VSI3); Shift Sensor Voltage (VSI4)
+397,Hybrid Control,0x103F,22 10 3F,refused,0x31,request_out_of_range,1,2,AC100V Accessory Outlet Switch; AC100V Inverter Soft Switch
+397,Hybrid Control,0x1041,22 10 41,refused,0x31,request_out_of_range,1,3,Charging Permission Signal by Main CPU; Charging Permission Signal by Sub CPU; Charging Permission Answerback Signal from Plug-in Control ECU
+397,Hybrid Control,0x1047,22 10 47,refused,0x31,request_out_of_range,1,1,Powertrain Drive Mode Switch
+397,Hybrid Control,0x1048,22 10 48,refused,0x31,request_out_of_range,1,1,ASL Switch
+397,Hybrid Control,0x104A,22 10 4A,refused,0x31,request_out_of_range,1,1,HV/EV Mode Switch
+397,Hybrid Control,0x104D,22 10 4D,refused,0x31,request_out_of_range,1,1,Power Mode Switch
+397,Hybrid Control,0x104E,22 10 4E,refused,0x31,request_out_of_range,1,1,Snow Mode Switch
+397,Hybrid Control,0x1051,22 10 51,refused,0x31,request_out_of_range,1,3,Solar Charging Permission Signal by Main CPU; Solar Charging Permission Signal by Sub CPU; Solar Charging Permission Answerback Signal from Solar Charging Control ECU
+397,Hybrid Control,0x1054,22 10 54,refused,0x31,request_out_of_range,1,8,Shift Sensor SW - P; Shift Sensor SW - R; Shift Sensor SW - N; Shift Sensor SW - D; Shift Sensor SW - B; Shift Sensor SW - RV; Shift Sensor SW - FD; Shift Sensor SW - MJ
+397,Hybrid Control,0x1056,22 10 56,refused,0x31,request_out_of_range,1,2,Drive Mode Switch-; Drive Mode Switch+
+397,Hybrid Control,0x1058,22 10 58,refused,0x31,request_out_of_range,1,1,IGR
+397,Hybrid Control,0x1059,22 10 59,refused,0x31,request_out_of_range,1,1,Position Detection Switch of Shift Position P
+397,Hybrid Control,0x105A,22 10 5A,refused,0x31,request_out_of_range,1,4,DC/DC Converter 3 Stop Request; DC/DC Converter 3 Terminal Voltage (Abnormal Detection Signal); DC/DC Converter 3 Output Voltage Change Signal; DC/DC Converter 3 Output Voltage Change Signal Duty
+397,Hybrid Control,0x105B,22 10 5B,refused,0x31,request_out_of_range,1,1,DC/DC Converter Cooling Fan Fail Safe Signal Duty
+397,Hybrid Control,0x105C,22 10 5C,refused,0x31,request_out_of_range,1,1,DC/DC Converter 3 Cooling Fan Fail Safe Signal Duty
+397,Hybrid Control,0x1073,22 10 73,refused,0x31,request_out_of_range,1,2,Intake Air Pressure after IG ON for Engine; Atmospheric Pressure after IG ON for MG
+397,Hybrid Control,0x107C,22 10 7C,refused,0x31,request_out_of_range,1,1,Ambient Temperature Data
+397,Hybrid Control,0x1082,22 10 82,refused,0x31,request_out_of_range,1,3,Hybrid/EV Control Output Invalidation Signal (Sub); Emergency Shutdown Signal (Main); Emergency Shutdown Signal (Sub)
+397,Hybrid Control,0x1085,22 10 85,refused,0x31,request_out_of_range,1,1,DC/DC Converter Cooling Fan Connect Status
+397,Hybrid Control,0x1086,22 10 86,refused,0x31,request_out_of_range,1,2,1 Pedal Mode; 1 Pedal Switch
+397,Hybrid Control,0x1087,22 10 87,refused,0x31,request_out_of_range,1,2,AWD Input Switch; AWD Mode Status
+397,Hybrid Control,0x1088,22 10 88,refused,0x31,request_out_of_range,1,2,Off-road Speed Down Switch; Off-road Speed Up Switch
+397,Hybrid Control,0x1089,22 10 89,refused,0x31,request_out_of_range,1,1,Motor Temperature
+397,Hybrid Control,0x10A4,22 10 A4,refused,0x31,request_out_of_range,1,3,Generator Inverter Calculated Temperature; Generator Inverter Calculated Temperature just after IG ON; Generator Inverter Calculated Maximum Temperature
+397,Hybrid Control,0x10B1,22 10 B1,refused,0x31,request_out_of_range,1,1,VH-Voltage after Boosting
+397,Hybrid Control,0x10B3,22 10 B3,refused,0x31,request_out_of_range,1,1,Rear Motor Inverter Intake Air Temperature
+397,Hybrid Control,0x10C1,22 10 C1,refused,0x31,request_out_of_range,1,2,Transmission Fluid Temperature; Transmission Fluid Temperature Sensor Voltage
+397,Hybrid Control,0x10C2,22 10 C2,refused,0x31,request_out_of_range,1,2,Transmission Fluid Pump Motor Coil Temperature; Transmission Fluid Pump Motor Coil Temperature Sensor Voltage
+397,Hybrid Control,0x10C3,22 10 C3,refused,0x31,request_out_of_range,1,2,Calculated Vehicle Speed (Transmission); Calculated Vehicle Speed Sensor Voltage (Transmission)
+397,Hybrid Control,0x10C4,22 10 C4,refused,0x31,request_out_of_range,1,4,Transmission Fluid Pump Motor Revolution; Request Transmission Fluid Pump Motor Revolution; Transmission Fluid Pump Motor Control Status; Transmission Fluid Pump Motor Drive Request
+397,Hybrid Control,0x10C5,22 10 C5,refused,0x31,request_out_of_range,1,5,Number of Ready OFF by Transmission Fluid Temperature Low; Number of Ready OFF by Transmission Fluid Temperature High; Number of Ready OFF by Transmission Fluid Pump Motor Coil Temperature High Status; Number of Ready OFF by Transmission Fluid Pump Motor Driver Temperature High Status; Ready OFF Request by Transmission
+397,Hybrid Control,0x10C6,22 10 C6,refused,0x31,request_out_of_range,1,2,Engine Start Delayed Request by Transmission; Engine Stop Delayed Request by Transmission
+397,Hybrid Control,0x10C7,22 10 C7,refused,0x31,request_out_of_range,1,3,Engine Idle Up Request by Transmission; Engine Start Prohibition Request by Transmission; Intermittent Engine Start Prohibition Request (Transmission)
+397,Hybrid Control,0x10C8,22 10 C8,refused,0x31,request_out_of_range,1,2,Target Calculated Gear Position; Current Calculated Gear Position
+397,Hybrid Control,0x10C9,22 10 C9,refused,0x31,request_out_of_range,1,5,Calculated Gear Position (R Position); Calculated Gear Position (1st); Calculated Gear Position (2nd); Calculated Gear Position (3rd); Calculated Gear Position (4th)
+397,Hybrid Control,0x10CA,22 10 CA,refused,0x31,request_out_of_range,1,1,Calculated Input Torque (Transmission)
+397,Hybrid Control,0x10CB,22 10 CB,refused,0x31,request_out_of_range,1,2,Input Shaft Revolution (Transmission); Output Shaft Revolution (Transmission)
+397,Hybrid Control,0x10CC,22 10 CC,refused,0x31,request_out_of_range,1,2,Transmission Fluid Pump Motor Driving Control Status; Transmission Fluid Pump Motor Control Status when EV Mode
+397,Hybrid Control,0x10CD,22 10 CD,refused,0x31,request_out_of_range,1,1,IG Keeping Signal Release Request by Transmission Fluid Pump Motor
+397,Hybrid Control,0x10CE,22 10 CE,refused,0x31,request_out_of_range,1,15,"Transmission Fluid Temperature Sensor Stuck on Actual Operation Range; Transmission Fluid Temperature Sensor Stuck High; Transmission Fluid Temperature Sensor Stuck Low; Abnormal Input Shaft Revolution Increasing Detection (Transmission); Transmission Fluid Pump Revolution Deviation Abnormal; Pressure Control Solenoid ""D"" Actuator Stuck Off; Pressure Control Solenoid ""G"" Actuator Stuck Off; Pressure Control Solenoid ""G"" Actuator Stuck On; Pressure Control Solenoid ""C"" Actuator Stuck Off; Pressure Control Solenoid ""B"" Actuator Stuck Off; Pressure Control Solenoid ""B"" Actuator Stuck On; Pressure Control Solenoid ""A"" Actuator Stuck Off; Pressure Control Solenoid ""A"" Actuator Stuck On; Shift Solenoid ""J"" Control Actuator Stuck On; Shift Solenoid ""H"" Control Actuator Stuck Off"
+397,Hybrid Control,0x10CF,22 10 CF,refused,0x31,request_out_of_range,1,1,Elapsed time from HV/EV ECU Boot Up
+397,Hybrid Control,0x10D0,22 10 D0,refused,0x31,request_out_of_range,1,5,Auxiliary Battery Voltage Low Status by Hybrid/EV Control ECU; Auxiliary Battery Voltage Low Status from Hybrid/EV Battery Control ECU; Auxiliary Battery Voltage Low Status; Auxiliary Battery Voltage Low Status from DC Quick Charging Control ECU; Auxiliary Battery Voltage Low Status from Solar Charging Control ECU
+397,Hybrid Control,0x10D1,22 10 D1,refused,0x31,request_out_of_range,1,1,Hybrid/EV Control System Control Mode
+397,Hybrid Control,0x10D2,22 10 D2,refused,0x31,request_out_of_range,1,5,Remote Air Control System; AC Charging; DC Quick Charging; My Room Operation; Solar Charging
+397,Hybrid Control,0x10D3,22 10 D3,refused,0x31,request_out_of_range,1,2,Charging Status; Elapsed Time after Charging Status Transition
+397,Hybrid Control,0x10D4,22 10 D4,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Charging Power
+397,Hybrid Control,0x10D5,22 10 D5,refused,0x31,request_out_of_range,1,1,DC/DC Converter Drive Request
+397,Hybrid Control,0x10D6,22 10 D6,refused,0x31,request_out_of_range,1,2,DC/DC Converter Output Voltage Control Mode; Target DC/DC Converter Voltage
+397,Hybrid Control,0x10D7,22 10 D7,refused,0x31,request_out_of_range,1,1,AC Charger Rated Power
+397,Hybrid Control,0x10D8,22 10 D8,refused,0x31,request_out_of_range,1,1,Sub DC/DC Converter Supply Status (for Charging)
+397,Hybrid Control,0x10D9,22 10 D9,refused,0x31,request_out_of_range,1,1,Sub DC/DC Converter Start Request (for Charging)
+397,Hybrid Control,0x10DA,22 10 DA,refused,0x31,request_out_of_range,1,1,Target Sub DC/DC Converter Voltage (for Charging)
+397,Hybrid Control,0x10DB,22 10 DB,refused,0x31,request_out_of_range,1,1,AC Charging Input Minimum Voltage History
+397,Hybrid Control,0x10DC,22 10 DC,refused,0x31,request_out_of_range,1,1,Auxiliary Battery Supply Power during AC Charging
+397,Hybrid Control,0x10DD,22 10 DD,refused,0x31,request_out_of_range,1,3,Target DC Quick Charging Current Request; DC Quick Charger Present Output Current; DC Quick Charger Present Output Voltage
+397,Hybrid Control,0x10DF,22 10 DF,refused,0x31,request_out_of_range,1,1,DC Quick Charging Connector Connect Status
+397,Hybrid Control,0x10E0,22 10 E0,refused,0x31,request_out_of_range,1,1,A/C Useable Power
+397,Hybrid Control,0x10E1,22 10 E1,refused,0x31,request_out_of_range,1,5,External Power Supply Inverter Indicator Status; External Power Supply Inverter Output Monitor Status; External Power Supply Inverter Operation Request by HV/EV ECU; External Power Supply Inverter Operation Request by Plug-in Control ECU; External Power Supply Inverter Shutdown Request
+397,Hybrid Control,0x10E2,22 10 E2,refused,0x31,request_out_of_range,1,7,Charger Power Supply Voltage Decreasing History during Charging; Charger Power Supply Voltage Increasing History during Charging; Charging Power Save Mode History by Charger Temperature High; WIN Low History during Charging; Auxiliary Battery Increasing Electrical Load History during Charging; Operation to Raise AC Charger Rated Current; Operation to Lower AC Charger Rated Current
+397,Hybrid Control,0x10E3,22 10 E3,refused,0x31,request_out_of_range,1,1,Number of Charging (Same System Voltage)
+397,Hybrid Control,0x10E4,22 10 E4,refused,0x31,request_out_of_range,1,1,Vehicle Speed when DC Quick Charging Connector Connect
+397,Hybrid Control,0x10E5,22 10 E5,refused,0x31,request_out_of_range,1,1,Drive Mode
+397,Hybrid Control,0x10E6,22 10 E6,refused,0x31,request_out_of_range,1,1,IG OFF Elapsed Time
+397,Hybrid Control,0x10E7,22 10 E7,refused,0x31,request_out_of_range,1,1,Charger Start Request by Hybrid/EV Control ECU
+397,Hybrid Control,0x10E8,22 10 E8,refused,0x31,request_out_of_range,1,3,Charge Canceled by Hybrid/EV Battery WIN Low Trigger Counter; Charge Canceled by Auxiliary Battery Voltage Low Trigger Counter; Charge Canceled by Charging System Trigger Counter
+397,Hybrid Control,0x10E9,22 10 E9,refused,0x31,request_out_of_range,1,1,Solar Charge Hybrid/EV Battery DC/DC Converter Drive Request
+397,Hybrid Control,0x10EA,22 10 EA,refused,0x31,request_out_of_range,1,1,DC Quick Charging Relay Status to DC Quick Charging Control ECU
+397,Hybrid Control,0x10EB,22 10 EB,refused,0x31,request_out_of_range,1,1,EVMS Signal Status
+397,Hybrid Control,0x10EC,22 10 EC,refused,0x31,request_out_of_range,1,1,EV Mode Status
+397,Hybrid Control,0x10ED,22 10 ED,refused,0x31,request_out_of_range,1,3,Shift P Position during Slow Speed Running Trigger Counter; Shift P Position during Middle Speed Running Time; Shift P Position during High Speed Running Time
+397,Hybrid Control,0x10EE,22 10 EE,refused,0x31,request_out_of_range,1,1,Power Feeding Method Determination
+397,Hybrid Control,0x10EF,22 10 EF,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Discharging Current Upper Limit
+397,Hybrid Control,0x10F0,22 10 F0,refused,0x31,request_out_of_range,1,1,DC Charging and Discharging Mode Determination
+397,Hybrid Control,0x10F1,22 10 F1,refused,0x31,request_out_of_range,1,1,Outside Stand Present Output Voltage
+397,Hybrid Control,0x10F2,22 10 F2,refused,0x31,request_out_of_range,1,2,DC Charging and Discharging Mode Ending Transition Request; DC Charging and Discharging Stop Request from Hybrid/EV Control ECU
+397,Hybrid Control,0x10F3,22 10 F3,refused,0x31,request_out_of_range,1,1,Outside Stand Present Output Current
+397,Hybrid Control,0x10F4,22 10 F4,refused,0x31,request_out_of_range,1,4,AC Charging Relay Permission Signal Status; AC Charging Relay Permission Signal Stuck Low Status; AC Charging Relay Permission Signal Stuck High Status; AC Charging Relay Permission Signal Status (Hybrid/EV Battery)
+397,Hybrid Control,0x10F5,22 10 F5,refused,0x31,request_out_of_range,1,4,DC Charging Relay Permission Signal Stuck Low Status; DC Charging Relay Permission Signal Stuck High Status; DC Charging Relay Permission Signal Status; DC Charging Relay Permission Signal Status (DC Quick Charging Control)
+397,Hybrid Control,0x10F6,22 10 F6,refused,0x31,request_out_of_range,1,1,DC Charging Relay Permission Signal Request
+397,Hybrid Control,0x10F8,22 10 F8,refused,0x31,request_out_of_range,1,1,DC/DC Converter Operation Status
+397,Hybrid Control,0x10F9,22 10 F9,refused,0x31,request_out_of_range,1,1,AC Input Current
+397,Hybrid Control,0x10FA,22 10 FA,refused,0x31,request_out_of_range,1,4,Boosting Converter B Temperature (Upper); Boosting Converter B Temperature (Lower); Boosting Converter B Temperature just after IG ON; Boosting Converter B Maximum Temperature
+397,Hybrid Control,0x1101,22 11 01,refused,0x31,request_out_of_range,1,2,Inverter Water Pump 2 Duty Ratio; Inverter Water Pump 2 Revolution
+397,Hybrid Control,0x1102,22 11 02,refused,0x31,request_out_of_range,1,1,Engine Torque Estimate Value
+397,Hybrid Control,0x1103,22 11 03,refused,0x31,request_out_of_range,1,1,Directly Transmitted Engine Torque
+397,Hybrid Control,0x1104,22 11 04,refused,0x31,request_out_of_range,1,2,Final WIN Control Limit Power; Driving Control Permission WOUT Control Limit Power
+397,Hybrid Control,0x1105,22 11 05,refused,0x31,request_out_of_range,1,1,SL1 Solenoid Output Oil Pressure
+397,Hybrid Control,0x1106,22 11 06,refused,0x31,request_out_of_range,1,1,SL2 Solenoid Output Oil Pressure
+397,Hybrid Control,0x1107,22 11 07,refused,0x31,request_out_of_range,1,1,SL3 Solenoid Output Oil Pressure
+397,Hybrid Control,0x1108,22 11 08,refused,0x31,request_out_of_range,1,1,SL4 Solenoid Output Oil Pressure
+397,Hybrid Control,0x1109,22 11 09,refused,0x31,request_out_of_range,1,1,Gradient of Road Surface (Hybrid/EV)
+397,Hybrid Control,0x110A,22 11 0A,refused,0x31,request_out_of_range,1,1,ILKA Terminal Voltage
+397,Hybrid Control,0x110B,22 11 0B,refused,0x31,request_out_of_range,1,2,Actual Coolant Distribution Valve Position; Target Coolant Distribution Valve Position
+397,Hybrid Control,0x110C,22 11 0C,refused,0x31,request_out_of_range,1,1,Target Coolant Distribution Valve Position (A/C to Heat Control Driver)
+397,Hybrid Control,0x110D,22 11 0D,refused,0x31,request_out_of_range,1,1,Target Coolant Distribution Valve Position (Heat Control Driver to Valve)
+397,Hybrid Control,0x110E,22 11 0E,refused,0x31,request_out_of_range,1,2,Hybrid/EV Battery Water Pump Speed; Target Hybrid/EV Battery Water Pump Duty Ratio
+397,Hybrid Control,0x110F,22 11 0F,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Water Pump Control (A/C to Heat Control Driver)
+397,Hybrid Control,0x1110,22 11 10,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Water Pump Control (Heat Control Driver to Water Pump)
+397,Hybrid Control,0x1111,22 11 11,refused,0x31,request_out_of_range,1,1,"Fail Safe Status (Gear Shift Control Module ""B"" to ""A"")"
+397,Hybrid Control,0x1112,22 11 12,refused,0x31,request_out_of_range,1,1,Inverter Water Pump Status
+397,Hybrid Control,0x1113,22 11 13,refused,0x31,request_out_of_range,1,1,Coolant Distribution Valve Protection Information (Voltage Out of Range)
+397,Hybrid Control,0x1114,22 11 14,refused,0x31,request_out_of_range,1,1,Coolant Distribution Valve Protection Information (Temperature Out of Range)
+397,Hybrid Control,0x1115,22 11 15,refused,0x31,request_out_of_range,1,1,Coolant Distribution Valve Initialize Status
+397,Hybrid Control,0x1116,22 11 16,refused,0x31,request_out_of_range,1,1,Vehicle Information (Sub CPU)
+397,Hybrid Control,0x1117,22 11 17,refused,0x31,request_out_of_range,1,1,DDFS Control Switching Request
+397,Hybrid Control,0x1118,22 11 18,refused,0x31,request_out_of_range,1,1,Auxiliary Battery Current Sensor Value
+397,Hybrid Control,0x1119,22 11 19,refused,0x31,request_out_of_range,1,1,Step Down Current Limit
+397,Hybrid Control,0x111A,22 11 1A,refused,0x31,request_out_of_range,1,1,DC/DC Converter Operation Status Notification
+397,Hybrid Control,0x111B,22 11 1B,refused,0x31,request_out_of_range,1,7,DC/DC Converter Voltage Sensor (High Voltage Side) Unavailable Status; DC/DC Converter CAN Unreceivable Status; DC/DC Converter Unavailable Status; DC/DC Converter Over Temperature Protection Status; DC/DC Converter Stopping Status; DC/DC Converter Drooping Operation Status; DC/DC Converter Activate Condition
+397,Hybrid Control,0x111C,22 11 1C,refused,0x31,request_out_of_range,1,1,DC/DC Converter Output Current
+397,Hybrid Control,0x111D,22 11 1D,refused,0x31,request_out_of_range,1,1,DC/DC Converter Voltage (Low Voltage Side)
+397,Hybrid Control,0x111E,22 11 1E,refused,0x31,request_out_of_range,1,1,DC/DC Converter Voltage (High Voltage Side)
+397,Hybrid Control,0x111F,22 11 1F,refused,0x31,request_out_of_range,1,1,Target DC/DC Converter Precharge Voltage
+397,Hybrid Control,0x1120,22 11 20,refused,0x31,request_out_of_range,1,1,SMR One Side Welding
+397,Hybrid Control,0x1121,22 11 21,refused,0x31,request_out_of_range,1,1,High Voltage Power Supply Line Abnormal
+397,Hybrid Control,0x1122,22 11 22,refused,0x31,request_out_of_range,1,1,DC/DC Converter Precharge Abnormal
+397,Hybrid Control,0x1123,22 11 23,refused,0x31,request_out_of_range,1,1,Power Supply Control Driver Operation Status
+397,Hybrid Control,0x1124,22 11 24,refused,0x31,request_out_of_range,1,1,Auxiliary Battery Warning (Low Voltage)
+397,Hybrid Control,0x1125,22 11 25,refused,0x31,request_out_of_range,1,1,Auxiliary Battery Warning (Over Voltage)
+397,Hybrid Control,0x1126,22 11 26,refused,0x31,request_out_of_range,1,1,DC/DC Converter Diagnosis Status
+397,Hybrid Control,0x1127,22 11 27,refused,0x31,request_out_of_range,1,1,Output Voltage Upper Limit at Step Down
+397,Hybrid Control,0x1128,22 11 28,refused,0x31,request_out_of_range,1,2,WIN after Arbitration by System Control; WOUT after Arbitration by System Control
+397,Hybrid Control,0x112A,22 11 2A,refused,0x31,request_out_of_range,1,2,Engine Speed (GANE); Engine Operation Request
+397,Hybrid Control,0x112B,22 11 2B,refused,0x31,request_out_of_range,1,2,WSC Actual Status; WSC Transfer Torque
+397,Hybrid Control,0x112C,22 11 2C,refused,0x31,request_out_of_range,1,2,Gear Position Signal; Target Gear Position
+397,Hybrid Control,0x112D,22 11 2D,refused,0x31,request_out_of_range,1,1,K0 Clutch Control Status
+397,Hybrid Control,0x112E,22 11 2E,refused,0x31,request_out_of_range,1,1,EOP Speed
+397,Hybrid Control,0x112F,22 11 2F,refused,0x31,request_out_of_range,1,1,EOP Operation Request
+397,Hybrid Control,0x1130,22 11 30,refused,0x31,request_out_of_range,1,1,A/T Oil Temperature
+397,Hybrid Control,0x1131,22 11 31,refused,0x31,request_out_of_range,1,1,MG2 Coil Temperature
+397,Hybrid Control,0x1132,22 11 32,refused,0x31,request_out_of_range,1,1,Actual Power Train System Status
+397,Hybrid Control,0x1133,22 11 33,refused,0x31,request_out_of_range,1,1,Request Engine Torque
+397,Hybrid Control,0x1134,22 11 34,refused,0x31,request_out_of_range,1,1,Target EOP Speed
+397,Hybrid Control,0x1135,22 11 35,refused,0x31,request_out_of_range,1,1,EOP Torque
+397,Hybrid Control,0x1136,22 11 36,refused,0x31,request_out_of_range,1,1,MG2 Motor Speed
+397,Hybrid Control,0x1137,22 11 37,refused,0x31,request_out_of_range,1,2,Engine Coolant Temperature; Engine Coolant Temperature Receive Complete
+397,Hybrid Control,0x1138,22 11 38,refused,0x31,request_out_of_range,1,2,Soak Time; Soak Timer Current Fail Safe Information
+397,Hybrid Control,0x1139,22 11 39,refused,0x31,request_out_of_range,1,1,Hybrid/EV Mode Status
+397,Hybrid Control,0x113A,22 11 3A,refused,0x31,request_out_of_range,1,1,Output Shaft Speed
+397,Hybrid Control,0x113B,22 11 3B,refused,0x31,request_out_of_range,1,1,Turbine Speed
+397,Hybrid Control,0x113C,22 11 3C,refused,0x31,request_out_of_range,1,3,Actual Engine Output Torque; Estimate Engine Torque; Estimate Engine Torque (FML)
+397,Hybrid Control,0x113D,22 11 3D,refused,0x31,request_out_of_range,1,2,Engine -> Hybrid/EV Communication Reliability; Hybrid/EV -> Engine Communication Reliability
+397,Hybrid Control,0x113E,22 11 3E,refused,0x31,request_out_of_range,1,2,Hybrid/EV -> ECT Communication Reliability; ECT -> Hybrid/EV Communication Reliability
+397,Hybrid Control,0x113F,22 11 3F,refused,0x31,request_out_of_range,1,2,Hybrid/EV -> MG Communication Reliability; MG -> Hybrid/EV Communication Reliability
+397,Hybrid Control,0x1140,22 11 40,refused,0x31,request_out_of_range,1,2,Hybrid/EV -> Rear MG Communication Reliability; Rear MG -> Hybrid/EV Communication Reliability
+397,Hybrid Control,0x1141,22 11 41,refused,0x31,request_out_of_range,1,2,SMRG Connect Retry Counter; SMRB Connect Retry Counter
+397,Hybrid Control,0x1142,22 11 42,refused,0x31,request_out_of_range,1,1,AC 1500W Inverter Existence Confirmation
+397,Hybrid Control,0x1143,22 11 43,refused,0x31,request_out_of_range,1,1,Deceleration Level
+397,Hybrid Control,0x1144,22 11 44,refused,0x31,request_out_of_range,1,1,Water Heater Power Consumption
+397,Hybrid Control,0x1145,22 11 45,refused,0x31,request_out_of_range,1,1,Water Heater Operation Confirmation Judgement
+397,Hybrid Control,0x1146,22 11 46,refused,0x31,request_out_of_range,1,1,Water Heater Area Insulation Resistance Division Check Completion
+397,Hybrid Control,0x1147,22 11 47,refused,0x31,request_out_of_range,1,1,Water Heater Isolation Fault Information 1
+397,Hybrid Control,0x1148,22 11 48,refused,0x31,request_out_of_range,1,1,Water Heater Isolation Fault Information 2
+397,Hybrid Control,0x1149,22 11 49,refused,0x31,request_out_of_range,1,1,Water Heater Isolation Fault Information 3
+397,Hybrid Control,0x114A,22 11 4A,refused,0x31,request_out_of_range,1,1,2nd DC/DC Converter Operation Request
+397,Hybrid Control,0x114B,22 11 4B,refused,0x31,request_out_of_range,1,1,Target 2nd DC/DC Converter Voltage
+397,Hybrid Control,0x114C,22 11 4C,refused,0x31,request_out_of_range,1,1,2nd DC/DC Converter Diagnosis Status
+397,Hybrid Control,0x114D,22 11 4D,refused,0x31,request_out_of_range,1,1,2nd DC/DC Converter Operation Status
+397,Hybrid Control,0x114E,22 11 4E,refused,0x31,request_out_of_range,1,7,2nd DC/DC Converter Voltage Sensor (High Voltage Side) Abnormal Status; 2nd DC/DC Converter CAN Receive Abnormal Status; 2nd DC/DC Converter Internal Abnormal Status; 2nd DC/DC Converter Over Temperature Protection Status; 2nd DC/DC Converter Stopping Status; 2nd DC/DC Converter Drooping Operation Status; 2nd DC/DC Converter Activate Condition
+397,Hybrid Control,0x114F,22 11 4F,refused,0x31,request_out_of_range,1,1,2nd DC/DC Converter Voltage (High Voltage Side)
+397,Hybrid Control,0x1150,22 11 50,refused,0x31,request_out_of_range,1,1,2nd DC/DC Converter Voltage (Low Voltage Side)
+397,Hybrid Control,0x1151,22 11 51,refused,0x31,request_out_of_range,1,1,2nd DC/DC Converter Output Current
+397,Hybrid Control,0x1152,22 11 52,refused,0x31,request_out_of_range,1,1,2nd DC/DC Converter Output Voltage Upper Limit at Step Down
+397,Hybrid Control,0x1153,22 11 53,refused,0x31,request_out_of_range,1,1,Rear A/C Consumption Power
+397,Hybrid Control,0x11BB,22 11 BB,refused,0x31,request_out_of_range,1,1,Grille Shutter Position
+397,Hybrid Control,0x11BD,22 11 BD,refused,0x31,request_out_of_range,1,2,Grille Shutter Stuck Status; Grille Shutter Slipping Status
+397,Hybrid Control,0x120B,22 12 0B,refused,0x31,request_out_of_range,1,3,DC/DC Converter Terminal Voltage (Target Boosting Voltage); DC/DC Converter Terminal Voltage Duty (Target Boosting Voltage); DC/DC Converter Terminal Voltage (Abnormal Detection Signal)
+397,Hybrid Control,0x1238,22 12 38,refused,0x31,request_out_of_range,1,1,DC/DC Converter Operation Status
+397,Hybrid Control,0x1272,22 12 72,refused,0x31,request_out_of_range,1,2,Remote Air Control System Heater Operation Permission Signal; DC/DC Converter Stop Request
+397,Hybrid Control,0x1401,22 14 01,refused,0x31,request_out_of_range,1,4,Relay Cut Signal of Parking Lock Motor Power for Hybrid/EV Control System; Parking Lock Motor Relay Status for Transmission Control System; Parking Lock Motor Main Relay Status; Parking Lock Motor Backup Relay Status
+397,Hybrid Control,0x1402,22 14 02,refused,0x31,request_out_of_range,1,3,W Phase Parking Lock Motor Current-Carrying Status; V Phase Parking Lock Motor Current-Carrying Status; U Phase Parking Lock Motor Current-Carrying Status
+397,Hybrid Control,0x1403,22 14 03,refused,0x31,request_out_of_range,1,4,Parking Lock Motor Current Sensor Voltage; W Phase Parking Lock Motor Terminal Voltage; V Phase Parking Lock Motor Terminal Voltage; U Phase Parking Lock Motor Terminal Voltage
+397,Hybrid Control,0x1405,22 14 05,refused,0x31,request_out_of_range,1,1,P Position Switch Indicator
+397,Hybrid Control,0x1406,22 14 06,refused,0x31,request_out_of_range,1,1,BATT Voltage for Transmission Control System
+397,Hybrid Control,0x1407,22 14 07,refused,0x31,request_out_of_range,1,1,IG Voltage for Transmission Control System
+397,Hybrid Control,0x1408,22 14 08,refused,0x31,request_out_of_range,1,2,Lock Position Learning Value; Unlock Position Learning Value
+397,Hybrid Control,0x1409,22 14 09,refused,0x31,request_out_of_range,1,5,Complete of Learn Unlock Position; Complete of Detect Unlock Position; Complete of Learn Lock Position; Complete of Detect Lock Position; Complete of Initially Drive Parking Lock Control
+397,Hybrid Control,0x140A,22 14 0A,refused,0x31,request_out_of_range,1,1,Abnormality Informing Status
+397,Hybrid Control,0x140B,22 14 0B,refused,0x31,request_out_of_range,1,1,P Position Switch Indicator Dimming Request
+397,Hybrid Control,0x140C,22 14 0C,refused,0x31,request_out_of_range,1,1,Auxiliary Battery Voltage Low History (P Lock Operate)
+397,Hybrid Control,0x140D,22 14 0D,refused,0x31,request_out_of_range,1,1,Number of Trip after Auxiliary Battery Voltage Low (P Lock Operate)
+397,Hybrid Control,0x140E,22 14 0E,refused,0x31,request_out_of_range,1,2,Effective Status of Braking Torque; P Position Automatic Change Request
+397,Hybrid Control,0x140F,22 14 0F,refused,0x31,request_out_of_range,1,2,P Control Request Status; P Control Status
+397,Hybrid Control,0x1410,22 14 10,refused,0x31,request_out_of_range,1,23,Shift P Operation during Running Trigger Counter; Shift P Operation before Vehicle Stop Trigger Counter; Shift P Operation during Other than Shift P Operation Trigger Counter; Auto Change to Shift Position P Cancel Trigger Counter; Voltage Low for Shift Control System Trigger Counter; Shift Operation when Auxiliary Battery Voltage Low Trigger Counter; Consecutive Shift Change between Shift P and Other than Shift P in Short Times Trigger Counter; Shift Operation during Ready Indicator Blinking Trigger Counter; Shift R/D/B(S) Operation during Ready OFF Trigger Counter; Shift Operation without Depressing Brake from Shift Position P Trigger Counter; Shift Operation during Accelerator & Brake Depress Trigger Counter; Shift B(S) Operation from Shift Position P/N Trigger Counter; Shift B(S) Operation from Shift Position R Trigger Counter; Shift D Operation during Backward Movement Trigger Counter; Shift R Operation during Forward Movement Trigger Counter; Shift R/D Operation during Ready OFF Trigger Counter; Shift N Operation during Running Trigger Counter; Quick Shift Operation to Shift Position N during Running Trigger Counter; Shift N Change by Busy Shift Trigger Counter; Shift N Operation on The Way Back to Home Position after Shift D/R Operation Trigger Counter; Shift R Operation on The Way Back to Home Position after Shift D Operation Trigger Counter; Shift D Operation on The Way Back to Home Position after Shift R Operation Trigger Counter; Shift N Operation at Short Times during Low Speed/Stopping Trigger Counter
+397,Hybrid Control,0x1411,22 14 11,refused,0x31,request_out_of_range,1,1,Shift P Auto Change by Cruise Control Trigger Counter
+397,Hybrid Control,0x1412,22 14 12,refused,0x31,request_out_of_range,1,1,Number of Release Shift P Operation during Charging or External Power Supply
+397,Hybrid Control,0x1413,22 14 13,refused,0x31,request_out_of_range,1,1,Fail Safe Status (Gear Shift Control Module)
+397,Hybrid Control,0x1414,22 14 14,refused,0x31,request_out_of_range,1,3,BATT Voltage for Gear Shift Control Module; Gear Shift Control Module Power Supply Voltage; Shift Position Indicator Supply Voltage (Gear Shift Control Module)
+397,Hybrid Control,0x1415,22 14 15,refused,0x31,request_out_of_range,1,1,Stop Light Switch (Gear Shift Control Module)
+397,Hybrid Control,0x1416,22 14 16,refused,0x31,request_out_of_range,1,9,IGP Signal Status; IGR Signal Status; ACC Signal (Gear Shift Control Module); IGCT Signal Status (Gear Shift Control Module); IG2 Signal Status (Gear Shift Control Module); IGP Signal Status (Gear Shift Control Module); Shift Position Indicator Power Supply Output Status; IGCT-Scene Signal Status (Gear Shift Control Module); IGR Signal Status (Gear Shift Control Module)
+397,Hybrid Control,0x1417,22 14 17,refused,0x31,request_out_of_range,1,3,Sub Battery Module Voltage; Sub Battery Module Backup Status (Gear Shift Control Module); Backup Request from Sub Battery Module to Gear Shift Control Module
+397,Hybrid Control,0x1418,22 14 18,refused,0x31,request_out_of_range,1,1,P Position Switch Terminal Voltage (Gear Shift Control Module)
+397,Hybrid Control,0x1419,22 14 19,refused,0x31,request_out_of_range,1,4,Shift Sensor Voltage (VSI1) (Gear Shift Control Module); Shift Sensor Voltage (VSI2) (Gear Shift Control Module); Shift Sensor Voltage (VSI3) (Gear Shift Control Module); Shift Sensor Voltage (VSI4) (Gear Shift Control Module)
+397,Hybrid Control,0x141A,22 14 1A,refused,0x31,request_out_of_range,1,2,"Park Pawl Position Sensor Voltage ""A""; Park Pawl Position Sensor Voltage ""B"""
+397,Hybrid Control,0x141C,22 14 1C,refused,0x31,request_out_of_range,1,5,M or S Shift Position Indicator Turn On Request; D Shift Position Indicator Turn On Request; N Shift Position Indicator Turn On Request; R Shift Position Indicator Turn On Request; P Shift Position Indicator Turn On Request
+397,Hybrid Control,0x141D,22 14 1D,refused,0x31,request_out_of_range,1,1,Back Up Light Turn On Request
+397,Hybrid Control,0x141E,22 14 1E,refused,0x31,request_out_of_range,1,1,SP1 Vehicle Speed
+397,Hybrid Control,0x1423,22 14 23,refused,0x31,request_out_of_range,1,2,ACC Status (Gear Shift Control Module); IG Status (Gear Shift Control Module)
+397,Hybrid Control,0x1424,22 14 24,refused,0x31,request_out_of_range,1,1,Shift Position (Current Position)
+397,Hybrid Control,0x1425,22 14 25,refused,0x31,request_out_of_range,1,1,Shift Sensor Status
+397,Hybrid Control,0x1426,22 14 26,refused,0x31,request_out_of_range,1,1,Limiting Driving Force Request from Transmission Control System
+397,Hybrid Control,0x1427,22 14 27,refused,0x31,request_out_of_range,1,1,Parking Lock Motor Supply Current Limit Status
+397,Hybrid Control,0x1429,22 14 29,refused,0x31,request_out_of_range,1,2,"Shift Switch Status by Park Pawl Position Sensor ""A""; Shift Switch Status by Park Pawl Position Sensor ""B"""
+397,Hybrid Control,0x142A,22 14 2A,refused,0x31,request_out_of_range,1,1,Backup Relay Status
+397,Hybrid Control,0x142B,22 14 2B,refused,0x31,request_out_of_range,1,1,Protection Relay Status
+397,Hybrid Control,0x142C,22 14 2C,refused,0x31,request_out_of_range,1,1,Shift P Repeated Operation Trigger Counter during Running
+397,Hybrid Control,0x142D,22 14 2D,refused,0x31,request_out_of_range,1,1,Shift P Hold Down Trigger Counter during Running
+397,Hybrid Control,0x142E,22 14 2E,refused,0x31,request_out_of_range,1,1,Parking Lock Release by Manual Operation Trigger Counter
+397,Hybrid Control,0x142F,22 14 2F,refused,0x31,request_out_of_range,1,1,Shift P Operation when Auxiliary Battery Low Voltage Trigger Counter
+397,Hybrid Control,0x1430,22 14 30,refused,0x31,request_out_of_range,1,1,Shift Operation NG Count by Parking Lock Control Relearning during Cranking
+397,Hybrid Control,0x1431,22 14 31,refused,0x31,request_out_of_range,1,2,Lock Position Learning Value; Unlock Position Learning Value
+397,Hybrid Control,0x1432,22 14 32,refused,0x31,request_out_of_range,1,1,Door Open Switch Status
+397,Hybrid Control,0x1433,22 14 33,refused,0x31,request_out_of_range,1,1,Shift Operation during Advanced Drive/Park Trigger Counter
+397,Hybrid Control,0x1434,22 14 34,refused,0x31,request_out_of_range,1,1,Shift P Operation during Advanced Drive/Park Trigger Counter
+397,Hybrid Control,0x1435,22 14 35,refused,0x31,request_out_of_range,1,1,Auto Change to Shift Position P when Driver Get Out Trigger Counter
+397,Hybrid Control,0x1436,22 14 36,refused,0x31,request_out_of_range,1,1,Shift Position N Hold Mode ON during IG OFF/ACC ON Trigger Counter
+397,Hybrid Control,0x1437,22 14 37,refused,0x31,request_out_of_range,1,1,Shift Operation on Gradient during Ready OFF Trigger Counter
+397,Hybrid Control,0x1438,22 14 38,refused,0x31,request_out_of_range,1,1,Parking Lock Control Relearning Trigger Counter
+397,Hybrid Control,0x1439,22 14 39,refused,0x31,request_out_of_range,1,1,Shift Operation during Release Shift P Restriction Request Trigger Counter
+397,Hybrid Control,0x143A,22 14 3A,refused,0x31,request_out_of_range,1,1,Shift D/R Operation Rejection from Shift Position N without Depressing Brake Pedal Trigger Counter
+397,Hybrid Control,0x143B,22 14 3B,refused,0x31,request_out_of_range,1,1,Shift D/R Operation Rejection from Shift Position N during Accelerator Pedal Depress Trigger Counter
+397,Hybrid Control,0x143D,22 14 3D,refused,0x31,request_out_of_range,1,1,Gear Shift Actuator Power Supply Voltage (MA1)
+397,Hybrid Control,0x143E,22 14 3E,refused,0x31,request_out_of_range,1,1,Gear Shift Actuator Power Supply Voltage (MA2)
+397,Hybrid Control,0x143F,22 14 3F,refused,0x31,request_out_of_range,1,4,ACT Relay Connect Status; ACT Relay Connect Status (Sub CPU); ACT Relay Connect Request; ACT Relay Connect Request (Sub CPU)
+397,Hybrid Control,0x1440,22 14 40,refused,0x31,request_out_of_range,1,2,ACT Position Status; ACT Position Drive Request
+397,Hybrid Control,0x1442,22 14 42,refused,0x31,request_out_of_range,1,2,ACT Operation Status; ACT Operation Status (Sub CPU)
+397,Hybrid Control,0x1443,22 14 43,refused,0x31,request_out_of_range,1,2,Absolute Angle Sensor Value 1; Absolute Angle Sensor Value 2
+397,Hybrid Control,0x1445,22 14 45,refused,0x31,request_out_of_range,1,1,Gear Shift Actuator Motor Angle Sensor Value
+397,Hybrid Control,0x1447,22 14 47,refused,0x31,request_out_of_range,1,3,"U Phase Parking Lock Motor Current-Carrying Status (Gear Shift Control Module ""B""); V Phase Parking Lock Motor Current-Carrying Status (Gear Shift Control Module ""B""); W Phase Parking Lock Motor Current-Carrying Status (Gear Shift Control Module ""B"")"
+397,Hybrid Control,0x1449,22 14 49,refused,0x31,request_out_of_range,1,3,U Phase Parking Lock Motor Terminal Current; V Phase Parking Lock Motor Terminal Current; W Phase Parking Lock Motor Terminal Current
+397,Hybrid Control,0x144D,22 14 4D,refused,0x31,request_out_of_range,1,1,ACT Function Informing Status
+397,Hybrid Control,0x144F,22 14 4F,refused,0x31,request_out_of_range,1,1,Backup Power Supply Type
+397,Hybrid Control,0x1450,22 14 50,refused,0x31,request_out_of_range,1,6,"IGCT Signal Status (Gear Shift Control Module ""B""); IG Status (Gear Shift Control Module ""B""); IG Status (Gear Shift Control Module ""B"" Sub CPU); IGCT-Scene Signal Status (Gear Shift Control Module ""B""); IGR Signal Status (Gear Shift Control Module ""B""); IGR Signal Status (Gear Shift Control Module ""B"" Sub CPU)"
+397,Hybrid Control,0x1451,22 14 51,refused,0x31,request_out_of_range,1,2,Fail Safe Power Supply Relay Connect Request; Fail Safe Power Supply Relay Connect Request (Sub CPU)
+397,Hybrid Control,0x1452,22 14 52,refused,0x31,request_out_of_range,1,2,ACT Monitoring Information; ACT Monitoring Information (Sub CPU)
+397,Hybrid Control,0x1453,22 14 53,refused,0x31,request_out_of_range,1,2,Gear Shift Actuator Motor Speed; Gear Shift Actuator 2 Motor Speed
+397,Hybrid Control,0x1454,22 14 54,refused,0x31,request_out_of_range,1,1,"Gear Shift Control Module ""B"" CPU Temperature"
+397,Hybrid Control,0x1456,22 14 56,refused,0x31,request_out_of_range,1,4,"WAKE Signal Status (Gear Shift Control Module); WAKE Signal Status (Gear Shift Control Module) (Gear Shift Control Module ""B"" Sub CPU); WAKE Signal Status (Gear Shift Control Module ""B""); WAKE Signal Status (Gear Shift Control Module ""B"" Sub CPU)"
+397,Hybrid Control,0x1458,22 14 58,refused,0x31,request_out_of_range,1,1,ACT Position Learning Complete Status
+397,Hybrid Control,0x1459,22 14 59,refused,0x31,request_out_of_range,1,1,Shift Request during Advanced Drive/Park
+397,Hybrid Control,0x145A,22 14 5A,refused,0x31,request_out_of_range,1,1,Power Supply Mode Status
+397,Hybrid Control,0x145C,22 14 5C,refused,0x31,request_out_of_range,1,2,Gear Shift Actuator Power Supply Relay Downstream Voltage; Gear Shift Actuator 2 Power Supply Relay Downstream Voltage
+397,Hybrid Control,0x145D,22 14 5D,refused,0x31,request_out_of_range,1,2,Not P Position Learning Value (Output Side); Not P Position Learning Value (Motor Side)
+397,Hybrid Control,0x145F,22 14 5F,refused,0x31,request_out_of_range,1,1,Gear Shift Control Module Power Supply Voltage
+397,Hybrid Control,0x1460,22 14 60,refused,0x31,request_out_of_range,1,2,Gear Shift Control Module Backup Signal Status; Gear Shift Control Module Backup Request
+397,Hybrid Control,0x1461,22 14 61,refused,0x31,request_out_of_range,1,1,P Position Switch Signal Status (Gear Shift Control Module)
+397,Hybrid Control,0x1462,22 14 62,refused,0x31,request_out_of_range,1,3,Shift Sensor 1 Status; Shift Sensor 2 Status; Shift Sensor 3 Status
+397,Hybrid Control,0x1463,22 14 63,refused,0x31,request_out_of_range,1,3,Shift Switch R Signal Voltage; Shift Switch D Signal Voltage; Shift Switch N Signal Voltage
+397,Hybrid Control,0x1464,22 14 64,refused,0x31,request_out_of_range,1,1,Shift Lock Release Request
+397,Hybrid Control,0x1465,22 14 65,refused,0x31,request_out_of_range,1,1,Shift R/D Operation during Entry System Open Counter
+397,Hybrid Control,0x1466,22 14 66,refused,0x31,request_out_of_range,1,1,Power Steering Control Module
+397,Hybrid Control,0x15D5,22 15 D5,refused,0x31,request_out_of_range,1,5,Auxiliary Battery Charging Integrated Current; Auxiliary Battery Discharging Integrated Current; Integrated Ready ON Time; Number of Long Term Leaving with IG OFF; Auxiliary Battery Integrated Thermal Load
+397,Hybrid Control,0x15E2,22 15 E2,refused,0x31,request_out_of_range,1,1,Electric Component Actuation Restriction Count
+397,Hybrid Control,0x15EA,22 15 EA,withheld,,privacy_sensitive_requires_opt_in,0,25,Auxiliary Battery Average Current during IG OFF 1 Trip before; Auxiliary Battery Average Current during IG OFF 2 Trip before; Auxiliary Battery Average Current during IG OFF 3 Trip before; Auxiliary Battery Average Current during IG OFF 4 Trip before; Auxiliary Battery Average Current during IG OFF 5 Trip before; Total Distance Up to 1 Trip before; Total Distance Up to 2 Trip before; Total Distance Up to 3 Trip before; Total Distance Up to 4 Trip before; Total Distance Up to 5 Trip before; IG OFF Time before 1 trip; IG OFF Time before 2 trip; IG OFF Time before 3 trip; IG OFF Time before 4 trip; IG OFF Time before 5 trip; IG ON Time Up to 1 trip before; IG ON Time Up to 2 trip before; IG ON Time Up to 3 trip before; IG ON Time Up to 4 trip before; IG ON Time Up to 5 trip before; Ready ON Time Up to 1 trip before; Ready ON Time Up to 2 trip before; Ready ON Time Up to 3 trip before; Ready ON Time Up to 4 trip before; Ready ON Time Up to 5 trip before
+397,Hybrid Control,0x15EB,22 15 EB,refused,0x31,request_out_of_range,1,2,Auxiliary Battery Temperature; Auxiliary Battery Temperature Sensor Voltage
+397,Hybrid Control,0x15F1,22 15 F1,refused,0x31,request_out_of_range,1,4,ASL Vehicle Speed; ASL Memory Vehicle Speed; ASL Request Limit Driving Force; ASL Request Gear Position
+397,Hybrid Control,0x15F2,22 15 F2,refused,0x31,request_out_of_range,1,6,TRC/VSC OFF Indicator; ASL Cancel History (Lost Communication with Brake System); ASL Cancel History (Speed Sensor Malfunction); Kickdown Switch; ASL Limiting Driving Force; ASL Ready
+397,Hybrid Control,0x1606,22 16 06,refused,0x31,request_out_of_range,1,1,AC Input Current
+397,Hybrid Control,0x1609,22 16 09,refused,0x31,request_out_of_range,1,1,Charging Voltage for Hybrid/EV Battery
+397,Hybrid Control,0x1610,22 16 10,refused,0x31,request_out_of_range,1,3,Charging Permission Signal Continuation Status Reset Request; Charging Permission Signal Continuation Status; Charging Permission Signal
+397,Hybrid Control,0x1619,22 16 19,refused,0x31,request_out_of_range,1,3,Target Charging Power; Charger Operation Status; Charging Current Upper Limit
+397,Hybrid Control,0x161D,22 16 1D,refused,0x31,request_out_of_range,1,1,Charger Input Power
+397,Hybrid Control,0x1630,22 16 30,refused,0x31,request_out_of_range,1,1,AC Charging Inlet Connect Status
+397,Hybrid Control,0x1631,22 16 31,refused,0x31,request_out_of_range,1,1,Charging Control Signal Status
+397,Hybrid Control,0x170F,22 17 0F,refused,0x31,request_out_of_range,1,1,DC Quick Charging Lid Status
+397,Hybrid Control,0x1803,22 18 03,refused,0x31,request_out_of_range,1,3,Hybrid/EV Battery Cooling Fan 2 Drive Request; Hybrid/EV Battery Cooling Fan 2 Drive Status; Hybrid/EV Battery Cooling Fan 2 Frequency
+397,Hybrid Control,0x1806,22 18 06,refused,0x31,request_out_of_range,1,6,AC Charging Negative Relay Drive Request; AC Charging Positive Relay Drive Request; AC Charging Precharge Relay Drive Request; AC Charging Negative Relay Status; AC Charging Positive Relay Status; AC Charging Precharge Relay Status
+397,Hybrid Control,0x1829,22 18 29,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Maximum Temperature
+397,Hybrid Control,0x182A,22 18 2A,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Minimum Temperature
+397,Hybrid Control,0x182B,22 18 2B,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Charging and Discharging Permission Status with Hybrid/EV Battery Thermal Keep
+397,Hybrid Control,0x182C,22 18 2C,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Control Status on Thermal Keeping and Charging
+397,Hybrid Control,0x182D,22 18 2D,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Cooling Necessity before Charging
+397,Hybrid Control,0x1830,22 18 30,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Temperature when Charging Start
+397,Hybrid Control,0x1831,22 18 31,refused,0x31,request_out_of_range,1,1,History of Hybrid/EV Battery Cooling Cancel
+397,Hybrid Control,0x1846,22 18 46,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Control Status on Thermal Keeping and Charging
+397,Hybrid Control,0x18A7,22 18 A7,refused,0x31,request_out_of_range,1,1,Solar Charge Hybrid/EV Battery DC/DC Converter Input Power
+397,Hybrid Control,0x18C1,22 18 C1,refused,0x31,request_out_of_range,1,1,Smoothed Value of Solar Charge Hybrid/EV Battery DC/DC Converter Input Voltage
+397,Hybrid Control,0x18C8,22 18 C8,refused,0x31,request_out_of_range,1,1,VLVB Offset Learning Value
+397,Hybrid Control,0x18C9,22 18 C9,refused,0x31,request_out_of_range,1,1,Estimate Cell Temperature near Thermistor
+397,Hybrid Control,0x18CA,22 18 CA,refused,0x31,request_out_of_range,1,1,Estimate Maximum Temperature
+397,Hybrid Control,0x18CB,22 18 CB,refused,0x31,request_out_of_range,1,1,Cooling Performance Correction Coefficient
+397,Hybrid Control,0x18CC,22 18 CC,refused,0x31,request_out_of_range,1,2,Voltage Sensor Characteristics Determination Counter 1; Voltage Sensor Characteristics Determination Counter 2
+397,Hybrid Control,0x1B03,22 1B 03,refused,0x31,request_out_of_range,1,2,Hydrogen Pump Motor Temperature Sensor Voltage; Hydrogen Pump Motor Temperature (Filtered Value)
+397,Hybrid Control,0x1B05,22 1B 05,refused,0x31,request_out_of_range,1,86,Accelerator Position Sensor No.1 Voltage %; Accelerator Position Sensor No.2 Voltage %; Steering Angle Signal; Atmospheric Pressure (MG); Estimate Gradient of Road Surface (Right and Left); SMRP Current-Carrying; GL1 GX Sensor Signal; GL2 GY Sensor Signal; Hybrid/EV Control Total Voltage; Boosting Converter Temperature (Upper); Boosting Converter Temperature (Lower); Boosting Converter Temperature just after IG ON; Boosting Converter Maximum Temperature; V Phase Motor Current; W Phase Motor Current; DC/DC Converter Terminal Voltage (Abnormal Detection Signal); DC/DC Converter Output Voltage Change Signal; DC/DC Converter Output Voltage Change Signal Duty; AC Inverter Start; Target MG Cooling Oil Pump Motor Duty; MG Cooling Oil Pump Motor Speed; MG Cooling Oil Pump Motor Power Relay Request; Hybrid/EV Battery SOC just after IG ON; Hybrid/EV Battery Maximum SOC; Hybrid/EV Battery Minimum SOC; Hybrid/EV Battery Current for Driving Control; Insulation Resistance Deterioration Elapsed Time; Permit Start by Immobiliser; Hydrogen Pump Speed; Target Hydrogen Pump Speed; Target Compressor Speed; Starting Status (An Side); Stopping Status (An Side); Starting Status (Ca Side); Stopping Status (Ca Side); Restart Execute Time; FC System Status; V Phase FC Air Compressor Motor Current; W Phase FC Air Compressor Motor Current; Maximum Impedance Norm; Target Air Pressure Regulating Valve Position; Air Pressure Regulating Valve Position; Target Air Shunt Valve Position; Air Shunt Valve Position; Target Air Sealing Valve Position; Air Sealing Valve Position; Hydrogen Injector 1 Injection Period; Hydrogen Injector 2 Injection Period; Hydrogen Injector 3 Injection Period; Hydrogen Intake Pressure Sensor Voltage; Hydrogen Intake Pressure Sensor Value; Water Heating Heater Consumption Power; Hydrogen Tank 1 Temperature (1 sec before Hydrogen Filling Abort); Hydrogen Tank 1 Temperature (2 sec before Hydrogen Filling Abort); Hydrogen Tank 1 Temperature (3 sec before Hydrogen Filling Abort); Hydrogen Tank 1 Temperature at Hydrogen Filling Abort; Hydrogen Tank 2 Temperature (1 sec before Hydrogen Filling Abort); Hydrogen Tank 2 Temperature (2 sec before Hydrogen Filling Abort); Hydrogen Tank 2 Temperature (3 sec before Hydrogen Filling Abort); Hydrogen Tank 2 Temperature at Hydrogen Filling Abort; Hydrogen Tank 3 Temperature (1 sec before Hydrogen Filling Abort); Hydrogen Tank 3 Temperature (2 sec before Hydrogen Filling Abort); Hydrogen Tank 3 Temperature (3 sec before Hydrogen Filling Abort); Hydrogen Tank 3 Temperature at Hydrogen Filling Abort; Hydrogen Intake Pressure (1 sec before Hydrogen Filling Abort); Hydrogen Intake Pressure (2 sec before Hydrogen Filling Abort); Hydrogen Intake Pressure (3 sec before Hydrogen Filling Abort); Hydrogen Intake Pressure at Hydrogen Filling Abort; Hydrogen Intake Pressure at Hydrogen Filling; Hydrogen Tank SOC (1 sec before Hydrogen Filling Abort); Hydrogen Tank SOC (2 sec before Hydrogen Filling Abort); Hydrogen Tank SOC (3 sec before Hydrogen Filling Abort); Hydrogen Tank SOC at Hydrogen Filling Abort; Main Radiator Fan Voltage; Main Radiator Fan Control Duty; Ion Exchanger Maintenance Distance; Shift Sensor Voltage 1 (Gear Shift Control Module); Shift Sensor Voltage 2 (Gear Shift Control Module); Shift Sensor Voltage 3 (Gear Shift Control Module); Shift Sensor Voltage 4 (Gear Shift Control Module); P Position Switch Signal Voltage (Gear Shift Control Module); Power Feeding Current; Power Feeding Current Upper Limit; Execute Power Feeding Power; Power Feeding Available Power; TRC/VSC OFF Switch
+397,Hybrid Control,0x1B06,22 1B 06,refused,0x31,request_out_of_range,1,60,Ready Lighting Request (Normal Start); Freeze Start Rejection; IG Switch (Twice Read); IGB Signal Status; IG2 Signal Status; IG2 Controlling Signal Status; IGBD Status; IGBD Signal Status; IG ON Status; LIN4 Communication Control Permission; Boosting Converter Shutdown Status; Boosting Converter Overcurrent; Boosting Converter Input Overvoltage; Motor Inverter Shutdown Status; Motor Inverter Overcurrent; DC/DC Converter Stop Request; Inverter Input Overvoltage; Immobiliser Communication; Auxiliary Battery Power Supply Voltage Low; Emergency Shutdown Signal (FC); FC Emergency Shutdown Signal; FC Intermittent Operation; FC Coolant Pump Initial Request; FC Coolant Pump Inverter STB Status; FC Coolant Pump LIN Communication Control; FC Coolant Pump Isolation Fault Detection Control; Lost Communication with FC Coolant Pump; FC Coolant Pump CPU Abnormal; FC Coolant Pump Start Fail; FC Converter Status; FC Converter Shutdown Request; FC Converter Shutdown Status; FC Converter Shutdown Signal; FC Air Compressor Shutdown Status; FC Air Compressor Inverter Stop; Main Relay Connect; Hydrogen Filling (FC); Hydrogen Filling Control Module Power Supply Relay Drive Signal; Hydrogen Pump Initial Request; Hydrogen Pump Inverter STB Status; Hydrogen Pump LIN Communication Control; Hydrogen Pump Isolation Fault Detection Control; Hydrogen Pump CPU Abnormal; Hydrogen Pump Start Fail; Exhaust Drainage Valve; PTC Heater Activate Permission/Prohibition Request Signal (IDH); Water Heating Heater Drive Request; FCDC Fail Signal; Fail Safe Status (FCDC CAN Communication Status); Communication Error from Cell Monitor to FCDC; Cell Monitor AD Abnormal; Cell Monitor ROM Abnormal; Cell Monitor RAM Abnormal; Cell Monitor Abnormal 1; Cell Monitor Abnormal 2; Cell Monitor Abnormal 1 (First Out); Cell Monitor Abnormal 2 (First Out); Cell Monitor Power Supply Voltage Low; Oil Pump Relay Drive Request; Conductivity Reduction Complete
+397,Hybrid Control,0x1B07,22 1B 07,refused,0x31,request_out_of_range,1,1,Hydrogen Pump Main Power Supply Status
+397,Hybrid Control,0x1B08,22 1B 08,refused,0x31,request_out_of_range,1,1,Hydrogen Pump Output Status
+397,Hybrid Control,0x1B09,22 1B 09,refused,0x31,request_out_of_range,1,1,Hydrogen Pump Load Status
+397,Hybrid Control,0x1B0A,22 1B 0A,refused,0x31,request_out_of_range,1,1,Hydrogen Pump Inverter Over Temperature Status
+397,Hybrid Control,0x1B0B,22 1B 0B,refused,0x31,request_out_of_range,1,1,Hydrogen Pump STB Control Signal
+397,Hybrid Control,0x1B0D,22 1B 0D,refused,0x31,request_out_of_range,1,1,Hydrogen Gas Empty
+397,Hybrid Control,0x1B0E,22 1B 0E,refused,0x31,request_out_of_range,1,1,Purge Amount Estimate Value
+397,Hybrid Control,0x1B0F,22 1B 0F,refused,0x31,request_out_of_range,1,1,Hydrogen Gas Level
+397,Hybrid Control,0x1B10,22 1B 10,refused,0x31,request_out_of_range,1,1,Hydrogen Injector Injection Number
+397,Hybrid Control,0x1B11,22 1B 11,refused,0x31,request_out_of_range,1,1,Hydrogen Injector Injection Period
+397,Hybrid Control,0x1B12,22 1B 12,refused,0x31,request_out_of_range,1,3,Atmospheric Pressure Sensor Voltage; Atmospheric Pressure; Atmospheric Pressure (Filtered Value)
+397,Hybrid Control,0x1B13,22 1B 13,refused,0x31,request_out_of_range,1,1,Target FC Inlet Air Pressure
+397,Hybrid Control,0x1B14,22 1B 14,refused,0x31,request_out_of_range,1,1,FC Inlet Air Pressure (Filtered Value)
+397,Hybrid Control,0x1B15,22 1B 15,refused,0x31,request_out_of_range,1,1,FC Inlet Air Temperature (Filtered Value)
+397,Hybrid Control,0x1B16,22 1B 16,refused,0x31,request_out_of_range,1,2,Intake Air Temperature Sensor Voltage; Intake Air Temperature (Filtered Value)
+397,Hybrid Control,0x1B17,22 1B 17,refused,0x31,request_out_of_range,1,3,Mass Air Flow Sensor Frequency; Target Mass Air Flow; Mass Air Flow (Filtered Value)
+397,Hybrid Control,0x1B18,22 1B 18,refused,0x31,request_out_of_range,1,1,Target FC Air Compressor Motor Speed
+397,Hybrid Control,0x1B19,22 1B 19,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Speed (Measured Value)
+397,Hybrid Control,0x1B1A,22 1B 1A,refused,0x31,request_out_of_range,1,1,FC Air Compressor Consumption Power
+397,Hybrid Control,0x1B1B,22 1B 1B,refused,0x31,request_out_of_range,1,1,FC Air Compressor Inverter Temperature (Filtered Value)
+397,Hybrid Control,0x1B1C,22 1B 1C,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Temperature (Filtered Value)
+397,Hybrid Control,0x1B23,22 1B 23,refused,0x31,request_out_of_range,1,2,Radiator Outlet Coolant Temperature Sensor Voltage; Radiator Outlet Coolant Temperature (Filtered Value)
+397,Hybrid Control,0x1B24,22 1B 24,refused,0x31,request_out_of_range,1,1,Target Radiator Rotary Valve Position
+397,Hybrid Control,0x1B25,22 1B 25,refused,0x31,request_out_of_range,1,1,Radiator Rotary Valve Position
+397,Hybrid Control,0x1B27,22 1B 27,refused,0x31,request_out_of_range,1,1,FC Coolant Pump Consumption Power
+397,Hybrid Control,0x1B28,22 1B 28,refused,0x31,request_out_of_range,1,1,Target FC Coolant Pump Speed
+397,Hybrid Control,0x1B29,22 1B 29,refused,0x31,request_out_of_range,1,1,FC Coolant Pump Speed
+397,Hybrid Control,0x1B2A,22 1B 2A,refused,0x31,request_out_of_range,1,1,FC Coolant Pump Main Power Supply Status
+397,Hybrid Control,0x1B2B,22 1B 2B,refused,0x31,request_out_of_range,1,1,FC Coolant Pump Output Status
+397,Hybrid Control,0x1B2C,22 1B 2C,refused,0x31,request_out_of_range,1,1,FC Coolant Pump Load Status
+397,Hybrid Control,0x1B2D,22 1B 2D,refused,0x31,request_out_of_range,1,1,FC Coolant Pump Over Temperature Status
+397,Hybrid Control,0x1B2E,22 1B 2E,refused,0x31,request_out_of_range,1,1,FC Coolant Pump STB Control Signal
+397,Hybrid Control,0x1B31,22 1B 31,refused,0x31,request_out_of_range,1,1,FC Current
+397,Hybrid Control,0x1B32,22 1B 32,refused,0x31,request_out_of_range,1,1,Target FC Current (Filtered Value)
+397,Hybrid Control,0x1B33,22 1B 33,refused,0x31,request_out_of_range,1,1,Maximum Available FC Current
+397,Hybrid Control,0x1B34,22 1B 34,refused,0x31,request_out_of_range,1,1,FC Current (Filtered Value)
+397,Hybrid Control,0x1B35,22 1B 35,refused,0x31,request_out_of_range,1,1,FC Current Limit Value (Temperature High)
+397,Hybrid Control,0x1B36,22 1B 36,refused,0x31,request_out_of_range,1,1,FC Current Limit Value (Hydrogen Stoichiometric Ratio)
+397,Hybrid Control,0x1B37,22 1B 37,refused,0x31,request_out_of_range,1,1,FC Current Limit Value (Auxiliary Battery Driving)
+397,Hybrid Control,0x1B38,22 1B 38,refused,0x31,request_out_of_range,1,1,FC Current Limit Value (Cell Monitor)
+397,Hybrid Control,0x1B39,22 1B 39,refused,0x31,request_out_of_range,1,1,FC Voltage (Filtered Value)
+397,Hybrid Control,0x1B3A,22 1B 3A,refused,0x31,request_out_of_range,1,1,FC Stack Cell Average Minimum Voltage
+397,Hybrid Control,0x1B3B,22 1B 3B,refused,0x31,request_out_of_range,1,1,FC Stack Cell Minimum Voltage
+397,Hybrid Control,0x1B3C,22 1B 3C,refused,0x31,request_out_of_range,1,1,Estimate FC Stack Cell Minimum Voltage 1
+397,Hybrid Control,0x1B3D,22 1B 3D,refused,0x31,request_out_of_range,1,1,Estimate FC Stack Cell Minimum Voltage 2
+397,Hybrid Control,0x1B3E,22 1B 3E,refused,0x31,request_out_of_range,1,1,Internal Voltage
+397,Hybrid Control,0x1B3F,22 1B 3F,refused,0x31,request_out_of_range,1,1,Total Voltage
+397,Hybrid Control,0x1B40,22 1B 40,refused,0x31,request_out_of_range,1,1,FC Output Power Limit Value (FC Air Compressor Shutdown)
+397,Hybrid Control,0x1B41,22 1B 41,refused,0x31,request_out_of_range,1,1,FC Output Power Limit Value (Hydrogen Gas Level Low)
+397,Hybrid Control,0x1B42,22 1B 42,refused,0x31,request_out_of_range,1,1,FC Output Power Limit Value (FC Intermittent Operation by Hydrogen Leak)
+397,Hybrid Control,0x1B43,22 1B 43,refused,0x31,request_out_of_range,1,1,FC Stack Impedance
+397,Hybrid Control,0x1B44,22 1B 44,refused,0x31,request_out_of_range,1,1,FC Stack Cell Average Minimum Voltage ch
+397,Hybrid Control,0x1B45,22 1B 45,refused,0x31,request_out_of_range,1,1,FC Stack Cell Minimum Voltage ch
+397,Hybrid Control,0x1B4A,22 1B 4A,refused,0x31,request_out_of_range,1,1,Cell Monitor Power Supply Voltage
+397,Hybrid Control,0x1B4B,22 1B 4B,refused,0x31,request_out_of_range,1,1,Internal Power Supply Voltage (VHMR)
+397,Hybrid Control,0x1B4C,22 1B 4C,refused,0x31,request_out_of_range,1,1,Motor Torque Estimate Value
+397,Hybrid Control,0x1B4D,22 1B 4D,refused,0x31,request_out_of_range,1,1,MG Shutdown Signal Monitor Voltage
+397,Hybrid Control,0x1B4E,22 1B 4E,refused,0x31,request_out_of_range,1,1,Heater Consumption Power
+397,Hybrid Control,0x1B4F,22 1B 4F,refused,0x31,request_out_of_range,1,1,Motor Operation Status
+397,Hybrid Control,0x1B50,22 1B 50,refused,0x31,request_out_of_range,1,1,FC Air Compressor Temperature just after IG ON
+397,Hybrid Control,0x1B51,22 1B 51,refused,0x31,request_out_of_range,1,1,FC Air Compressor Maximum Temperature
+397,Hybrid Control,0x1B52,22 1B 52,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Torque Estimate Value
+397,Hybrid Control,0x1B53,22 1B 53,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Speed
+397,Hybrid Control,0x1B54,22 1B 54,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Carrier Frequency
+397,Hybrid Control,0x1B55,22 1B 55,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Operation Status
+397,Hybrid Control,0x1B56,22 1B 56,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Control Mode
+397,Hybrid Control,0x1B58,22 1B 58,refused,0x31,request_out_of_range,1,3,Boosting Converter Gate Shutdown Request; Motor Gate Shutdown Request; FC Air Compressor Gate Shutdown Request
+397,Hybrid Control,0x1B59,22 1B 59,refused,0x31,request_out_of_range,1,1,Water Heating Heater STB Status
+397,Hybrid Control,0x1B5A,22 1B 5A,refused,0x31,request_out_of_range,1,1,Inverter Water Pump Drive Request
+397,Hybrid Control,0x1B5B,22 1B 5B,refused,0x31,request_out_of_range,1,2,Master Warning Lighting Request (FC); Master Warning Lighting Request (FCDC)
+397,Hybrid Control,0x1B5D,22 1B 5D,refused,0x31,request_out_of_range,1,1,Short Wave Highest Value
+397,Hybrid Control,0x1B5E,22 1B 5E,refused,0x31,request_out_of_range,1,1,Fail Safe Request
+397,Hybrid Control,0x1B61,22 1B 61,refused,0x31,request_out_of_range,1,1,FC Start Request
+397,Hybrid Control,0x1B62,22 1B 62,refused,0x31,request_out_of_range,1,1,FC Stop Request
+397,Hybrid Control,0x1B64,22 1B 64,refused,0x31,request_out_of_range,1,1,FC Power Generation Status
+397,Hybrid Control,0x1B65,22 1B 65,refused,0x31,request_out_of_range,1,1,FCT System Mode
+397,Hybrid Control,0x1B66,22 1B 66,refused,0x31,request_out_of_range,1,1,FC Work Mode
+397,Hybrid Control,0x1B68,22 1B 68,refused,0x31,request_out_of_range,1,1,FCV System Status
+397,Hybrid Control,0x1B69,22 1B 69,refused,0x31,request_out_of_range,1,1,Mode Status
+397,Hybrid Control,0x1B6A,22 1B 6A,refused,0x31,request_out_of_range,1,1,Drive Mode Status
+397,Hybrid Control,0x1B6E,22 1B 6E,refused,0x31,request_out_of_range,1,1,Auxiliary Voltage
+397,Hybrid Control,0x1B6F,22 1B 6F,refused,0x31,request_out_of_range,1,1,Maximum Vehicle Speed
+397,Hybrid Control,0x1B70,22 1B 70,refused,0x31,request_out_of_range,1,2,Initial Isolation Fault Detection (Pending Normal); Initial Isolation Fault Detection (Pending Abnormal)
+397,Hybrid Control,0x1B71,22 1B 71,refused,0x31,request_out_of_range,1,1,Heater Inlet Coolant Temperature
+397,Hybrid Control,0x1B72,22 1B 72,refused,0x31,request_out_of_range,1,1,Heater Outlet Coolant Temperature
+397,Hybrid Control,0x1B73,22 1B 73,refused,0x31,request_out_of_range,1,3,FC Precharge Relay Request; FC Negative Relay Request; FC Positive Relay Request
+397,Hybrid Control,0x1B74,22 1B 74,refused,0x31,request_out_of_range,1,1,Oil Pump Drive Request
+397,Hybrid Control,0x1B75,22 1B 75,refused,0x31,request_out_of_range,1,2,Hydrogen Detector (Motor Room) Frequency; Motor Room Hydrogen Density
+397,Hybrid Control,0x1B76,22 1B 76,refused,0x31,request_out_of_range,1,2,Hydrogen Detector 1 Frequency; Tank Area 1 Hydrogen Density
+397,Hybrid Control,0x1B77,22 1B 77,refused,0x31,request_out_of_range,1,2,Hydrogen Detector 2 Frequency; Tank Area 2 Hydrogen Density
+397,Hybrid Control,0x1B78,22 1B 78,refused,0x31,request_out_of_range,1,1,Hybrid/EV System Insulation Status
+397,Hybrid Control,0x1B79,22 1B 79,refused,0x31,request_out_of_range,1,1,AC Inverter Switch Indicator Control Status
+397,Hybrid Control,0x1B7A,22 1B 7A,refused,0x31,request_out_of_range,1,7,FC Air Compressor Area Insulation Resistance Division Check Completion; FC Coolant Pump Area Insulation Resistance Division Check Completion; Hydrogen Pump Area Insulation Resistance Division Check Completion; FC Area Insulation Resistance Division Check Completion; Motor Area Insulation Resistance Division Check Completion; A/C Area Insulation Resistance Division Check Completion; Hybrid/EV Battery Area Insulation Resistance Division Check Completion
+397,Hybrid Control,0x1B7C,22 1B 7C,refused,0x31,request_out_of_range,1,1,Input Power
+397,Hybrid Control,0x1B7E,22 1B 7E,refused,0x31,request_out_of_range,1,1,Hybrid/EV Control Current
+397,Hybrid Control,0x1B80,22 1B 80,refused,0x31,request_out_of_range,1,1,FCDC Permission Current
+397,Hybrid Control,0x1B81,22 1B 81,refused,0x31,request_out_of_range,1,1,FCDC Input Voltage
+397,Hybrid Control,0x1B82,22 1B 82,refused,0x31,request_out_of_range,1,1,FCDC Output Voltage
+397,Hybrid Control,0x1B83,22 1B 83,refused,0x31,request_out_of_range,1,1,Target Propeller Shaft Torque (DSS Last Time Value)
+397,Hybrid Control,0x1B84,22 1B 84,refused,0x31,request_out_of_range,1,2,FC Stack Outlet Coolant Temperature Sensor Voltage; FC Stack Outlet Coolant Temperature (Filtered Value)
+397,Hybrid Control,0x1B85,22 1B 85,refused,0x31,request_out_of_range,1,1,Target FC Temperature
+397,Hybrid Control,0x1B88,22 1B 88,refused,0x31,request_out_of_range,1,1,FC Water Release Switch
+397,Hybrid Control,0x1B89,22 1B 89,refused,0x31,request_out_of_range,1,3,FC Air Compressor Inverter Maximum Temperature; FC Air Compressor Inverter Temperature; FC Air Compressor Inverter Temperature just after IG ON
+397,Hybrid Control,0x1B8A,22 1B 8A,refused,0x31,request_out_of_range,1,1,AC Inverter Drive Signal
+397,Hybrid Control,0x1B8C,22 1B 8C,refused,0x31,request_out_of_range,1,1,FC Precharge Relay Control Status
+397,Hybrid Control,0x1B8D,22 1B 8D,refused,0x31,request_out_of_range,1,1,FC Precharge Relay Status
+397,Hybrid Control,0x1B8E,22 1B 8E,refused,0x31,request_out_of_range,1,2,FC Positive Relay Drive Signal Voltage; FC Positive Relay Drive Status
+397,Hybrid Control,0x1B8F,22 1B 8F,refused,0x31,request_out_of_range,1,2,FC Negative Relay Drive Signal Voltage; FC Negative Relay Drive Status
+397,Hybrid Control,0x1B90,22 1B 90,refused,0x31,request_out_of_range,1,1,Fuel Lid Interlock Switch
+397,Hybrid Control,0x1B91,22 1B 91,refused,0x31,request_out_of_range,1,1,Fuel Lid Open Switch
+397,Hybrid Control,0x1B92,22 1B 92,refused,0x31,request_out_of_range,1,1,FC Interlock Switch
+397,Hybrid Control,0x1B93,22 1B 93,refused,0x31,request_out_of_range,1,1,Power Feeding Permission Signal
+397,Hybrid Control,0x1B94,22 1B 94,refused,0x31,request_out_of_range,1,3,Tank Shut Valve 1 Status; Tank Shut Valve 2 Status; Tank Shut Valve 3 Status
+397,Hybrid Control,0x1B95,22 1B 95,refused,0x31,request_out_of_range,1,2,Tank Shut Valve Power Relay Drive Status; Tank Shut Valve Power Relay Drive Signal Status
+397,Hybrid Control,0x1B96,22 1B 96,refused,0x31,request_out_of_range,1,1,AC Inverter Operation Status
+397,Hybrid Control,0x1B97,22 1B 97,refused,0x31,request_out_of_range,1,3,Hydrogen Tank 1 Temperature at Hydrogen Filling; Hydrogen Tank 1 Temperature (Filtered Value); Hydrogen Tank 1 Temperature Sensor Voltage
+397,Hybrid Control,0x1B98,22 1B 98,refused,0x31,request_out_of_range,1,3,Hydrogen Tank 2 Temperature at Hydrogen Filling; Hydrogen Tank 2 Temperature (Filtered Value); Hydrogen Tank 2 Temperature Sensor Voltage
+397,Hybrid Control,0x1B99,22 1B 99,refused,0x31,request_out_of_range,1,3,Hydrogen Tank 3 Temperature at Hydrogen Filling; Hydrogen Tank 3 Temperature (Filtered Value); Hydrogen Tank 3 Temperature Sensor Voltage
+397,Hybrid Control,0x1B9A,22 1B 9A,refused,0x31,request_out_of_range,1,1,High-Range Hydrogen Pressure (Filtered Value)
+397,Hybrid Control,0x1B9B,22 1B 9B,refused,0x31,request_out_of_range,1,1,Medium-Range Hydrogen Pressure (Filtered Value)
+397,Hybrid Control,0x1B9C,22 1B 9C,refused,0x31,request_out_of_range,1,1,Low-Range Hydrogen Pressure (Filtered Value)
+397,Hybrid Control,0x1B9D,22 1B 9D,refused,0x31,request_out_of_range,1,1,Target Low-Range Hydrogen Pressure
+397,Hybrid Control,0x1B9E,22 1B 9E,refused,0x31,request_out_of_range,1,2,FC Inter Cooler Outlet Temperature Sensor Voltage; FC Inter Cooler Outlet Temperature
+397,Hybrid Control,0x1B9F,22 1B 9F,refused,0x31,request_out_of_range,1,2,FC Inter Cooler Outlet Pressure Sensor Voltage; FC Inter Cooler Outlet Pressure
+397,Hybrid Control,0x1BA0,22 1B A0,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Temperature
+397,Hybrid Control,0x1BA4,22 1B A4,refused,0x31,request_out_of_range,1,1,AC Inverter Output Voltage
+397,Hybrid Control,0x1BA5,22 1B A5,refused,0x31,request_out_of_range,1,1,Maximum Impedance ch
+397,Hybrid Control,0x1BA6,22 1B A6,refused,0x31,request_out_of_range,1,1,Impedance Update Counter
+397,Hybrid Control,0x1BA7,22 1B A7,refused,0x31,request_out_of_range,1,1,Water Heating Heater Drive Signal Status
+397,Hybrid Control,0x1BA8,22 1B A8,refused,0x31,request_out_of_range,1,2,FC Air Compressor Inverter Shutdown Status; FC Air Compressor Inverter Overcurrent
+397,Hybrid Control,0x1BA9,22 1B A9,refused,0x31,request_out_of_range,1,3,Rear Right Seat Buckle Switch Status; Rear Left Seat Buckle Switch Status; Rear Center Seat Buckle Switch Status
+397,Hybrid Control,0x1BAA,22 1B AA,refused,0x31,request_out_of_range,1,1,Number of Filling
+397,Hybrid Control,0x1BC5,22 1B C5,refused,0x31,request_out_of_range,1,2,DC/DC Converter 4 Stop Request; DC/DC Converter 4 Terminal Voltage (Abnormal Detection Signal)
+397,Hybrid Control,0x1BC6,22 1B C6,refused,0x31,request_out_of_range,1,6,Collision Sensor 1 (Monitor Signal); Collision Sensor 2 (Monitor Signal); Collision Sensor 1 (Fail Status); Collision Sensor 2 (Fail Status); Collision Sensor 1 (Collision Detection Status); Collision Sensor 2 (Collision Detection Status)
+397,Hybrid Control,0x1BC8,22 1B C8,refused,0x31,request_out_of_range,1,2,Left Hydrogen Tank Collision Sensor (Collision Detection Status); Right Hydrogen Tank Collision Sensor (Collision Detection Status)
+397,Hybrid Control,0x1BC9,22 1B C9,refused,0x31,request_out_of_range,1,1,24V Auxiliary Battery Voltage
+397,Hybrid Control,0x1BCA,22 1B CA,refused,0x31,request_out_of_range,1,1,24V Auxiliary Battery Voltage Low Status
+397,Hybrid Control,0x1BCB,22 1B CB,refused,0x31,request_out_of_range,1,1,Freezer Drive Status
+397,Hybrid Control,0x1BCC,22 1B CC,refused,0x31,request_out_of_range,1,1,Actual Consumption Power
+397,Hybrid Control,0x1BCD,22 1B CD,refused,0x31,request_out_of_range,1,2,DC/DC Converter 3 Stop Request; DC/DC Converter 3 Terminal Voltage (Abnormal Detection Signal)
+397,Hybrid Control,0x1BCE,22 1B CE,refused,0x31,request_out_of_range,1,2,Motor Overspeed Occurrence History 1; Motor Overspeed Occurrence History 2
+397,Hybrid Control,0x1F1C,22 1F 1C,refused,0x31,request_out_of_range,1,1,OBD Requirements
+397,Hybrid Control,0x1F51,22 1F 51,refused,0x31,request_out_of_range,1,1,Current Fuel Type
+397,Hybrid Control,0x2004,22 20 04,refused,0x31,request_out_of_range,1,2,Water Vapor Dilution Control Status; Water Vapor Dilution Control Temperature
+397,Hybrid Control,0x2010,22 20 10,refused,0x31,request_out_of_range,1,73,Air Compressor Roller Bearing Life Attainment Level; Air Compressor Speed Increase Ring Life Attainment Level; Air Compressor Turbo Hose Stress Integrated Value; Intercooler Inlet Packing Stress Integrated Value; Intercooler Inlet Tank Stress Integrated Value; Intercooler Inlet Tank Stress Count (High); Intercooler Inlet Tank Stress Count (Low); Intercooler Cooling Plate Stress Count; Intercooler Cooling Plate Stress Integrated Time (High); Intercooler Cooling Plate Stress Integrated Time (Low); Air Pressure Regulating Valve Seat Rubber Stress Count 1 (High); Air Pressure Regulating Valve Seat Rubber Stress Count 1 (Low); Air Pressure Regulating Valve Seat Rubber Stress Count 2 (High); Air Pressure Regulating Valve Seat Rubber Stress Count 2 (Low); Air Pressure Regulating Valve Weld Stress Count (High); Air Pressure Regulating Valve Weld Stress Count (Low); Air Pressure Regulating Valve Oil Seal and Gear Stress Count (High); Air Pressure Regulating Valve Oil Seal and Gear Stress Count (Low); Air Pressure Regulating Valve Position Integrated Value (High); Air Pressure Regulating Valve Position Integrated Value (Low); Air Pressure Regulating Valve Seat Rubber Stress Integrated Time (High); Air Pressure Regulating Valve Seat Rubber Stress Integrated Time (Low); Air Pressure Regulating Valve Oil Seal Stress Integrated Time (High); Air Pressure Regulating Valve Oil Seal Stress Integrated Time (Low); Air Pressure Regulating Valve Air Temperature 100C Excess Integrated Time (High); Air Pressure Regulating Valve Air Temperature 100C Excess Integrated Time (Low); Air Shunt Valve Weld Stress Count (High); Air Shunt Valve Weld Stress Count (Low); Air Shunt Valve Oil Seal Stress Count (High); Air Shunt Valve Oil Seal Stress Count (Low); Air Shunt Valve Gear Stress Count (High); Air Shunt Valve Gear Stress Count (Low); Air Shunt Valve Position Integrated Value; Air Shunt Valve Oil Seal Stress Integrated Time (High); Air Shunt Valve Oil Seal Stress Integrated Time (Low); Air Shunt Valve Air Temperature 100C Excess Integrated Time (High); Air Shunt Valve Air Temperature 100C Excess Integrated Time (Low); Exhaust Drainage Valve Drive Count; Exhaust Drainage Valve Drive Time (High); Exhaust Drainage Valve Drive Time (Low); Exhaust Drainage Valve Total Drive Time (High); Exhaust Drainage Valve Total Drive Time (Low); Exhaust Drainage Valve Total Thermal Load (High); Exhaust Drainage Valve Total Thermal Load (Low); Anode NH Partial Pressure Integrated Value (High); Anode NH Partial Pressure Integrated Value (Low); Hydrogen Injector 1 Drive Count; Hydrogen Injector 2 Drive Count; Hydrogen Injector 3 Drive Count; Hydrogen Pump Speed Integrated Value; Hydrogen Pump Thermistor Total Thermal Load (High); Hydrogen Pump Thermistor Total Thermal Load (Low); FC Coolant Pump Speed Integrated Value; Rotary Valve Step Integrated Value; Rotary Valve Total Thermal Load; Rotary Valve Inversion Count 1; Rotary Valve Inversion Count 2; Rotary Valve Inversion Count 3; Rotary Valve Inversion Count 4; Rotary Valve Inversion Count 5; Rotary Valve Inversion Count 6; Rotary Valve Inversion Count 7; Rotary Valve Inversion Count 8; Rotary Valve Inversion Count 9; Rotary Valve Inversion Count 10; Rotary Valve Inversion Count 11; Rotary Valve Inversion Count 12; Rotary Valve Inversion Count 13; Rotary Valve Inversion Count 14; Rotary Valve Inversion Count 15; Rotary Valve Inversion Count 16; Rotary Valve Inversion Count 17; Rotary Valve Inversion Count 18
+397,Hybrid Control,0x2011,22 20 11,refused,0x31,request_out_of_range,1,25,EV Coolant Pump Condenser Total Thermal Load; Hydrogen Pump Coolant Pump Condenser Total Thermal Load; FC Coolant Pump Inverter Stress Integrated Time (High); FC Coolant Pump Inverter Stress Integrated Time (Low); PCU Life Integrated Count; BDC Stress Integrated Value; Ion Exchanger Total Drive Time; FC Stack Electric Potential Variation Count 1 (High); FC Stack Electric Potential Variation Count 1 (Low); FC Stack Electric Potential Variation Count 2 (High); FC Stack Electric Potential Variation Count 2 (Low); FC Stack Electric Potential Variation Count 3 (High); FC Stack Electric Potential Variation Count 3 (Low); FC Stack Electric Potential Variation Count 4 (High); FC Stack Electric Potential Variation Count 4 (Low); FC Stack Voltage Low Integrated Value (Carbon Oxidation); FC Stack Voltage Low Integrated Value (Contamination); FC Stack Membrane Thinning Life Attainment Level; FC Stack Three-Layer Seat Stress Integrated Value; FC Stack Membrane Edge Seal Stress Count; FC Stack Cell between Gasket Stress Integrated Value; FC Stack Gasket Total Thermal Load; Air Cleaner Flow Integrated Value (High); Air Cleaner Flow Integrated Value (Low); Air Compressor Oil Consumption
+397,Hybrid Control,0x202B,22 20 2B,refused,0x31,request_out_of_range,1,1,Grille Shutter Control Mode
+397,Hybrid Control,0x2808,22 28 08,refused,0x31,request_out_of_range,1,3,FC Precharge Relay Drive Request; FC Negative Relay Drive Request; FC Positive Relay Drive Request
+397,Hybrid Control,0x2809,22 28 09,refused,0x31,request_out_of_range,1,1,Radiator Rotary Valve Drive Position
+397,Hybrid Control,0x280A,22 28 0A,refused,0x31,request_out_of_range,1,1,Air Pressure Regulating Valve Drive Position
+397,Hybrid Control,0x280B,22 28 0B,refused,0x31,request_out_of_range,1,1,Air Shunt Valve Drive Position
+397,Hybrid Control,0x280C,22 28 0C,refused,0x31,request_out_of_range,1,3,Tank Shut Valve 1 Drive Status; Tank Shut Valve 2 Drive Status; Tank Shut Valve 3 Drive Status
+397,Hybrid Control,0x280D,22 28 0D,refused,0x31,request_out_of_range,1,1,Hydrogen Pump Drive Speed
+397,Hybrid Control,0x280E,22 28 0E,refused,0x31,request_out_of_range,1,1,FC Coolant Pump Drive Speed
+397,Hybrid Control,0x280F,22 28 0F,refused,0x31,request_out_of_range,1,1,Radiator Fan 1 Drive Voltage
+397,Hybrid Control,0x2811,22 28 11,refused,0x31,request_out_of_range,1,1,FC Air Compressor Motor Drive Speed
+397,Hybrid Control,0x2813,22 28 13,refused,0x31,request_out_of_range,1,1,Radiator Fan
+397,Hybrid Control,0x2814,22 28 14,refused,0x31,request_out_of_range,1,1,Air Sealing Valve Drive Position
+397,Hybrid Control,0x2817,22 28 17,refused,0x31,request_out_of_range,1,1,Water Heating Heater Drive Power
+397,Hybrid Control,0x2818,22 28 18,refused,0x31,request_out_of_range,1,1,Coolant Distribution Valve Drive Position
+397,Hybrid Control,0x2819,22 28 19,refused,0x31,request_out_of_range,1,1,Hybrid/EV Battery Water Pump Drive Status
+397,Hybrid Control,0x281B,22 28 1B,refused,0x31,request_out_of_range,1,1,DC/DC Converter Cooling Fan
+397,Hybrid Control,0x2A01,22 2A 01,refused,0x31,request_out_of_range,1,7,Solenoid (SLT); Solenoid (SL4); Solenoid (SL3); Solenoid (SL2); Solenoid (SL1); Solenoid (SC2); Solenoid (SC1)
+397,Hybrid Control,0xFFFE,22 FF FE,withheld,,reserved_or_client_disallowed_did,0,1,Number of DTC

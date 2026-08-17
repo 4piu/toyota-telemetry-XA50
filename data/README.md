@@ -22,7 +22,9 @@ Everything here was written by hand and proven by producing the results in
 | [`validation-profile.json`](config/validation-profile.json) | Endpoint, DID range, tier and privacy policy, paths, backend command | every toolkit CLI |
 | [`backend-config.json`](config/backend-config.json) | CAN bitrate, tester/response IDs, session setup, device selection | `telemetry-pcan`, `telemetry-j2534` |
 | [`ecu-profile.json`](config/ecu-profile.json) | The four ECU keys, their databases, and per-signal live-state notes | `build-catalog.py` |
-| [`decode-overrides.json`](config/decode-overrides.json) | Reviewed corrections to OEM catalog formulas | `telemetry-analyze-capture`, `telemetry-review` |
+| [`decode-overrides.json`](config/decode-overrides.json) | Reviewed corrections to OEM catalog formulas | `telemetry-analyze-capture`, `telemetry-review`, `telemetry-map` |
+| [`curation.csv`](config/curation.csv) | **The only hand-written part of the map**: reviewed evidence state and note per signal | `telemetry-map` |
+| [`<ecu>/backend-config.json`](config/) | Per-ECU endpoints for ECUs beyond Hybrid Control, pending probe | `telemetry-pcan`, `telemetry-j2534` |
 | [`experiments/*.toml`](config/experiments/) | Named follow-up batches with an explicit purpose and vehicle state | `telemetry-validate experiment` |
 
 `validation-profile.json` and `backend-config.json` both describe the endpoint
@@ -31,10 +33,30 @@ mismatch surfaces as a rejected capture rather than as bad data.
 
 ## map/ — the result
 
+Both CSVs are **generated** by `telemetry-map` from the catalog, the completed
+captures, and `config/curation.csv`. Do not edit them by hand — edit
+`curation.csv` and regenerate, or the next run overwrites your change.
+
 | File | Contents |
 |---|---|
-| [`signals.csv`](map/signals.csv) | 55 curated signals: DID, request bytes, bit range, conversion, unit, **evidence state**, and a note. The single source for per-signal facts. |
-| [`transport.json`](map/transport.json) | Endpoint and the two dynamic-DID definitions. Only what cannot be expressed per signal. |
+| [`signals.csv`](map/signals.csv) | Every catalog signal on a DID this vehicle answers: DID, request bytes, bit range, conversion, unit, **evidence state**, what was observed, and a note. |
+| [`unsupported.csv`](map/unsupported.csv) | Every DID this vehicle would not return, with its negative-response code. Recorded because another car of the same platform may well have them. |
+| [`transport.json`](map/transport.json) | Endpoint and dynamic-DID definitions. Only what cannot be expressed per signal. |
+
+The `observation` column says what the captures actually showed:
+
+| Value | Meaning |
+|---|---|
+| `varied` | Changed across two or more independent runs. |
+| `single_run` | Observed in one run only; no independent confirmation. |
+| `constant` | Never changed in any capture. The formula may still be correct — it simply was not exercised. |
+| `beyond_response` | The catalog maps this field past the end of the reply this vehicle sends. Absent from this calibration; present on a variant with more hardware. |
+| `unobserved` | The DID answers, but no capture has covered this field. |
+
+`review_status` separates the two kinds of row: `reviewed` means a human wrote
+that evidence state in `curation.csv`; `auto` means it was derived from
+observation and never rises above *Observed and replayed*. Nothing promotes a
+signal to Correlated or Validated except a person.
 
 Read `evidence_state` before using a row. The words are the field guide's and
 they are not interchangeable:

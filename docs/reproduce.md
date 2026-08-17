@@ -120,13 +120,17 @@ telemetry-validate road --config $profile --live --max-items 4
 Interrupting is safe: completed batches remain progress and only the active
 capture is quarantined.
 
-## 7. Review and compare
+## 7. Review, regenerate the map, and compare
 
 ```powershell
-telemetry-review --config $profile
-telemetry-review --config $profile --pending
-telemetry-review --config $profile --check data\map\signals.csv
+telemetry-review --config $profile --pending      # what still needs excitation
+telemetry-map    --config $profile                # regenerate signals.csv + unsupported.csv
 ```
+
+`telemetry-map` builds the map from the catalog, the completed captures, and
+your hand-written `data\config\curation.csv`. It never raises an evidence state
+on its own, and refuses to write if a curated row claims more than the captures
+support.
 
 The ledger is the point of comparison. If your vehicle produces a materially
 different set of qualified DIDs or decoded ranges, that is a finding about
@@ -149,9 +153,37 @@ and extended ordinary-driving batches. See
 | Path | Contents |
 |---|---|
 | [`data/map/signals.csv`](../data/map/signals.csv) | The curated map, with an evidence state per signal. |
+| [`data/map/unsupported.csv`](../data/map/unsupported.csv) | Every DID this vehicle refused, with its NRC. Yours may differ. |
 | [`data/map/transport.json`](../data/map/transport.json) | Endpoint and dynamic-DID definitions — the parts not expressible per signal. |
+| [`data/config/curation.csv`](../data/config/curation.csv) | The hand-written evidence states and notes behind the map. |
 | [`data/config/decode-overrides.json`](../data/config/decode-overrides.json) | Reviewed corrections to OEM catalog formulas. |
 | [`docs/findings/`](findings/) | How the endpoints, transport, and formulas were established. |
 | [`docs/evidence/`](evidence/) | Capture integrity and correlation results per campaign. |
 
 Raw captures are not published. `scratch/` is ignored in full.
+
+## 9. Extend to the other ECUs
+
+This repository maps Hybrid Control only. Three more ECUs have candidate
+endpoints written and unprobed. Each needs one stationary probe before anything
+else:
+
+```powershell
+foreach ($ecu in 'engine','motor-generator','brake-epb') {
+  .\scratchin	elemetry-pcan.exe --config "data\config\$ecuackend-config.json" --probe --live
+}
+```
+
+A probe sends exactly one tester-present frame and accepts only the expected
+reply. If one answers, copy `validation-profile.json`, point it at that ECU key
+and endpoint, build a plan, and run the same qualify/road/review loop. Then
+generate a combined map by passing every profile at once:
+
+```powershell
+telemetry-map --config data\configalidation-profile.json `
+              --config data\config\enginealidation-profile.json
+```
+
+The session setup in each new `backend-config.json` is copied from Hybrid
+Control and is a guess; if a probe fails while the OBD probe still succeeds,
+the endpoint or its session sequence is wrong rather than the wiring.

@@ -19,18 +19,24 @@ routing, scaling, and validity.
 Hybrid Control diagnostics are independently replayed over CAN at the DLC3
 gateway, 500 kbit/s, tester `0x7D2` to response `0x7DA`.
 
+**Scope: Hybrid Control (ECU 397) only.** The catalog covers four ECUs, but
+only this endpoint has been proven. Engine, Motor Generator, and Brake/EPB have
+candidate endpoints written and are awaiting a stationary probe — see
+[validation status](docs/validation/README.md). A gas XA50 has no ECU 397 at
+all, so this map does not yet apply to one.
+
 | Measure | Count |
 |---|---:|
-| Plan candidates (ECU key 397) | 588 |
-| Qualified | 128 |
-| Road-complete | 127 |
-| Curated signals in the map | 55 |
-| Catalog signals observed across all captures | 291 |
+| Catalog DIDs for ECU 397 | 593 |
+| Answered a read | 128 |
+| Refused (recorded in `unsupported.csv`) | 460 |
+| Signals in the map | 329 |
+| of which human-reviewed | 55 |
 
-Of the 291 observed signals, 12 varied across independent runs, 137 were seen
-in a single run, and 142 stayed constant — mostly event-driven fields whose
-event has not yet occurred during a capture. Regenerate any of these with
-`telemetry-review`; see [validation status](docs/validation/README.md).
+Of the 329 mapped signals, 12 varied across independent runs, 137 were seen in
+a single run, 143 stayed constant, and 37 are mapped by the catalog past the
+end of the reply this vehicle sends — absent hardware, mostly extra battery
+blocks and temperature sensors.
 
 Typical complete-response latency is 11–17 ms, and sustained 10 Hz polling is
 validated. See [throughput](docs/hardware/throughput.md).

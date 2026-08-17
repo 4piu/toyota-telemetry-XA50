@@ -1,0 +1,56 @@
+data_id,first_bit,last_bit,name,evidence_state,notes
+0x1002,0,15,BATT Voltage,Observed and replayed,Varied plausibly from 12.632 to 14.155 V during the pilot road batch.
+0x103A,0,15,Generator Temperature Sensor Voltage,Observed and replayed,Observed at 3.094..3.104 V with nine raw levels in the pilot thermal batch.
+0x103A,16,23,Generator Temperature,Observed and replayed,Observed at 52 degC; matched the recorded maximum and exceeded the 48 degC IG-ON snapshot.
+0x103A,24,31,Generator Temperature just after IG ON,Observed and replayed,Constant 48 degC ignition-cycle snapshot; below the observed current/maximum value of 52 degC.
+0x103A,32,39,Generator Maximum Temperature,Observed and replayed,Constant 52 degC and not below current or IG-ON generator temperature.
+0x103B,0,15,Motor Temperature Sensor Voltage,Observed and replayed,Observed at 3.082..3.108 V; inverse correlation -0.519 with the one-degree motor-temperature transition.
+0x103B,16,23,Motor Temperature,Observed and replayed,Varied from 51 to 52 degC; remained at or below the recorded 52 degC maximum.
+0x103B,24,31,Motor Temperature just after IG ON,Observed and replayed,Constant 47 degC ignition-cycle snapshot; below current and maximum observations.
+0x103B,32,39,Motor Maximum Temperature,Observed and replayed,Constant 52 degC and not below current or IG-ON motor temperature.
+0x1040,0,15,Transaxle Oil Temperature Sensor Voltage,Observed and replayed,Observed at 3.389..3.403 V with 13 raw levels in the pilot thermal batch.
+0x1040,16,23,Transaxle Oil Temperature,Observed and replayed,Constant plausible 48 degC during the 45-second pilot thermal batch.
+0x1043,14,14,Brake Cancel Switch,Correlated and replayed,Exact threshold remains pending.
+0x1043,15,15,Stop Light Switch,Correlated and replayed,Correlated with brake-pedal contact.
+0x1060,0,7,Accelerator Position,Validated and replayed,Validated through dynamic DID F301.
+0x1061,0,7,Shift Position,Correlated and replayed,Raw state changed from 0 during Park qualification to 6 throughout the road-drive batch; enum labels remain pending.
+0x1061,8,15,Shift Position (Meter),Correlated and replayed,Raw state changed from 1 during Park qualification to 8 throughout the road-drive batch; enum labels remain pending.
+0x1063,0,7,Engine Mode,Observed and replayed,Raw state 3 throughout stationary qualification and the powertrain road batch; enum meaning remains unverified.
+0x1064,0,15,Target Engine Revolution,Observed and replayed,Varied plausibly from 934 to 2775 rpm during the pilot road batch; independent engine-speed reference pending.
+0x1065,0,15,Target Engine Power,Correlated and replayed,Pilot range 0..50380 W; correlation with executed engine power 0.9109.
+0x1065,16,31,Execute Engine Power,Correlated and replayed,Pilot range 0..56660 W; correlation with target engine power 0.9109.
+0x1067,0,15,Master Cylinder Control Torque,Correlated and replayed,"Pilot road range -874.25..0 Nm; nonzero only with braking indications. This is request/control, not physical pad contact."
+0x1069,0,15,Request Motor Regenerative Brake Torque,Correlated and replayed,Pilot rolling range -264..0 Nm; request/execution correlation 0.9987 and braking-state association observed.
+0x1069,16,31,Motor Regenerate Brake Execution Torque,Correlated and replayed,Pilot rolling range -264..0 Nm; request/execution correlation 0.9987 and braking-state association observed.
+0x106C,0,7,Hybrid/EV Battery SOC of Immediately after IG ON,Observed and replayed,Constant 40.5% during the road batch as expected for an ignition-cycle snapshot.
+0x106C,8,15,Hybrid/EV Battery Maximum SOC,Correlated and replayed,Rose monotonically from 42.5% to 49.5% with 14 increments and no decreases.
+0x106C,16,23,Hybrid/EV Battery Minimum SOC,Observed and replayed,Constant 39.0% during the pilot road batch; minimum-accumulator behavior remains plausible but unexcited.
+0x1075,0,15,FR Wheel Speed,Correlated and replayed,Pilot rolling range 0..71.41 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.
+0x1075,16,31,FL Wheel Speed,Correlated and replayed,Pilot rolling range 0..71.55 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.
+0x1075,32,47,RR Wheel Speed,Correlated and replayed,Pilot rolling range 0..71.16 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.
+0x1075,48,63,RL Wheel Speed,Correlated and replayed,Pilot rolling range 0..71.42 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.
+0x1076,11,11,Rear MG Activate Condition,Observed and replayed,Remained false in stationary and road observations on this vehicle configuration.
+0x1076,12,12,Engine Start Request (Hybrid/EV Battery Charging),Observed and replayed,Changed from true during stationary qualification to false throughout the road batch; exact trigger remains pending.
+0x1076,13,13,Accelerator Pedal Status,Observed and replayed,Visited both boolean states once during the road batch; synchronized analog-pedal comparison pending.
+0x1076,14,14,MG Activate Condition,Observed and replayed,Remained true in stationary and road observations; inactive reference pending.
+0x1076,15,15,Ready Signal,Observed and replayed,"True in every observation so far (148 samples, one run) and never seen false, so the transition is not correlated. Correlating it needs a capture spanning a READY state change."
+0x1090,0,15,Steering Angle,Correlated and replayed,Correlated with repeated stationary steering nudges.
+0x1093,0,15,Yaw Rate Value,Observed and replayed,Varied from -3.480 to 10.184 deg/s with both signs during the road batch; synchronized steering reference pending.
+0x10A0,0,15,Generator Revolution (MG1),Validated and replayed,Validated through dynamic DID F301.
+0x10A0,16,31,Target Generator Torque,Correlated and replayed,Pilot range -57.625..0 Nm; target/actual generator-torque correlation 0.9965.
+0x10A0,32,39,Generator Carrier Frequency,Observed and replayed,Raw states 3 through 5 observed; enum and physical frequency mapping remain pending.
+0x10A0,40,47,Generator Control Mode,Observed and replayed,Raw states 0 and 2 observed; enum mapping remains pending.
+0x10A0,48,63,Generator Torque,Correlated and replayed,Pilot range -56.5..1.375 Nm; target/actual generator-torque correlation 0.9965.
+0x10A0,64,71,Generator Inverter Operation Request,Observed and replayed,Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.
+0x10A1,0,15,Motor Revolution (MG2),Validated and replayed,Validated through dynamic DID F301.
+0x10A1,16,31,Target Motor Torque,Correlated and replayed,Pilot range -88.875..73.875 Nm; target/actual motor-torque correlation 0.9989.
+0x10A1,32,39,Motor Carrier Frequency,Observed and replayed,Raw states 1 and 3 observed; enum and physical frequency mapping remain pending.
+0x10A1,40,47,Motor Control Mode,Observed and replayed,Raw states 0 and 1 observed; enum mapping remains pending.
+0x10A1,48,63,Motor Torque,Correlated and replayed,Pilot range -84.375..75 Nm; target/actual motor-torque correlation 0.9989.
+0x10A1,64,71,Motor Inverter Operation Request,Observed and replayed,Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.
+0x10A5,0,7,Motor Inverter Temperature,Observed and replayed,Varied from 37 to 43 degC; remained below the recorded 48 degC maximum.
+0x10A5,8,15,Motor Inverter Temperature just after IG ON,Observed and replayed,Constant 41 degC ignition-cycle snapshot.
+0x10A5,16,23,Motor Inverter Maximum Temperature,Observed and replayed,Constant 48 degC and above every current/IG-ON motor-inverter observation.
+0x10B0,0,15,VL-Voltage before Boosting,Correlated and replayed,Pilot range 266.5..318.5 V; paired coherently with boosted-side voltage.
+0x10B0,16,31,VH-Voltage after Boosting,Correlated and replayed,Pilot range 271.5..424.5 V; boost delta reached 117.5 V and near-zero differences showed measurement timing noise.
+0x10B2,0,7,Inverter Coolant Water Temperature,Observed and replayed,Varied plausibly from 38 to 41 degC during the pilot thermal batch.

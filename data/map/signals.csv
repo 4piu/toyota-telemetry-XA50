@@ -1,56 +1,330 @@
-schema_version,profile_id,ecu_key,ecu_name,tester_can_id,response_can_id,data_id,read_request,name,first_bit,last_bit,conversion,unit,evidence_state,notes
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1060,22 10 60,Accelerator Position,0,7,raw * 0.5,%,Validated and replayed,Validated through dynamic DID F301.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1067,22 10 67,Master Cylinder Control Torque,0,15,raw * 0.125 - 4096,Nm,Correlated and replayed,"Pilot road range -874.25..0 Nm; nonzero only with braking indications. This is request/control, not physical pad contact."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1043,22 10 43,Brake Cancel Switch,14,14,boolean,,Correlated and replayed,Exact threshold remains pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,FR Wheel Speed,0,15,(raw - 32768) / 100,km/h,Correlated and replayed,"Pilot rolling range 0..71.41 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,FL Wheel Speed,16,31,(raw - 32768) / 100,km/h,Correlated and replayed,"Pilot rolling range 0..71.55 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,RR Wheel Speed,32,47,(raw - 32768) / 100,km/h,Correlated and replayed,"Pilot rolling range 0..71.16 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,RL Wheel Speed,48,63,(raw - 32768) / 100,km/h,Correlated and replayed,"Pilot rolling range 0..71.42 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1090,22 10 90,Steering Angle,0,15,(raw - 32768) / 10,deg,Correlated and replayed,Correlated with repeated stationary steering nudges.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1043,22 10 43,Stop Light Switch,15,15,boolean,,Correlated and replayed,Correlated with brake-pedal contact.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Revolution (MG1),0,15,raw - 32768,rpm,Validated and replayed,Validated through dynamic DID F301.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Revolution (MG2),0,15,raw - 32768,rpm,Validated and replayed,Validated through dynamic DID F301.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1069,22 10 69,Request Motor Regenerative Brake Torque,0,15,raw * 0.125 - 4096,Nm,Correlated and replayed,"Pilot rolling range -264..0 Nm; request/execution correlation 0.9987 and braking-state association observed."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1069,22 10 69,Motor Regenerate Brake Execution Torque,16,31,raw * 0.125 - 4096,Nm,Correlated and replayed,"Pilot rolling range -264..0 Nm; request/execution correlation 0.9987 and braking-state association observed."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1063,22 10 63,Engine Mode,0,7,raw,,Observed and replayed,Raw state 3 throughout stationary qualification and the powertrain road batch; enum meaning remains unverified.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1064,22 10 64,Target Engine Revolution,0,15,raw,rpm,Observed and replayed,Varied plausibly from 934 to 2775 rpm during the pilot road batch; independent engine-speed reference pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1065,22 10 65,Target Engine Power,0,15,raw * 10,W,Correlated and replayed,"Pilot range 0..50380 W; correlation with executed engine power 0.9109."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1065,22 10 65,Execute Engine Power,16,31,raw * 10,W,Correlated and replayed,"Pilot range 0..56660 W; correlation with target engine power 0.9109."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Target Generator Torque,16,31,raw * 0.125 - 4096,Nm,Correlated and replayed,"Pilot range -57.625..0 Nm; target/actual generator-torque correlation 0.9965."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Torque,48,63,raw * 0.125 - 4096,Nm,Correlated and replayed,"Pilot range -56.5..1.375 Nm; target/actual generator-torque correlation 0.9965."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Carrier Frequency,32,39,raw,,Observed and replayed,Raw states 3 through 5 observed; enum and physical frequency mapping remain pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Control Mode,40,47,raw,,Observed and replayed,Raw states 0 and 2 observed; enum mapping remains pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Inverter Operation Request,64,71,raw,,Observed and replayed,Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Target Motor Torque,16,31,raw * 0.125 - 4096,Nm,Correlated and replayed,"Pilot range -88.875..73.875 Nm; target/actual motor-torque correlation 0.9989."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Torque,48,63,raw * 0.125 - 4096,Nm,Correlated and replayed,"Pilot range -84.375..75 Nm; target/actual motor-torque correlation 0.9989."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Carrier Frequency,32,39,raw,,Observed and replayed,Raw states 1 and 3 observed; enum and physical frequency mapping remain pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Control Mode,40,47,raw,,Observed and replayed,Raw states 0 and 1 observed; enum mapping remains pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Inverter Operation Request,64,71,raw,,Observed and replayed,Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1002,22 10 02,BATT Voltage,0,15,raw * 0.001220703125,V,Observed and replayed,Varied plausibly from 12.632 to 14.155 V during the pilot road batch.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x106C,22 10 6C,Hybrid/EV Battery SOC of Immediately after IG ON,0,7,raw * 0.5,%,Observed and replayed,Constant 40.5% during the road batch as expected for an ignition-cycle snapshot.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x106C,22 10 6C,Hybrid/EV Battery Maximum SOC,8,15,raw * 0.5,%,Correlated and replayed,"Rose monotonically from 42.5% to 49.5% with 14 increments and no decreases."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x106C,22 10 6C,Hybrid/EV Battery Minimum SOC,16,23,raw * 0.5,%,Observed and replayed,Constant 39.0% during the pilot road batch; minimum-accumulator behavior remains plausible but unexcited.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10B0,22 10 B0,VL-Voltage before Boosting,0,15,raw * 0.5,V,Correlated and replayed,"Pilot range 266.5..318.5 V; paired coherently with boosted-side voltage."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10B0,22 10 B0,VH-Voltage after Boosting,16,31,raw * 0.5,V,Correlated and replayed,"Pilot range 271.5..424.5 V; boost delta reached 117.5 V and near-zero differences showed measurement timing noise."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x103A,22 10 3A,Generator Temperature Sensor Voltage,0,15,raw * 0.0000762939453125,V,Observed and replayed,Observed at 3.094..3.104 V with nine raw levels in the pilot thermal batch.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x103A,22 10 3A,Generator Temperature,16,23,raw - 40,degC,Observed and replayed,Observed at 52 degC; matched the recorded maximum and exceeded the 48 degC IG-ON snapshot.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x103A,22 10 3A,Generator Temperature just after IG ON,24,31,raw - 40,degC,Observed and replayed,Constant 48 degC ignition-cycle snapshot; below the observed current/maximum value of 52 degC.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x103A,22 10 3A,Generator Maximum Temperature,32,39,raw - 40,degC,Observed and replayed,Constant 52 degC and not below current or IG-ON generator temperature.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x103B,22 10 3B,Motor Temperature Sensor Voltage,0,15,raw * 0.0000762939453125,V,Observed and replayed,"Observed at 3.082..3.108 V; inverse correlation -0.519 with the one-degree motor-temperature transition."
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x103B,22 10 3B,Motor Temperature,16,23,raw - 40,degC,Observed and replayed,Varied from 51 to 52 degC; remained at or below the recorded 52 degC maximum.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x103B,22 10 3B,Motor Temperature just after IG ON,24,31,raw - 40,degC,Observed and replayed,Constant 47 degC ignition-cycle snapshot; below current and maximum observations.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x103B,22 10 3B,Motor Maximum Temperature,32,39,raw - 40,degC,Observed and replayed,Constant 52 degC and not below current or IG-ON motor temperature.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1040,22 10 40,Transaxle Oil Temperature Sensor Voltage,0,15,raw * 0.0000762939453125,V,Observed and replayed,Observed at 3.389..3.403 V with 13 raw levels in the pilot thermal batch.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1040,22 10 40,Transaxle Oil Temperature,16,23,raw - 40,degC,Observed and replayed,Constant plausible 48 degC during the 45-second pilot thermal batch.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A5,22 10 A5,Motor Inverter Temperature,0,7,raw - 40,degC,Observed and replayed,Varied from 37 to 43 degC; remained below the recorded 48 degC maximum.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A5,22 10 A5,Motor Inverter Temperature just after IG ON,8,15,raw - 40,degC,Observed and replayed,Constant 41 degC ignition-cycle snapshot.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10A5,22 10 A5,Motor Inverter Maximum Temperature,16,23,raw - 40,degC,Observed and replayed,Constant 48 degC and above every current/IG-ON motor-inverter observation.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x10B2,22 10 B2,Inverter Coolant Water Temperature,0,7,raw - 40,degC,Observed and replayed,Varied plausibly from 38 to 41 degC during the pilot thermal batch.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1061,22 10 61,Shift Position,0,7,raw,,Correlated and replayed,Raw state changed from 0 during Park qualification to 6 throughout the road-drive batch; enum labels remain pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1061,22 10 61,Shift Position (Meter),8,15,raw,,Correlated and replayed,Raw state changed from 1 during Park qualification to 8 throughout the road-drive batch; enum labels remain pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1093,22 10 93,Yaw Rate Value,0,15,raw * 0.00390625 - 128,deg/s,Observed and replayed,Varied from -3.480 to 10.184 deg/s with both signs during the road batch; synchronized steering reference pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,Rear MG Activate Condition,11,11,boolean,,Observed and replayed,Remained false in stationary and road observations on this vehicle configuration.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,Engine Start Request (Hybrid/EV Battery Charging),12,12,boolean,,Observed and replayed,Changed from true during stationary qualification to false throughout the road batch; exact trigger remains pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,Accelerator Pedal Status,13,13,boolean,,Observed and replayed,Visited both boolean states once during the road batch; synchronized analog-pedal comparison pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,MG Activate Condition,14,14,boolean,,Observed and replayed,Remained true in stationary and road observations; inactive reference pending.
-1,2023-rav4-hv-xa50-a25a-fxs,397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,Ready Signal,15,15,boolean,,Observed and replayed,"True in every observation so far (148 samples, one run) and never seen false, so the transition is not correlated. Correlating it needs a capture spanning a READY state change."
+ecu_key,ecu_name,tester_can_id,response_can_id,data_id,read_request,name,first_bit,last_bit,conversion,unit,evidence_state,review_status,observation,runs,samples,raw_min,raw_max,value_min,value_max,distinct_raw_values,notes
+397,Hybrid Control,0x7D2,0x7DA,0x0102,22 01 02,Key Cycle,0,15,raw,trip,Observed and replayed,auto,constant,1,300,1957,1957,1957.0,1957.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x0102,22 01 02,IG-ON Elapsed Time,16,47,raw,ms,Observed and replayed,auto,single_run,1,150,124174,1018986,124174.0,1018986.0,150,
+397,Hybrid Control,0x7D2,0x7DA,0x0102,22 01 02,Master Sync Information,48,55,raw,,Observed and replayed,auto,constant,1,150,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x0102,22 01 02,Key Cycle,0,15,raw,trip,Observed and replayed,auto,constant,1,300,1957,1957,1957.0,1957.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x0102,22 01 02,Elapsed Time,16,47,raw,ms,Observed and replayed,auto,single_run,1,150,124174,1018986,124174.0,1018986.0,150,
+397,Hybrid Control,0x7D2,0x7DA,0x1002,22 10 02,BATT Voltage,0,15,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,reviewed,single_run,1,149,10348,11596,12.6318359375,14.1552734375,87,Varied plausibly from 12.632 to 14.155 V during the pilot road batch.
+397,Hybrid Control,0x7D2,0x7DA,0x1007,22 10 07,IG ON Duration Time,0,31,((raw * 1024 / 125) + 0) / (10 ** 0),ms,Observed and replayed,auto,single_run,1,200,509458,546023,4173479.936,4473020.416,200,
+397,Hybrid Control,0x7D2,0x7DA,0x1007,22 10 07,IG OFF Duration Time,32,63,((raw * 1024 / 125) + 0) / (10 ** 0),ms,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1010,22 10 10,Rock and Dirt Switch History,73,73,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1010,22 10 10,Mud and Sand Switch History,74,74,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1031,22 10 31,Inter Lock Switch,15,15,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1031,22 10 31,Inter Lock Switch (MG),14,14,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1031,22 10 31,Interlock Switch (DC/DC Converter),13,13,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1032,22 10 32,Motor Emergency Shutdown (Sub CPU),12,12,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1032,22 10 32,Motor Emergency Shutdown (Main CPU),13,13,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1032,22 10 32,Rear Motor Emergency Shutdown (Sub CPU),10,10,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1032,22 10 32,Rear Motor Emergency Shutdown (Main CPU),11,11,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1032,22 10 32,Inverter Emergency Shutdown (Main CPU),15,15,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1032,22 10 32,Inverter Emergency Shutdown (Sub CPU),14,14,raw,,Observed and replayed,auto,constant,1,199,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1033,22 10 33,SMRG Status,10,10,raw,,Observed and replayed,auto,constant,1,199,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1033,22 10 33,SMRG Control Status,11,11,raw,,Observed and replayed,auto,constant,1,199,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1033,22 10 33,SMRB Status,12,12,raw,,Observed and replayed,auto,constant,1,199,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1033,22 10 33,SMRB Control Status,13,13,raw,,Observed and replayed,auto,constant,1,199,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1033,22 10 33,SMRP Status,14,14,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1033,22 10 33,SMRP Control Status,15,15,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1035,22 10 35,Back Up Light Relay,15,15,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1039,22 10 39,Inverter Water Pump Duty Ratio,0,15,((raw * 125 / 2048) + 0) / (10 ** 1),%,Observed and replayed,auto,single_run,1,199,9503,10486,58.001708984375,64.00146484375,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1039,22 10 39,Inverter Water Pump Revolution,16,31,raw,rpm,Observed and replayed,auto,single_run,1,199,3912,4399,3912.0,4399.0,24,
+397,Hybrid Control,0x7D2,0x7DA,0x103A,22 10 3A,Generator Temperature,16,23,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,constant,1,90,92,92,52.0,52.0,1,Observed at 52 degC; matched the recorded maximum and exceeded the 48 degC IG-ON snapshot.
+397,Hybrid Control,0x7D2,0x7DA,0x103A,22 10 3A,Generator Temperature Sensor Voltage,0,15,((raw * 125 / 16384) + 0) / (10 ** 2),V,Observed and replayed,reviewed,single_run,1,90,40560,40688,3.094482421875,3.104248046875,9,Observed at 3.094..3.104 V with nine raw levels in the pilot thermal batch.
+397,Hybrid Control,0x7D2,0x7DA,0x103A,22 10 3A,Generator Temperature just after IG ON,24,31,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,constant,1,90,88,88,48.0,48.0,1,Constant 48 degC ignition-cycle snapshot; below the observed current/maximum value of 52 degC.
+397,Hybrid Control,0x7D2,0x7DA,0x103A,22 10 3A,Generator Maximum Temperature,32,39,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,constant,1,90,92,92,52.0,52.0,1,Constant 52 degC and not below current or IG-ON generator temperature.
+397,Hybrid Control,0x7D2,0x7DA,0x103B,22 10 3B,Motor Temperature,16,23,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,single_run,1,89,91,92,51.0,52.0,2,Varied from 51 to 52 degC; remained at or below the recorded 52 degC maximum.
+397,Hybrid Control,0x7D2,0x7DA,0x103B,22 10 3B,Motor Temperature Sensor Voltage,0,15,((raw * 125 / 16384) + 0) / (10 ** 2),V,Observed and replayed,reviewed,single_run,1,89,40400,40736,3.082275390625,3.10791015625,21,Observed at 3.082..3.108 V; inverse correlation -0.519 with the one-degree motor-temperature transition.
+397,Hybrid Control,0x7D2,0x7DA,0x103B,22 10 3B,Motor Temperature just after IG ON,24,31,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,constant,1,89,87,87,47.0,47.0,1,Constant 47 degC ignition-cycle snapshot; below current and maximum observations.
+397,Hybrid Control,0x7D2,0x7DA,0x103B,22 10 3B,Motor Maximum Temperature,32,39,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,constant,1,89,92,92,52.0,52.0,1,Constant 52 degC and not below current or IG-ON motor temperature.
+397,Hybrid Control,0x7D2,0x7DA,0x103C,22 10 3C,Rear Motor Temperature,16,23,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,198,69,70,29.0,30.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x103C,22 10 3C,Rear Motor Temperature Sensor Voltage,0,15,((raw * 125 / 16384) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,52016,52496,3.968505859375,4.005126953125,29,
+397,Hybrid Control,0x7D2,0x7DA,0x103C,22 10 3C,Rear Motor Temperature just after IG ON,24,31,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,constant,1,198,70,70,30.0,30.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x103C,22 10 3C,Rear Motor Maximum Temperature,32,39,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,constant,1,198,70,70,30.0,30.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1040,22 10 40,Transaxle Oil Temperature,16,23,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,constant,1,89,88,88,48.0,48.0,1,Constant plausible 48 degC during the 45-second pilot thermal batch.
+397,Hybrid Control,0x7D2,0x7DA,0x1040,22 10 40,Transaxle Oil Temperature Sensor Voltage,0,15,((raw * 125 / 16384) + 0) / (10 ** 2),V,Observed and replayed,reviewed,single_run,1,89,44416,44608,3.388671875,3.4033203125,13,Observed at 3.389..3.403 V with 13 raw levels in the pilot thermal batch.
+397,Hybrid Control,0x7D2,0x7DA,0x1043,22 10 43,Brake Cancel Switch,14,14,raw,,Correlated and replayed,reviewed,single_run,1,199,0,1,0.0,1.0,2,Exact threshold remains pending.
+397,Hybrid Control,0x7D2,0x7DA,0x1043,22 10 43,Stop Light Switch,15,15,raw,,Correlated and replayed,reviewed,single_run,1,199,0,1,0.0,1.0,2,Correlated with brake-pedal contact.
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,IG Switch (CAN),12,12,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,IG Switch (LIN),13,13,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,IGB Signal Status,14,14,raw,,Observed and replayed,auto,constant,1,200,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,IGB Keeping Status,8,8,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,IG2 Signal Status,15,15,raw,,Observed and replayed,auto,constant,1,200,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,+B3M Signal Status,9,9,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,MRL2 Signal Status,10,10,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,IGBD Status,30,30,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,IGBD Signal Status,31,31,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,ACC Signal,11,11,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,Inverter IG Status,28,28,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,Battery IG Status,29,29,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1044,22 10 44,Charger IG Status,27,27,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1045,22 10 45,EV Mode,14,14,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1045,22 10 45,EV Mode Switch,15,15,raw,,Observed and replayed,auto,constant,1,200,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1046,22 10 46,Starter Switch Signal,15,15,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x104B,22 10 4B,Sports Shift UP Signal,15,15,raw,,Observed and replayed,auto,constant,2,489,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x104B,22 10 4B,Sports Shift DOWN Signal,14,14,raw,,Observed and replayed,auto,constant,2,489,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x104B,22 10 4B,M/S/B Shift Position Signal,13,13,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x104C,22 10 4C,Shift Position Sensor (PNB),9,9,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x104C,22 10 4C,Shift Position Sensor (PR),10,10,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x104C,22 10 4C,Shift Position Sensor (DB1),12,12,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x104C,22 10 4C,Shift Position Sensor (DB2),11,11,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x104C,22 10 4C,Shift Position Sensor (N),13,13,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x104C,22 10 4C,Shift Position Sensor (R),14,14,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x104C,22 10 4C,Shift Position Sensor (P),15,15,raw,,Observed and replayed,auto,varied,2,489,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x104F,22 10 4F,Sport Mode Switch,15,15,raw,,Observed and replayed,auto,constant,1,199,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1050,22 10 50,Normal Mode Switch,15,15,raw,,Observed and replayed,auto,constant,1,200,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1052,22 10 52,Shift Lock Release Request,15,15,raw,,Observed and replayed,auto,single_run,1,200,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1057,22 10 57,Auto LSD Switch,15,15,raw,,Observed and replayed,auto,constant,1,200,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1060,22 10 60,Accelerator Position,0,7,((raw * 5 / 1) + 0) / (10 ** 1),%,Validated and replayed,reviewed,single_run,1,198,0,129,0.0,64.5,55,Validated through dynamic DID F301.
+397,Hybrid Control,0x7D2,0x7DA,0x1061,22 10 61,Shift Position,0,7,raw,,Correlated and replayed,reviewed,varied,2,439,0,8,0.0,8.0,5,Raw state changed from 0 during Park qualification to 6 throughout the road-drive batch; enum labels remain pending.
+397,Hybrid Control,0x7D2,0x7DA,0x1061,22 10 61,Shift Position (Meter),8,15,raw,,Correlated and replayed,reviewed,varied,2,439,1,8,1.0,8.0,4,Raw state changed from 1 during Park qualification to 8 throughout the road-drive batch; enum labels remain pending.
+397,Hybrid Control,0x7D2,0x7DA,0x1062,22 10 62,Sports Shift Position,0,7,raw,,Observed and replayed,auto,constant,1,199,255,255,255.0,255.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1063,22 10 63,Engine Mode,0,7,raw,,Observed and replayed,reviewed,constant,1,90,3,3,3.0,3.0,1,Raw state 3 throughout stationary qualification and the powertrain road batch; enum meaning remains unverified.
+397,Hybrid Control,0x7D2,0x7DA,0x1064,22 10 64,Target Engine Revolution,0,15,raw,rpm,Observed and replayed,reviewed,single_run,1,90,934,2775,934.0,2775.0,82,Varied plausibly from 934 to 2775 rpm during the pilot road batch; independent engine-speed reference pending.
+397,Hybrid Control,0x7D2,0x7DA,0x1065,22 10 65,Target Engine Power,0,15,((raw * 10 / 1) + 0) / (10 ** 0),W,Correlated and replayed,reviewed,single_run,1,89,0,5038,0.0,50380.0,67,Pilot range 0..50380 W; correlation with executed engine power 0.9109.
+397,Hybrid Control,0x7D2,0x7DA,0x1065,22 10 65,Execute Engine Power,16,31,((raw * 10 / 1) + 0) / (10 ** 0),W,Correlated and replayed,reviewed,single_run,1,89,0,5666,0.0,56660.0,77,Pilot range 0..56660 W; correlation with target engine power 0.9109.
+397,Hybrid Control,0x7D2,0x7DA,0x1066,22 10 66,DSS Control Status,16,23,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1066,22 10 66,Generate Torque (Request from DSS),0,15,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Observed and replayed,auto,single_run,1,198,31778,33709,-123.75,117.625,141,
+397,Hybrid Control,0x7D2,0x7DA,0x1067,22 10 67,Master Cylinder Control Torque,0,15,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Correlated and replayed,reviewed,single_run,1,198,24576,32768,-1024.0,0.0,34,"Pilot road range -874.25..0 Nm; nonzero only with braking indications. This is request/control, not physical pad contact."
+397,Hybrid Control,0x7D2,0x7DA,0x1068,22 10 68,Rear Motor Torque Ratio,0,15,((raw * 5 / 512) + -320) / (10 ** 1),Times,Observed and replayed,auto,single_run,1,198,32768,33273,0.0,0.4931640625,108,
+397,Hybrid Control,0x7D2,0x7DA,0x1069,22 10 69,Request Motor Regenerative Brake Torque,0,15,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Correlated and replayed,reviewed,single_run,1,199,30656,32768,-264.0,0.0,19,Pilot rolling range -264..0 Nm; request/execution correlation 0.9987 and braking-state association observed.
+397,Hybrid Control,0x7D2,0x7DA,0x1069,22 10 69,Motor Regenerate Brake Execution Torque,16,31,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Correlated and replayed,reviewed,single_run,1,199,30656,32768,-264.0,0.0,21,Pilot rolling range -264..0 Nm; request/execution correlation 0.9987 and braking-state association observed.
+397,Hybrid Control,0x7D2,0x7DA,0x106A,22 10 6A,Request Rear Motor Regenerative Brake Torque,0,15,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Observed and replayed,auto,constant,1,198,32768,32768,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x106A,22 10 6A,Rear Motor Regenerate Brake Execution Torque,16,31,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Observed and replayed,auto,constant,1,198,32768,32768,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x106B,22 10 6B,HV/EV Activate Condition,0,7,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x106C,22 10 6C,Hybrid/EV Battery SOC of Immediately after IG ON,0,7,((raw * 5 / 1) + 0) / (10 ** 1),%,Observed and replayed,reviewed,constant,1,149,81,81,40.5,40.5,1,Constant 40.5% during the road batch as expected for an ignition-cycle snapshot.
+397,Hybrid Control,0x7D2,0x7DA,0x106C,22 10 6C,Hybrid/EV Battery Maximum SOC,8,15,((raw * 5 / 1) + 0) / (10 ** 1),%,Correlated and replayed,reviewed,single_run,1,149,85,99,42.5,49.5,15,Rose monotonically from 42.5% to 49.5% with 14 increments and no decreases.
+397,Hybrid Control,0x7D2,0x7DA,0x106C,22 10 6C,Hybrid/EV Battery Minimum SOC,16,23,((raw * 5 / 1) + 0) / (10 ** 1),%,Observed and replayed,reviewed,constant,1,149,78,78,39.0,39.0,1,Constant 39.0% during the pilot road batch; minimum-accumulator behavior remains plausible but unexcited.
+397,Hybrid Control,0x7D2,0x7DA,0x106D,22 10 6D,Crank Position,0,7,((raw * 1 / 1) + -128) / (10 ** 0),deg(CA),Observed and replayed,auto,single_run,1,199,38,215,-90.0,87.0,100,
+397,Hybrid Control,0x7D2,0x7DA,0x106E,22 10 6E,A/C Consumption Power,0,7,((raw * 5 / 1) + 0) / (10 ** 2),kW,Observed and replayed,auto,single_run,1,198,5,6,0.25,0.3,2,
+397,Hybrid Control,0x7D2,0x7DA,0x106F,22 10 6F,Primary Driving Force Adjustment Result,0,7,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1070,22 10 70,Engine Idling Request,13,13,raw,,Observed and replayed,auto,single_run,1,200,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1070,22 10 70,Engine Start Request (A/C),10,10,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1070,22 10 70,Engine Start Request (Engine Warm-up),11,11,raw,,Observed and replayed,auto,single_run,1,200,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1070,22 10 70,Engine Stop Request,15,15,raw,,Observed and replayed,auto,single_run,1,200,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1070,22 10 70,Engine Stop F/C Status,14,14,raw,,Observed and replayed,auto,single_run,1,200,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1070,22 10 70,Lack of Fuel,12,12,raw,,Observed and replayed,auto,single_run,1,200,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1071,22 10 71,Airbag Status (Collision) (CAN),0,7,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Insulation Resistance Division Check Completion using Rear Motor Inv,8,8,raw,,Observed and replayed,auto,constant,1,150,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Insulation Resistance Division Check Completion using MG Inv,9,9,raw,,Observed and replayed,auto,constant,1,150,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Insulation Resistance Division Check Completion using A/C Inv,10,10,raw,,Observed and replayed,auto,constant,1,150,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Insulation Resistance Division Check Completion using SMR,11,11,raw,,Observed and replayed,auto,constant,1,150,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Insulation Resistance Division Check Completion using AC Charging Area,27,27,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Short Wave Highest Value Availability just after Rear Motor Inv On/Off,12,12,raw,,Observed and replayed,auto,single_run,1,150,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Short Wave Highest Value Availability just after MG Inv On/Off,13,13,raw,,Observed and replayed,auto,constant,1,150,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Short Wave Highest Value Availability just after A/C Inv On/Off,14,14,raw,,Observed and replayed,auto,single_run,1,150,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Short Wave Highest Value Availability just after SMR On/Off,15,15,raw,,Observed and replayed,auto,constant,1,150,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1072,22 10 72,Short Wave Highest Value Availability just after AC Charging Relay On/Off,31,31,raw,,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,FR Wheel Speed,0,15,((raw * 1 / 1) + -32768) / (10 ** 2),km/h,Correlated and replayed,reviewed,single_run,1,198,33471,36466,7.03,36.98,190,Pilot rolling range 0..71.41 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.
+397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,FL Wheel Speed,16,31,((raw * 1 / 1) + -32768) / (10 ** 2),km/h,Correlated and replayed,reviewed,single_run,1,198,33472,36525,7.04,37.57,189,Pilot rolling range 0..71.55 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.
+397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,RR Wheel Speed,32,47,((raw * 1 / 1) + -32768) / (10 ** 2),km/h,Correlated and replayed,reviewed,single_run,1,198,33463,36467,6.95,36.99,187,Pilot rolling range 0..71.16 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.
+397,Hybrid Control,0x7D2,0x7DA,0x1075,22 10 75,RL Wheel Speed,48,63,((raw * 1 / 1) + -32768) / (10 ** 2),km/h,Correlated and replayed,reviewed,single_run,1,198,33470,36517,7.02,37.49,182,Pilot rolling range 0..71.42 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.
+397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,Engine Start Request (Hybrid/EV Battery Charging),12,12,raw,,Observed and replayed,reviewed,constant,1,148,0,0,0.0,0.0,1,Changed from true during stationary qualification to false throughout the road batch; exact trigger remains pending.
+397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,Accelerator Pedal Status,13,13,raw,,Observed and replayed,reviewed,single_run,1,148,0,1,0.0,1.0,2,Visited both boolean states once during the road batch; synchronized analog-pedal comparison pending.
+397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,Ready Signal,15,15,raw,,Observed and replayed,reviewed,constant,1,148,1,1,1.0,1.0,1,"True in every observation so far (148 samples, one run) and never seen false, so the transition is not correlated. Correlating it needs a capture spanning a READY state change."
+397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,MG Activate Condition,14,14,raw,,Observed and replayed,reviewed,constant,1,148,1,1,1.0,1.0,1,Remained true in stationary and road observations; inactive reference pending.
+397,Hybrid Control,0x7D2,0x7DA,0x1076,22 10 76,Rear MG Activate Condition,11,11,raw,,Observed and replayed,reviewed,constant,1,148,0,0,0.0,0.0,1,Remained false in stationary and road observations on this vehicle configuration.
+397,Hybrid Control,0x7D2,0x7DA,0x1077,22 10 77,Permit Start by Immobiliser,0,7,raw,,Observed and replayed,auto,constant,1,199,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1078,22 10 78,Request Torque for Rear Side,0,15,((raw * 1 / 1) + -32768) / (10 ** 0),Nm,Observed and replayed,auto,constant,1,198,32768,32768,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1079,22 10 79,Hybrid/EV Battery Cooling Fan Low Speed Request,15,15,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x107A,22 10 7A,VSC/TRC OFF Switch,0,7,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x107B,22 10 7B,Short Wave Highest Value Level,0,7,raw,,Observed and replayed,auto,single_run,1,150,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x107D,22 10 7D,Motor/Generator Reactor Current before SMR Precharge,0,15,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,constant,1,199,32775,32775,0.7,0.7,1,
+397,Hybrid Control,0x7D2,0x7DA,0x107D,22 10 7D,Motor/Generator Reactor Maximum Current during SMR Precharge,16,31,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,constant,1,199,32804,32804,3.6,3.6,1,
+397,Hybrid Control,0x7D2,0x7DA,0x107E,22 10 7E,Auxiliary Battery Voltage just before SMR Precharge,0,15,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,constant,1,198,9520,9520,11.62109375,11.62109375,1,
+397,Hybrid Control,0x7D2,0x7DA,0x107F,22 10 7F,Voltage Deviation between before Boosting and after Boosting during SMR Precharge,0,15,((raw * 1 / 1) + -32768) / (10 ** 1),V,Observed and replayed,auto,constant,1,198,32788,32788,2.0,2.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1080,22 10 80,Motor/Generator Reactor Current-Carrying Status during SMR Precharge,14,14,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1080,22 10 80,Motor/Generator Reactor Noncurrent-Carrying Status during SMR Precharge,15,15,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1090,22 10 90,Steering Angle,0,15,((raw * 1 / 1) + -32768) / (10 ** 1),deg,Correlated and replayed,reviewed,single_run,1,198,27863,37808,-490.5,504.0,112,Correlated with repeated stationary steering nudges.
+397,Hybrid Control,0x7D2,0x7DA,0x1091,22 10 91,Forward and Rearward G,0,15,((raw * 2 / 5) + -13107) / (10 ** 3),m/s2,Observed and replayed,auto,single_run,1,199,23463,40216,-3.721799999999999,2.9793999999999996,193,
+397,Hybrid Control,0x7D2,0x7DA,0x1092,22 10 92,Lateral G,0,15,((raw * 2 / 5) + -13107) / (10 ** 3),m/s2,Observed and replayed,auto,single_run,1,200,29448,46316,-1.3277999999999992,5.419400000000001,46,
+397,Hybrid Control,0x7D2,0x7DA,0x1093,22 10 93,Yaw Rate Value,0,15,((raw * 5 / 128) + -1280) / (10 ** 1),deg/s,Observed and replayed,reviewed,single_run,1,149,31877,35375,-3.48046875,10.18359375,22,Varied from -3.480 to 10.184 deg/s with both signs during the road batch; synchronized steering reference pending.
+397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Revolution,0,15,((raw * 1 / 1) + -32768) / (10 ** 0),rpm,Validated and replayed,reviewed,single_run,1,89,34016,41446,1248.0,8678.0,86,Validated through dynamic DID F301.
+397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Target Generator Torque,16,31,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Correlated and replayed,reviewed,single_run,1,89,32307,32768,-57.625,0.0,63,Pilot range -57.625..0 Nm; target/actual generator-torque correlation 0.9965.
+397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Torque,48,63,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Correlated and replayed,reviewed,single_run,1,89,32316,32779,-56.5,1.375,74,Pilot range -56.5..1.375 Nm; target/actual generator-torque correlation 0.9965.
+397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Inverter Operation Request,64,71,raw,,Observed and replayed,reviewed,constant,1,89,4,4,4.0,4.0,1,Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.
+397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Carrier Frequency,32,39,raw,,Observed and replayed,reviewed,single_run,1,89,3,5,3.0,5.0,3,Raw states 3 through 5 observed; enum and physical frequency mapping remain pending.
+397,Hybrid Control,0x7D2,0x7DA,0x10A0,22 10 A0,Generator Control Mode,40,47,raw,,Observed and replayed,reviewed,single_run,1,89,0,2,0.0,2.0,2,Raw states 0 and 2 observed; enum mapping remains pending.
+397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Revolution,0,15,((raw * 1 / 1) + -32768) / (10 ** 0),rpm,Validated and replayed,reviewed,single_run,1,89,32478,36880,-290.0,4112.0,86,Validated through dynamic DID F301.
+397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Target Motor Torque,16,31,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Correlated and replayed,reviewed,single_run,1,89,32057,33359,-88.875,73.875,80,Pilot range -88.875..73.875 Nm; target/actual motor-torque correlation 0.9989.
+397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Torque,48,63,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Correlated and replayed,reviewed,single_run,1,89,32093,33368,-84.375,75.0,82,Pilot range -84.375..75 Nm; target/actual motor-torque correlation 0.9989.
+397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Inverter Operation Request,64,71,raw,,Observed and replayed,reviewed,constant,1,89,4,4,4.0,4.0,1,Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.
+397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Carrier Frequency,32,39,raw,,Observed and replayed,reviewed,single_run,1,89,1,3,1.0,3.0,2,Raw states 1 and 3 observed; enum and physical frequency mapping remain pending.
+397,Hybrid Control,0x7D2,0x7DA,0x10A1,22 10 A1,Motor Control Mode,40,47,raw,,Observed and replayed,reviewed,single_run,1,89,0,1,0.0,1.0,2,Raw states 0 and 1 observed; enum mapping remains pending.
+397,Hybrid Control,0x7D2,0x7DA,0x10A2,22 10 A2,Rear Motor Revolution,0,15,((raw * 1 / 1) + -32768) / (10 ** 0),rpm,Observed and replayed,auto,single_run,1,198,32019,35350,-749.0,2582.0,189,
+397,Hybrid Control,0x7D2,0x7DA,0x10A2,22 10 A2,Target Rear Motor Torque,16,31,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Observed and replayed,auto,single_run,1,198,32328,33485,-55.0,89.625,105,
+397,Hybrid Control,0x7D2,0x7DA,0x10A2,22 10 A2,Rear Motor Torque,48,63,((raw * 25 / 2) + -409600) / (10 ** 2),Nm,Observed and replayed,auto,single_run,1,198,32321,33500,-55.875,91.5,104,
+397,Hybrid Control,0x7D2,0x7DA,0x10A2,22 10 A2,Rear Motor Inverter Operation Request,64,71,raw,,Observed and replayed,auto,constant,1,198,4,4,4.0,4.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10A2,22 10 A2,Rear Motor Carrier Frequency,32,39,raw,,Observed and replayed,auto,single_run,1,198,1,4,1.0,4.0,3,
+397,Hybrid Control,0x7D2,0x7DA,0x10A2,22 10 A2,Rear Motor Control Mode,40,47,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10A3,22 10 A3,Boosting Converter Operation Request,16,23,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10A3,22 10 A3,Boosting Converter Carrier Frequency,0,7,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10A3,22 10 A3,Boost Ratio,8,15,((raw * 200 / 51) + 0) / (10 ** 1),%,Observed and replayed,auto,single_run,1,199,0,160,0.0,62.74509803921569,34,
+397,Hybrid Control,0x7D2,0x7DA,0x10A5,22 10 A5,Motor Inverter Temperature,0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,single_run,1,89,77,83,37.0,43.0,7,Varied from 37 to 43 degC; remained below the recorded 48 degC maximum.
+397,Hybrid Control,0x7D2,0x7DA,0x10A5,22 10 A5,Motor Inverter Temperature just after IG ON,8,15,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,constant,1,89,81,81,41.0,41.0,1,Constant 41 degC ignition-cycle snapshot.
+397,Hybrid Control,0x7D2,0x7DA,0x10A5,22 10 A5,Motor Inverter Maximum Temperature,16,23,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,constant,1,89,88,88,48.0,48.0,1,Constant 48 degC and above every current/IG-ON motor-inverter observation.
+397,Hybrid Control,0x7D2,0x7DA,0x10A6,22 10 A6,Rear Motor Inverter Temperature,0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,72,82,32.0,42.0,11,
+397,Hybrid Control,0x7D2,0x7DA,0x10A6,22 10 A6,Rear Motor Inverter Temperature just after IG ON,8,15,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,constant,1,150,81,81,41.0,41.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10A6,22 10 A6,Rear Motor Inverter Maximum Temperature,16,23,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,81,87,41.0,47.0,4,
+397,Hybrid Control,0x7D2,0x7DA,0x10A7,22 10 A7,Boosting Converter Temperature (Upper),0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,72,90,32.0,50.0,19,
+397,Hybrid Control,0x7D2,0x7DA,0x10A7,22 10 A7,Boosting Converter Temperature (Lower),8,15,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,72,87,32.0,47.0,15,
+397,Hybrid Control,0x7D2,0x7DA,0x10A7,22 10 A7,Boosting Converter Temperature just after IG ON,16,23,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,constant,1,150,81,81,41.0,41.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10A7,22 10 A7,Boosting Converter Maximum Temperature,24,31,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,81,102,41.0,62.0,5,
+397,Hybrid Control,0x7D2,0x7DA,0x10A8,22 10 A8,Generator Inverter Temperature,0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,71,86,31.0,46.0,16,
+397,Hybrid Control,0x7D2,0x7DA,0x10A8,22 10 A8,Generator Inverter Temperature just after IG ON,8,15,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,constant,1,150,80,80,40.0,40.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10A8,22 10 A8,Generator Inverter Maximum Temperature,16,23,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,80,88,40.0,48.0,8,
+397,Hybrid Control,0x7D2,0x7DA,0x10AC,22 10 AC,Generator Inverter Fail,14,14,raw,,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10AC,22 10 AC,Generator Inverter Shutdown Status,15,15,raw,,Observed and replayed,auto,single_run,1,200,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x10AD,22 10 AD,Motor Inverter Fail,14,14,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10AD,22 10 AD,Motor Inverter Shutdown Status,15,15,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10AE,22 10 AE,Rear Motor Inverter Fail,14,14,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10AE,22 10 AE,Rear Motor Inverter Shutdown Status,15,15,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10AF,22 10 AF,Boosting Converter Fail,14,14,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10AF,22 10 AF,Boosting Converter Shutdown Status,15,15,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10AF,22 10 AF,Overvoltage Input to Inverter,12,12,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10AF,22 10 AF,Overvoltage Input to Boosting Converter,13,13,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10B0,22 10 B0,VL-Voltage before Boosting,0,15,((raw * 5 / 1) + 0) / (10 ** 1),V,Correlated and replayed,reviewed,single_run,1,148,533,637,266.5,318.5,59,Pilot range 266.5..318.5 V; paired coherently with boosted-side voltage.
+397,Hybrid Control,0x7D2,0x7DA,0x10B0,22 10 B0,VH-Voltage after Boosting,16,31,((raw * 5 / 1) + 0) / (10 ** 1),V,Correlated and replayed,reviewed,single_run,1,148,543,849,271.5,424.5,65,Pilot range 271.5..424.5 V; boost delta reached 117.5 V and near-zero differences showed measurement timing noise.
+397,Hybrid Control,0x7D2,0x7DA,0x10B2,22 10 B2,Inverter Coolant Water Temperature,0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,reviewed,single_run,1,89,78,81,38.0,41.0,4,Varied plausibly from 38 to 41 degC during the pilot thermal batch.
+397,Hybrid Control,0x7D2,0x7DA,0x10B4,22 10 B4,Rear Motor Inverter Temperature before Operation,0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,constant,1,150,40,40,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10B5,22 10 B5,VL-Voltage before Boosting for Rear Motor,0,15,((raw * 5 / 1) + 0) / (10 ** 1),V,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x10B6,22 10 B6,V Phase Generator Current,0,15,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,single_run,1,198,32000,33746,-76.8,97.8,107,
+397,Hybrid Control,0x7D2,0x7DA,0x10B6,22 10 B6,W Phase Generator Current,16,31,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,single_run,1,198,31917,33569,-85.1,80.1,108,
+397,Hybrid Control,0x7D2,0x7DA,0x10B7,22 10 B7,V Phase Motor Current,0,15,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,single_run,1,198,31038,34202,-173.0,143.4,163,
+397,Hybrid Control,0x7D2,0x7DA,0x10B7,22 10 B7,W Phase Motor Current,16,31,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,single_run,1,198,30855,34737,-191.3,196.9,160,
+397,Hybrid Control,0x7D2,0x7DA,0x10B8,22 10 B8,V Phase Rear Motor Current,0,15,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,single_run,1,198,32125,33614,-64.3,84.6,115,
+397,Hybrid Control,0x7D2,0x7DA,0x10B8,22 10 B8,W Phase Rear Motor Current,16,31,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,single_run,1,198,31945,33545,-82.3,77.7,123,
+397,Hybrid Control,0x7D2,0x7DA,0x1210,22 12 10,Inverter Input Current,0,15,((raw * 1 / 1) + -32768) / (10 ** 1),A,Observed and replayed,auto,single_run,1,198,31802,33865,-96.6,109.7,164,
+397,Hybrid Control,0x7D2,0x7DA,0x15E4,22 15 E4,Auxiliary Battery Charging Rate Accuracy,0,7,raw,,Observed and replayed,auto,constant,1,199,2,2,2.0,2.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E5,22 15 E5,Auxiliary Battery Status of Full Charge,0,7,((raw * 5 / 1) + 0) / (10 ** 1),Ah,Observed and replayed,auto,constant,1,199,132,132,66.0,66.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E7,22 15 E7,Auxiliary Battery Dark Current,0,15,raw,mA,Observed and replayed,auto,constant,1,198,23,23,23.0,23.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E8,22 15 E8,Auxiliary Battery Charging Integrated Current,0,31,((raw * 1 / 1) + 0) / (10 ** 1),Ah,Observed and replayed,auto,constant,1,198,16284,16284,1628.4,1628.4,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E8,22 15 E8,Auxiliary Battery Discharging Integrated Current,32,63,((raw * 1 / 1) + 0) / (10 ** 1),Ah,Observed and replayed,auto,constant,1,198,1565,1565,156.5,156.5,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E8,22 15 E8,Auxiliary Battery Capacity after IG ON,64,71,((raw * 1 / 1) + -128) / (10 ** 0),Ah,Observed and replayed,auto,constant,1,198,128,128,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E8,22 15 E8,Auxiliary Battery Capacity after IG OFF,72,79,((raw * 1 / 1) + -128) / (10 ** 0),Ah,Observed and replayed,auto,constant,1,198,128,128,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E8,22 15 E8,Integrated Ready ON Time,80,95,raw,hour,Observed and replayed,auto,constant,1,198,217,217,217.0,217.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E8,22 15 E8,Number of Long Term Leaving with IG OFF,96,103,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E8,22 15 E8,Auxiliary Battery Integrated Thermal Load,104,135,raw,,Observed and replayed,auto,constant,1,198,1059290,1059290,1059290.0,1059290.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E9,22 15 E9,Total Distance Indicated after Long Term Leaving with IG OFF (1st),0,15,((raw * 2 / 1) + 0) / (10 ** 0),km,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E9,22 15 E9,Total Distance Indicated after Long Term Leaving with IG OFF (2nd),16,31,((raw * 2 / 1) + 0) / (10 ** 0),km,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E9,22 15 E9,Total Distance Indicated after Long Term Leaving with IG OFF (3rd),32,47,((raw * 2 / 1) + 0) / (10 ** 0),km,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E9,22 15 E9,Time of Long Term Leaving with IG OFF (1st),48,55,raw,day,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E9,22 15 E9,Time of Long Term Leaving with IG OFF (2nd),56,63,raw,day,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15E9,22 15 E9,Time of Long Term Leaving with IG OFF (3rd),64,71,raw,day,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15EE,22 15 EE,Auxiliary Battery Voltage,0,15,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,10408,11806,12.705078125,14.41162109375,123,
+397,Hybrid Control,0x7D2,0x7DA,0x15EF,22 15 EF,Auxiliary Battery Voltage Low Times,0,7,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15EF,22 15 EF,Auxiliary Battery Voltage at Low Voltage Checking Initiation,8,23,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,constant,1,198,9456,9456,11.54296875,11.54296875,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15F0,22 15 F0,Auxiliary Battery Sensor Sleep Time,0,7,raw,h,Observed and replayed,auto,constant,1,200,2,2,2.0,2.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15F7,22 15 F7,Auxiliary Battery Current,0,15,((raw * 3125 / 8192) + -12500) / (10 ** 2),A,Observed and replayed,auto,single_run,1,198,28526,37173,-16.18194580078125,16.803741455078125,182,
+397,Hybrid Control,0x7D2,0x7DA,0x15F8,22 15 F8,Smoothed Value of Auxiliary Battery Temperature,0,15,((raw * 1 / 1) + -400) / (10 ** 1),℃,Observed and replayed,auto,constant,1,150,679,679,27.9,27.9,1,
+397,Hybrid Control,0x7D2,0x7DA,0x15FF,22 15 FF,Immobiliser Communication,15,15,raw,,Observed and replayed,auto,constant,1,199,1,1,1.0,1.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1802,22 18 02,Hybrid/EV Battery Cooling Fan 1 Drive Request,0,7,((raw * 5 / 1) + 0) / (10 ** 1),%,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1802,22 18 02,Hybrid/EV Battery Cooling Fan 1 Drive Status,24,31,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1802,22 18 02,Hybrid/EV Battery Cooling Fan 1 Frequency,8,23,((raw * 1 / 1) + 0) / (10 ** 1),Hz,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1805,22 18 05,Hybrid/EV Battery Sensor Module Power Supply Voltage,0,15,((raw * 125 / 1024) + -4000) / (10 ** 2),V,Observed and replayed,auto,single_run,1,199,43072,44480,12.578125,14.296875,59,
+397,Hybrid Control,0x7D2,0x7DA,0x1807,22 18 07,WIN Control Limit Power,0,15,((raw * 1 / 1) + -32768) / (10 ** 2),kW,Observed and replayed,auto,constant,1,198,28892,28892,-38.76,-38.76,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1807,22 18 07,WOUT Control Limit Power,16,31,((raw * 1 / 1) + -32768) / (10 ** 2),kW,Observed and replayed,auto,constant,1,198,35318,35318,25.5,25.5,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 1 Voltage,0,15,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,10985,15130,13.409423828125,18.46923828125,81,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 2 Voltage,16,31,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,10985,15089,13.409423828125,18.419189453125,78,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 3 Voltage,32,47,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,21979,29908,26.829833984375,36.5087890625,79,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 4 Voltage,48,63,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,21897,29982,26.729736328125,36.59912109375,74,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 5 Voltage,64,79,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,22020,29941,26.8798828125,36.549072265625,76,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 6 Voltage,80,95,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,21774,29982,26.57958984375,36.59912109375,77,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 7 Voltage,96,111,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,22102,29982,26.97998046875,36.59912109375,80,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 8 Voltage,112,127,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,21815,29982,26.629638671875,36.59912109375,77,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 9 Voltage,128,143,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,11108,15048,13.5595703125,18.369140625,81,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 10 Voltage,144,159,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,11067,15065,13.509521484375,18.389892578125,81,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 11 Voltage,160,175,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,10985,15171,13.409423828125,18.519287109375,83,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 12 Voltage,176,191,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 13 Voltage,192,207,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 14 Voltage,208,223,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 15 Voltage,224,239,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 16 Voltage,240,255,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 17 Voltage,256,271,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 18 Voltage,272,287,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 19 Voltage,288,303,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1809,22 18 09,Hybrid/EV Battery Block 20 Voltage,304,319,((raw * 125 / 1024) + 0) / (10 ** 2),V,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x180A,22 18 0A,Number of Hybrid/EV Battery Block,0,7,raw,,Observed and replayed,auto,constant,1,198,11,11,11.0,11.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x180A,22 18 0A,Hybrid/EV Battery Block Ch (Minimum Voltage),8,15,raw,ch,Observed and replayed,auto,single_run,1,198,2,10,2.0,10.0,9,
+397,Hybrid Control,0x7D2,0x7DA,0x180A,22 18 0A,Hybrid/EV Battery Block Ch (Maximum Voltage),16,23,raw,ch,Observed and replayed,auto,single_run,1,198,0,10,0.0,10.0,9,
+397,Hybrid Control,0x7D2,0x7DA,0x180A,22 18 0A,Minimum Voltage of Hybrid/EV Battery Block,24,39,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,11051,15048,13.489990234375,18.369140625,77,
+397,Hybrid Control,0x7D2,0x7DA,0x180A,22 18 0A,Maximum Voltage of Hybrid/EV Battery Block,40,55,((raw * 125 / 1024) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,11345,15204,13.848876953125,18.5595703125,84,
+397,Hybrid Control,0x7D2,0x7DA,0x180B,22 18 0B,Hybrid/EV Battery Cooling Fan Intake Air Temperature 1,0,15,((raw * 5 / 128) + -500) / (10 ** 1),℃,Observed and replayed,auto,single_run,1,150,19427,19671,25.88671875,26.83984375,10,
+397,Hybrid Control,0x7D2,0x7DA,0x180D,22 18 0D,Delta SOC,0,7,((raw * 5 / 1) + 0) / (10 ** 1),%,Observed and replayed,auto,constant,1,150,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x180F,22 18 0F,Hybrid/EV Battery Control Mode,0,7,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 1,0,7,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,23,26,0.023,0.026,4,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 2,8,15,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,23,26,0.023,0.026,4,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 3,16,23,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,22,25,0.022,0.025,4,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 4,24,31,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,22,25,0.022,0.025,4,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 5,32,39,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,22,25,0.022,0.025,4,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 6,40,47,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,22,25,0.022,0.025,4,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 7,48,55,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,22,26,0.022,0.026,5,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 8,56,63,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,22,26,0.022,0.026,5,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 9,64,71,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,23,26,0.023,0.026,4,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 10,72,79,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,23,26,0.023,0.026,4,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 11,80,87,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Observed and replayed,auto,single_run,1,150,23,27,0.023,0.027,5,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 12,88,95,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 13,96,103,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 14,104,111,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 15,112,119,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 16,120,127,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 17,128,135,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 18,136,143,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 19,144,151,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1813,22 18 13,Internal Resistance 20,152,159,((raw * 1 / 1) + 0) / (10 ** 3),ohm,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 1,0,15,((raw * 5 / 128) + -500) / (10 ** 1),℃,Observed and replayed,auto,single_run,1,149,22087,23406,36.27734375,41.4296875,44,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 2,16,31,((raw * 5 / 128) + -500) / (10 ** 1),℃,Observed and replayed,auto,single_run,1,149,23091,24419,40.19921875,45.38671875,42,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 3,32,47,((raw * 5 / 128) + -500) / (10 ** 1),℃,Observed and replayed,auto,single_run,1,149,22297,23216,37.09765625,40.6875,31,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 4,48,63,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 5,64,79,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 6,80,95,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 7,96,111,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 8,112,127,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 9,128,143,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 10,144,159,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 11,160,175,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1814,22 18 14,Hybrid/EV Battery Temperature 12,176,191,((raw * 5 / 128) + -500) / (10 ** 1),℃,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x1817,22 18 17,Hybrid/EV Battery Current for Hybrid/EV Battery Control,0,15,((raw * 1 / 1) + -32768) / (10 ** 2),A,Observed and replayed,auto,single_run,1,198,22053,45219,-107.15,124.51,191,
+397,Hybrid Control,0x7D2,0x7DA,0x1817,22 18 17,Hybrid/EV Battery Current Sensor Power Supply Voltage,16,23,((raw * 1 / 1) + 0) / (10 ** 1),V,Observed and replayed,auto,constant,1,198,49,49,4.9,4.9,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1817,22 18 17,Hybrid/EV Battery Current Sensor Offset Learning Value,24,39,((raw * 1 / 1) + -32768) / (10 ** 2),A,Observed and replayed,auto,constant,1,198,32694,32694,-0.74,-0.74,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1817,22 18 17,Hybrid/EV Battery Current Sensor Offset (High),40,55,((raw * 1 / 1) + -32768) / (10 ** 2),A,Observed and replayed,auto,constant,1,198,32694,32694,-0.74,-0.74,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1817,22 18 17,Hybrid/EV Battery Current Sensor Offset (Low),56,71,((raw * 1 / 1) + -32768) / (10 ** 2),A,Candidate,auto,beyond_response,0,0,,,,,,
+397,Hybrid Control,0x7D2,0x7DA,0x181D,22 18 1D,Hybrid/EV Battery Current for Driving Control,0,15,((raw * 1 / 1) + -32768) / (10 ** 2),A,Observed and replayed,auto,single_run,1,198,23148,39658,-96.2,68.9,103,
+397,Hybrid Control,0x7D2,0x7DA,0x181F,22 18 1F,Number of Hybrid/EV Battery Current Sensor Characteristics Determination,0,7,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1828,22 18 28,Hybrid/EV Battery Monitoring IC 1 Voltage 1,0,15,((raw * 1 / 1) + -32768) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,34258,34605,14.9,18.37,72,
+397,Hybrid Control,0x7D2,0x7DA,0x1828,22 18 28,Hybrid/EV Battery Monitoring IC 1 Voltage 2,16,31,((raw * 1 / 1) + -32768) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,34248,34602,14.8,18.34,71,
+397,Hybrid Control,0x7D2,0x7DA,0x1828,22 18 28,Hybrid/EV Battery Monitoring IC 2 Voltage 1,32,47,((raw * 1 / 1) + -32768) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,34260,34600,14.92,18.32,69,
+397,Hybrid Control,0x7D2,0x7DA,0x1828,22 18 28,Hybrid/EV Battery Monitoring IC 2 Voltage 2,48,63,((raw * 1 / 1) + -32768) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,34248,34600,14.8,18.32,72,
+397,Hybrid Control,0x7D2,0x7DA,0x1828,22 18 28,Hybrid/EV Battery Monitoring IC 3 Voltage 1,64,79,((raw * 1 / 1) + -32768) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,35749,36433,29.81,36.65,70,
+397,Hybrid Control,0x7D2,0x7DA,0x1828,22 18 28,Hybrid/EV Battery Monitoring IC 3 Voltage 2,80,95,((raw * 1 / 1) + -32768) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,35725,36428,29.57,36.6,74,
+397,Hybrid Control,0x7D2,0x7DA,0x1F01,22 1F 01,MIL,0,0,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F01,22 1F 01,Number of Emission DTC,1,7,raw,,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F04,22 1F 04,Calculate Load,0,7,((raw * 2000 / 51) + 0) / (10 ** 2),%,Observed and replayed,auto,single_run,1,199,0,255,0.0,100.0,91,
+397,Hybrid Control,0x7D2,0x7DA,0x1F05,22 1F 05,Coolant Temperature,0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,95,130,55.0,90.0,27,
+397,Hybrid Control,0x7D2,0x7DA,0x1F0C,22 1F 0C,Engine Speed,0,15,((raw * 25 / 1) + 0) / (10 ** 2),rpm,Observed and replayed,auto,single_run,1,198,0,12032,0.0,3008.0,44,
+397,Hybrid Control,0x7D2,0x7DA,0x1F0D,22 1F 0D,Vehicle Speed,0,7,raw,km/h,Observed and replayed,auto,single_run,1,198,0,94,0.0,94.0,71,
+397,Hybrid Control,0x7D2,0x7DA,0x1F0F,22 1F 0F,Intake Air Temperature,0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,69,78,29.0,38.0,9,
+397,Hybrid Control,0x7D2,0x7DA,0x1F11,22 1F 11,Throttle Position Sensor No.1 Voltage %,0,7,((raw * 2000 / 51) + 0) / (10 ** 2),%,Observed and replayed,auto,single_run,1,197,35,91,13.72549019607843,35.68627450980392,29,
+397,Hybrid Control,0x7D2,0x7DA,0x1F1F,22 1F 1F,Engine Run Time,0,15,raw,sec,Observed and replayed,auto,single_run,1,200,542,837,542.0,837.0,200,
+397,Hybrid Control,0x7D2,0x7DA,0x1F21,22 1F 21,MIL ON Run Distance,0,15,raw,km,Observed and replayed,auto,constant,1,200,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F30,22 1F 30,Warmup Cycle Cleared DTC,0,7,raw,,Observed and replayed,auto,constant,1,200,255,255,255.0,255.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F31,22 1F 31,Distance from DTC Cleared,0,15,raw,km,Observed and replayed,auto,single_run,1,199,7162,7167,7162.0,7167.0,6,
+397,Hybrid Control,0x7D2,0x7DA,0x1F33,22 1F 33,Atmospheric Pressure,0,7,raw,kPa,Observed and replayed,auto,single_run,1,150,100,101,100.0,101.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1F42,22 1F 42,Smoothed Value of BATT Voltage,0,15,((raw * 1 / 1) + 0) / (10 ** 3),V,Observed and replayed,auto,single_run,1,198,12583,12656,12.583,12.656,13,
+397,Hybrid Control,0x7D2,0x7DA,0x1F46,22 1F 46,Ambient Temperature,0,7,((raw * 1 / 1) + -40) / (10 ** 0),℃,Observed and replayed,auto,single_run,1,150,66,70,26.0,30.0,5,
+397,Hybrid Control,0x7D2,0x7DA,0x1F49,22 1F 49,Accelerator Position Sensor No.1 Voltage %,0,7,((raw * 2000 / 51) + 0) / (10 ** 2),%,Observed and replayed,auto,single_run,1,198,40,102,15.686274509803923,40.0,49,
+397,Hybrid Control,0x7D2,0x7DA,0x1F4A,22 1F 4A,Accelerator Position Sensor No.2 Voltage %,0,7,((raw * 2000 / 51) + 0) / (10 ** 2),%,Observed and replayed,auto,single_run,1,198,81,143,31.764705882352942,56.07843137254902,50,
+397,Hybrid Control,0x7D2,0x7DA,0x1F4D,22 1F 4D,Running Time from MIL ON,0,15,raw,min,Observed and replayed,auto,constant,1,199,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F4E,22 1F 4E,Time after DTC Cleared,0,15,raw,min,Observed and replayed,auto,single_run,1,199,14184,14188,14184.0,14188.0,5,
+397,Hybrid Control,0x7D2,0x7DA,0x1F5B,22 1F 5B,Hybrid/EV Battery SOC,0,7,((raw * 2000 / 51) + 0) / (10 ** 2),%,Observed and replayed,auto,single_run,1,150,98,158,38.431372549019606,61.96078431372549,47,
+397,Hybrid Control,0x7D2,0x7DA,0x1F65,22 1F 65,"Shift Switch Status (N,P Position)",14,14,raw,,Observed and replayed,auto,varied,2,487,0,1,0.0,1.0,2,
+397,Hybrid Control,0x7D2,0x7DA,0x1F65,22 1F 65,Recommended Gear for Current Vehicle Conditions,8,11,raw,,Observed and replayed,auto,constant,2,487,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F65,22 1F 65,Glow Indicator,12,12,raw,,Observed and replayed,auto,constant,2,487,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F65,22 1F 65,Shift Switch Status (Neutral),13,13,raw,,Observed and replayed,auto,constant,2,487,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F65,22 1F 65,Power Take Off Status,15,15,raw,,Observed and replayed,auto,constant,2,487,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x1F87,22 1F 87,Intake Manifold Absolute Pressure,8,23,((raw * 25 / 8) + 0) / (10 ** 2),kPa,Observed and replayed,auto,single_run,1,150,750,3212,23.4375,100.375,95,
+397,Hybrid Control,0x7D2,0x7DA,0x1F9A,22 1F 9A,Hybrid/EV Battery Voltage,16,31,((raw * 25 / 16) + 0) / (10 ** 2),V,Observed and replayed,auto,single_run,1,198,16128,20416,252.0,319.0,53,
+397,Hybrid Control,0x7D2,0x7DA,0x1F9A,22 1F 9A,Hybrid/EV Battery Current,32,47,"signed(raw, 16) / 10",A,Observed and replayed,auto,single_run,1,198,14,65527,-0.9,1.4,114,
+397,Hybrid Control,0x7D2,0x7DA,0x1F9A,22 1F 9A,Power Feeding Electrical Using Status,13,14,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x23FF,22 23 FF,Body Control with Torque Demand,0,7,raw,,Observed and replayed,auto,constant,1,198,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x2801,22 28 01,Inverter Water Pump,15,15,raw,,Observed and replayed,auto,constant,1,399,0,0,0.0,0.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x2802,22 28 02,Hybrid/EV Battery Cooling Fan,0,7,raw,,Observed and replayed,auto,constant,1,399,4,4,4.0,4.0,1,
+397,Hybrid Control,0x7D2,0x7DA,0x2BFF,22 2B FF,TC Terminal,15,15,raw,,Observed and replayed,auto,constant,1,398,0,0,0.0,0.0,1,
