@@ -1,1 +1,5 @@
-toyota-telemetry-tools @ git+https://github.com/4piu/70Y074-telemetry.git@7aa347cdd6b397752c9d817f77557f7f7d37b2bd
+# Pre-publish testing: tracks the upstream default branch so local changes
+# are picked up without a pin bump. Replace with an immutable commit hash
+# before publishing - reproducing a result needs the exact revision, and a
+# branch moves.
+toyota-telemetry-tools @ git+https://github.com/4piu/70Y074-telemetry.git@main

@@ -4,7 +4,9 @@ project_id = "xa50-hybrid-vehicle-a"
 
 [upstream]
 repository = "https://github.com/4piu/70Y074-telemetry.git"
-revision = "7aa347cdd6b397752c9d817f77557f7f7d37b2bd"
+# Pre-publish testing pin. A branch name is deliberately not reproducible;
+# replace with the reviewed commit hash before publishing.
+revision = "main"
 
 [paths]
 scratch = "scratch"

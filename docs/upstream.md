@@ -6,6 +6,12 @@ reusable method and executable code comes from
 tooling here — that is deliberate, and it is the check that the field guide is
 actually complete.
 
+> **Currently tracking `main` for pre-publish testing.** Both pins below name a
+> branch rather than a commit, so a fresh install picks up upstream changes
+> without a bump. That is deliberate while the repositories are unpublished and
+> changing together; it is not reproducible, and both must become commit hashes
+> before release.
+
 Two pins record what was reviewed:
 
 | File | Pins |
