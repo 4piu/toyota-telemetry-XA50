@@ -1,16 +1,12 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
-  "description": "XA50 Hybrid Control (ECU key 397) diagnostic endpoint. The session setup was recovered from a captured Techstream/J2534 conversation; see docs/findings/diagnostic-data-path.md.",
-
+  "description": "Diagnostic endpoints behind the DLC3 gateway. Bitrate, addressing, device, limits, and the session sequence are shared; each ECU contributes only its identifier pair. Pass --ecu KEY to select one.",
   "transport": {
     "network": "classical-can",
     "bitrate": 500000,
-    "tester_can_id": "0x7D2",
-    "response_can_id": "0x7DA",
     "addressing": "normal"
   },
-
   "session_setup": [
     {
       "request": "3E 00",
@@ -28,14 +24,12 @@
       "label": "extended session"
     }
   ],
-
   "limits": {
     "maximum_candidate_dids": 6,
     "did_min": "0x0100",
     "did_max": "0xEFFF",
     "response_pending_budget_ms": 10000
   },
-
   "device": {
     "pcan": {
       "channel": "PCAN_USBBUS1"
@@ -43,5 +37,35 @@
     "j2534": {
       "dll": "C:\\Program Files (x86)\\XHorse Electronics\\MVCI Driver for TOYOTA TIS\\MVCI32.dll"
     }
-  }
+  },
+  "ecus": [
+    {
+      "key": 397,
+      "name": "Hybrid Control",
+      "tester_can_id": "0x7D2",
+      "response_can_id": "0x7DA",
+      "description": "Live-confirmed. Every capture in this repository so far used this endpoint."
+    },
+    {
+      "key": 372,
+      "name": "Engine",
+      "tester_can_id": "0x700",
+      "response_can_id": "0x708",
+      "description": "Observed answering in the 2026-08-08 Techstream J2534 trace; not yet probed by this project. Present on gas XA50 variants."
+    },
+    {
+      "key": 395,
+      "name": "Motor Generator",
+      "tester_can_id": "0x724",
+      "response_can_id": "0x72C",
+      "description": "From the static Techstream protocol table; not yet observed answering."
+    },
+    {
+      "key": 435,
+      "name": "Brake/EPB",
+      "tester_can_id": "0x7B0",
+      "response_can_id": "0x7B8",
+      "description": "From the static Techstream protocol table; not yet observed answering."
+    }
+  ]
 }

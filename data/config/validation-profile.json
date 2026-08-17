@@ -1,21 +1,14 @@
 {
-  "schema_version": 1,
-  "plan_id": "hybrid-control-progressive-v1",
+  "schema_version": 2,
   "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
-  "endpoint": {
-    "ecu_key": 397,
-    "tester_can_id": "0x7D2",
-    "response_can_id": "0x7DA",
-    "bitrate": 500000
+  "description": "Catalog, selection rules, tier policy, and backend are shared by every ECU behind the DLC3 gateway; each entry adds only its endpoint and paths.",
+  "transport": {
+    "bitrate": 500000,
+    "addressing": "normal"
   },
   "catalog": {
     "path": "data/catalog/telemetry.csv",
     "acquisition": "direct DID"
-  },
-  "paths": {
-    "plan": "scratch/plans/vehicle-a/hybrid-control-progressive.json",
-    "capture_root": "scratch/captures/vehicle-a",
-    "output_root": "scratch/captures/vehicle-a/progressive"
   },
   "selection": {
     "did_min": "0x0100",
@@ -121,5 +114,55 @@
         "--live"
       ]
     }
-  }
+  },
+  "ecus": [
+    {
+      "key": 397,
+      "name": "Hybrid Control",
+      "plan_id": "hybrid-control-progressive-v1",
+      "tester_can_id": "0x7D2",
+      "response_can_id": "0x7DA",
+      "paths": {
+        "plan": "scratch/plans/vehicle-a/hybrid-control-progressive.json",
+        "capture_root": "scratch/captures/vehicle-a",
+        "output_root": "scratch/captures/vehicle-a/progressive"
+      }
+    },
+    {
+      "key": 372,
+      "name": "Engine",
+      "plan_id": "engine-progressive-v1",
+      "tester_can_id": "0x700",
+      "response_can_id": "0x708",
+      "paths": {
+        "plan": "scratch/plans/vehicle-a/engine-progressive.json",
+        "capture_root": "scratch/captures/vehicle-a/engine",
+        "output_root": "scratch/captures/vehicle-a/engine/progressive"
+      }
+    },
+    {
+      "key": 395,
+      "name": "Motor Generator",
+      "plan_id": "motor-generator-progressive-v1",
+      "tester_can_id": "0x724",
+      "response_can_id": "0x72C",
+      "paths": {
+        "plan": "scratch/plans/vehicle-a/motor-generator-progressive.json",
+        "capture_root": "scratch/captures/vehicle-a/motor-generator",
+        "output_root": "scratch/captures/vehicle-a/motor-generator/progressive"
+      }
+    },
+    {
+      "key": 435,
+      "name": "Brake/EPB",
+      "plan_id": "brake-epb-progressive-v1",
+      "tester_can_id": "0x7B0",
+      "response_can_id": "0x7B8",
+      "paths": {
+        "plan": "scratch/plans/vehicle-a/brake-epb-progressive.json",
+        "capture_root": "scratch/captures/vehicle-a/brake-epb",
+        "output_root": "scratch/captures/vehicle-a/brake-epb/progressive"
+      }
+    }
+  ]
 }
