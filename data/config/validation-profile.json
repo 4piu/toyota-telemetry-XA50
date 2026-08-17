@@ -23,19 +23,8 @@
     "max_response_bytes": 512,
     "maximum_dids_per_road_batch": 6,
     "default_tier": "normal",
-    "identity_words": [
-      "vin",
-      "vehicle identification",
-      "customer",
-      "dealer",
-      "registration"
-    ],
-    "private_words": [
-      "odometer",
-      "distance traveled",
-      "absolute value time",
-      "trip before"
-    ],
+    "identity_words": [],
+    "private_words": [],
     "tier_words": {
       "fast": [
         "speed",

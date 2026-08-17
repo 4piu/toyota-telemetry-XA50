@@ -53,6 +53,16 @@ The `observation` column says what the captures actually showed:
 | `beyond_response` | The catalog maps this field past the end of the reply this vehicle sends. Absent from this calibration; present on a variant with more hardware. |
 | `unobserved` | The DID answers, but no capture has covered this field. |
 
+Observed minima, maxima, and value counts are deliberately **not** published.
+They are captured readings — a key-cycle count, a state of charge — and this
+file exists to define signals, not to report this car's state. The full
+analysis stays local:
+
+```powershell
+telemetry-review --config data\configalidation-profile.json `
+  --csv scratchnalysis\ledger.csv
+```
+
 `review_status` separates the two kinds of row: `reviewed` means a human wrote
 that evidence state in `curation.csv`; `auto` means it was derived from
 observation and never rises above *Observed and replayed*. Nothing promotes a

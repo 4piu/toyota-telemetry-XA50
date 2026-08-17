@@ -61,13 +61,21 @@ No archive-tier signal appears in [`signals.csv`](../../data/map/signals.csv),
 and excluding the tier from road mode costs no coverage. Revisit only if a
 future calibration returns a longer `0x1010`.
 
-## Privacy selection
+## Selection policy
 
-The planner never schedules reserved or client-disallowed DIDs, and never
-schedules a DID whose catalog labels indicate a VIN or other identity-bearing
-field. Three trip/time-history DIDs are excluded by default; `--include-private`
-admits them to a private workbench plan, and their raw captures must not be
-committed. See [PRIVATE_DATA.md](../../PRIVATE_DATA.md).
+The planner skips DIDs outside `0x0100`-`0xEFFF`; `0x0000` and `0xFFFE` are
+UDS-reserved identifiers rather than telemetry.
+
+There is no privacy word list. An earlier revision withheld odometer, clock,
+and trip-history DIDs from the plan, which cost coverage without protecting
+anything: every capture lands in the ignored `scratch/` tree, and the published
+map contains signal definitions rather than readings. Recording "we chose not
+to look at the odometer" in a published CSV was noise, not a safeguard.
+
+What does protect the data is unchanged: captures are never committed, and the
+map carries no observed values. See [PRIVATE_DATA.md](../../PRIVATE_DATA.md)
+before publishing an example capture — that is where sanitization matters,
+because a raw capture of an identity-bearing DID does contain the identifier.
 
 ## Negative-response policy
 
