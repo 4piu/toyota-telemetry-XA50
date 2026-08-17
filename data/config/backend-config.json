@@ -87,7 +87,26 @@
       "name": "EMPS",
       "tester_can_id": "0x7A1",
       "response_can_id": "0x7A9",
-      "description": "probe-confirmed (rejects tester present)"
+      "description": "probe-confirmed (rejects tester present) Answers session control without echoing the subfunction; extended session is tolerant so a refusal leaves the ECU in default session rather than ending the run.",
+      "session_setup": [
+        {
+          "request": "3E 00",
+          "expect": "7E 00",
+          "label": "tester present",
+          "tolerate_negative": true
+        },
+        {
+          "request": "10 01",
+          "expect": "50",
+          "label": "default session (no subfunction echo)"
+        },
+        {
+          "request": "10 03",
+          "expect": "50",
+          "label": "extended session (no subfunction echo)",
+          "tolerate_negative": true
+        }
+      ]
     },
     {
       "key": 409,
@@ -122,21 +141,78 @@
       "name": "SRS Airbag",
       "tester_can_id": "0x780",
       "response_can_id": "0x788",
-      "description": "probe-confirmed (rejects tester present)"
+      "description": "probe-confirmed (rejects tester present) Answers session control without echoing the subfunction; extended session is tolerant so a refusal leaves the ECU in default session rather than ending the run.",
+      "session_setup": [
+        {
+          "request": "3E 00",
+          "expect": "7E 00",
+          "label": "tester present",
+          "tolerate_negative": true
+        },
+        {
+          "request": "10 01",
+          "expect": "50",
+          "label": "default session (no subfunction echo)"
+        },
+        {
+          "request": "10 03",
+          "expect": "50",
+          "label": "extended session (no subfunction echo)",
+          "tolerate_negative": true
+        }
+      ]
     },
     {
       "key": 445,
       "name": "Steering Angle Sensor",
       "tester_can_id": "0x7B3",
       "response_can_id": "0x7BB",
-      "description": "probe-confirmed (rejects tester present)"
+      "description": "probe-confirmed (rejects tester present) Answers session control without echoing the subfunction; extended session is tolerant so a refusal leaves the ECU in default session rather than ending the run.",
+      "session_setup": [
+        {
+          "request": "3E 00",
+          "expect": "7E 00",
+          "label": "tester present",
+          "tolerate_negative": true
+        },
+        {
+          "request": "10 01",
+          "expect": "50",
+          "label": "default session (no subfunction echo)"
+        },
+        {
+          "request": "10 03",
+          "expect": "50",
+          "label": "extended session (no subfunction echo)",
+          "tolerate_negative": true
+        }
+      ]
     },
     {
       "key": 450,
       "name": "Air Conditioner",
       "tester_can_id": "0x7C4",
       "response_can_id": "0x7CC",
-      "description": "probe-confirmed (rejects tester present)"
+      "description": "probe-confirmed (rejects tester present) Answers session control without echoing the subfunction; extended session is tolerant so a refusal leaves the ECU in default session rather than ending the run.",
+      "session_setup": [
+        {
+          "request": "3E 00",
+          "expect": "7E 00",
+          "label": "tester present",
+          "tolerate_negative": true
+        },
+        {
+          "request": "10 01",
+          "expect": "50",
+          "label": "default session (no subfunction echo)"
+        },
+        {
+          "request": "10 03",
+          "expect": "50",
+          "label": "extended session (no subfunction echo)",
+          "tolerate_negative": true
+        }
+      ]
     },
     {
       "key": 5005,
