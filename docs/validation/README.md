@@ -31,7 +31,20 @@ slow fields. Tiering is scheduling metadata only — it is not evidence.
 | slow | 68 | 1,000 ms | 900 s | 60 |
 | archive | 46 | 2,000 ms | 600 s | 20 |
 
-Road mode defaults to fast, normal, and slow. Archive is opt-in.
+Road mode defaults to fast, normal, and slow. Archive is opt-in, and on this
+vehicle there is nothing there to collect:
+
+- 45 of the 46 archive candidates returned NRC `0x31` at stationary
+  qualification — not supported by this calibration.
+- The one that answered, `0x1010`, returns 8 data bytes. The catalog maps its
+  only two signals (Rock and Dirt Switch History, Mud and Sand Switch History)
+  at bits 73 and 74, which lie past the end of that response. The fields are
+  not present in this ECU's reply, so a road capture would record samples with
+  nothing decodable in them.
+
+No archive-tier signal appears in [`signals.csv`](../../data/map/signals.csv),
+and excluding the tier from road mode costs no coverage. Revisit only if a
+future calibration returns a longer `0x1010`.
 
 ## Privacy selection
 
