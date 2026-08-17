@@ -6,40 +6,167 @@
   "database_region": "NA",
   "techstream_version": "18.0.0.3",
   "database_master_file": "M_English.ddb",
-  "scope_note": "This is a candidate catalog for the installed vehicle profile, not a claim that every database record is supported by every ECU calibration.",
+  "scope_note": "Every ECU here answered a stationary probe on this vehicle. The catalog listed 95 Phase-5 candidates; the rest did not reply. See scratch/analysis/probe-report.json.",
   "ecus": [
     {
       "key": 372,
       "name": "Engine",
       "database": "Engine_P5.ddb",
-      "evidence": "EcuData0372/DataList0372 sections in the saved 2023 RAV4 HV Techstream session",
+      "evidence": "Answered a stationary tester-present probe at 0x700 -> 0x708.",
       "profile_state": "vehicle-session-confirmed",
-      "endpoint_state": "static candidate; live validation pending"
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x700",
+      "response_can_id": "0x708"
+    },
+    {
+      "key": 374,
+      "name": "Cruise Control",
+      "database": "CCS_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x700 -> 0x708.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x700",
+      "response_can_id": "0x708"
     },
     {
       "key": 395,
       "name": "Motor Generator",
       "database": "MG_P5.ddb",
-      "evidence": "EcuData0395/DataList0395 sections in the saved 2023 RAV4 HV Techstream session",
+      "evidence": "Answered a stationary tester-present probe at 0x724 -> 0x72C.",
       "profile_state": "vehicle-session-confirmed",
-      "endpoint_state": "static candidate; live validation pending"
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x724",
+      "response_can_id": "0x72C"
+    },
+    {
+      "key": 396,
+      "name": "Rear Motor Generator",
+      "database": "RearMG_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x705 -> 0x70D.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x705",
+      "response_can_id": "0x70D"
     },
     {
       "key": 397,
       "name": "Hybrid Control",
       "database": "HV_P5.ddb",
-      "evidence": "Local database plus successful live 0x7D2/0x7DA diagnostic replay",
+      "evidence": "Answered a stationary tester-present probe at 0x7D2 -> 0x7DA.",
       "profile_state": "live-confirmed",
-      "endpoint_state": "0x7D2/0x7DA live-confirmed",
+      "endpoint_state": "probe-confirmed",
+      "response_can_id": "0x7DA",
+      "tester_can_id": "0x7D2"
+    },
+    {
+      "key": 399,
+      "name": "Cruise Control",
+      "database": "HV_CCS_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x7D2 -> 0x7DA.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x7D2",
       "response_can_id": "0x7DA"
+    },
+    {
+      "key": 405,
+      "name": "EMPS",
+      "database": "EMPS_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x7A1 -> 0x7A9.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed (rejects tester present)",
+      "tester_can_id": "0x7A1",
+      "response_can_id": "0x7A9"
+    },
+    {
+      "key": 409,
+      "name": "Combination Meter",
+      "database": "Meter_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x7C0 -> 0x7C8.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x7C0",
+      "response_can_id": "0x7C8"
+    },
+    {
+      "key": 426,
+      "name": "Radar Cruise2",
+      "database": "RCS2_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x790 -> 0x798.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x790",
+      "response_can_id": "0x798"
+    },
+    {
+      "key": 432,
+      "name": "Pre-Collision 2",
+      "database": "PCS2_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x791 -> 0x799.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x791",
+      "response_can_id": "0x799"
     },
     {
       "key": 435,
       "name": "Brake/EPB",
       "database": "ABS_P5.ddb",
-      "evidence": "EcuData0435/DataList0435 sections in the saved 2023 RAV4 HV Techstream session",
+      "evidence": "Answered a stationary tester-present probe at 0x7B0 -> 0x7B8.",
       "profile_state": "vehicle-session-confirmed",
-      "endpoint_state": "static candidate; live validation pending"
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x7B0",
+      "response_can_id": "0x7B8"
+    },
+    {
+      "key": 444,
+      "name": "SRS Airbag",
+      "database": "A_B_CAN_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x780 -> 0x788.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed (rejects tester present)",
+      "tester_can_id": "0x780",
+      "response_can_id": "0x788"
+    },
+    {
+      "key": 445,
+      "name": "Steering Angle Sensor",
+      "database": "StrAngleSnsr_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x7B3 -> 0x7BB.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed (rejects tester present)",
+      "tester_can_id": "0x7B3",
+      "response_can_id": "0x7BB"
+    },
+    {
+      "key": 450,
+      "name": "Air Conditioner",
+      "database": "A_C_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x7C4 -> 0x7CC.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed (rejects tester present)",
+      "tester_can_id": "0x7C4",
+      "response_can_id": "0x7CC"
+    },
+    {
+      "key": 5005,
+      "name": "Rear Camera",
+      "database": "RC_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x7A2 -> 0x7AA.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x7A2",
+      "response_can_id": "0x7AA"
+    },
+    {
+      "key": 5013,
+      "name": "EV",
+      "database": "FCHV_P5.ddb",
+      "evidence": "Answered a stationary tester-present probe at 0x7D2 -> 0x7DA.",
+      "profile_state": "catalog-listed",
+      "endpoint_state": "probe-confirmed",
+      "tester_can_id": "0x7D2",
+      "response_can_id": "0x7DA"
     }
   ],
   "signal_overrides": [

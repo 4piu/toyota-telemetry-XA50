@@ -40,32 +40,116 @@
   },
   "ecus": [
     {
-      "key": 397,
-      "name": "Hybrid Control",
-      "tester_can_id": "0x7D2",
-      "response_can_id": "0x7DA",
-      "description": "Live-confirmed. Every capture in this repository so far used this endpoint."
-    },
-    {
       "key": 372,
       "name": "Engine",
       "tester_can_id": "0x700",
       "response_can_id": "0x708",
-      "description": "Observed answering in the 2026-08-08 Techstream J2534 trace; not yet probed by this project. Present on gas XA50 variants."
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 374,
+      "name": "Cruise Control",
+      "tester_can_id": "0x700",
+      "response_can_id": "0x708",
+      "description": "probe-confirmed"
     },
     {
       "key": 395,
       "name": "Motor Generator",
       "tester_can_id": "0x724",
       "response_can_id": "0x72C",
-      "description": "From the static Techstream protocol table; not yet observed answering."
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 396,
+      "name": "Rear Motor Generator",
+      "tester_can_id": "0x705",
+      "response_can_id": "0x70D",
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 397,
+      "name": "Hybrid Control",
+      "tester_can_id": "0x7D2",
+      "response_can_id": "0x7DA",
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 399,
+      "name": "Cruise Control",
+      "tester_can_id": "0x7D2",
+      "response_can_id": "0x7DA",
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 405,
+      "name": "EMPS",
+      "tester_can_id": "0x7A1",
+      "response_can_id": "0x7A9",
+      "description": "probe-confirmed (rejects tester present)"
+    },
+    {
+      "key": 409,
+      "name": "Combination Meter",
+      "tester_can_id": "0x7C0",
+      "response_can_id": "0x7C8",
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 426,
+      "name": "Radar Cruise2",
+      "tester_can_id": "0x790",
+      "response_can_id": "0x798",
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 432,
+      "name": "Pre-Collision 2",
+      "tester_can_id": "0x791",
+      "response_can_id": "0x799",
+      "description": "probe-confirmed"
     },
     {
       "key": 435,
       "name": "Brake/EPB",
       "tester_can_id": "0x7B0",
       "response_can_id": "0x7B8",
-      "description": "From the static Techstream protocol table; not yet observed answering."
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 444,
+      "name": "SRS Airbag",
+      "tester_can_id": "0x780",
+      "response_can_id": "0x788",
+      "description": "probe-confirmed (rejects tester present)"
+    },
+    {
+      "key": 445,
+      "name": "Steering Angle Sensor",
+      "tester_can_id": "0x7B3",
+      "response_can_id": "0x7BB",
+      "description": "probe-confirmed (rejects tester present)"
+    },
+    {
+      "key": 450,
+      "name": "Air Conditioner",
+      "tester_can_id": "0x7C4",
+      "response_can_id": "0x7CC",
+      "description": "probe-confirmed (rejects tester present)"
+    },
+    {
+      "key": 5005,
+      "name": "Rear Camera",
+      "tester_can_id": "0x7A2",
+      "response_can_id": "0x7AA",
+      "description": "probe-confirmed"
+    },
+    {
+      "key": 5013,
+      "name": "EV",
+      "tester_can_id": "0x7D2",
+      "response_can_id": "0x7DA",
+      "description": "probe-confirmed"
     }
   ]
 }
