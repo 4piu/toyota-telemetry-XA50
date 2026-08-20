@@ -1,14 +1,15 @@
 # XA50 diagnostic telemetry map
 
 A read-only telemetry map for one tested Toyota RAV4 Hybrid XA50 (A25A-FXS),
-produced with the [`70Y074-telemetry` field guide](https://github.com/4piu/70Y074-telemetry)
+produced with the [`70Y074-telemetry` template](https://github.com/4piu/70Y074-telemetry)
 and published as a worked reference for anyone repeating the method on a
 comparable vehicle.
 
 This repository contains **configuration, findings, and results — no tooling**.
-Every program used here comes from the pinned field guide. If something here
-needs a script that the field guide does not provide, that is a gap in the field
-guide, not something to solve locally.
+Every program used here comes from the pinned toolkit (see
+`telemetry-project.toml`). If something here needs a script that the toolkit
+does not provide, that is a gap in the toolkit, not something to solve
+locally.
 
 It is not a universal XA50 database, and it is not the dashboard application.
 ECU calibration and market differences change availability, identifiers,

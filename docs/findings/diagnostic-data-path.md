@@ -56,7 +56,7 @@ No registry modification or replacement DLL is needed. This behavior is similar 
 
 ## Logger semantics
 
-`save-techstream-log.ps1` (in the field-guide checkout) triggers an immediate snapshot of the shim's existing in-memory circular buffer. `-WaitForLoggerSeconds` waits for the named logger event to become available; it does not record for that duration.
+`save-techstream-log.ps1` (in the toolkit checkout) triggers an immediate snapshot of the shim's existing in-memory circular buffer. `-WaitForLoggerSeconds` waits for the named logger event to become available; it does not record for that duration.
 
 For a controlled interval:
 
@@ -74,14 +74,14 @@ Example commands from the workspace root:
 .\tools\j2534\save-j2534-log.ps1 -WaitForLoggerSeconds 120
 
 # Summarize all diagnostic payloads
-python ..\field-guide\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log'
+python ..\telemetry-tools\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log'
 
 # Show a chronological exchange for selected CAN IDs
-python ..\field-guide\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
+python ..\telemetry-tools\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
   --timeline --id 0x700 --id 0x708
 
 # Decode known XA50 values and show changes
-python ..\field-guide\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
+python ..\telemetry-tools\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
   --timeline
 ```
 
@@ -121,7 +121,7 @@ The later focused trace identified Hybrid Control at `0x7D2 -> 0x7DA`; its full 
 
 ## Independent x86 replay client
 
-An x86 .NET console client replayed the captured conversation independently of Techstream, dynamically loading the configured vendor DLL and refusing to run live without an explicit flag. The original XHorse adapter later failed electrically, and the client itself has since been replaced by the field guide's generic `telemetry-j2534` backend; the constraints and findings below carried over to it. It dynamically loads a configured vendor DLL and refuses to run live unless `--live` is supplied. The original XHorse adapter later failed; this client is retained as legacy/reproducibility evidence until another compatible VIM is available.
+An x86 .NET console client replayed the captured conversation independently of Techstream, dynamically loading the configured vendor DLL and refusing to run live without an explicit flag. The original XHorse adapter later failed electrically, and the client itself has since been replaced by the toolkit's generic `telemetry-j2534` backend; the constraints and findings below carried over to it. It dynamically loads a configured vendor DLL and refuses to run live unless `--live` is supplied. The original XHorse adapter later failed; this client is retained as legacy/reproducibility evidence until another compatible VIM is available.
 
 Built-in constraints include:
 

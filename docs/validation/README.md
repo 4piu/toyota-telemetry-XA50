@@ -1,6 +1,6 @@
 # XA50 validation status and policy
 
-Procedure lives in the field guide's [quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md)
+Procedure lives in the toolkit's [quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md)
 and [progressive validation](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/progressive-validation.md).
 This page records what is XA50-specific: the scope, the policy choices in
 [`validation-profile.json`](../../data/config/validation-profile.json), and

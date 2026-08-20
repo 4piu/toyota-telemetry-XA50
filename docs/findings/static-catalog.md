@@ -15,7 +15,7 @@ An earlier revision of this page listed four ECUs with response IDs inferred as 
 Run:
 
 ```powershell
-python ..\field-guide\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
+python ..\telemetry-tools\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
 ```
 
 The generator queries the read-only local database interface and writes:

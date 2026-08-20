@@ -68,11 +68,11 @@ Capture integrity and correlation results, per campaign.
 Designs that were never built (RP2040/MCP2515 bridge, SBC/SocketCAN) are in the
 ignored `scratch/hardware-exploration/` directory, not here.
 
-## Relationship to the field guide
+## Relationship to the template and the toolkit
 
 - [Upstream and update policy](upstream.md) — what comes from where, and how to
-  advance the pinned revisions.
+  advance the pinned revision.
 
-Confidence words follow the field guide: Candidate, Observed, Correlated,
+Confidence words follow the template: Candidate, Observed, Correlated,
 Validated, Replayed, Ported. This profile is one tested vehicle instance, not
 every XA50 calibration.

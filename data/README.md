@@ -67,7 +67,7 @@ that evidence state in `curation.csv`; `auto` means it was derived from
 observation and never rises above *Observed and replayed*. Nothing promotes a
 signal to Correlated or Validated except a person.
 
-Read `evidence_state` before using a row. The words are the field guide's and
+Read `evidence_state` before using a row. The words are the template's and
 they are not interchangeable:
 
 | State | Means |

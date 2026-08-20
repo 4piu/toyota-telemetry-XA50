@@ -192,7 +192,7 @@ The larger capture showed MG1 approximately -18 to 6413 rpm, MG2 near zero while
 The parser can learn the dynamic definition from the earlier log and apply it to the later snapshot:
 
 ```powershell
-python ..\field-guide\tools\j2534\parse-j2534-log.py `
+python ..\telemetry-tools\tools\j2534\parse-j2534-log.py `
   'C:\Users\Public\Documents\Techstream\ErrorReport\j2534_08082026034256.log' `
   --timeline `
   --definitions-from 'C:\Users\Public\Documents\Techstream\ErrorReport\j2534_08082026034222.log'

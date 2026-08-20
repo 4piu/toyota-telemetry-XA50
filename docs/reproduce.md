@@ -1,7 +1,7 @@
 # Reproduce this on your own XA50
 
 Every command needed to rebuild this repository's results from scratch on a
-comparable vehicle. This is the field guide's
+comparable vehicle. This is the toolkit's
 [quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md)
 with the XA50 blanks filled in.
 
@@ -25,14 +25,14 @@ Your calibration and market may differ. Treat every value in
 
 ```powershell
 git clone <this-repository> xa50; cd xa50
-git clone https://github.com/4piu/70Y074-telemetry.git ..\field-guide
-..\field-guide\tools\setup-platform-project.ps1
+.\bootstrap.ps1
 ```
 
-[`telemetry-project.toml`](../telemetry-project.toml) pins the reviewed
-field-guide revision, and the setup script reads it: it checks the field guide
-out at that revision, builds the backends into this repository's ignored
-scratch tree, and installs the toolkit into a local `.venv` from that same
+[`telemetry-project.toml`](../telemetry-project.toml) already pins the
+reviewed toolkit revision, so `bootstrap.ps1` will not ask you anything or move
+it — it goes straight to installing: it checks the toolkit out at that
+revision, builds the backends into this repository's ignored scratch tree, and
+installs the toolkit into a local `.venv` from that same
 checkout. One revision therefore fixes the Python tools, the backends, and the
 Techstream scripts together.
 
@@ -65,8 +65,8 @@ and manifest; the full atlas is derived from the OEM database and is not
 redistributed. With Techstream installed:
 
 ```powershell
-..\field-guide\tools\techstream\query-techstream-db.ps1 -Catalog     # list every ECU key
-python ..\field-guide\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
+..\telemetry-tools\tools\techstream\query-techstream-db.ps1 -Catalog     # list every ECU key
+python ..\telemetry-tools\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
 ```
 
 [`ecu-profile.json`](../data/config/ecu-profile.json) records the sixteen
