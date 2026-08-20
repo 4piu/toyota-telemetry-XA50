@@ -4,23 +4,18 @@
 
 The catalog turns the locally installed Techstream Phase-5 database into a searchable telemetry atlas. It is deliberately broader than the future acquisition/display application's needs and is generated without communicating with the vehicle.
 
-The first profile covers four ECU datasets supported by local vehicle evidence:
+The profile covers the sixteen ECU datasets whose endpoints answered a stationary probe. The endpoints came from each ECU's own protocol table in the database, not from inference, and every one was then confirmed on the vehicle by `telemetry-probe`; [`ecu-profile.json`](../../data/config/ecu-profile.json) is the authoritative list, and [validation status](../validation/README.md) records which of them implement ReadDataByIdentifier.
 
-| Key | ECU | Database | Tester ID | Response ID | Endpoint evidence |
-|---:|---|---|---:|---:|---|
-| 372 | Engine | `Engine_P5.ddb` | `0x700` | `0x708` | Static tester ID; response inferred as tester + 8. |
-| 395 | Motor Generator | `MG_P5.ddb` | `0x724` | `0x72C` | Static tester ID; response inferred as tester + 8. |
-| 397 | Hybrid Control | `HV_P5.ddb` | `0x7D2` | `0x7DA` | Both IDs live-confirmed. |
-| 435 | Brake/EPB | `ABS_P5.ddb` | `0x7B0` | `0x7B8` | Static tester ID; response inferred as tester + 8. |
+Twelve ECUs occupy nine distinct endpoints: Techstream models several as separate databases over one diagnostic address, which means one ECU to capture from with more than one catalog to read it with. Hybrid Control (`HV_P5.ddb`, key 397, `0x7D2 -> 0x7DA`) was the first established and is the most completely captured.
 
-The saved 2023 RAV4 HV Techstream session contains `EcuData` and `DataList` sections for keys 372, 395, and 435. Current live captures establish key 397 and its endpoint. The saved session is not a complete health-check inventory, so this four-ECU set is the first evidence-backed slice rather than the final list of every installed module.
+An earlier revision of this page listed four ECUs with response IDs inferred as tester + 8. The inference happened to be right in every case, but it was an assumption; the protocol table states both IDs, so nothing here relies on it now.
 
 ## Generated map
 
 Run:
 
 ```powershell
-uv run python .\tools\catalog\build-telemetry-catalog.py
+python ..\field-guide\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
 ```
 
 The generator queries the read-only local database interface and writes:
@@ -31,7 +26,7 @@ The generator queries the read-only local database interface and writes:
 - `data/catalog/summary.md`: compact counts and limitations;
 - `data/catalog/manifest.json`: input hashes, tool hash, schema, and row counts.
 
-The initial build contains 4,458 signal records across 1,605 distinct ECU/DID pairs. For every row it preserves the source ECU, internal monitor ID, acquisition flags, `22 xxxx` request candidate, response bit range, physical conversion group, coefficients, decimal divisor, unit, and live-evidence override.
+The current build contains 6,892 signal records across 2,546 distinct ECU/DID pairs. For every row it preserves the source ECU, internal monitor ID, acquisition flags, `22 xxxx` request candidate, response bit range, physical conversion group, coefficients, decimal divisor, unit, and live-evidence override.
 
 The exact stored conversion is:
 

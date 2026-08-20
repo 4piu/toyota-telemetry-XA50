@@ -16,27 +16,34 @@ routing, scaling, and validity.
 
 ## Result
 
-Hybrid Control diagnostics are independently replayed over CAN at the DLC3
-gateway, 500 kbit/s, tester `0x7D2` to response `0x7DA`.
-
-**Scope: Hybrid Control (ECU 397) only.** The catalog covers four ECUs, but
-only this endpoint has been proven. Engine, Motor Generator, and Brake/EPB have
-candidate endpoints written and are awaiting a stationary probe — see
-[validation status](docs/validation/README.md). A gas XA50 has no ECU 397 at
-all, so this map does not yet apply to one.
+Diagnostics are independently replayed over CAN at the DLC3 gateway,
+500 kbit/s. Sixteen ECUs answered a stationary probe; twelve of them implement
+ReadDataByIdentifier and are mapped, across nine distinct endpoints — Techstream
+models several ECUs as separate databases over one diagnostic address.
 
 | Measure | Count |
 |---|---:|
-| Catalog DIDs for ECU 397 | 593 |
-| Answered a read | 128 |
-| Refused (recorded in `unsupported.csv`) | 460 |
-| Signals in the map | 329 |
+| ECUs mapped | 12 |
+| Catalog DIDs across them | 2025 |
+| Answered a read | 553 |
+| Refused (recorded in `unsupported.csv`) | 1472 |
+| Signals in the map | 1846 |
 | of which human-reviewed | 55 |
 
-Of the 329 mapped signals, 12 varied across independent runs, 137 were seen in
-a single run, 143 stayed constant, and 37 are mapped by the catalog past the
-end of the reply this vehicle sends — absent hardware, mostly extra battery
-blocks and temperature sensors.
+Evidence is uneven by design, and every row says which it is. 695 signals have
+been read on the road: 12 varied across independent runs, 263 were seen in a
+single run, 372 stayed constant, and 48 are mapped by the catalog past the end
+of the reply this vehicle sends — absent hardware, mostly extra battery blocks
+and temperature sensors. The remaining 1151 sit on DIDs that answer but have
+not yet been road-captured; they carry evidence state *Candidate*.
+
+Hybrid Control (ECU 397, tester `0x7D2` to response `0x7DA`) is the most
+complete: every DID it answers has been read. A gas XA50 has no ECU 397 at
+all, so that part of this map does not apply to one.
+
+Four further ECUs answer a probe but reject service `0x22` outright — SRS
+Airbag, EMPS, Steering Angle Sensor, and Air Conditioner. Their endpoints are
+recorded; see [validation status](docs/validation/README.md).
 
 Typical complete-response latency is 11–17 ms, and sustained 10 Hz polling is
 validated. See [throughput](docs/hardware/throughput.md).

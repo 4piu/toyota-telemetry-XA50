@@ -62,12 +62,13 @@ and manifest; the full atlas is derived from the OEM database and is not
 redistributed. With Techstream installed:
 
 ```powershell
-..\field-guide\tools\techstream\query-techstream-db.ps1 -Keys 397,395,435,466 -Catalog
+..\field-guide\tools\techstream\query-techstream-db.ps1 -Catalog     # list every ECU key
 python ..\field-guide\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
 ```
 
-[`ecu-profile.json`](../data/config/ecu-profile.json) records the four ECU keys
-and which are live-confirmed. Compare your `summary.md` against the committed
+[`ecu-profile.json`](../data/config/ecu-profile.json) records the sixteen
+probe-confirmed ECU keys, their endpoints, and which implement
+ReadDataByIdentifier. Compare your `summary.md` against the committed
 one; a different Techstream version or market will produce different counts.
 
 ## 4. Prove the connection
@@ -100,9 +101,10 @@ telemetry-validate qualify --config $profile               # preview
 telemetry-validate qualify --config $profile --live --max-items 25
 ```
 
-Qualification is stationary and reads each DID exactly once. Expect roughly 128
-of 588 to qualify; most negatives are NRC `0x31` for equipment this vehicle does
-not have. See [validation policy](validation/README.md).
+Qualification is stationary and reads each DID exactly once, round-robin across
+every ECU in the profile. Expect roughly 553 of 2025 to qualify; most negatives
+are NRC `0x31` for equipment this vehicle does not have. See
+[validation policy](validation/README.md).
 
 You do not have to qualify everything before driving. Qualify a slice, drive it,
 repeat.
@@ -123,7 +125,7 @@ capture is quarantined.
 ## 7. Review, regenerate the map, and compare
 
 ```powershell
-telemetry-review --config $profile --pending      # what still needs excitation
+telemetry-review --config $profile --ecu 397 --pending   # what still needs excitation
 telemetry-map    --config $profile                # regenerate signals.csv + unsupported.csv
 ```
 
@@ -162,28 +164,24 @@ and extended ordinary-driving batches. See
 
 Raw captures are not published. `scratch/` is ignored in full.
 
-## 9. Extend to the other ECUs
+## 9. Extend to ECUs this repository has not found
 
-This repository maps Hybrid Control only. Three more ECUs have candidate
-endpoints written and unprobed. Each needs one stationary probe before anything
-else:
-
-```powershell
-foreach ($ecu in 'engine','motor-generator','brake-epb') {
-  .\scratchin	elemetry-pcan.exe --config "data\config\$ecuackend-config.json" --probe --live
-}
-```
-
-A probe sends exactly one tester-present frame and accepts only the expected
-reply. If one answers, copy `validation-profile.json`, point it at that ECU key
-and endpoint, build a plan, and run the same qualify/road/review loop. Then
-generate a combined map by passing every profile at once:
+The endpoints here came from one sweep of the catalog's own protocol table.
+A different market or calibration may expose others. Probe for them:
 
 ```powershell
-telemetry-map --config data\configalidation-profile.json `
-              --config data\config\enginealidation-profile.json
+telemetry-probe --catalog data\catalog\telemetry.csv `
+  --base-config data\config\backend-config.json `
+  --base-profile data\config\validation-profile.json --live `
+  --emit-ecus scratch\analysis\new-ecus.json
 ```
 
-The session setup in each new `backend-config.json` is copied from Hybrid
-Control and is a guess; if a probe fails while the OBD probe still succeeds,
-the endpoint or its session sequence is wrong rather than the wiring.
+Each probe sends exactly one tester-present frame and accepts only the expected
+reply. `--emit-ecus` writes the `ecus` entries for whatever answered; add them
+to `backend-config.json`, and to `validation-profile.json` with a `plan_id` and
+capture paths, then run the same qualify/road/review loop. One profile covers
+every ECU — they share the transport, being behind the same gateway.
+
+The session setup a new entry inherits is a guess for an ECU never captured
+from; if a probe fails while the OBD probe still succeeds, the endpoint or its
+session sequence is wrong rather than the wiring.

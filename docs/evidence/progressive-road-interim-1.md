@@ -127,6 +127,6 @@ Previewing the next run should start with the six operator-stopped DIDs. Use
 fast/normal/slow tiers to omit the unmapped archive candidate:
 
 ```powershell
-uv run python .\tools\validation\run-progressive-validation.py road `
+telemetry-validate road --config data\config\validation-profile.json `
   --tiers fast,normal,slow --max-items 3
 ```

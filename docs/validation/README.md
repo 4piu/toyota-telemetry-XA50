@@ -8,26 +8,20 @@ where the campaign currently stands.
 
 ## Scope
 
-**One ECU of four.** Every capture in this repository went to `0x7D2 -> 0x7DA`;
-596 of 596 completed captures used that endpoint and no other. The remaining
-three ECUs have candidate endpoints from the static protocol table, written as
-configs under [`data/config/`](../../data/config/) and awaiting a stationary
-`--probe --live`:
+**Twelve ECUs, nine endpoints.** A catalog-wide probe found sixteen ECUs that
+answer a stationary tester-present frame. Twelve of them implement
+ReadDataByIdentifier and are in
+[`validation-profile.json`](../../data/config/validation-profile.json); their
+plans total **2,025 direct DIDs**. Several share one diagnostic address —
+Techstream models some ECUs as separate databases over the same endpoint — so
+twelve ECUs occupy nine endpoints.
 
-| ECU | Endpoint | Catalog rows | State |
-|---|---|---:|---|
-| 372 Engine | `0x700 -> 0x708` | 2,147 | Observed answering in the J2534 trace; not yet probed by this project |
-| 395 Motor Generator | `0x724 -> 0x72C` | 349 | Static protocol table only |
-| 435 Brake/EPB | `0x7B0 -> 0x7B8` | 538 | Static protocol table only |
+The other four answer the probe but reject service `0x22` outright, so they
+contribute no signals; see [below](#ecus-that-answer-but-cannot-be-read).
 
-Engine matters most: it is the largest database of the four and the only one a
-gas XA50 also carries.
-
-Only the Hybrid Control ECU (key 397) at the live-confirmed `0x7D2 -> 0x7DA`
-endpoint. The generated plan contains **588 direct DIDs** covering 1,356 unique
-catalog signal names — most of that ECU's 593 static direct DIDs, but not the
-4,458 catalog rows across all four ECU databases. Engine, Motor Generator, and
-Brake/EPB need endpoint validation before they can use the same runner.
+Hybrid Control (key 397, `0x7D2 -> 0x7DA`) is the most complete: every DID it
+answers has also been read on the road. The other eleven are qualified but only
+partly road-captured; `telemetry-validate status` prints where each stands.
 
 This is not an ECU scanner. Every transmitted DID comes from the reviewed plan,
 and the backend enforces a byte-exact transmit allowlist built from the DIDs
@@ -39,27 +33,36 @@ The tier applies to a whole DID, not an individual field: a payload containing
 any speed/current/torque-like value uses the fast policy even if it also carries
 slow fields. Tiering is scheduling metadata only — it is not evidence.
 
-| Tier | DIDs | Request spacing | Batch duration | Minimum samples per DID |
-| --- | ---: | ---: | ---: | ---: |
-| fast | 245 | 100 ms | 120 s | 100 |
-| normal | 229 | 250 ms | 300 s | 120 |
-| slow | 68 | 1,000 ms | 900 s | 60 |
-| archive | 46 | 2,000 ms | 600 s | 20 |
+| Tier | DIDs | Request spacing | Batch duration | Minimum samples per DID | DIDs per batch |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| fast | 760 | 100 ms | 120 s | 100 | 9 |
+| normal | 840 | 250 ms | 300 s | 120 | 8 |
+| slow | 316 | 1,000 ms | 900 s | 60 | 12 |
+| archive | 109 | 2,000 ms | 600 s | 20 | 12 |
+
+DIDs per batch costs no bus traffic — one request is outstanding at a time, so
+the request rate is set by the spacing — but it divides that rate across more
+identifiers. Each cap keeps at least a 1.25x margin over the tier's minimum
+sample count.
 
 Road mode defaults to fast, normal, and slow. Archive is opt-in, and on this
 vehicle there is nothing there to collect:
 
-- 45 of the 46 archive candidates returned NRC `0x31` at stationary
+- 96 of the 109 archive candidates returned NRC `0x31` at stationary
   qualification — not supported by this calibration.
-- The one that answered, `0x1010`, returns 8 data bytes. The catalog maps its
-  only two signals (Rock and Dirt Switch History, Mud and Sand Switch History)
-  at bits 73 and 74, which lie past the end of that response. The fields are
-  not present in this ECU's reply, so a road capture would record samples with
-  nothing decodable in them.
+- The 13 that answered are counters and histories: seven Engine DIDs, one each
+  on Motor Generator, Hybrid Control, and Combination Meter, and three on
+  Brake/EPB. They are in [`signals.csv`](../../data/map/signals.csv) as
+  *Candidate*, since nothing has read them on the road.
+- Hybrid Control's `0x1010` is the clearest case for leaving the tier out. It
+  returns 8 data bytes, and the catalog maps its only two signals (Rock and
+  Dirt Switch History, Mud and Sand Switch History) at bits 73 and 74 — past
+  the end of that response. A road capture would record samples with nothing
+  decodable in them.
 
-No archive-tier signal appears in [`signals.csv`](../../data/map/signals.csv),
-and excluding the tier from road mode costs no coverage. Revisit only if a
-future calibration returns a longer `0x1010`.
+Archive fields change over a vehicle's life rather than over a drive, so a
+bounded batch is the wrong instrument for them either way. Include the tier
+explicitly if you want them: `telemetry-validate road --tiers archive`.
 
 ## Selection policy
 
