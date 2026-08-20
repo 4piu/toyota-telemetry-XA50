@@ -1,11 +1,32 @@
 # XA50 documentation
 
 Platform-specific claims and evidence for one tested 2023 RAV4 Hybrid (XA50,
-A25A-FXS). Reusable procedure lives in the
-[`70Y074-telemetry` field guide](https://github.com/4piu/70Y074-telemetry/tree/main/docs).
+A25A-FXS), alongside the method they were produced with.
 
 **To repeat this work on your own vehicle, start with
 [reproduce.md](reproduce.md).**
+
+## The method
+
+Carried from the [template](https://github.com/4piu/70Y074-telemetry) this
+repository was created from, at the revision it was created at. It is written
+for any vehicle; nothing in it is specific to this one.
+
+| Step | Page |
+|---|---|
+| 0 | [Scope and safety](00-scope-safety.md) — read before connecting anything |
+| 1 | [Record the vehicle profile](01-vehicle-profile.md) |
+| 2 | [Define the target signal](02-target-signal.md) |
+| 3 | [Locate acquisition metadata](03-locate/README.md) |
+| 4 | [Reconstruct diagnostic transport](04-reconstruct/diagnostic-transport.md) |
+| 5 | [Decode formulas and bitfields](05-decode/formulas-and-bitfields.md) |
+| 6 | [Verify on the vehicle](06-verify/README.md) |
+| 7 | [Evidence records and catalog schema](07-catalog/evidence-and-schema.md) |
+
+[Platform projects](platform-projects.md) is the contract this repository
+implements. [Open questions](open-questions.md) records where the method is
+still soft. Command-level usage lives with the
+[toolkit](https://github.com/4piu/70Y074-telemetry-tools).
 
 ## Findings
 

@@ -1,7 +1,7 @@
 # XA50 validation status and policy
 
-Procedure lives in the field guide's [quickstart](https://github.com/4piu/70Y074-telemetry/blob/main/docs/quickstart.md)
-and [progressive validation](https://github.com/4piu/70Y074-telemetry/blob/main/docs/06-verify/progressive-validation.md).
+Procedure lives in the field guide's [quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md)
+and [progressive validation](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/progressive-validation.md).
 This page records what is XA50-specific: the scope, the policy choices in
 [`validation-profile.json`](../../data/config/validation-profile.json), and
 where the campaign currently stands.
@@ -104,7 +104,7 @@ The catalog claims `22` reads for all four, so the database and the vehicle
 disagree, and the database is not a reliable guide to how these are addressed.
 Settling it needs a capture of Techstream reading one of them, the same route
 that recovered the session setup in the first place. See
-[open questions](https://github.com/4piu/70Y074-telemetry/blob/main/docs/open-questions.md).
+[open questions](../open-questions.md).
 
 Their endpoints remain in `backend-config.json` and in `ecu-profile.json`, so
 nothing has to be rediscovered when that work happens.

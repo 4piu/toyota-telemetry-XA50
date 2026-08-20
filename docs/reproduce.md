@@ -2,10 +2,10 @@
 
 Every command needed to rebuild this repository's results from scratch on a
 comparable vehicle. This is the field guide's
-[quickstart](https://github.com/4piu/70Y074-telemetry/blob/main/docs/quickstart.md)
+[quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md)
 with the XA50 blanks filled in.
 
-**Read [scope and safety](https://github.com/4piu/70Y074-telemetry/blob/main/docs/00-scope-safety.md)
+**Read [scope and safety](00-scope-safety.md)
 first.** Everything here is read-only diagnostics. Do not use it for vehicle
 control, coding, security access, DTC clearing, or programming.
 
