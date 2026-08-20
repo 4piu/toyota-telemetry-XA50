@@ -12,14 +12,14 @@ Every ECU here answered a stationary probe on this vehicle. The catalog listed 9
 | 396 | Rear Motor Generator | `0x705` | `0x70D` | probe-confirmed | 198 | 70 | 198 |
 | 397 | Hybrid Control | `0x7D2` | `0x7DA` | probe-confirmed | 1424 | 593 | 1424 |
 | 399 | Cruise Control | `0x7D2` | `0x7DA` | probe-confirmed | 71 | 16 | 71 |
-| 405 | EMPS | `0x7A1` | `0x7A9` | probe-confirmed (rejects tester present) | 222 | 176 | 222 |
+| 405 | EMPS | `0x7A1` | `0x7A9` | probe-confirmed; does not implement ReadDataByIdentifier | 222 | 176 | 222 |
 | 409 | Combination Meter | `0x7C0` | `0x7C8` | probe-confirmed | 567 | 103 | 567 |
 | 426 | Radar Cruise2 | `0x790` | `0x798` | probe-confirmed | 41 | 25 | 41 |
 | 432 | Pre-Collision 2 | `0x791` | `0x799` | probe-confirmed | 60 | 22 | 60 |
 | 435 | Brake/EPB | `0x7B0` | `0x7B8` | probe-confirmed | 538 | 167 | 538 |
-| 444 | SRS Airbag | `0x780` | `0x788` | probe-confirmed (rejects tester present) | 214 | 92 | 214 |
-| 445 | Steering Angle Sensor | `0x7B3` | `0x7BB` | probe-confirmed (rejects tester present) | 53 | 10 | 53 |
-| 450 | Air Conditioner | `0x7C4` | `0x7CC` | probe-confirmed (rejects tester present) | 378 | 228 | 378 |
+| 444 | SRS Airbag | `0x780` | `0x788` | probe-confirmed; does not implement ReadDataByIdentifier | 214 | 92 | 214 |
+| 445 | Steering Angle Sensor | `0x7B3` | `0x7BB` | probe-confirmed; does not implement ReadDataByIdentifier | 53 | 10 | 53 |
+| 450 | Air Conditioner | `0x7C4` | `0x7CC` | probe-confirmed; does not implement ReadDataByIdentifier | 378 | 228 | 378 |
 | 5005 | Rear Camera | `0x7A2` | `0x7AA` | probe-confirmed | 30 | 14 | 30 |
 | 5013 | EV | `0x7D2` | `0x7DA` | probe-confirmed | 507 | 166 | 507 |
 

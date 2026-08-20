@@ -1,11 +1,12 @@
 {
   "schema_version": 1,
   "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
-  "generated_at_utc": "2026-08-17T15:29:51.489023+00:00",
+  "generated_at_utc": "2026-08-20T07:21:38.651387+00:00",
   "generator": "tools/catalog/build-catalog.py",
-  "generator_sha256": "22c4453906b0ca3a17ce9cd23aaf51f4bd4c424336cb725d6ef1636e5da57f97",
+  "generator_sha256": "ec1308746e3a0e80288c845f5d05f41e76dd76d526f7bef26f4fa251bb2d327a",
   "techstream_version": "18.0.0.3",
   "database_region": "NA",
+  "text_code_page": 932,
   "inputs": [
     {
       "file": "M_English.ddb",
