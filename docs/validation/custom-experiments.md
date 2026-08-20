@@ -20,8 +20,7 @@ The reviewed XA50 schedules are:
 Preview the whole sequence from the repository root:
 
 ```powershell
-$toolkit = (Get-Content .\toolkit-requirement.txt -Raw).Trim()
-uvx --from $toolkit telemetry-validate experiment `
+telemetry-validate experiment `
   --project-root . `
   --config data/config/validation-profile.json `
   --experiment data/config/experiments/extended-road-v1.toml
@@ -31,7 +30,7 @@ Add `--live` only after reviewing the schedule. To use a shorter trip or a
 particular vehicle condition, select one or more batch IDs:
 
 ```powershell
-uvx --from $toolkit telemetry-validate experiment `
+telemetry-validate experiment `
   --project-root . `
   --config data/config/validation-profile.json `
   --experiment data/config/experiments/extended-road-v1.toml `
@@ -42,7 +41,7 @@ uvx --from $toolkit telemetry-validate experiment `
 The stationary schedule is also run one batch at a time. For example:
 
 ```powershell
-uvx --from $toolkit telemetry-validate experiment `
+telemetry-validate experiment `
   --project-root . `
   --config data/config/validation-profile.json `
   --experiment data/config/experiments/stationary-controls-v1.toml `

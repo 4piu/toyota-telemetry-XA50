@@ -21,35 +21,38 @@ Your calibration and market may differ. Treat every value in
 | Host | Windows with Python 3.11+ and `uv`. No .NET SDK needed. |
 | Optional | Techstream, to rebuild the catalog from the local database. |
 
-## 1. Clone and pin
+## 1. Clone and set up
 
 ```powershell
 git clone <this-repository> xa50; cd xa50
-```
-
-[`telemetry-project.toml`](../telemetry-project.toml) already pins the reviewed
-field-guide revision, and [`toolkit-requirement.txt`](../toolkit-requirement.txt)
-pins the toolkit package. Do not substitute a branch name for the commit.
-
-```powershell
-$toolkit = (Get-Content .\toolkit-requirement.txt -Raw).Trim()
-uvx --from $toolkit telemetry-validate --help
-```
-
-## 2. Build the backend
-
-Clone the field guide at the pinned revision and build straight into this
-repository's ignored scratch tree:
-
-```powershell
 git clone https://github.com/4piu/70Y074-telemetry.git ..\field-guide
-cd ..\field-guide; git checkout <pinned revision>
-.\backends\build.ps1 -OutputDirectory ..\xa50\scratch\bin
-cd ..\xa50
+..\field-guide\tools\setup-platform-project.ps1
 ```
+
+[`telemetry-project.toml`](../telemetry-project.toml) pins the reviewed
+field-guide revision, and the setup script reads it: it checks the field guide
+out at that revision, builds the backends into this repository's ignored
+scratch tree, and installs the toolkit into a local `.venv` from that same
+checkout. One revision therefore fixes the Python tools, the backends, and the
+Techstream scripts together.
+
+The first clone is optional — the script clones for you if the directory is
+absent. It refuses to touch a checkout with uncommitted changes, and `-Offline`
+makes it fail rather than reach the network.
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+telemetry-validate --help
+```
+
+Every command below assumes that activation. Nothing here needs the network
+again until the pin moves.
+
+## 2. Verify the backend
 
 [`validation-profile.json`](../data/config/validation-profile.json) already
-points at `scratch/bin/telemetry-pcan.exe`. Verify offline:
+points at `scratch/bin/telemetry-pcan.exe`. Confirm it offline, before any
+vehicle:
 
 ```powershell
 .\scratch\bin\telemetry-pcan.exe --self-test --output scratch\analysis\selftest.jsonl

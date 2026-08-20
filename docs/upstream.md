@@ -6,18 +6,17 @@ reusable method and executable code comes from
 tooling here — that is deliberate, and it is the check that the field guide is
 actually complete.
 
-> **Currently tracking `main` for pre-publish testing.** Both pins below name a
+> **Currently tracking `main` for pre-publish testing.** The pin below names a
 > branch rather than a commit, so a fresh install picks up upstream changes
 > without a bump. That is deliberate while the repositories are unpublished and
-> changing together; it is not reproducible, and both must become commit hashes
-> before release.
+> changing together; it is not reproducible, and it must become a commit hash
+> before release. `setup-platform-project.ps1` warns whenever it is not one.
 
-Two pins record what was reviewed:
-
-| File | Pins |
-|---|---|
-| [`telemetry-project.toml`](../telemetry-project.toml) | The field-guide revision this repository's configs and docs were written against. |
-| [`toolkit-requirement.txt`](../toolkit-requirement.txt) | The `toyota-telemetry-tools` package revision. |
+One pin records what was reviewed:
+[`telemetry-project.toml`](../telemetry-project.toml) names the field-guide
+revision this repository's configs and docs were written against. The Python
+toolkit is installed from that same checkout rather than resolved separately,
+so there is no second pin to keep in step with it.
 
 The repositories have unrelated root commits. A local Git remote named
 `upstream` is for fetching and comparison only. Do not run a whole-repository
@@ -32,7 +31,7 @@ git fetch upstream
 
 | Component | Where it lives upstream |
 |---|---|
-| `telemetry-build-plan`, `telemetry-validate`, `telemetry-analyze-capture`, `telemetry-review` | `src/toyota_telemetry/` |
+| `telemetry-build-plan`, `telemetry-validate`, `telemetry-analyze-capture`, `telemetry-review`, `telemetry-map`, `telemetry-probe` | `src/toyota_telemetry/` |
 | `telemetry-pcan`, `telemetry-j2534` backends | `backends/` |
 | Catalog, Techstream, and J2534 log tooling | `tools/` |
 | Method documentation and the evidence model | `docs/` |
@@ -56,8 +55,9 @@ sibling checkout. See [reproduce.md](reproduce.md).
    progress is reconstructed from immutable captures, so a difference means a
    behaviour change worth understanding before going further.
 4. Run `telemetry-review --check data/map/signals.csv`.
-5. Advance `upstream.revision` and `toolkit-requirement.txt` only to the
-   revision actually reviewed.
+5. Advance `upstream.revision` only to the revision actually reviewed, then
+   re-run `setup-platform-project.ps1` so the backends and the installed
+   toolkit both follow it.
 
 Advancing the pin can change the generated plan. Inspect the plan diff before
 any live session.
