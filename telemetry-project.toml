@@ -3,15 +3,15 @@ project_kind = "vehicle"
 project_id = "xa50-hybrid-vehicle-a"
 
 [upstream]
-repository = "https://github.com/4piu/70Y074-telemetry.git"
+repository = "https://github.com/4piu/70Y074-telemetry-tools.git"
 # A release tag or a commit hash. Both are immutable; a branch is not a pin,
-# it moves under you. Read the field guide's CHANGELOG before advancing this:
+# it moves under you. Read the toolkit's CHANGELOG before advancing this:
 # entries marked Breaking need a change here first.
 #
-# Pre-publish testing pin. Replace with the reviewed tag before publishing.
+# Pre-publish testing pin. Replace with the reviewed release before publishing.
 revision = "main"
 
 [paths]
 scratch = "scratch"
-# Where setup-platform-project.ps1 keeps the field-guide checkout.
-field_guide = "../field-guide"
+# Where setup-platform-project.ps1 keeps the toolkit checkout.
+toolkit = "../telemetry-tools"

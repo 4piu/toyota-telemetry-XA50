@@ -25,7 +25,7 @@ a `docs/` tree, a `.gitignore`, and a private-data policy, and in each case the
 two files are different documents rather than versions of one. The READMEs
 share nine lines out of eighty. A merge would raise those conflicts on every
 update and resolve none of them. See the field guide's
-[platform-project contract](https://github.com/4piu/70Y074-telemetry/blob/main/docs/09-platform-projects.md)
+[platform-project contract](platform-projects.md)
 for what belongs on which side.
 
 ```powershell
@@ -56,7 +56,7 @@ sibling checkout. See [reproduce.md](reproduce.md).
 ## Updating the pin
 
 1. Fetch `upstream`, read its
-   [changelog](https://github.com/4piu/70Y074-telemetry/blob/main/CHANGELOG.md)
+   [changelog](https://github.com/4piu/70Y074-telemetry-tools/blob/main/CHANGELOG.md)
    since the pinned revision, and act on anything marked **Breaking**
    before going further.
 2. Rebuild the backends and run `--self-test`.
