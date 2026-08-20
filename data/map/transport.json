@@ -1,29 +1,100 @@
 {
-  "schema_version": 1,
-  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
-  "vehicle_instance_id": "vehicle-a",
-  "description": "Endpoint and dynamic-DID definitions for the Hybrid Control ECU. Per-signal bit ranges, formulas, and evidence states live in signals.csv, which is the single source for those; this file holds only what is not expressible per signal.",
-  "ecu": {
-    "key": 397,
-    "name": "Hybrid Control"
+ "schema_version": 2,
+ "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+ "vehicle_instance_id": "vehicle-a",
+ "description": "Endpoint and dynamic-DID definitions for every ECU in signals.csv. Per-signal bit ranges, formulas, and evidence states live in signals.csv, which is the single source for those; this file holds only what is not expressible per signal. Hand-maintained.",
+ "transport": {
+  "network": "classical-can",
+  "bitrate": 500000,
+  "addressing": "normal",
+  "note": "One gateway, one bus. Several ECUs share a diagnostic address: Techstream models them as separate databases over one endpoint, so they are one ECU to talk to and more than one catalog to read it with."
+ },
+ "ecus": [
+  {
+   "key": 372,
+   "name": "Engine",
+   "tester_id": "0x700",
+   "response_id": "0x708"
   },
-  "transport": {
-    "network": "classical-can",
-    "bitrate": 500000,
-    "tester_id": "0x7D2",
-    "response_id": "0x7DA",
-    "addressing": "normal"
+  {
+   "key": 374,
+   "name": "Cruise Control",
+   "tester_id": "0x700",
+   "response_id": "0x708"
   },
-  "dynamic_dids": [
-    {
-      "target": "0xF301",
-      "definition_hex": "2C 01 F3 01 10 A0 01 02 10 A1 01 02 10 60 01 01 1F 01 01 01",
-      "state": "replayed"
-    },
-    {
-      "target": "0xF302",
-      "definition_hex": "2C 01 F3 02 10 43 01 02 10 67 01 02 10 69 01 04",
-      "state": "replayed"
-    }
-  ]
+  {
+   "key": 395,
+   "name": "Motor Generator",
+   "tester_id": "0x724",
+   "response_id": "0x72C"
+  },
+  {
+   "key": 396,
+   "name": "Rear Motor Generator",
+   "tester_id": "0x705",
+   "response_id": "0x70D"
+  },
+  {
+   "key": 397,
+   "name": "Hybrid Control",
+   "tester_id": "0x7D2",
+   "response_id": "0x7DA"
+  },
+  {
+   "key": 399,
+   "name": "Cruise Control",
+   "tester_id": "0x7D2",
+   "response_id": "0x7DA"
+  },
+  {
+   "key": 409,
+   "name": "Combination Meter",
+   "tester_id": "0x7C0",
+   "response_id": "0x7C8"
+  },
+  {
+   "key": 426,
+   "name": "Radar Cruise2",
+   "tester_id": "0x790",
+   "response_id": "0x798"
+  },
+  {
+   "key": 432,
+   "name": "Pre-Collision 2",
+   "tester_id": "0x791",
+   "response_id": "0x799"
+  },
+  {
+   "key": 435,
+   "name": "Brake/EPB",
+   "tester_id": "0x7B0",
+   "response_id": "0x7B8"
+  },
+  {
+   "key": 5005,
+   "name": "Rear Camera",
+   "tester_id": "0x7A2",
+   "response_id": "0x7AA"
+  },
+  {
+   "key": 5013,
+   "name": "EV",
+   "tester_id": "0x7D2",
+   "response_id": "0x7DA"
+  }
+ ],
+ "dynamic_dids": [
+  {
+   "target": "0xF301",
+   "definition_hex": "2C 01 F3 01 10 A0 01 02 10 A1 01 02 10 60 01 01 1F 01 01 01",
+   "state": "replayed",
+   "ecu_key": 397
+  },
+  {
+   "target": "0xF302",
+   "definition_hex": "2C 01 F3 02 10 43 01 02 10 67 01 02 10 69 01 04",
+   "state": "replayed",
+   "ecu_key": 397
+  }
+ ]
 }
