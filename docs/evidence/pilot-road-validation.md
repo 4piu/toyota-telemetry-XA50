@@ -121,10 +121,15 @@ so correlations are only claimed for fields sampled together in the same batch.
 Re-run structural checks with:
 
 ```powershell
-uv run python the retired road-capture analyzer <baseline.jsonl>
-uv run python telemetry-analyze-capture <batch.jsonl> `
-  --catalog data/catalog/telemetry.csv --minimum-samples 30
+telemetry-analyze-capture <batch.complete.jsonl> --ecu-key 397 `
+  --catalog data\catalog\telemetry.csv `
+  --decode-overrides data\config\decode-overrides.json `
+  --minimum-samples 30
 ```
+
+The analyzer that produced the baseline figures above has since been replaced;
+`telemetry-analyze-capture` performs the same structural checks and prints a
+per-DID latency and sample table.
 
 Only `.complete.jsonl` candidate-batch files count as completed progress.
 Interrupted `.incomplete.jsonl` files remain quarantined and must not be used to

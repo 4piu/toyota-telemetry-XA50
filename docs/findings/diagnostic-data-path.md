@@ -74,14 +74,14 @@ Example commands from the workspace root:
 .\tools\j2534\save-j2534-log.ps1 -WaitForLoggerSeconds 120
 
 # Summarize all diagnostic payloads
-uv run python .\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log'
+python ..\field-guide\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log'
 
 # Show a chronological exchange for selected CAN IDs
-uv run python .\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
+python ..\field-guide\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
   --timeline --id 0x700 --id 0x708
 
 # Decode known XA50 values and show changes
-uv run python .\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
+python ..\field-guide\tools\j2534\parse-j2534-log.py 'C:\path\to\j2534_log.log' `
   --timeline
 ```
 

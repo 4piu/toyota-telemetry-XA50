@@ -21,10 +21,9 @@ Everything here was written by hand and proven by producing the results in
 |---|---|---|
 | [`validation-profile.json`](config/validation-profile.json) | Endpoint, DID range, tier and privacy policy, paths, backend command | every toolkit CLI |
 | [`backend-config.json`](config/backend-config.json) | CAN bitrate, tester/response IDs, session setup, device selection | `telemetry-pcan`, `telemetry-j2534` |
-| [`ecu-profile.json`](config/ecu-profile.json) | The four ECU keys, their databases, and per-signal live-state notes | `build-catalog.py` |
+| [`ecu-profile.json`](config/ecu-profile.json) | The sixteen probe-confirmed ECU keys, their databases, endpoints, and live-state notes | `build-catalog.py` |
 | [`decode-overrides.json`](config/decode-overrides.json) | Reviewed corrections to OEM catalog formulas | `telemetry-analyze-capture`, `telemetry-review`, `telemetry-map` |
-| [`curation.csv`](config/curation.csv) | **The only hand-written part of the map**: reviewed evidence state and note per signal | `telemetry-map` |
-| [`<ecu>/backend-config.json`](config/) | Per-ECU endpoints for ECUs beyond Hybrid Control, pending probe | `telemetry-pcan`, `telemetry-j2534` |
+| [`curation.csv`](config/curation.csv) | **The only hand-written part of the map**: reviewed evidence state and note per signal, keyed by `ecu_key` + `data_id` + bit range | `telemetry-map` |
 | [`experiments/*.toml`](config/experiments/) | Named follow-up batches with an explicit purpose and vehicle state | `telemetry-validate experiment` |
 
 `validation-profile.json` and `backend-config.json` both describe the endpoint
@@ -41,7 +40,7 @@ captures, and `config/curation.csv`. Do not edit them by hand — edit
 |---|---|
 | [`signals.csv`](map/signals.csv) | Every catalog signal on a DID this vehicle answers: DID, request bytes, bit range, conversion, unit, **evidence state**, what was observed, and a note. |
 | [`unsupported.csv`](map/unsupported.csv) | Every DID this vehicle would not return, with its negative-response code. Recorded because another car of the same platform may well have them. |
-| [`transport.json`](map/transport.json) | Endpoint and dynamic-DID definitions. Only what cannot be expressed per signal. |
+| [`transport.json`](map/transport.json) | Hand-maintained. Every ECU's endpoint and the dynamic-DID definitions — only what cannot be expressed per signal. |
 
 The `observation` column says what the captures actually showed:
 
@@ -59,8 +58,8 @@ file exists to define signals, not to report this car's state. The full
 analysis stays local:
 
 ```powershell
-telemetry-review --config data\configalidation-profile.json `
-  --csv scratchnalysis\ledger.csv
+telemetry-review --config data\config\validation-profile.json `
+  --csv-out scratch\analysis\ledger.csv
 ```
 
 `review_status` separates the two kinds of row: `reviewed` means a human wrote

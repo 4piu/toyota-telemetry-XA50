@@ -10,3 +10,5 @@ revision = "main"
 
 [paths]
 scratch = "scratch"
+# Where setup-platform-project.ps1 keeps the field-guide checkout.
+field_guide = "../field-guide"

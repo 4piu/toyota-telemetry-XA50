@@ -6,18 +6,9 @@ signal conclusions are recorded in the
 
 ## Scope
 
-This run targets the 13 signals already in `data/validated`, not the 4,458-row static candidate atlas. Do not bulk-scan DIDs while driving. The separate [validation status and policy](README.md) admits only reviewed candidates that first pass stationary, byte-exact allowlisted qualification.
+A road batch reads a small group of DIDs that have already qualified stationary — never the whole catalog. Do not bulk-scan DIDs while driving. The [validation status and policy](README.md) records the tier policy that decides how many DIDs a batch carries and for how long.
 
-The combined PCAN mode uses one Hybrid Control session and repeats four known read transactions:
-
-```text
-F301 (MG1, MG2, accelerator)
-1075 (four wheel speeds)
-F302 (brake switches, master torque, requested/executed regeneration)
-1090 (steering angle)
-```
-
-At the default 100-ms minimum request spacing, each group is sampled around 2.5 Hz. This favors breadth and conservative bus use over dashboard-rate acquisition.
+The batch is built by the planner, not written by hand: `telemetry-validate road` takes the next queued batch per ECU and transmits only those identifiers, through the same byte-exact allowlist as any other capture. One request is outstanding at a time, so the tier's request spacing sets the bus load regardless of how many DIDs the batch holds.
 
 ## Recorder guarantees
 
@@ -42,25 +33,26 @@ The expected default volume is only a few megabytes, but the hard limits are enf
 7. Set up any camera/reference before moving. The driver must not touch or look at the computer while the vehicle moves.
 8. Prefer a passenger to supervise equipment. If alone, start while parked, secure the computer, perform the route, park, and only then inspect/stop it.
 
-Dry run:
+Preview the queue — nothing is transmitted without `--live`:
 
 ```powershell
-uv run python .\tools\validation\run-progressive-validation.py baseline --duration-seconds 900
+$profile = "data\config\validation-profile.json"
+telemetry-validate road --config $profile --max-items 4
 ```
 
-Stationary rehearsal:
+Stationary rehearsal, one short batch:
 
 ```powershell
-uv run python .\tools\validation\run-progressive-validation.py baseline --live --duration-seconds 30
+telemetry-validate road --config $profile --live --max-items 1
 ```
 
 Parking-lot run:
 
 ```powershell
-uv run python .\tools\validation\run-progressive-validation.py baseline --live --duration-seconds 900
+telemetry-validate road --config $profile --live --max-items 4
 ```
 
-The runner selects a timestamped partial/complete file below `$REPO_ROOT/scratch/captures/vehicle-a/progressive/baseline`. Per-sample console output is suppressed. A live run waits 10 seconds before opening PCAN so the operator can secure the computer; change this with `--startup-delay-seconds N`, or use zero to disable it. A baseline is promoted to `.complete.jsonl` only after it ends at the duration limit, contains every expected sample group, and passes offline analysis.
+Each batch writes a timestamped partial/complete file below the capture root its ECU declares in the profile. A live run waits 10 seconds before opening the adapter so the operator can secure the computer; change this with `--startup-delay-seconds N`, or use zero to disable it. A progress line reports the elapsed time and record count while a batch runs; `--no-progress` suppresses it for an unattended log. A batch is promoted to `.complete.jsonl` only after it ends at the duration limit, carries the minimum samples for every DID in it, and passes offline analysis.
 
 ## Low-risk maneuver sequence
 
@@ -97,4 +89,4 @@ A secured instrument-cluster video can provide an approximate speed/reference ti
 2. Run `the retired road-capture analyzer` and preserve its summary beside the private capture.
 3. Review raw payloads around minima, maxima, sign changes, switch transitions, and any discontinuity.
 4. Write down the actual maneuver timeline while it is fresh.
-5. Promote only reviewed conclusions and sanitized excerpts into `data/validated`; keep the full road log, video, GPS, and exact timestamps in the workbench.
+5. Promote only reviewed conclusions into `data/config/curation.csv` and regenerate `data/map/`; keep the full road log, video, GPS, and exact timestamps in the workbench.
