@@ -55,7 +55,10 @@ sibling checkout. See [reproduce.md](reproduce.md).
 
 ## Updating the pin
 
-1. Fetch `upstream` and review changes since the pinned revision.
+1. Fetch `upstream`, read its
+   [changelog](https://github.com/4piu/70Y074-telemetry/blob/main/CHANGELOG.md)
+   since the pinned revision, and act on anything marked **Breaking**
+   before going further.
 2. Rebuild the backends and run `--self-test`.
 3. Run `telemetry-validate status` and confirm progress numbers are unchanged —
    progress is reconstructed from immutable captures, so a difference means a

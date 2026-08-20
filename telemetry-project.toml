@@ -4,8 +4,11 @@ project_id = "xa50-hybrid-vehicle-a"
 
 [upstream]
 repository = "https://github.com/4piu/70Y074-telemetry.git"
-# Pre-publish testing pin. A branch name is deliberately not reproducible;
-# replace with the reviewed commit hash before publishing.
+# A release tag or a commit hash. Both are immutable; a branch is not a pin,
+# it moves under you. Read the field guide's CHANGELOG before advancing this:
+# entries marked Breaking need a change here first.
+#
+# Pre-publish testing pin. Replace with the reviewed tag before publishing.
 revision = "main"
 
 [paths]
