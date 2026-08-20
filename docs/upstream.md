@@ -20,7 +20,13 @@ so there is no second pin to keep in step with it.
 
 The repositories have unrelated root commits. A local Git remote named
 `upstream` is for fetching and comparison only. Do not run a whole-repository
-merge with `--allow-unrelated-histories`.
+merge with `--allow-unrelated-histories`: both repositories carry a `README.md`,
+a `docs/` tree, a `.gitignore`, and a private-data policy, and in each case the
+two files are different documents rather than versions of one. The READMEs
+share nine lines out of eighty. A merge would raise those conflicts on every
+update and resolve none of them. See the field guide's
+[platform-project contract](https://github.com/4piu/70Y074-telemetry/blob/main/docs/09-platform-projects.md)
+for what belongs on which side.
 
 ```powershell
 git remote add upstream https://github.com/4piu/70Y074-telemetry.git
@@ -58,6 +64,9 @@ sibling checkout. See [reproduce.md](reproduce.md).
 5. Advance `upstream.revision` only to the revision actually reviewed, then
    re-run `setup-platform-project.ps1` so the backends and the installed
    toolkit both follow it.
+6. Update the `blob/<revision>/` links in these docs to the same revision.
+   Links that name a branch describe whatever upstream looks like today, which
+   is not necessarily the procedure that produced the evidence here.
 
 Advancing the pin can change the generated plan. Inspect the plan diff before
 any live session.
