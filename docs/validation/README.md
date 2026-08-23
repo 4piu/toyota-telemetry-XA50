@@ -134,16 +134,35 @@ As of the last review — regenerate with
 
 | Measure | Count |
 |---|---:|
-| Plan candidates | 588 |
-| Qualified | 128 |
-| Terminal negative | 460 |
-| Road-complete | 127 |
-| Pending road capture | 1 |
+| Plan candidates | 2,025 |
+| Qualified | 553 |
+| Terminal negative | 1,472 |
+| Road-complete | 360 |
+| Pending road capture | 193 |
+
+Road progress is distributed as follows:
+
+| ECU | Qualified DIDs | Road-complete | Pending |
+|---|---:|---:|---:|
+| 372 Engine | 163 | 69 | 94 |
+| 374 Cruise Control | 4 | 4 | 0 |
+| 395 Motor Generator | 65 | 62 | 3 |
+| 396 Rear Motor Generator | 31 | 31 | 0 |
+| 397 Hybrid Control | 131 | 130 | 1 |
+| 399 Cruise Control | 10 | 10 | 0 |
+| 409 Combination Meter | 42 | 21 | 21 |
+| 426 Radar Cruise2 | 20 | 18 | 2 |
+| 432 Pre-Collision 2 | 13 | 1 | 12 |
+| 435 Brake/EPB | 57 | 9 | 48 |
+| 5005 Rear Camera | 5 | 2 | 3 |
+| 5013 EV | 12 | 3 | 9 |
 
 The generated map (`telemetry-map --config data/config/validation-profile.json`)
-carries 329 signals on the 128 answering DIDs: 12 varied across independent
-runs, 137 seen in a single run, 143 constant in every run so far, and 37 that
-the catalog maps past the end of this vehicle's reply.
+carries 1,846 signals: 12 varied across independent runs, 390 varied within a
+single completed run, 655 stayed constant, 48 lie past the end of this
+calibration's replies, and 741 have not yet received a road observation. See
+the [multi-ECU road review](../evidence/progressive-road-interim-2.md) for the
+latest evidence and decode caveats.
 
 Constant is an excitation result, not a defect. A short batch can legitimately
 miss selector changes, indicator states, charge/thermal transitions, and other

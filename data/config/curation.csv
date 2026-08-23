@@ -1,4 +1,22 @@
 ecu_key,data_id,first_bit,last_bit,name,evidence_state,notes
+372,0x1002,0,15,BATT Voltage,Observed and replayed,Varied plausibly from 12.632 to 14.214 V across 133 samples in one completed engine road run; independent voltage reference pending.
+372,0x1F0C,0,15,Engine Speed,Observed and replayed,Varied from 0 to 1825 rpm across 264 samples in one completed engine road run; independent RPM correlation pending.
+372,0x1F0D,0,7,Vehicle Speed,Observed and replayed,Varied from 0 to 60 km/h across 132 samples in one completed engine road run; independent speed correlation pending.
+372,0x1F42,0,15,Battery Voltage,Observed and replayed,Varied plausibly from 12.534 to 14.291 V across 132 samples in one completed engine road run; independent voltage reference pending.
+395,0x120C,0,15,Motor Revolution,Observed and replayed,Varied from 0 to 7748 rpm across 132 samples in one completed motor-generator road run; independent rotational-speed correlation pending.
+395,0x120D,0,15,Generator Revolution,Observed and replayed,Varied from -1782 to 4502 rpm across 132 samples in one completed motor-generator road run; independent rotational-speed correlation pending.
+395,0x120F,0,7,Inverter Coolant Temperature,Observed and replayed,Varied plausibly from 38 to 44 degC across 75 samples in one completed motor-generator road run.
+395,0x1217,0,15,VL Voltage,Observed and replayed,Varied plausibly from 281.1 to 326.7 V across 131 samples in one completed motor-generator road run.
+395,0x1217,16,31,VH Voltage,Observed and replayed,Varied from 279.9 to 650.5 V across 131 samples in one completed motor-generator road run; independent boosted-voltage reference pending.
+395,0x121B,0,7,Motor Temperature,Observed and replayed,Varied plausibly from 46 to 60 degC across 75 samples in one completed motor-generator road run.
+395,0x121C,0,7,Generator Temperature,Observed and replayed,Varied plausibly from 50 to 62 degC across 75 samples in one completed motor-generator road run.
+395,0x121F,0,7,Accelerator Position,Observed and replayed,Varied from 0 to 39.5% across 131 samples in one completed motor-generator road run; synchronized pedal reference pending.
+395,0x1F0D,0,7,Vehicle Speed,Observed and replayed,Varied from 0 to 98 km/h across 199 samples in one completed motor-generator road run; independent speed correlation pending.
+396,0x1226,0,15,Rear Motor Revolution,Observed and replayed,Varied from -1 to 7068 rpm across 132 samples in one completed rear-motor road run; independent rotational-speed correlation pending.
+396,0x1226,16,31,Rear Motor Torque,Observed and replayed,Varied from -4.875 to 50 Nm across 132 samples in one completed rear-motor road run; independent torque reference pending.
+396,0x122B,0,7,Rear Motor Inverter Temperature,Observed and replayed,Varied plausibly from 25 to 38 degC across 225 samples in one completed rear-motor road run.
+396,0x122C,0,7,Rear Motor Temperature,Observed and replayed,Varied plausibly from 24 to 42 degC across 225 samples in one completed rear-motor road run.
+396,0x1F0D,0,7,Vehicle Speed,Observed and replayed,Varied from 0 to 79 km/h across 132 samples in one completed rear-motor road run; independent speed correlation pending.
 397,0x1002,0,15,BATT Voltage,Observed and replayed,Varied plausibly from 12.632 to 14.155 V during the pilot road batch.
 397,0x103A,0,15,Generator Temperature Sensor Voltage,Observed and replayed,Observed at 3.094..3.104 V with nine raw levels in the pilot thermal batch.
 397,0x103A,16,23,Generator Temperature,Observed and replayed,Observed at 52 degC; matched the recorded maximum and exceeded the 48 degC IG-ON snapshot.
@@ -54,3 +72,19 @@ ecu_key,data_id,first_bit,last_bit,name,evidence_state,notes
 397,0x10B0,0,15,VL-Voltage before Boosting,Correlated and replayed,Pilot range 266.5..318.5 V; paired coherently with boosted-side voltage.
 397,0x10B0,16,31,VH-Voltage after Boosting,Correlated and replayed,Pilot range 271.5..424.5 V; boost delta reached 117.5 V and near-zero differences showed measurement timing noise.
 397,0x10B2,0,7,Inverter Coolant Water Temperature,Observed and replayed,Varied plausibly from 38 to 41 degC during the pilot thermal batch.
+409,0x1021,0,7,+B Voltage,Observed and replayed,Varied plausibly from 12.6 to 12.9 V across 238 samples in one completed combination-meter road run; independent voltage reference pending.
+409,0x1041,0,7,Vehicle Speed Meter,Observed and replayed,Varied from 20 to 66 km/h across 238 samples in one completed combination-meter road run; independent speed correlation pending.
+409,0x1042,0,7,Engine RPM,Observed and replayed,Varied from 0 to 2250 rpm across 149 samples in one completed combination-meter road run; independent RPM correlation pending.
+426,0x100A,0,15,Vehicle Speed,Observed and replayed,Varied from 0 to 54.48 km/h across 170 samples in one completed radar-cruise road run; independent speed correlation pending.
+426,0x100C,6,15,Yaw Rate Sensor Signal,Observed and replayed,Varied from -32.28 to 3.832 deg/s across 170 samples in one completed radar-cruise road run; synchronized steering reference pending.
+435,0x1002,0,15,FR Wheel Speed,Observed and replayed,Varied from 0 to 51.9 km/h across 133 samples in one completed brake/EPB road run; four-wheel and independent speed correlation pending.
+435,0x1002,16,31,FL Wheel Speed,Observed and replayed,Varied from 0 to 51.8 km/h across 133 samples in one completed brake/EPB road run; four-wheel and independent speed correlation pending.
+435,0x1002,32,47,RR Wheel Speed,Observed and replayed,Varied from 0 to 51.9 km/h across 133 samples in one completed brake/EPB road run; four-wheel and independent speed correlation pending.
+435,0x1002,48,63,RL Wheel Speed,Observed and replayed,Varied from 0 to 52.0 km/h across 133 samples in one completed brake/EPB road run; four-wheel and independent speed correlation pending.
+435,0x100A,0,7,Yaw Rate Sensor Value,Observed and replayed,Varied from -10 to 10 deg/s with both signs across 133 samples in one completed brake/EPB road run; synchronized steering reference pending.
+435,0x100D,0,15,Steering Angle Value,Observed and replayed,Varied plausibly from -66.4 to 59.7 degrees across 132 samples in one completed brake/EPB road run; independent steering reference pending.
+435,0x1012,0,15,Vehicle Speed,Observed and replayed,Varied from 0 to 52.2 km/h across 132 samples in one completed brake/EPB road run; wheel-speed and independent speed correlation pending.
+5005,0x1005,0,15,Vehicle Speed,Observed and replayed,Varied from 0 to 51.55 km/h across 595 samples in one completed rear-camera road run; independent speed correlation pending.
+5013,0x1002,0,15,BATT Voltage,Observed and replayed,Varied plausibly from 14.180 to 14.438 V across 397 samples in one completed EV road run; independent voltage reference pending.
+5013,0x1039,16,31,Inverter Water Pump Revolution,Observed and replayed,Varied plausibly from 4373 to 4421 rpm across 397 samples in one completed EV road run; independent pump-speed reference pending.
+5013,0x1F42,0,15,Smoothed Value of BATT Voltage,Observed and replayed,Varied plausibly from 13.964 to 14.165 V across 396 samples in one completed EV road run; independent voltage reference pending.

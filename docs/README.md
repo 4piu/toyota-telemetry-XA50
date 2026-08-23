@@ -48,6 +48,9 @@ Capture integrity and correlation results, per campaign.
 - [Progressive road interim review](evidence/progressive-road-interim-1.md) —
   batch quality, signal excitation, decode anomalies, and rerun decisions after
   the fast tier and two normal batches.
+- [Multi-ECU road expansion](evidence/progressive-road-interim-2.md) — road
+  coverage across ten additional ECU plans, conservative curation, and decode
+  candidates held back for follow-up.
 
 ## Validation
 

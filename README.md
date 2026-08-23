@@ -29,14 +29,15 @@ models several ECUs as separate databases over one diagnostic address.
 | Answered a read | 553 |
 | Refused (recorded in `unsupported.csv`) | 1472 |
 | Signals in the map | 1846 |
-| of which human-reviewed | 55 |
+| of which human-reviewed | 90 |
 
-Evidence is uneven by design, and every row says which it is. 695 signals have
-been read on the road: 12 varied across independent runs, 263 were seen in a
-single run, 372 stayed constant, and 48 are mapped by the catalog past the end
-of the reply this vehicle sends — absent hardware, mostly extra battery blocks
-and temperature sensors. The remaining 1151 sit on DIDs that answer but have
-not yet been road-captured; they carry evidence state *Candidate*.
+Evidence is uneven by design, and every row says which it is. 1,057 signals
+have decoded road observations: 12 varied across independent runs, 390 were
+seen in a single run, and 655 stayed constant. Another 48 are mapped by the
+catalog past the end of the reply this vehicle sends — absent hardware, mostly
+extra battery blocks and temperature sensors. The remaining 741 sit on DIDs
+that answer but have not yet been road-captured; they carry evidence state
+*Candidate*.
 
 Hybrid Control (ECU 397, tester `0x7D2` to response `0x7DA`) is the most
 complete: every DID it answers has been read. A gas XA50 has no ECU 397 at
