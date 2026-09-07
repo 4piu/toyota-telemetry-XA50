@@ -40,8 +40,9 @@ unchanged:
 |---|---|---|
 | `README.md` | The method, and what the toolkit does | One vehicle's result, and how to reproduce it |
 | `docs/` | Procedure, contracts, adapter and transport notes | Findings, evidence, and validation status for this vehicle |
-| `data/config/` | Blank configs to fill in | The verified inputs, filled in |
-| `data/` | — | Verified configs and the generated map |
+| `config/` | Structurally valid examples to replace | Reviewed transport and collection authority |
+| `review/` | Empty signal review | Reviewed semantic and decode decisions |
+| `result/` | Empty catalog provenance | Generated, privacy-minimized result generations |
 | Every program | — (they live in the toolkit) | — |
 | `.gitignore` | Build output | Build output, plus captures and the whole scratch tree |
 | `PRIVATE_DATA.md` | What counts as private, and why | What is private in this vehicle's captures |

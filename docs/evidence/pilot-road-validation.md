@@ -118,19 +118,9 @@ exact enum labels, accuracy against calibrated instruments, or identity with a
 simultaneous Techstream display. Candidate batches were executed sequentially,
 so correlations are only claimed for fields sampled together in the same batch.
 
-Re-run structural checks with:
-
-```powershell
-telemetry-analyze-capture <batch.complete.jsonl> --ecu-key 397 `
-  --catalog data\catalog\telemetry.csv `
-  --decode-overrides data\config\decode-overrides.json `
-  --minimum-samples 30
-```
-
-The analyzer that produced the baseline figures above has since been replaced;
-`telemetry-analyze-capture` performs the same structural checks and prints a
-per-DID latency and sample table.
-
-Only `.complete.jsonl` candidate-batch files count as completed progress.
-Interrupted `.incomplete.jsonl` files remain quarantined and must not be used to
-advance evidence state.
+The pre-0.4 analyzer and candidate-batch format that produced these historical
+figures have been removed. The accepted one-time conversion preserved every
+structurally complete record in the current immutable run/segment format.
+Current structural summaries come from `telemetry capture inspect`; incomplete
+segments remain uncredited unless explicit offline recovery creates a new
+validated finalized copy.

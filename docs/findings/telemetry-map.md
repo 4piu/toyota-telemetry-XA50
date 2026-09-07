@@ -305,5 +305,6 @@ Every setup and poll response was positive and the expected ISO-TP flow-control 
 
 Decoding a log against XA50 signal names needs a profile in the parser's
 `--signals` format. The hand-maintained one was removed because it duplicated
-catalog bit ranges with nothing keeping the two in sync; build one from
-`data/catalog/telemetry.csv` if you need it.
+catalog bit ranges with nothing keeping the two in sync. Current decode and
+review authority is assembled from private `scratch/catalog-rows.json` and
+tracked [`review/signals.json`](../../review/signals.json).

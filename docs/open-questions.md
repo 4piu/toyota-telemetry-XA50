@@ -10,7 +10,7 @@ is soft rather than discovering it halfway through a session.
 Before any DID can be read, the backend replays a sequence of UDS requests that
 opens a session the ECU will answer in — typically tester present, then a
 default session, then an extended session. That sequence goes into
-`backend-config.json` as `session_setup`, and everything downstream depends on
+tracked `config/transport.json` as a session recipe, and everything downstream depends on
 it being right.
 
 There is no automated way to derive it.
@@ -27,9 +27,9 @@ platform project missing any of those is stuck at this step.
 
 Partial mitigations, none sufficient on their own:
 
-- The tester-present / default-session / extended-session triple in
-  [`templates/backend-config.json`](../data/config/backend-config.json) is common
-  on Toyota platforms and is a reasonable first guess. It is a guess.
+- A tester-present / default-session / extended-session sequence is common on
+  Toyota platforms and may inform a bounded experiment. It remains a guess
+  until captured or otherwise evidenced for the target endpoint.
 - Some ECUs answer `0x22` reads with no session setup at all beyond tester
   present. Worth trying before assuming a complex sequence.
 - A static analysis of the diagnostic application can reveal the sequence

@@ -40,7 +40,7 @@ git fetch upstream
 
 | Component | Where it lives upstream |
 |---|---|
-| `telemetry-build-plan`, `telemetry-validate`, `telemetry-analyze-capture`, `telemetry-review`, `telemetry-map`, `telemetry-probe` | `src/toyota_telemetry/` |
+| `telemetry` dispatcher, repository services, scheduler, collector, export, and TUI | `src/toyota_telemetry/` |
 | `telemetry-pcan`, `telemetry-j2534` backends | `backends/` |
 | Catalog, Techstream, and J2534 log tooling | `tools/` |
 | Method documentation and the evidence model | `docs/` |

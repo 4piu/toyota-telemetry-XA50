@@ -11,6 +11,8 @@ Select the transport available while keeping the experiment and evidence model t
 
 For every route, compare raw payload and decoded value with an independent reference at zero/rest, middle, high, negative/reverse where applicable, transition boundaries, and an invalid/unavailable condition. Use a synchronized reference display or trusted measurement. Physical plausibility alone is Correlated evidence.
 
-Across many captures, use `telemetry-review` to aggregate per-signal evidence and list what has not yet been excited; see [the quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md#8-review-across-every-capture).
+Across many captures, use `telemetry review` to aggregate per-signal evidence
+and list remaining objective deficits; see the toolkit
+[quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md).
 
 Measure performance only after correctness. Follow [timing and load](timing-and-load.md), and promote results through [the evidence schema](../07-catalog/evidence-and-schema.md).

@@ -4,7 +4,11 @@
 
 The catalog turns the locally installed Techstream Phase-5 database into a searchable telemetry atlas. It is deliberately broader than the future acquisition/display application's needs and is generated without communicating with the vehicle.
 
-The profile covers the sixteen ECU datasets whose endpoints answered a stationary probe. The endpoints came from each ECU's own protocol table in the database, not from inference, and every one was then confirmed on the vehicle by `telemetry-probe`; [`ecu-profile.json`](../../data/config/ecu-profile.json) is the authoritative list, and [validation status](../validation/README.md) records which of them implement ReadDataByIdentifier.
+The original extraction covered the sixteen ECU datasets whose endpoints
+answered a stationary probe. The endpoints came from each ECU's protocol table
+and were then confirmed on the vehicle. Current portable authority is
+[`config/transport.json`](../../config/transport.json); [validation status](../validation/README.md)
+records the migrated support evidence.
 
 Twelve ECUs occupy nine distinct endpoints: Techstream models several as separate databases over one diagnostic address, which means one ECU to capture from with more than one catalog to read it with. Hybrid Control (`HV_P5.ddb`, key 397, `0x7D2 -> 0x7DA`) was the first established and is the most completely captured.
 
@@ -15,16 +19,17 @@ An earlier revision of this page listed four ECUs with response IDs inferred as 
 Run:
 
 ```powershell
-python ..\telemetry-tools\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
+python ..\telemetry-tools\tools\catalog\build-catalog.py --profile <private-extraction-profile>
 ```
 
 The generator queries the read-only local database interface and writes:
 
-- `data/catalog/telemetry.csv`: one row per named signal (local/ignored);
-- `data/catalog/dids.csv`: one row per ECU/DID (local/ignored);
-- `data/catalog/telemetry.json`: full machine-readable map (local/ignored);
-- `data/catalog/summary.md`: compact counts and limitations;
-- `data/catalog/manifest.json`: input hashes, tool hash, schema, and row counts.
+- `scratch/catalog-rows.json`: normalized private input consumed by the project;
+- ignored archival extraction files: full signal/DID atlases;
+- [`result/catalog-manifest.json`](../../result/catalog-manifest.json): tracked
+  source provenance and row count;
+- the generation selected by [`result/current.json`](../../result/current.json):
+  normalized reviewed signal output.
 
 The current build contains 6,892 signal records across 2,546 distinct ECU/DID pairs. For every row it preserves the source ECU, internal monitor ID, acquisition flags, `22 xxxx` request candidate, response bit range, physical conversion group, coefficients, decimal divisor, unit, and live-evidence override.
 

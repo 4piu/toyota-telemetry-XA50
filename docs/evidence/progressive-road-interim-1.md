@@ -123,10 +123,7 @@ collision, and airbag-related candidates.
 - **Skip by default:** archive DID `0x1010`; its positive qualification payload
   is shorter than its catalog bit layout and exposes no currently mapped field.
 
-Previewing the next run should start with the six operator-stopped DIDs. Use
-fast/normal/slow tiers to omit the unmapped archive candidate:
-
-```powershell
-telemetry-validate road --config data\config\validation-profile.json `
-  --tiers fast,normal,slow --max-items 3
-```
+At the time, the next fixed batch was expected to start with the six
+operator-stopped DIDs and omit the unmapped archive candidate. That scheduler
+has since been removed. Any renewed need must be expressed as reviewed
+objectives and compiled offline with `telemetry plan`.
