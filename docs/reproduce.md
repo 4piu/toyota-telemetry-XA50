@@ -1,190 +1,108 @@
-# Reproduce this on your own XA50
+# Reproduce and review the XA50 project
 
-Every command needed to rebuild this repository's results from scratch on a
-comparable vehicle. This is the toolkit's
-[quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md)
-with the XA50 blanks filled in.
+This is the schema-2 pre-release workflow. Run commands from the repository
+root after reading [scope and safety](00-scope-safety.md) and
+[PRIVATE_DATA.md](../PRIVATE_DATA.md).
 
-**Read [scope and safety](00-scope-safety.md)
-first.** Everything here is read-only diagnostics. Do not use it for vehicle
-control, coding, security access, DTC clearing, or programming.
+## 1. Install the selected toolkit
 
-Your calibration and market may differ. Treat every value in
-`data/map/` as a claim to re-verify, not a specification.
-
-## What you need
-
-| | |
-|---|---|
-| Vehicle | Toyota RAV4 Hybrid XA50 (A25A-FXS). Other Toyota hybrids may share DIDs; verify. |
-| Adapter | CANable v1.0 with PCAN-compatible firmware, or a PEAK PCAN-USB. See [CAN adapter](hardware/can-adapter.md). |
-| Host | Windows with Python 3.11+ and `uv`. No .NET SDK needed. |
-| Optional | Techstream, to rebuild the catalog from the local database. |
-
-## 1. Clone and set up
+The project intentionally selects toolkit `main` during coordinated
+development. The managed checkout must be clean before setup changes it.
 
 ```powershell
-git clone <this-repository> xa50; cd xa50
-.\bootstrap.ps1
-```
-
-[`telemetry-project.toml`](../telemetry-project.toml) already pins the
-reviewed toolkit revision, so `bootstrap.ps1` will not ask you anything or move
-it — it goes straight to installing: it checks the toolkit out at that
-revision, builds the backends into this repository's ignored scratch tree, and
-installs the toolkit into a local `.venv` from that same
-checkout. One revision therefore fixes the Python tools, the backends, and the
-Techstream scripts together.
-
-The first clone is optional — the script clones for you if the directory is
-absent. It refuses to touch a checkout with uncommitted changes, and `-Offline`
-makes it fail rather than reach the network.
-
-```powershell
+.\bootstrap.ps1 -NonInteractive
 .\.venv\Scripts\Activate.ps1
-telemetry-validate --help
+telemetry --help
 ```
 
-Every command below assumes that activation. Nothing here needs the network
-again until the pin moves.
+Setup builds all adapter workers into ignored `scratch/bin/` and installs the
+Python dispatcher from the same toolkit checkout.
 
-## 2. Verify the backend
+## 2. Rebuild private state
 
-[`validation-profile.json`](../data/config/validation-profile.json) already
-points at `scratch/bin/telemetry-pcan.exe`. Confirm it offline, before any
-vehicle:
+The normalized catalog input is private because its redistribution status is
+not established. Place the reviewed input at `scratch/catalog-rows.json`, then
+rebuild the disposable SQLite cache from authored files and immutable captures:
 
 ```powershell
-.\scratch\bin\telemetry-pcan.exe --self-test --output scratch\analysis\selftest.jsonl
+telemetry cache rebuild --catalog-rows scratch/catalog-rows.json
+telemetry capture inspect
 ```
 
-## 3. Rebuild the catalog (optional)
+The committed result is never an input to either command. Removing
+`scratch/project.sqlite` loses no authored decision.
 
-[`data/catalog/`](../data/catalog/) ships only the summary
-and manifest; the full atlas is derived from the OEM database and is not
-redistributed. With Techstream installed:
+## 3. Review transport and signal meaning
+
+Portable vehicle-facing facts live in `config/transport.json`. Adapter choice
+and channel binding live only in ignored `scratch/local-settings.json`.
+Signal/decode conclusions live in `review/signals.json`.
 
 ```powershell
-..\telemetry-tools\tools\techstream\query-techstream-db.ps1 -Catalog     # list every ECU key
-python ..\telemetry-tools\tools\catalog\build-catalog.py --profile data\config\ecu-profile.json
+telemetry review
 ```
 
-[`ecu-profile.json`](../data/config/ecu-profile.json) records the sixteen
-probe-confirmed ECU keys, their endpoints, and which implement
-ReadDataByIdentifier. Compare your `summary.md` against the committed
-one; a different Techstream version or market will produce different counts.
+Opening or navigating the interface does not transmit. Review and policy edits
+remain in memory until an explicit save atomically replaces the corresponding
+tracked document.
 
-## 4. Prove the connection
+## 4. Author collection objectives
 
-Stationary, in Park, parking brake on, IG-ON/READY, with PCAN-View closed.
+The migrated `config/collection-policy.json` is intentionally empty. It does
+not treat earlier collection settings as current authority. Add reviewed
+objectives through the operator interface, then compile them offline:
 
 ```powershell
-$cfg = "data\config\backend-config.json"
-
-.\scratch\bin\telemetry-pcan.exe --config $cfg --probe              # offline plan
-.\scratch\bin\telemetry-pcan.exe --config $cfg --obd-probe --live   # wiring and timing
-.\scratch\bin\telemetry-pcan.exe --config $cfg --probe --live       # gateway routing
+telemetry plan
 ```
 
-Expect the OBD probe to return `06 41 00 ...` from `0x7E8`-`0x7EF` in a few
-milliseconds, and the endpoint probe to return `7E 00` from `0x7DA`.
+Planning verifies source hashes, objective references, cadence, measured cost,
+storage bounds, and transport safety. It writes an admitted plan under ignored
+`scratch/plans/`. With the current empty policy it must fail with
+`collection policy has no included objectives`.
 
-If the OBD probe fails, the fault is electrical or bit timing, not the ECU —
-on this project it was CAN-L crossed with ground, and the adapter LED blinked
-happily throughout. See [CAN adapter](hardware/can-adapter.md).
+## 5. Collect only after plan review
 
-## 5. Plan and qualify
+`telemetry collect` is a live verb; there is no live-mode option and no dry-run
+form of that command. Before the adapter opens it verifies the admitted plan
+against the exact current authored and capture sources and prints adapter,
+endpoint, output, and plan-hash scope.
 
 ```powershell
-$profile = "data\config\validation-profile.json"
-
-telemetry-build-plan --config $profile
-telemetry-validate status  --config $profile
-telemetry-validate qualify --config $profile               # preview
-telemetry-validate qualify --config $profile --live --max-items 25
+telemetry collect
 ```
 
-Qualification is stationary and reads each DID exactly once, round-robin across
-every ECU in the profile. Expect roughly 553 of 2025 to qualify; most negatives
-are NRC `0x31` for equipment this vehicle does not have. See
-[validation policy](validation/README.md).
+The Python collector owns scheduling, decode, objective progress, immutable
+capture writing, status, and stop. Its private C# worker owns only the adapter,
+CAN, ISO-TP, and session lifetime and accepts byte-exact allowlisted
+transactions. One request is outstanding at a time; the scheduler does not
+send catch-up bursts.
 
-You do not have to qualify everything before driving. Qualify a slice, drive it,
-repeat.
+No road test is authorized merely by this documentation. Review the admitted
+XA50 plan and transmit allowlist first, then use a passenger or unattended
+logger and obey the stop rules in [road-test.md](validation/road-test.md).
 
-## 6. Capture on the road
+## 6. Regenerate tracked results
 
-Read the [parking-lot protocol](validation/road-test.md) first. Arrange a
-passenger or an unattended logger. **Do not operate the computer while driving.**
+After offline review and cache rebuild:
 
 ```powershell
-telemetry-validate road --config $profile --max-items 4     # preview
-telemetry-validate road --config $profile --live --max-items 4
+telemetry export
+git status --short
 ```
 
-Interrupting is safe: completed batches remain progress and only the active
-capture is quarantined.
+Export reads authored sources, the normalized private catalog input in the
+cache, and every structurally valid capture. It writes one immutable generation
+under `result/generations/` and atomically updates `result/current.json`.
+Generated files omit raw response bytes, timestamps, trip notes, adapter
+identifiers, and local paths.
 
-## 7. Review, regenerate the map, and compare
+Review the complete diff before committing. Never force-add anything under
+`scratch/`.
 
-```powershell
-telemetry-review --config $profile --ecu 397 --pending   # what still needs excitation
-telemetry-map    --config $profile                # regenerate signals.csv + unsupported.csv
-```
+## Historical documentation
 
-`telemetry-map` builds the map from the catalog, the completed captures, and
-your hand-written `data\config\curation.csv`. It never raises an evidence state
-on its own, and refuses to write if a curated row claims more than the captures
-support.
-
-The ledger is the point of comparison. If your vehicle produces a materially
-different set of qualified DIDs or decoded ranges, that is a finding about
-calibration or market differences — record it rather than assuming this
-repository is authoritative.
-
-## 8. Follow up on the doubtful signals
-
-```powershell
-telemetry-validate experiment --config $profile `
-  --experiment data\config\experiments\stationary-controls-v1.toml
-```
-
-Two reviewed schedules ship here: stationary selector and cabin-switch passes,
-and extended ordinary-driving batches. See
-[focused custom experiments](validation/custom-experiments.md).
-
-## Where results live
-
-| Path | Contents |
-|---|---|
-| [`data/map/signals.csv`](../data/map/signals.csv) | The curated map, with an evidence state per signal. |
-| [`data/map/unsupported.csv`](../data/map/unsupported.csv) | Every DID this vehicle refused, with its NRC. Yours may differ. |
-| [`data/map/transport.json`](../data/map/transport.json) | Endpoint and dynamic-DID definitions — the parts not expressible per signal. |
-| [`data/config/curation.csv`](../data/config/curation.csv) | The hand-written evidence states and notes behind the map. |
-| [`data/config/decode-overrides.json`](../data/config/decode-overrides.json) | Reviewed corrections to OEM catalog formulas. |
-| [`docs/findings/`](findings/) | How the endpoints, transport, and formulas were established. |
-| [`docs/evidence/`](evidence/) | Capture integrity and correlation results per campaign. |
-
-Raw captures are not published. `scratch/` is ignored in full.
-
-## 9. Extend to ECUs this repository has not found
-
-The endpoints here came from one sweep of the catalog's own protocol table.
-A different market or calibration may expose others. Probe for them:
-
-```powershell
-telemetry-probe --catalog data\catalog\telemetry.csv `
-  --base-config data\config\backend-config.json `
-  --base-profile data\config\validation-profile.json --live `
-  --emit-ecus scratch\analysis\new-ecus.json
-```
-
-Each probe sends exactly one tester-present frame and accepts only the expected
-reply. `--emit-ecus` writes the `ecus` entries for whatever answered; add them
-to `backend-config.json`, and to `validation-profile.json` with a `plan_id` and
-capture paths, then run the same qualify/road/review loop. One profile covers
-every ECU — they share the transport, being behind the same gateway.
-
-The session setup a new entry inherits is a guess for an ECU never captured
-from; if a probe fails while the OBD probe still succeeds, the endpoint or its
-session sequence is wrong rather than the wiring.
+Some finding and evidence documents retain the exact pre-0.4 commands used to
+produce earlier observations. Those snippets are provenance, not runnable
+instructions. Their former command names, fixed batches, and live-mode flags
+have no compatibility path in the current toolkit.

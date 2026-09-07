@@ -1,17 +1,20 @@
-schema_version = 1
+schema_version = 2
 project_kind = "vehicle"
 project_id = "xa50-hybrid-vehicle-a"
 
-[upstream]
+[toolkit]
 repository = "https://github.com/4piu/70Y074-telemetry-tools.git"
-# A release tag or a commit hash. Both are immutable; a branch is not a pin,
-# it moves under you. Read the toolkit's CHANGELOG before advancing this:
-# entries marked Breaking need a change here first.
-#
-# Pre-publish testing pin. Replace with the reviewed release before publishing.
 revision = "main"
 
 [paths]
+transport = "config/transport.json"
+collection_policy = "config/collection-policy.json"
+signal_review = "review/signals.json"
+catalog_manifest = "result/catalog-manifest.json"
+result = "result"
 scratch = "scratch"
-# Where setup-platform-project.ps1 keeps the toolkit checkout.
+local_settings = "scratch/local-settings.json"
+database = "scratch/project.sqlite"
+captures = "scratch/captures"
+plans = "scratch/plans"
 toolkit = "../telemetry-tools"

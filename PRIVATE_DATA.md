@@ -6,4 +6,9 @@ Keep raw `.TSE`, J2534, CAN, screenshots/video, Techstream databases/binaries, v
 
 ECU calibration/software IDs can be scientifically useful but form a configuration fingerprint. Tie them only to `vehicle-a` and review them before any future publication.
 
-The complete generated Techstream atlas is local and reproducible, but ignored for the initial history because bulk redistribution rights are uncertain. The generator, profile, provenance manifest/summary, and hand-curated live evidence are the durable source of truth.
+The normalized Techstream catalog input remains local because bulk
+redistribution rights are uncertain. The tracked catalog provenance,
+transport configuration, signal review, collection policy, and
+privacy-minimized generated result are the durable portable record. The raw
+captures and derived SQLite cache remain private and reproducible inputs under
+`scratch/`.

@@ -46,12 +46,6 @@ ghidra-proj/
 *.lock
 *.lock~
 
-# Full database-derived atlas is reproducible locally but not selected for
-# initial history while redistribution provenance is reviewed.
-data/catalog/*
-!data/catalog/manifest.json
-!data/catalog/summary.md
-
 # OS/editor noise
 .DS_Store
 Thumbs.db

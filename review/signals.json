@@ -1,0 +1,907 @@
+{
+  "document_type": "telemetry.signal-review",
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "schema_version": 1,
+  "signals": [
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "BATT Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 12.632 to 14.214 V across 133 samples in one completed engine road run; independent voltage reference pending.",
+      "signal_ref": "372/0x1002/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Engine Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 1825 rpm across 264 samples in one completed engine road run; independent RPM correlation pending.",
+      "signal_ref": "372/0x1F0C/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Vehicle Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 60 km/h across 132 samples in one completed engine road run; independent speed correlation pending.",
+      "signal_ref": "372/0x1F0D/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Battery Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 12.534 to 14.291 V across 132 samples in one completed engine road run; independent voltage reference pending.",
+      "signal_ref": "372/0x1F42/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Revolution",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 7748 rpm across 132 samples in one completed motor-generator road run; independent rotational-speed correlation pending.",
+      "signal_ref": "395/0x120C/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Revolution",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from -1782 to 4502 rpm across 132 samples in one completed motor-generator road run; independent rotational-speed correlation pending.",
+      "signal_ref": "395/0x120D/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Inverter Coolant Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 38 to 44 degC across 75 samples in one completed motor-generator road run.",
+      "signal_ref": "395/0x120F/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "VL Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 281.1 to 326.7 V across 131 samples in one completed motor-generator road run.",
+      "signal_ref": "395/0x1217/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "VH Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 279.9 to 650.5 V across 131 samples in one completed motor-generator road run; independent boosted-voltage reference pending.",
+      "signal_ref": "395/0x1217/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 46 to 60 degC across 75 samples in one completed motor-generator road run.",
+      "signal_ref": "395/0x121B/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 50 to 62 degC across 75 samples in one completed motor-generator road run.",
+      "signal_ref": "395/0x121C/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Accelerator Position",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 39.5% across 131 samples in one completed motor-generator road run; synchronized pedal reference pending.",
+      "signal_ref": "395/0x121F/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Vehicle Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 98 km/h across 199 samples in one completed motor-generator road run; independent speed correlation pending.",
+      "signal_ref": "395/0x1F0D/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Rear Motor Revolution",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from -1 to 7068 rpm across 132 samples in one completed rear-motor road run; independent rotational-speed correlation pending.",
+      "signal_ref": "396/0x1226/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Rear Motor Torque",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from -4.875 to 50 Nm across 132 samples in one completed rear-motor road run; independent torque reference pending.",
+      "signal_ref": "396/0x1226/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Rear Motor Inverter Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 25 to 38 degC across 225 samples in one completed rear-motor road run.",
+      "signal_ref": "396/0x122B/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Rear Motor Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 24 to 42 degC across 225 samples in one completed rear-motor road run.",
+      "signal_ref": "396/0x122C/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Vehicle Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 79 km/h across 132 samples in one completed rear-motor road run; independent speed correlation pending.",
+      "signal_ref": "396/0x1F0D/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "BATT Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 12.632 to 14.155 V during the pilot road batch.",
+      "signal_ref": "397/0x1002/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Temperature Sensor Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Observed at 3.094..3.104 V with nine raw levels in the pilot thermal batch.",
+      "signal_ref": "397/0x103A/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Observed at 52 degC; matched the recorded maximum and exceeded the 48 degC IG-ON snapshot.",
+      "signal_ref": "397/0x103A/16..23",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Temperature just after IG ON",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant 48 degC ignition-cycle snapshot; below the observed current/maximum value of 52 degC.",
+      "signal_ref": "397/0x103A/24..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Maximum Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant 52 degC and not below current or IG-ON generator temperature.",
+      "signal_ref": "397/0x103A/32..39",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Temperature Sensor Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Observed at 3.082..3.108 V; inverse correlation -0.519 with the one-degree motor-temperature transition.",
+      "signal_ref": "397/0x103B/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 51 to 52 degC; remained at or below the recorded 52 degC maximum.",
+      "signal_ref": "397/0x103B/16..23",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Temperature just after IG ON",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant 47 degC ignition-cycle snapshot; below current and maximum observations.",
+      "signal_ref": "397/0x103B/24..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Maximum Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant 52 degC and not below current or IG-ON motor temperature.",
+      "signal_ref": "397/0x103B/32..39",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Transaxle Oil Temperature Sensor Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Observed at 3.389..3.403 V with 13 raw levels in the pilot thermal batch.",
+      "signal_ref": "397/0x1040/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Transaxle Oil Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant plausible 48 degC during the 45-second pilot thermal batch.",
+      "signal_ref": "397/0x1040/16..23",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Brake Cancel Switch",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Exact threshold remains pending.",
+      "signal_ref": "397/0x1043/14..14",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Stop Light Switch",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Correlated with brake-pedal contact.",
+      "signal_ref": "397/0x1043/15..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Accelerator Position",
+      "evidence_refs": [],
+      "evidence_state": "Validated and replayed",
+      "formula_override": null,
+      "notes": "Validated through dynamic DID F301.",
+      "signal_ref": "397/0x1060/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Shift Position",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Raw state changed from 0 during Park qualification to 6 throughout the road-drive batch; enum labels remain pending.",
+      "signal_ref": "397/0x1061/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Shift Position (Meter)",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Raw state changed from 1 during Park qualification to 8 throughout the road-drive batch; enum labels remain pending.",
+      "signal_ref": "397/0x1061/8..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Engine Mode",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Raw state 3 throughout stationary qualification and the powertrain road batch; enum meaning remains unverified.",
+      "signal_ref": "397/0x1063/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Target Engine Revolution",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 934 to 2775 rpm during the pilot road batch; independent engine-speed reference pending.",
+      "signal_ref": "397/0x1064/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Target Engine Power",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot range 0..50380 W; correlation with executed engine power 0.9109.",
+      "signal_ref": "397/0x1065/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Execute Engine Power",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot range 0..56660 W; correlation with target engine power 0.9109.",
+      "signal_ref": "397/0x1065/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Master Cylinder Control Torque",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot road range -874.25..0 Nm; nonzero only with braking indications. This is request/control, not physical pad contact.",
+      "signal_ref": "397/0x1067/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Request Motor Regenerative Brake Torque",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot rolling range -264..0 Nm; request/execution correlation 0.9987 and braking-state association observed.",
+      "signal_ref": "397/0x1069/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Regenerate Brake Execution Torque",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot rolling range -264..0 Nm; request/execution correlation 0.9987 and braking-state association observed.",
+      "signal_ref": "397/0x1069/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Hybrid/EV Battery SOC of Immediately after IG ON",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant 40.5% during the road batch as expected for an ignition-cycle snapshot.",
+      "signal_ref": "397/0x106C/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Hybrid/EV Battery Maximum SOC",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Rose monotonically from 42.5% to 49.5% with 14 increments and no decreases.",
+      "signal_ref": "397/0x106C/8..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Hybrid/EV Battery Minimum SOC",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant 39.0% during the pilot road batch; minimum-accumulator behavior remains plausible but unexcited.",
+      "signal_ref": "397/0x106C/16..23",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "FR Wheel Speed",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot rolling range 0..71.41 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.",
+      "signal_ref": "397/0x1075/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "FL Wheel Speed",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot rolling range 0..71.55 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.",
+      "signal_ref": "397/0x1075/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "RR Wheel Speed",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot rolling range 0..71.16 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.",
+      "signal_ref": "397/0x1075/32..47",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "RL Wheel Speed",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot rolling range 0..71.42 km/h; four-wheel correlations >=0.99 and MG2/road-speed correlation 0.9998.",
+      "signal_ref": "397/0x1075/48..63",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Rear MG Activate Condition",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Remained false in stationary and road observations on this vehicle configuration.",
+      "signal_ref": "397/0x1076/11..11",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Engine Start Request (Hybrid/EV Battery Charging)",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Changed from true during stationary qualification to false throughout the road batch; exact trigger remains pending.",
+      "signal_ref": "397/0x1076/12..12",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Accelerator Pedal Status",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Visited both boolean states once during the road batch; synchronized analog-pedal comparison pending.",
+      "signal_ref": "397/0x1076/13..13",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "MG Activate Condition",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Remained true in stationary and road observations; inactive reference pending.",
+      "signal_ref": "397/0x1076/14..14",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Ready Signal",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "True in every observation so far (148 samples, one run) and never seen false, so the transition is not correlated. Correlating it needs a capture spanning a READY state change.",
+      "signal_ref": "397/0x1076/15..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Steering Angle",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Correlated with repeated stationary steering nudges.",
+      "signal_ref": "397/0x1090/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Yaw Rate Value",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from -3.480 to 10.184 deg/s with both signs during the road batch; synchronized steering reference pending.",
+      "signal_ref": "397/0x1093/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Revolution (MG1)",
+      "evidence_refs": [],
+      "evidence_state": "Validated and replayed",
+      "formula_override": null,
+      "notes": "Validated through dynamic DID F301.",
+      "signal_ref": "397/0x10A0/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Target Generator Torque",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot range -57.625..0 Nm; target/actual generator-torque correlation 0.9965.",
+      "signal_ref": "397/0x10A0/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Carrier Frequency",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Raw states 3 through 5 observed; enum and physical frequency mapping remain pending.",
+      "signal_ref": "397/0x10A0/32..39",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Control Mode",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Raw states 0 and 2 observed; enum mapping remains pending.",
+      "signal_ref": "397/0x10A0/40..47",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Torque",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot range -56.5..1.375 Nm; target/actual generator-torque correlation 0.9965.",
+      "signal_ref": "397/0x10A0/48..63",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Generator Inverter Operation Request",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.",
+      "signal_ref": "397/0x10A0/64..71",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Revolution (MG2)",
+      "evidence_refs": [],
+      "evidence_state": "Validated and replayed",
+      "formula_override": null,
+      "notes": "Validated through dynamic DID F301.",
+      "signal_ref": "397/0x10A1/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Target Motor Torque",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot range -88.875..73.875 Nm; target/actual motor-torque correlation 0.9989.",
+      "signal_ref": "397/0x10A1/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Carrier Frequency",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Raw states 1 and 3 observed; enum and physical frequency mapping remain pending.",
+      "signal_ref": "397/0x10A1/32..39",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Control Mode",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Raw states 0 and 1 observed; enum mapping remains pending.",
+      "signal_ref": "397/0x10A1/40..47",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Torque",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot range -84.375..75 Nm; target/actual motor-torque correlation 0.9989.",
+      "signal_ref": "397/0x10A1/48..63",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Inverter Operation Request",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.",
+      "signal_ref": "397/0x10A1/64..71",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Inverter Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 37 to 43 degC; remained below the recorded 48 degC maximum.",
+      "signal_ref": "397/0x10A5/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Inverter Temperature just after IG ON",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant 41 degC ignition-cycle snapshot.",
+      "signal_ref": "397/0x10A5/8..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Motor Inverter Maximum Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Constant 48 degC and above every current/IG-ON motor-inverter observation.",
+      "signal_ref": "397/0x10A5/16..23",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "VL-Voltage before Boosting",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot range 266.5..318.5 V; paired coherently with boosted-side voltage.",
+      "signal_ref": "397/0x10B0/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "VH-Voltage after Boosting",
+      "evidence_refs": [],
+      "evidence_state": "Correlated and replayed",
+      "formula_override": null,
+      "notes": "Pilot range 271.5..424.5 V; boost delta reached 117.5 V and near-zero differences showed measurement timing noise.",
+      "signal_ref": "397/0x10B0/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Inverter Coolant Water Temperature",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 38 to 41 degC during the pilot thermal batch.",
+      "signal_ref": "397/0x10B2/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Hybrid/EV Battery Current",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": "signed(raw, 16) / 10",
+      "notes": "The static offset-binary formula produced approximately +/-3276 A. Pilot bytes decode plausibly as signed two's-complement tenths of an ampere, -102.1..88.4 A. Independent reference validation remains pending.",
+      "signal_ref": "397/0x1F9A/32..47",
+      "unit_override": "A"
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "+B Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 12.6 to 12.9 V across 238 samples in one completed combination-meter road run; independent voltage reference pending.",
+      "signal_ref": "409/0x1021/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Vehicle Speed Meter",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 20 to 66 km/h across 238 samples in one completed combination-meter road run; independent speed correlation pending.",
+      "signal_ref": "409/0x1041/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Engine RPM",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 2250 rpm across 149 samples in one completed combination-meter road run; independent RPM correlation pending.",
+      "signal_ref": "409/0x1042/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Vehicle Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 54.48 km/h across 170 samples in one completed radar-cruise road run; independent speed correlation pending.",
+      "signal_ref": "426/0x100A/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Yaw Rate Sensor Signal",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from -32.28 to 3.832 deg/s across 170 samples in one completed radar-cruise road run; synchronized steering reference pending.",
+      "signal_ref": "426/0x100C/6..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "FR Wheel Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 51.9 km/h across 133 samples in one completed brake/EPB road run; four-wheel and independent speed correlation pending.",
+      "signal_ref": "435/0x1002/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "FL Wheel Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 51.8 km/h across 133 samples in one completed brake/EPB road run; four-wheel and independent speed correlation pending.",
+      "signal_ref": "435/0x1002/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "RR Wheel Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 51.9 km/h across 133 samples in one completed brake/EPB road run; four-wheel and independent speed correlation pending.",
+      "signal_ref": "435/0x1002/32..47",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "RL Wheel Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 52.0 km/h across 133 samples in one completed brake/EPB road run; four-wheel and independent speed correlation pending.",
+      "signal_ref": "435/0x1002/48..63",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Yaw Rate Sensor Value",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from -10 to 10 deg/s with both signs across 133 samples in one completed brake/EPB road run; synchronized steering reference pending.",
+      "signal_ref": "435/0x100A/0..7",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Steering Angle Value",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from -66.4 to 59.7 degrees across 132 samples in one completed brake/EPB road run; independent steering reference pending.",
+      "signal_ref": "435/0x100D/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Vehicle Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 52.2 km/h across 132 samples in one completed brake/EPB road run; wheel-speed and independent speed correlation pending.",
+      "signal_ref": "435/0x1012/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Vehicle Speed",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied from 0 to 51.55 km/h across 595 samples in one completed rear-camera road run; independent speed correlation pending.",
+      "signal_ref": "5005/0x1005/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "BATT Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 14.180 to 14.438 V across 397 samples in one completed EV road run; independent voltage reference pending.",
+      "signal_ref": "5013/0x1002/0..15",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Inverter Water Pump Revolution",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 4373 to 4421 rpm across 397 samples in one completed EV road run; independent pump-speed reference pending.",
+      "signal_ref": "5013/0x1039/16..31",
+      "unit_override": null
+    },
+    {
+      "catalog_variant_id": null,
+      "display_name_override": "Smoothed Value of BATT Voltage",
+      "evidence_refs": [],
+      "evidence_state": "Observed and replayed",
+      "formula_override": null,
+      "notes": "Varied plausibly from 13.964 to 14.165 V across 396 samples in one completed EV road run; independent voltage reference pending.",
+      "signal_ref": "5013/0x1F42/0..15",
+      "unit_override": null
+    }
+  ]
+}

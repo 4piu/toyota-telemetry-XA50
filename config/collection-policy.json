@@ -1,0 +1,14 @@
+{
+  "acquisitions": [],
+  "class_defaults": {},
+  "document_type": "telemetry.collection-policy",
+  "objectives": [],
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "schema_version": 1,
+  "storage": {
+    "capture_tree_max_mib": 2048,
+    "disk_reserve_mib": 256,
+    "segment_max_mib": 16,
+    "segment_seconds": 60
+  }
+}

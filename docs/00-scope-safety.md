@@ -9,7 +9,9 @@ Establish a read-only experimental boundary before connecting a diagnostic reque
 - Begin stationary in Park with the parking brake applied; use IG-ON or READY only when the experiment requires it.
 - Treat every diagnostic client as an active CAN participant, even when it only requests data.
 - Permit exactly one tester to own an ECU diagnostic session. Close Techstream/PCAN-View or any competing client before transmitting.
-- Default to dry-run. Live mode must require an explicit flag and a byte-exact transmit allowlist.
+- Keep offline planning and live collection as separate verbs. The live
+  `telemetry collect` command requires a current admitted plan and a byte-exact
+  transmit allowlist; it has no compatibility flag or offline mode.
 - Allow only required session control, tester present, dynamic-DID definition/clear, flow control, and read requests.
 - Reject unknown vehicle profiles, unexpected arbitration IDs, negative responses not anticipated by the procedure, malformed ISO-TP, and timeouts.
 - Send the next request after the previous transaction completes. Start at the observed OEM cadence.

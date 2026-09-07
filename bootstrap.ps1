@@ -213,9 +213,9 @@ if (-not (Test-Path -LiteralPath $projectFile -PathType Leaf)) {
     throw "No telemetry-project.toml in $ProjectRoot. Run this from a project created from the template, or pass -ProjectRoot."
 }
 
-$repository = Get-TomlValue -Path $projectFile -Section 'upstream' -Key 'repository'
+$repository = Get-TomlValue -Path $projectFile -Section 'toolkit' -Key 'repository'
 $currentId = Get-TomlValue -Path $projectFile -Section '' -Key 'project_id'
-$currentRevision = Get-TomlValue -Path $projectFile -Section 'upstream' -Key 'revision'
+$currentRevision = Get-TomlValue -Path $projectFile -Section 'toolkit' -Key 'revision'
 
 # --------------------------------------------------------------- project id
 
@@ -258,7 +258,7 @@ if ($currentRevision -like 'replace-with-*') {
         $result = Resolve-LatestRevision -RepositoryUrl $repository
         $resolved = $result.Revision
     }
-    Set-TomlValue -Path $projectFile -Section 'upstream' -Key 'revision' -Value $resolved
+    Set-TomlValue -Path $projectFile -Section 'toolkit' -Key 'revision' -Value $resolved
     Write-Step "pinned      $resolved"
 }
 else {
