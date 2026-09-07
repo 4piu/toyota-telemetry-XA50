@@ -1,0 +1,265 @@
+{
+  "document_type": "telemetry.transport",
+  "dynamic_dids": [
+    {
+      "definition_hex": "2C 01 F3 01 10 A0 01 02 10 A1 01 02 10 60 01 01 1F 01 01 01",
+      "endpoint_id": "7d2-7da-session-f58c3048ae0f",
+      "expected_prefix_hex": "6C 01 F3 01",
+      "provenance": [
+        "data/map/transport.json"
+      ],
+      "state": "reviewed_replay",
+      "target_did": "0xF301"
+    },
+    {
+      "definition_hex": "2C 01 F3 02 10 43 01 02 10 67 01 02 10 69 01 04",
+      "endpoint_id": "7d2-7da-session-f58c3048ae0f",
+      "expected_prefix_hex": "6C 01 F3 02",
+      "provenance": [
+        "data/map/transport.json"
+      ],
+      "state": "reviewed_replay",
+      "target_did": "0xF302"
+    }
+  ],
+  "endpoints": [
+    {
+      "ecu_keys": [
+        372,
+        374
+      ],
+      "id": "700-708-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x708",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x700"
+    },
+    {
+      "ecu_keys": [
+        396
+      ],
+      "id": "705-70d-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x70D",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x705"
+    },
+    {
+      "ecu_keys": [
+        395
+      ],
+      "id": "724-72c-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x72C",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x724"
+    },
+    {
+      "ecu_keys": [
+        444
+      ],
+      "id": "780-788-session-2ed0d15baebe",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x788",
+      "session_recipe_id": "session-2ed0d15baebe",
+      "state": "confirmed",
+      "tester_can_id": "0x780"
+    },
+    {
+      "ecu_keys": [
+        426
+      ],
+      "id": "790-798-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x798",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x790"
+    },
+    {
+      "ecu_keys": [
+        432
+      ],
+      "id": "791-799-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x799",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x791"
+    },
+    {
+      "ecu_keys": [
+        405
+      ],
+      "id": "7a1-7a9-session-2ed0d15baebe",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x7A9",
+      "session_recipe_id": "session-2ed0d15baebe",
+      "state": "confirmed",
+      "tester_can_id": "0x7A1"
+    },
+    {
+      "ecu_keys": [
+        5005
+      ],
+      "id": "7a2-7aa-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x7AA",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x7A2"
+    },
+    {
+      "ecu_keys": [
+        435
+      ],
+      "id": "7b0-7b8-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x7B8",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x7B0"
+    },
+    {
+      "ecu_keys": [
+        445
+      ],
+      "id": "7b3-7bb-session-2ed0d15baebe",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x7BB",
+      "session_recipe_id": "session-2ed0d15baebe",
+      "state": "confirmed",
+      "tester_can_id": "0x7B3"
+    },
+    {
+      "ecu_keys": [
+        409
+      ],
+      "id": "7c0-7c8-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x7C8",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x7C0"
+    },
+    {
+      "ecu_keys": [
+        450
+      ],
+      "id": "7c4-7cc-session-2ed0d15baebe",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x7CC",
+      "session_recipe_id": "session-2ed0d15baebe",
+      "state": "confirmed",
+      "tester_can_id": "0x7C4"
+    },
+    {
+      "ecu_keys": [
+        397,
+        399,
+        5013
+      ],
+      "id": "7d2-7da-session-f58c3048ae0f",
+      "provenance": [
+        "data/config/backend-config.json"
+      ],
+      "response_can_id": "0x7DA",
+      "session_recipe_id": "session-f58c3048ae0f",
+      "state": "confirmed",
+      "tester_can_id": "0x7D2"
+    }
+  ],
+  "network": {
+    "addressing": "normal",
+    "bitrate": 500000,
+    "type": "classical-can"
+  },
+  "profile_id": "2023-rav4-hv-xa50-a25a-fxs",
+  "safety": {
+    "did_max": "0xEFFF",
+    "did_min": "0x0100",
+    "initial_response_timeout_ms": 1000,
+    "maximum_estimated_bus_utilization": 0.05,
+    "maximum_nominal_session_utilization": 0.5,
+    "maximum_request_rate_hz": 10,
+    "request_start_floor_ms": 100,
+    "response_pending_budget_ms": 10000,
+    "transport_retries": 2
+  },
+  "schema_version": 1,
+  "session_recipes": [
+    {
+      "id": "session-2ed0d15baebe",
+      "steps": [
+        {
+          "expected_prefix_hex": "7E 00",
+          "label": "tester present",
+          "request_hex": "3E 00",
+          "tolerate_negative": true
+        },
+        {
+          "expected_prefix_hex": "50",
+          "label": "default session (no subfunction echo)",
+          "request_hex": "10 01",
+          "tolerate_negative": false
+        },
+        {
+          "expected_prefix_hex": "50",
+          "label": "extended session (no subfunction echo)",
+          "request_hex": "10 03",
+          "tolerate_negative": true
+        }
+      ]
+    },
+    {
+      "id": "session-f58c3048ae0f",
+      "steps": [
+        {
+          "expected_prefix_hex": "7E 00",
+          "label": "tester present (tolerant)",
+          "request_hex": "3E 00",
+          "tolerate_negative": true
+        },
+        {
+          "expected_prefix_hex": "50 01",
+          "label": "default session",
+          "request_hex": "10 01",
+          "tolerate_negative": false
+        },
+        {
+          "expected_prefix_hex": "50 03",
+          "label": "extended session",
+          "request_hex": "10 03",
+          "tolerate_negative": false
+        }
+      ]
+    }
+  ]
+}
