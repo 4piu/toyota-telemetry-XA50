@@ -39,18 +39,19 @@ and channel binding live only in ignored `scratch/local-settings.json`.
 Signal/decode conclusions live in `review/signals.json`.
 
 ```powershell
-telemetry review
+telemetry workspace
 ```
 
-Opening or navigating the interface does not transmit. Review and policy edits
-remain in memory until an explicit save atomically replaces the corresponding
-tracked document.
+Opening or navigating the workspace does not transmit. Signal-curation and
+policy edits remain in memory until an explicit save atomically replaces the
+corresponding tracked document.
 
 ## 4. Author collection objectives
 
 The migrated `config/collection-policy.json` is intentionally empty. It does
 not treat earlier collection settings as current authority. Add reviewed
-objectives through the operator interface, then compile them offline:
+objectives through curation in the operator workspace, then compile them
+offline:
 
 ```powershell
 telemetry plan
@@ -61,7 +62,7 @@ storage bounds, and transport safety. It writes an admitted plan under ignored
 `scratch/plans/`. With the current empty policy it must fail with
 `collection policy has no included objectives`.
 
-## 5. Collect only after plan review
+## 5. Collect only after plan inspection
 
 `telemetry collect` is a live verb; there is no live-mode option and no dry-run
 form of that command. Before the adapter opens it verifies the admitted plan
@@ -74,13 +75,14 @@ telemetry collect
 
 The Python collector owns scheduling, decode, objective progress, immutable
 capture writing, status, and stop. Its private C# worker owns only the adapter,
-CAN, ISO-TP, and session lifetime and accepts byte-exact allowlisted
+CAN, ISO-TP, and session lifetime and applies the built-in guard to resolved
 transactions. One request is outstanding at a time; the scheduler does not
 send catch-up bursts.
 
-No road test is authorized merely by this documentation. Review the admitted
-XA50 plan and transmit allowlist first, then use a passenger or unattended
-logger and obey the stop rules in [road-test.md](validation/road-test.md).
+No road test is authorized merely by this documentation. Inspect the admitted
+XA50 plan, transaction scope, and bounds first, then use a passenger or
+unattended logger and obey the stop rules in
+[road-test.md](validation/road-test.md).
 
 ## 6. Regenerate tracked results
 

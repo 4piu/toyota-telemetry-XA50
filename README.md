@@ -67,8 +67,9 @@ adapter DLL is stored here.
 
 ## Safety and scope
 
-Offline work uses commands such as `telemetry plan`, `telemetry review`, and
-`telemetry export`. `telemetry collect` is unambiguously live and has no live
+Offline work uses commands such as `telemetry plan` and `telemetry export`.
+`telemetry workspace` is offline-first, although its explicit collection action
+invokes `telemetry collect`. `telemetry collect` is unambiguously live and has no live
 mode flag. It can start only from a verified admitted plan, and the private
 vehicle-facing worker enforces that plan's narrow read-only allowlist
 byte-for-byte.
