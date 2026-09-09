@@ -9,8 +9,8 @@ confirmed endpoints and reviewed dynamic-DID definitions:
   definitions and their expected response prefixes.
 
 Both paths were removed from the tracked tree by commit `a18e476` ("Cut XA50
-project over to schema 2"), which carried their content forward verbatim into
-`config/transport.json`. Neither file exists in the current working tree, but
+project over to schema 2"), which transformed and carried their facts forward
+into `config/transport.json`. Neither file exists in the current working tree, but
 both remain retrievable from history at their last committed revision,
 `e403fad` ("Expand signal map from multi-ECU road captures"):
 
