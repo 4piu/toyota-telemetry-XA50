@@ -6,7 +6,8 @@
       "endpoint_id": "7d2-7da-session-f58c3048ae0f",
       "expected_prefix_hex": "6C 01 F3 01",
       "provenance": [
-        "data/map/transport.json"
+        "data/map/transport.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "state": "reviewed_replay",
       "target_did": "0xF301"
@@ -16,7 +17,8 @@
       "endpoint_id": "7d2-7da-session-f58c3048ae0f",
       "expected_prefix_hex": "6C 01 F3 02",
       "provenance": [
-        "data/map/transport.json"
+        "data/map/transport.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "state": "reviewed_replay",
       "target_did": "0xF302"
@@ -30,7 +32,8 @@
       ],
       "id": "700-708-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x708",
       "session_recipe_id": "session-f58c3048ae0f",
@@ -43,7 +46,8 @@
       ],
       "id": "705-70d-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x70D",
       "session_recipe_id": "session-f58c3048ae0f",
@@ -56,7 +60,8 @@
       ],
       "id": "724-72c-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x72C",
       "session_recipe_id": "session-f58c3048ae0f",
@@ -69,7 +74,8 @@
       ],
       "id": "780-788-session-2ed0d15baebe",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x788",
       "session_recipe_id": "session-2ed0d15baebe",
@@ -82,7 +88,8 @@
       ],
       "id": "790-798-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x798",
       "session_recipe_id": "session-f58c3048ae0f",
@@ -95,7 +102,8 @@
       ],
       "id": "791-799-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x799",
       "session_recipe_id": "session-f58c3048ae0f",
@@ -108,7 +116,8 @@
       ],
       "id": "7a1-7a9-session-2ed0d15baebe",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x7A9",
       "session_recipe_id": "session-2ed0d15baebe",
@@ -121,7 +130,8 @@
       ],
       "id": "7a2-7aa-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x7AA",
       "session_recipe_id": "session-f58c3048ae0f",
@@ -134,7 +144,8 @@
       ],
       "id": "7b0-7b8-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x7B8",
       "session_recipe_id": "session-f58c3048ae0f",
@@ -147,7 +158,8 @@
       ],
       "id": "7b3-7bb-session-2ed0d15baebe",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x7BB",
       "session_recipe_id": "session-2ed0d15baebe",
@@ -160,7 +172,8 @@
       ],
       "id": "7c0-7c8-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x7C8",
       "session_recipe_id": "session-f58c3048ae0f",
@@ -173,7 +186,8 @@
       ],
       "id": "7c4-7cc-session-2ed0d15baebe",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x7CC",
       "session_recipe_id": "session-2ed0d15baebe",
@@ -188,7 +202,8 @@
       ],
       "id": "7d2-7da-session-f58c3048ae0f",
       "provenance": [
-        "data/config/backend-config.json"
+        "data/config/backend-config.json",
+        "docs/findings/pre-migration-provenance.md"
       ],
       "response_can_id": "0x7DA",
       "session_recipe_id": "session-f58c3048ae0f",
