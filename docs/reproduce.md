@@ -39,10 +39,10 @@ and channel binding live only in ignored `scratch/local-settings.json`.
 Signal/decode conclusions live in `review/signals.json`.
 
 ```powershell
-telemetry workspace
+telemetry-tui
 ```
 
-Opening or navigating the workspace does not transmit. Signal-curation and
+Opening or navigating the TUI does not transmit. Signal-curation and
 policy edits remain in memory until an explicit save atomically replaces the
 corresponding tracked document.
 
@@ -50,7 +50,7 @@ corresponding tracked document.
 
 The migrated `config/collection-policy.json` is intentionally empty. It does
 not treat earlier collection settings as current authority. Add reviewed
-objectives through curation in the operator workspace, then compile them
+objectives through curation in the operator TUI, then compile them
 offline:
 
 ```powershell

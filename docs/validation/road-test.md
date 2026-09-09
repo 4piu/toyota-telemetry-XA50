@@ -18,7 +18,7 @@ hash, and complete byte-exact transmit allowlist.
 
 ## During collection
 
-Start only with `telemetry collect` or the operator workspace's explicit Start
+Start only with `telemetry collect` or the standalone TUI's explicit Start
 action. The command is inherently live and has no alternate mode. One request
 is outstanding at a time and the scheduler never emits catch-up bursts.
 
@@ -39,6 +39,6 @@ segments form an anytime-valid prefix. A crashed partial earns no progress
 unless explicit offline recovery creates and validates a new finalized copy;
 the source partial remains untouched.
 
-Use `telemetry workspace` to inspect all-run observations and save only reviewed
+Use `telemetry-tui` to inspect all-run observations and save only reviewed
 conclusions. Keep GPS, video, exact trip history, and raw captures under the
 ignored private boundary. Regenerate tracked output with `telemetry export`.
