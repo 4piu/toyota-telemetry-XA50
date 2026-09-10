@@ -37,21 +37,14 @@ The committed result is never an input to either command. Removing
 Portable vehicle-facing facts live in `config/transport.json`. Adapter choice
 and channel binding live only in ignored `scratch/local-settings.json`.
 Signal/decode conclusions live in `review/signals.json`.
-
-```powershell
-telemetry-tui
-```
-
-Opening or navigating the TUI does not transmit. Signal-curation and
-policy edits remain in memory until an explicit save atomically replaces the
-corresponding tracked document.
+The desktop curation application is not yet implemented, so changes to tracked
+review and policy remain a development task requiring direct diff review.
 
 ## 4. Author collection objectives
 
 The migrated `config/collection-policy.json` is intentionally empty. It does
 not treat earlier collection settings as current authority. Add reviewed
-objectives through curation in the operator TUI, then compile them
-offline:
+objectives to the tracked policy, then compile them offline:
 
 ```powershell
 telemetry plan

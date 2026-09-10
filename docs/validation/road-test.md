@@ -1,8 +1,8 @@
 # Road collection safety
 
 Road collection is not authorized until the operator has reviewed the current
-XA50 policy, offline admitted plan, endpoint, adapter binding, output path, plan
-hash, and complete byte-exact transmit allowlist.
+XA50 policy, offline admitted plan, endpoint, adapter binding, output path,
+plan hash, and complete bounded read-only transaction scope.
 
 ## Before moving
 
@@ -18,9 +18,9 @@ hash, and complete byte-exact transmit allowlist.
 
 ## During collection
 
-Start only with `telemetry collect` or the standalone TUI's explicit Start
-action. The command is inherently live and has no alternate mode. One request
-is outstanding at a time and the scheduler never emits catch-up bursts.
+Start only with `telemetry collect`. The command is inherently live. One
+request is outstanding at a time and the scheduler never emits catch-up
+bursts.
 
 The interface must keep connected, response-pending, transport-error,
 stale-state, and disconnected visibly distinct. Stop immediately for unexpected
@@ -39,6 +39,7 @@ segments form an anytime-valid prefix. A crashed partial earns no progress
 unless explicit offline recovery creates and validates a new finalized copy;
 the source partial remains untouched.
 
-Use `telemetry-tui` to inspect all-run observations and save only reviewed
-conclusions. Keep GPS, video, exact trip history, and raw captures under the
-ignored private boundary. Regenerate tracked output with `telemetry export`.
+Inspect all-run observations through the evidence-query services and save only
+reviewed conclusions. Keep GPS, video, exact trip history, and raw captures
+under the ignored private boundary. Regenerate tracked output with
+`telemetry export`.

@@ -10,9 +10,11 @@ Establish a read-only experimental boundary before connecting a diagnostic reque
 - Treat every diagnostic client as an active CAN participant, even when it only requests data.
 - Permit exactly one tester to own an ECU diagnostic session. Close Techstream/PCAN-View or any competing client before transmitting.
 - Keep offline planning and live collection as separate verbs. The live
-  `telemetry collect` command requires a current admitted plan and a byte-exact
-  transmit allowlist; it has no compatibility flag or offline mode.
-- Allow only required session control, tester present, dynamic-DID definition/clear, flow control, and read requests.
+  `telemetry collect` command requires a current admitted plan; its private
+  worker resolves only launch-time transactions and applies the built-in
+  telemetry guard to every request.
+- Allow only tester present, default or extended session control, bounded
+  dynamic-DID definition, read-by-identifier, and required ISO-TP flow control.
 - Reject unknown vehicle profiles, unexpected arbitration IDs, negative responses not anticipated by the procedure, malformed ISO-TP, and timeouts.
 - Send the next request after the previous transaction completes. Start at the observed OEM cadence.
 - Do not keep sleeping ECUs awake or risk 12-V battery depletion.

@@ -68,12 +68,10 @@ adapter DLL is stored here.
 ## Safety and scope
 
 Offline work uses commands such as `telemetry plan` and `telemetry export`.
-`telemetry-tui` is a separate offline-first operator application, although its
-explicit collection action starts the same live collection service used by
-`telemetry collect`. `telemetry collect` is unambiguously live and has no live
-mode flag. It can start only from a verified admitted plan, and the private
-vehicle-facing worker enforces that plan's narrow read-only allowlist
-byte-for-byte.
+The planned cross-platform desktop operator application is not implemented.
+`telemetry collect` is the current live executable and can start only from a
+verified admitted plan; the private vehicle-facing worker applies the built-in
+read-only telemetry guard to every resolved request.
 
 Do not use this work for vehicle control, coding, security access, DTC
 clearing, memory operations, or programming. Validate stationary; road tests
