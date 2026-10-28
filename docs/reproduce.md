@@ -21,83 +21,90 @@ Python dispatcher from the same toolkit checkout.
 ## 2. Rebuild private state
 
 The normalized catalog input is private because its redistribution status is
-not established. Place the reviewed input at `scratch/catalog-rows.json`, then
-rebuild the disposable SQLite cache from authored files and immutable captures:
+not established. Place the reviewed input at `scratch/catalog-rows.json` and
+import it once as the candidate list (toolkit 0.5.0 replaced
+`cache rebuild --catalog-rows`):
 
 ```powershell
-telemetry cache rebuild --catalog-rows scratch/catalog-rows.json
-telemetry capture inspect
+telemetry source import file scratch/catalog-rows.json            # preview
+telemetry source import file scratch/catalog-rows.json --apply
+telemetry recordings
 ```
 
-The committed result is never an input to either command. Removing
-`scratch/project.sqlite` loses no authored decision.
+Import keeps the rows in ignored `scratch/inventory.json`, rebuilds the
+disposable SQLite cache, and rewrites the privacy-minimized
+`result/catalog-manifest.json` (row count, row hash, and source label only).
+Review that manifest diff and regenerate the result (step 6) in the same
+change. Afterwards `telemetry cache rebuild` needs no arguments. The committed
+result is never an input. Removing `scratch/project.sqlite` loses no authored
+decision; verification results live separately in
+`scratch/verification-facts.json`.
 
 ## 3. Review transport and signal meaning
 
 Portable vehicle-facing facts live in `config/transport.json`. Adapter choice
-and channel binding live only in ignored `scratch/local-settings.json`.
-Signal/decode conclusions live in `review/signals.json`.
-The desktop curation application is not yet implemented, so changes to tracked
-review and policy remain a development task requiring direct diff review.
+and channel binding live only in ignored `scratch/local-settings.json`
+(`telemetry connector set`). Signal/decode conclusions live in
+`review/signals.json`. Review signals with `telemetry signal set` or the
+desktop Signals page; hand edits are allowed and validated by
+`telemetry check`.
 
-## 4. Author collection objectives
+## 4. Set collection targets
 
 The migrated `config/collection-policy.json` is intentionally empty. It does
 not treat earlier collection settings as current authority. Add reviewed
-objectives to the tracked policy, then compile them offline:
+targets and shared DID settings, then check readiness offline:
 
 ```powershell
-telemetry plan
+telemetry target set SIGNAL --min-samples 200 --min-runs 3
+telemetry did set ENDPOINT/0xNNNN --interval 500 --max-interval 1000
+telemetry collect --dry-run
 ```
 
-Planning verifies source hashes, objective references, cadence, measured cost,
-storage bounds, and transport safety. It writes an admitted plan under ignored
-`scratch/plans/`. With the current empty policy it must fail with
-`collection policy has no included objectives`.
+Readiness verifies source hashes, target references, cadence, measured cost,
+storage bounds, and transport safety, and writes the compiled scope under
+ignored `scratch/plans/` without opening an adapter. With the current empty
+policy it reports `collection policy has no included targets`.
 
-## 5. Collect only after plan inspection
+## 5. Collect only after reviewing the scope
 
-`telemetry collect` is a live verb; there is no live-mode option and no dry-run
-form of that command. Before the adapter opens it verifies the admitted plan
-against the exact current authored and capture sources and prints adapter,
-endpoint, output, and plan-hash scope.
+`telemetry collect` is live. It prints the exact scope and asks for `yes`; a
+scripted `--yes` is accepted only for the scope last shown by `--dry-run`. The
+desktop Collect page shows the same scope in a confirmation dialog.
 
 ```powershell
-telemetry collect
+telemetry collect --note "stationary, IG-ON"
 ```
 
-The Python collector owns scheduling, decode, objective progress, immutable
+The Python collector owns scheduling, decode, target progress, immutable
 capture writing, status, and stop. Its private C# worker owns only the adapter,
 CAN, ISO-TP, and session lifetime and applies the built-in guard to resolved
 transactions. One request is outstanding at a time; the scheduler does not
 send catch-up bursts.
 
-No road test is authorized merely by this documentation. Inspect the admitted
-XA50 plan, transaction scope, and bounds first, then use a passenger or
-unattended logger and obey the stop rules in
-[road-test.md](validation/road-test.md).
+No road test is authorized merely by this documentation. Review the XA50
+collection scope and bounds first, then use a passenger or unattended logger
+and obey the stop rules in [road-test.md](validation/road-test.md).
 
 ## 6. Regenerate tracked results
 
-After offline review and cache rebuild:
-
 ```powershell
-telemetry export
+telemetry result generate
 git status --short
 ```
 
-Export reads authored sources, the normalized private catalog input in the
-cache, and every structurally valid capture. It writes one immutable generation
-under `result/generations/` and atomically updates `result/current.json`.
-Generated files omit raw response bytes, timestamps, trip notes, adapter
-identifiers, and local paths.
+Generation reads authored sources, the candidate list in the cache, and every
+structurally valid capture. It writes one immutable generation under
+`result/generations/` and atomically updates `result/current.json`. Generated
+files omit raw response bytes, timestamps, trip notes, adapter identifiers, and
+local paths.
 
 Review the complete diff before committing. Never force-add anything under
 `scratch/`.
 
 ## Historical documentation
 
-Some finding and evidence documents retain the exact pre-0.4 commands used to
+Some finding and evidence documents retain the exact pre-0.5 commands used to
 produce earlier observations. Those snippets are provenance, not runnable
 instructions. Their former command names, fixed batches, and live-mode flags
 have no compatibility path in the current toolkit.

@@ -27,7 +27,7 @@ evidence accounts for 2,105 structurally complete runs, 99,262 exchanges, and
 
 The one-time migration deliberately did not convert old tiers, periods, sample
 limits, or durations into collection authority. `config/collection-policy.json`
-is empty, so `telemetry plan` fails safely until new objectives are reviewed.
+is empty, so collection readiness refuses to start until new targets are reviewed.
 All valid observations remain available for review regardless of the settings
 under which they were originally collected.
 
@@ -46,13 +46,13 @@ unvalidated. See [throughput](docs/hardware/throughput.md).
 
 | Path | Contents |
 |---|---|
-| [`config/`](config/) | Tracked transport authority and reviewed collection objectives. |
+| [`config/`](config/) | Tracked transport authority and reviewed collection targets. |
 | [`review/`](review/) | Tracked signal identities, decode corrections, evidence states, and notes. |
 | [`result/`](result/) | Tracked, generated, privacy-minimized project output and catalog provenance. |
 | [`docs/findings/`](docs/findings/) | How endpoints, transport, and formulas were established. |
 | [`docs/evidence/`](docs/evidence/) | Capture integrity and correlation results per campaign. |
 | [`docs/hardware/`](docs/hardware/) | The CAN adapter, wiring, and measured timing. |
-| `scratch/` | Raw captures, catalog input, derived cache, plans, binaries, and analysis; ignored in full. |
+| `scratch/` | Raw captures, candidate inventory, verification results, derived cache, plans, binaries, and analysis; ignored in full. |
 
 ## Hardware
 
@@ -67,11 +67,12 @@ adapter DLL is stored here.
 
 ## Safety and scope
 
-Offline work uses commands such as `telemetry plan` and `telemetry export`.
-The planned cross-platform desktop operator application is not implemented.
-`telemetry collect` is the current live executable and can start only from a
-verified admitted plan; the private vehicle-facing worker applies the built-in
-read-only telemetry guard to every resolved request.
+Use either toolkit interface: the `telemetry` command line or the
+`telemetry-ui` desktop application. Only verification and collection transmit;
+both show their exact finite scope and need explicit confirmation, and
+collection starts only from an automatically readiness-checked scope. The
+private vehicle-facing worker applies the built-in read-only telemetry guard to
+every resolved request.
 
 Do not use this work for vehicle control, coding, security access, DTC
 clearing, memory operations, or programming. Validate stationary; road tests

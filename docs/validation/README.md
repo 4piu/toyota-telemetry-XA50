@@ -31,12 +31,14 @@ vehicle state; it does not prove that a DID can never exist or answer.
 
 `config/collection-policy.json` is intentionally empty. Earlier tier names,
 periods, batch widths, sample limits, and durations were not promoted into new
-authority. Consequently `telemetry plan` fails safely until reviewed,
-objective-specific targets are authored.
+authority. Consequently collection readiness (`telemetry collect --dry-run`
+or the desktop Collect page) refuses to start until reviewed targets are
+authored.
 
-New objectives should distinguish descriptive snapshots, slow trends,
-categorical transitions/states, continuous change, and condition-dependent
-signals. Do not infer semantic class or applicability from catalog names alone.
+New targets should state their completion requirements directly: samples and
+runs for snapshots, span for slow trends, required states and transitions for
+categorical signals, changes with a minimum difference for continuous change,
+and a condition for condition-dependent signals. Do not infer semantic class or applicability from catalog names alone.
 Unsafe events remain passive-only or excluded; never induce ABS, VSC, PCS/AEB,
 collision, overheating, or abusive operation to satisfy a counter.
 
