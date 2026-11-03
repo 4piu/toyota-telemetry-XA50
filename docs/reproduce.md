@@ -1,59 +1,87 @@
-# Reproduce and review the XA50 project
+# Reproduce the XA50 result
 
-This is the schema-2 pre-release workflow. Run commands from the repository
-root after reading [scope and safety](00-scope-safety.md) and
-[PRIVATE_DATA.md](../PRIVATE_DATA.md).
+This repository holds deliverables only. The result is reproduced with an
+installed toolkit and a private project workspace kept outside any repository.
+Read the toolkit's
+[scope and safety](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/method/00-scope-safety.md)
+and [PRIVATE_DATA.md](../PRIVATE_DATA.md) first. The toolkit's
+[quickstart](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/quickstart.md)
+documents each command.
 
-## 1. Install the selected toolkit
+Every operation is available both in the `telemetry` command line and in the
+`telemetry-ui` desktop application. The commands below are the CLI form.
 
-The project intentionally selects toolkit `main` during coordinated
-development. The managed checkout must be clean before setup changes it.
+## 1. Install the toolkit
+
+During coordinated pre-release development the toolkit is installed from a
+checkout; a published package will replace this.
 
 ```powershell
-.\bootstrap.ps1 -NonInteractive
-.\.venv\Scripts\Activate.ps1
+uv tool install --editable PATH-TO/70Y074-telemetry-tools[gui]
 telemetry --help
 ```
 
-Setup builds all adapter workers into ignored `scratch/bin/` and installs the
-Python dispatcher from the same toolkit checkout.
+The adapter workers are bundled with the package. Each exported result
+records the toolkit version and, when run from a Git checkout, its commit.
+Check `result/current.json` and the generation manifest for the toolkit that
+produced the published result.
 
-## 2. Rebuild private state
-
-The normalized catalog input is private because its redistribution status is
-not established. Place the reviewed input at `scratch/catalog-rows.json` and
-import it once as the candidate list (toolkit 0.5.0 replaced
-`cache rebuild --catalog-rows`):
+## 2. Create a workspace
 
 ```powershell
-telemetry source import file scratch/catalog-rows.json            # preview
-telemetry source import file scratch/catalog-rows.json --apply
-telemetry recordings
+telemetry init WORKSPACE --project-id xa50-hybrid-vehicle-a --profile-id 2023-rav4-hv-xa50-a25a-fxs
 ```
 
-Import keeps the rows in ignored `scratch/inventory.json`, rebuilds the
-disposable SQLite cache, and rewrites the privacy-minimized
-`result/catalog-manifest.json` (row count, row hash, and source label only).
-Review that manifest diff and regenerate the result (step 6) in the same
-change. Afterwards `telemetry cache rebuild` needs no arguments. The committed
-result is never an input. Removing `scratch/project.sqlite` loses no authored
-decision; verification results live separately in
-`scratch/verification-facts.json`.
+(GUI: Project > New project.) Choose a folder outside this repository. Then
+replace the new workspace's empty authored files with the exported copies from
+this repository:
 
-## 3. Review transport and signal meaning
+| Copy from this repository | To the workspace |
+|---|---|
+| `config/transport.json` | `config/transport.json` |
+| `config/collection-policy.json` | `config/collection-policy.json` |
+| `config/catalog-manifest.json` | `config/catalog-manifest.json` |
+| `review/signals.json` | `review/signals.json` |
 
-Portable vehicle-facing facts live in `config/transport.json`. Adapter choice
-and channel binding live only in ignored `scratch/local-settings.json`
-(`telemetry connector set`). Signal/decode conclusions live in
-`review/signals.json`. Review signals with `telemetry signal set` or the
-desktop Signals page; hand edits are allowed and validated by
-`telemetry check`.
+Run the remaining commands from inside the workspace, or pass
+`--project-root WORKSPACE`. Confirm the copy with `telemetry check`.
 
-## 4. Set collection targets
+## 3. Rebuild the candidate list
 
-The migrated `config/collection-policy.json` is intentionally empty. It does
-not treat earlier collection settings as current authority. Add reviewed
-targets and shared DID settings, then check readiness offline:
+The normalized Techstream catalog rows are private because their
+redistribution status is not established; see
+[static catalog](findings/static-catalog.md) for how they were built. Import
+them into the workspace, previewing first:
+
+```powershell
+telemetry source import file PATH-TO/catalog-rows.json            # preview
+telemetry source import file PATH-TO/catalog-rows.json --apply
+```
+
+Import keeps the rows in the workspace, rebuilds the disposable SQLite cache,
+and updates the privacy-minimized catalog manifest (row count, row hash, and
+source label only). With the same rows, the manifest matches the exported one.
+
+## 4. Bind an adapter and verify
+
+Adapter choice and channel binding are local workspace settings and are never
+exported. The current hardware is described in
+[CAN adapter](hardware/can-adapter.md).
+
+```powershell
+telemetry connector set pcan --channel PCAN_USBBUS1
+telemetry verify ENDPOINT --dry-run
+telemetry verify ENDPOINT
+```
+
+Verification is live. It prints its exact scope and asks for confirmation.
+
+## 5. Review signals and set collection targets
+
+Signal and decode decisions are reviewed with `telemetry signal set` or the
+desktop Signals page. The exported collection policy is intentionally empty:
+it does not treat earlier collection settings as current authority. Add
+reviewed targets and shared DID settings, then check readiness offline:
 
 ```powershell
 telemetry target set SIGNAL --min-samples 200 --min-runs 3
@@ -61,50 +89,42 @@ telemetry did set ENDPOINT/0xNNNN --interval 500 --max-interval 1000
 telemetry collect --dry-run
 ```
 
-Readiness verifies source hashes, target references, cadence, measured cost,
-storage bounds, and transport safety, and writes the compiled scope under
-ignored `scratch/plans/` without opening an adapter. With the current empty
-policy it reports `collection policy has no included targets`.
+With the current empty policy, readiness reports that the collection policy
+has no included targets.
 
-## 5. Collect only after reviewing the scope
+## 6. Collect only after reviewing the scope
 
 `telemetry collect` is live. It prints the exact scope and asks for `yes`; a
-scripted `--yes` is accepted only for the scope last shown by `--dry-run`. The
-desktop Collect page shows the same scope in a confirmation dialog.
+scripted `--yes` is accepted only for the scope last shown by `--dry-run`.
 
 ```powershell
 telemetry collect --note "stationary, IG-ON"
 ```
 
-The Python collector owns scheduling, decode, target progress, immutable
-capture writing, status, and stop. Its private C# worker owns only the adapter,
-CAN, ISO-TP, and session lifetime and applies the built-in guard to resolved
-transactions. One request is outstanding at a time; the scheduler does not
-send catch-up bursts.
-
 No road test is authorized merely by this documentation. Review the XA50
 collection scope and bounds first, then use a passenger or unattended logger
 and obey the stop rules in [road-test.md](validation/road-test.md).
 
-## 6. Regenerate tracked results
+## 7. Export into this repository
 
 ```powershell
-telemetry result generate
-git status --short
+telemetry export PATH-TO/70Y074-telemetry-XA50
+git -C PATH-TO/70Y074-telemetry-XA50 status --short
 ```
 
-Generation reads authored sources, the candidate list in the cache, and every
-structurally valid capture. It writes one immutable generation under
-`result/generations/` and atomically updates `result/current.json`. Generated
-files omit raw response bytes, timestamps, trip notes, adapter identifiers, and
-local paths.
+(GUI: Recordings > Export result.) Export writes `config/`, `review/`, and a
+new immutable generation under `result/generations/`, and updates
+`result/current.json`. Exported files omit raw response bytes, timestamps,
+trip notes, adapter identifiers, and local paths. Export refuses a destination
+whose current result belongs to another project.
 
-Review the complete diff before committing. Never force-add anything under
-`scratch/`.
+Review the complete diff before committing. Write findings and evidence
+reports under `docs/` by hand; nothing from the workspace is copied here except
+by export.
 
 ## Historical documentation
 
-Some finding and evidence documents retain the exact pre-0.5 commands used to
-produce earlier observations. Those snippets are provenance, not runnable
-instructions. Their former command names, fixed batches, and live-mode flags
-have no compatibility path in the current toolkit.
+Some finding and evidence documents retain the exact earlier commands used to
+produce past observations, including paths into a sibling toolkit checkout.
+Those snippets are provenance, not runnable instructions, and have no
+compatibility path in the current toolkit.

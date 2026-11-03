@@ -1,6 +1,6 @@
 # Pilot road-validation evidence
 
-> **Tooling note.** The commands quoted below ran against the `run-progressive-validation.py` wrapper and the XA50 C# clients, which have since been replaced by the pinned toolkit and the generic backends. The evidence is unchanged; see [reproduce.md](../reproduce.md) for the current equivalents.
+> **Tooling note.** The commands quoted below ran against the `run-progressive-validation.py` wrapper and the XA50 C# clients, which have since been replaced by the installed toolkit and its generic backends. The evidence is unchanged; see [reproduce.md](../reproduce.md) for the current equivalents.
 
 This report records the first completed rolling validation of the Hybrid Control
 signal set on `vehicle-a`. Raw captures remain in the private workbench; this

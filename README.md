@@ -1,16 +1,15 @@
-# XA50 diagnostic telemetry project
+# XA50 diagnostic telemetry results
 
-A read-only telemetry project for one tested Toyota RAV4 Hybrid XA50
-(A25A-FXS), produced with the
-[`70Y074-telemetry`](https://github.com/4piu/70Y074-telemetry) method.
-This project is under coordinated pre-release development and is not a public
-compatibility surface.
+Read-only diagnostic telemetry findings and results for one tested Toyota RAV4
+Hybrid XA50 (A25A-FXS), produced with the
+[`70Y074-telemetry-tools`](https://github.com/4piu/70Y074-telemetry-tools)
+method and toolkit. This project is under coordinated pre-release development
+and is not a public compatibility surface.
 
-This repository contains configuration, reviewed findings, and generated
-results—no reusable tooling. Programs belong in the sibling
-`70Y074-telemetry-tools` repository and are consumed here through the checkout
-declared in `telemetry-project.toml`. The toolkit revision intentionally tracks
-`main` until release preparation so integration problems appear early.
+This repository holds deliverables only: findings, evidence write-ups,
+hardware and validation notes, and exported results. It contains no programs
+and no private working data. The work itself happens in a private project
+workspace outside any repository; `telemetry export` writes the results here.
 
 It is not a universal XA50 database and it is not the dashboard application.
 ECU calibration and market differences can change availability, identifiers,
@@ -19,17 +18,17 @@ routing, scaling, and validity.
 ## Current state
 
 Diagnostics have been independently replayed over classical CAN at the DLC3
-gateway at 500 kbit/s. The current generated result contains 1,797 normalized
+gateway at 500 kbit/s. The current exported result contains 1,797 normalized
 signal identities from 1,846 catalog rows across 13 confirmed endpoints. The
-review source contains 90 human-reviewed signal decisions. Converted private
+signal review contains 90 human-reviewed signal decisions. Converted private
 evidence accounts for 2,105 structurally complete runs, 99,262 exchanges, and
 338,867 decoded observations.
 
 The one-time migration deliberately did not convert old tiers, periods, sample
-limits, or durations into collection authority. `config/collection-policy.json`
-is empty, so collection readiness refuses to start until new targets are reviewed.
-All valid observations remain available for review regardless of the settings
-under which they were originally collected.
+limits, or durations into collection authority. The collection policy is
+empty, so collection readiness refuses to start until new targets are
+reviewed. All valid observations remain available for review regardless of the
+settings under which they were originally collected.
 
 Measured PCAN response timing supports the conservative initial 100 ms request
 floor and 10 Hz maximum request rate. Faster sustained operation remains
@@ -37,22 +36,25 @@ unvalidated. See [throughput](docs/hardware/throughput.md).
 
 ## Start here
 
-- [Reproduce and review](docs/reproduce.md)
 - [Documentation index](docs/README.md)
+- [Reproduce the result](docs/reproduce.md)
 - [Reviewed signal decisions](review/signals.json)
-- [Transport authority](config/transport.json)
+- [Transport](config/transport.json)
 
 ## Layout
 
 | Path | Contents |
 |---|---|
-| [`config/`](config/) | Tracked transport authority and reviewed collection targets. |
-| [`review/`](review/) | Tracked signal identities, decode corrections, evidence states, and notes. |
-| [`result/`](result/) | Tracked, generated, privacy-minimized project output and catalog provenance. |
+| [`config/`](config/) | Exported transport, collection policy, and catalog manifest. |
+| [`review/`](review/) | Exported signal identities, decode corrections, evidence states, and notes. |
+| [`result/`](result/) | Exported, immutable, privacy-minimized result generations and the current pointer. |
 | [`docs/findings/`](docs/findings/) | How endpoints, transport, and formulas were established. |
 | [`docs/evidence/`](docs/evidence/) | Capture integrity and correlation results per campaign. |
 | [`docs/hardware/`](docs/hardware/) | The CAN adapter, wiring, and measured timing. |
-| `scratch/` | Raw captures, candidate inventory, verification results, derived cache, plans, binaries, and analysis; ignored in full. |
+| [`docs/validation/`](docs/validation/) | Scope, policy, and campaign status. |
+
+`config/`, `review/`, and `result/` are written by `telemetry export`. Do not
+edit them by hand: change the workspace and export again.
 
 ## Hardware
 
@@ -67,10 +69,11 @@ adapter DLL is stored here.
 
 ## Safety and scope
 
-Use either toolkit interface: the `telemetry` command line or the
-`telemetry-ui` desktop application. Only verification and collection transmit;
-both show their exact finite scope and need explicit confirmation, and
-collection starts only from an automatically readiness-checked scope. The
+The method, including
+[scope and safety](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/method/00-scope-safety.md),
+lives with the toolkit. Only its verification and collection operations
+transmit; both show their exact finite scope and need explicit confirmation,
+and collection starts only from an automatically readiness-checked scope. The
 private vehicle-facing worker applies the built-in read-only telemetry guard to
 every resolved request.
 
@@ -80,4 +83,4 @@ require a passenger or an unattended logger. Do not operate the computer while
 driving.
 
 Raw captures are not published. Read [PRIVATE_DATA.md](PRIVATE_DATA.md) before
-adding captures or vehicle identifiers.
+adding evidence or vehicle identifiers.

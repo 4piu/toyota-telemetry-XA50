@@ -24,9 +24,10 @@ python ..\telemetry-tools\tools\catalog\build-catalog.py --profile <private-extr
 
 The generator queries the read-only local database interface and writes:
 
-- `scratch/catalog-rows.json`: normalized private input consumed by the project;
+- normalized private catalog rows, kept in the private project workspace and
+  imported there as the candidate list;
 - ignored archival extraction files: full signal/DID atlases;
-- [`result/catalog-manifest.json`](../../result/catalog-manifest.json): tracked
+- [`config/catalog-manifest.json`](../../config/catalog-manifest.json): exported
   source provenance and row count;
 - the generation selected by [`result/current.json`](../../result/current.json):
   normalized reviewed signal output.

@@ -1,32 +1,11 @@
 # XA50 documentation
 
 Platform-specific claims and evidence for one tested 2023 RAV4 Hybrid (XA50,
-A25A-FXS), alongside the method they were produced with.
+A25A-FXS). The method they were produced with, written for any vehicle, lives
+with the toolkit in
+[`docs/method/`](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/method/README.md).
 
-**To repeat this work on your own vehicle, start with
-[reproduce.md](reproduce.md).**
-
-## The method
-
-Carried from the [template](https://github.com/4piu/70Y074-telemetry) this
-repository was created from, at the revision it was created at. It is written
-for any vehicle; nothing in it is specific to this one.
-
-| Step | Page |
-|---|---|
-| 0 | [Scope and safety](00-scope-safety.md) — read before connecting anything |
-| 1 | [Record the vehicle profile](01-vehicle-profile.md) |
-| 2 | [Define the target signal](02-target-signal.md) |
-| 3 | [Locate acquisition metadata](03-locate/README.md) |
-| 4 | [Reconstruct diagnostic transport](04-reconstruct/diagnostic-transport.md) |
-| 5 | [Decode formulas and bitfields](05-decode/formulas-and-bitfields.md) |
-| 6 | [Verify on the vehicle](06-verify/README.md) |
-| 7 | [Evidence records and catalog schema](07-catalog/evidence-and-schema.md) |
-
-[Platform projects](platform-projects.md) is the contract this repository
-implements. [Open questions](open-questions.md) records where the method is
-still soft. Command-level usage lives with the
-[toolkit](https://github.com/4piu/70Y074-telemetry-tools).
+**To reproduce the result, start with [reproduce.md](reproduce.md).**
 
 ## Findings
 
@@ -38,6 +17,8 @@ How the endpoints, transport, and formulas were established.
   formulas, and per-signal evidence.
 - [Static catalog](findings/static-catalog.md) — generated atlas structure,
   provenance, and limitations.
+- [Pre-migration provenance](findings/pre-migration-provenance.md) — what the
+  older provenance paths cited by the transport refer to.
 
 ## Evidence
 
@@ -68,14 +49,14 @@ Capture integrity and correlation results, per campaign.
 - [Measured throughput](hardware/throughput.md) — J2534 and PCAN response
   timing and what limits the sample rate.
 
-Designs that were never built (RP2040/MCP2515 bridge, SBC/SocketCAN) are in the
-ignored `scratch/hardware-exploration/` directory, not here.
+Designs that were never built (RP2040/MCP2515 bridge, SBC/SocketCAN) are kept
+in private working notes, not here.
 
-## Relationship to the template and the toolkit
+## Exported data
 
-- [Upstream and update policy](upstream.md) — what comes from where, and how to
-  advance the pinned revision.
+`config/`, `review/`, and `result/` at the repository root are written by
+`telemetry export` from the private workspace. They are not edited here.
 
-Confidence words follow the template: Candidate, Observed, Correlated,
+Confidence words follow the method: Candidate, Observed, Correlated,
 Validated, Replayed, Ported. This profile is one tested vehicle instance, not
 every XA50 calibration.

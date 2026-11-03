@@ -7,8 +7,8 @@
 *.local.*
 tools.txt
 
-# Repository-local private workspace. Raw captures, reverse-engineering state,
-# generated plans, and local analysis remain outside Git history.
+# Private working data belongs in the project workspace outside this
+# repository; these patterns only guard against accidental copies.
 /scratch/
 
 # Build/cache output

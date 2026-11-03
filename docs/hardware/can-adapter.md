@@ -113,6 +113,6 @@ Do not operate the computer while driving.
 ## Not built
 
 An RP2040 + MCP2515 bridge and an SBC/SocketCAN path were designed but never
-constructed or tested. Those notes live in the untracked
-`scratch/hardware-exploration/` directory rather than here, so that this
+constructed or tested. Those notes are kept in private working notes outside
+this repository rather than here, so that this
 directory documents only what actually produced results.

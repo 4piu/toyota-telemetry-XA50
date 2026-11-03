@@ -1,6 +1,6 @@
 # Progressive road validation: interim pass 1
 
-> **Tooling note.** The commands quoted below ran against the `run-progressive-validation.py` wrapper and the XA50 C# clients, which have since been replaced by the pinned toolkit and the generic backends. The evidence is unchanged; see [reproduce.md](../reproduce.md) for the current equivalents.
+> **Tooling note.** The commands quoted below ran against the `run-progressive-validation.py` wrapper and the XA50 C# clients, which have since been replaced by the installed toolkit and its generic backends. The evidence is unchanged; see [reproduce.md](../reproduce.md) for the current equivalents.
 
 This is the first review of the progressive Hybrid Control road recordings after
 stationary qualification was exhausted. Raw captures remain in the private

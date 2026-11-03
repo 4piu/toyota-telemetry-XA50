@@ -8,6 +8,19 @@
 
 The current validation applies to this vehicle/profile. Exact availability may vary with model year, market, drivetrain, battery, and ECU calibration.
 
+## Summary: Hybrid Control
+
+Hybrid Control shows how static discovery and independent replay combine. The details are in the sections below.
+
+- A saved Techstream session associated ECU key `397` with Hybrid Control and `HV_P5.ddb`.
+- Static records supplied candidate source DIDs, MSB-first bit ranges, and Phase-5 conversion coefficients.
+- A focused J2534 capture observed tester `0x7D2`, ECU response `0x7DA`, diagnostic sessions, and a dynamic DID `F301` assembled from source slices.
+- PCAN raw-CAN replay independently reproduced setup and repeated `22 F3 01` polling through application-managed ISO-TP.
+- MG1, MG2, and accelerator agreed with Techstream at multiple stationary points and are Validated/Replayed for the tested profile.
+- Wheel speeds were replayed at stationary zero, but rolling validation remains pending; they are only Observed/Replayed.
+
+The claims stay separate: the Hybrid endpoint and transport are live-confirmed, a small curated signal set carries live evidence, and thousands of other database rows remain static candidates.
+
 ## Useful Data List concepts
 
 | Desired value | Techstream name(s) | Likely ECU/menu | Notes |
@@ -306,5 +319,6 @@ Every setup and poll response was positive and the expected ISO-TP flow-control 
 Decoding a log against XA50 signal names needs a profile in the parser's
 `--signals` format. The hand-maintained one was removed because it duplicated
 catalog bit ranges with nothing keeping the two in sync. Current decode and
-review authority is assembled from private `scratch/catalog-rows.json` and
-tracked [`review/signals.json`](../../review/signals.json).
+review authority is assembled in the private project workspace from the
+imported catalog rows and the signal review exported here as
+[`review/signals.json`](../../review/signals.json).
