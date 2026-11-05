@@ -7,8 +7,8 @@ The catalog turns the locally installed Techstream Phase-5 database into a searc
 The original extraction covered the sixteen ECU datasets whose endpoints
 answered a stationary probe. The endpoints came from each ECU's protocol table
 and were then confirmed on the vehicle. Current portable authority is
-[`config/transport.json`](../../config/transport.json); [validation status](../validation/README.md)
-records the migrated support evidence.
+[`config/transport.json`](../../config/transport.json); the [README](../../README.md#how-far-each-signal-is-verified)
+says how far each signal is verified.
 
 Twelve ECUs occupy nine distinct endpoints: Techstream models several as separate databases over one diagnostic address, which means one ECU to capture from with more than one catalog to read it with. Hybrid Control (`HV_P5.ddb`, key 397, `0x7D2 -> 0x7DA`) was the first established and is the most completely captured.
 
@@ -16,7 +16,7 @@ An earlier revision of this page listed four ECUs with response IDs inferred as 
 
 ## Generated map
 
-Run:
+The catalog was generated with a script the toolkit has since replaced (its `telemetry source import tis` now reads the database directly):
 
 ```powershell
 python ..\telemetry-tools\tools\catalog\build-catalog.py --profile <private-extraction-profile>

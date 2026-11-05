@@ -107,7 +107,7 @@ for what this implies about achievable sample rates.
 - Stop transmitting on malformed responses, receive overflow, rising CAN error
   counts, bus-off, or host loss.
 
-Road procedure is in the [road-test protocol](../validation/road-test.md).
+Road collection follows the toolkit's [scope and safety](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/method/00-scope-safety.md) rules.
 Do not operate the computer while driving.
 
 ## Not built

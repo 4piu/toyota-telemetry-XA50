@@ -1,86 +1,76 @@
-# XA50 diagnostic telemetry results
+# XA50 diagnostic telemetry findings
 
-Read-only diagnostic telemetry findings and results for one tested Toyota RAV4
-Hybrid XA50 (A25A-FXS), produced with the
-[`70Y074-telemetry-tools`](https://github.com/4piu/70Y074-telemetry-tools)
-method and toolkit. This project is under coordinated pre-release development
-and is not a public compatibility surface.
+Read-only diagnostic telemetry for one tested 2023 Toyota RAV4 Hybrid XA50
+(A25A-FXS), `vehicle-a`: which UDS data identifiers (DIDs) its ECUs answer,
+where each signal sits in the response, and the formula that turns it into a
+physical value. Signal names and formulas come from the manufacturer's
+Techstream database; recordings from the vehicle confirm which DIDs answer and
+whether each value moves.
 
-This repository holds deliverables only: findings, evidence write-ups,
-hardware and validation notes, and exported results. It contains no programs
-and no private working data. The work itself happens in a private project
-workspace outside any repository; `telemetry export` writes the results here.
+It is not a universal XA50 database. ECU calibration and market differences
+can change availability, identifiers, routing, scaling, and validity.
 
-It is not a universal XA50 database and it is not the dashboard application.
-ECU calibration and market differences can change availability, identifiers,
-routing, scaling, and validity.
+## The signal reference
 
-## Current state
+The current result is named in [`result/current.json`](result/current.json).
+Its generation folder under [`result/generations/`](result/generations/) holds:
 
-Diagnostics have been independently replayed over classical CAN at the DLC3
-gateway at 500 kbit/s. The current exported result contains 1,797 normalized
-signal identities from 1,846 catalog rows across 13 confirmed endpoints. The
-signal review contains 90 human-reviewed signal decisions. Converted private
-evidence accounts for 2,105 structurally complete runs, 99,262 exchanges, and
-338,867 decoded observations.
+| File | Use |
+|---|---|
+| `signals.md` | Readable reference: one table per ECU with DID, bits, name, formula, unit, evidence, and recorded status. |
+| `signals.csv` | The same rows for spreadsheets and scripts. |
+| `signals.json` | Full detail, including the catalog variant and review for each signal. |
+| `transport.json` | CAN addresses, diagnostic session, dynamic DIDs, and request limits. |
 
-The one-time migration deliberately did not convert old tiers, periods, sample
-limits, or durations into collection authority. The collection policy is
-empty, so collection readiness refuses to start until new targets are
-reviewed. All valid observations remain available for review regardless of the
-settings under which they were originally collected.
+How to read a signal: send UDS `22 DID` to the ECU's request address and read
+the `62 DID ...` reply on its response address. Bit 0 is the most significant
+bit of the first data byte after the echo; the bits form an unsigned
+big-endian raw value, and the formula converts it.
 
-Measured PCAN response timing supports the conservative initial 100 ms request
-floor and 10 Hz maximum request rate. Faster sustained operation remains
-unvalidated. See [throughput](docs/hardware/throughput.md).
+## How far each signal is verified
 
-## Start here
+As of 2026-11-05: 1,797 signals on 532 DIDs across 13 ECU endpoints. Every one
+of those DIDs answered this vehicle. The reference's **Recorded** column says
+what the recordings show:
 
-- [Documentation index](docs/README.md)
-- [Reproduce the result](docs/reproduce.md)
-- [Reviewed signal decisions](review/signals.json)
-- [Transport](config/transport.json)
+| Recorded | Signals | Meaning |
+|---|---:|---|
+| changed | 521 | Took more than one value, so the formula was exercised. |
+| constant | 1,228 | Answered but never changed: mostly status and fault flags. The DID is readable; the formula is unchecked. |
+| beyond response | 46 | The catalog places it past the end of this vehicle's response, so this calibration does not provide it. |
+| not recorded | 2 | Never recorded. |
 
-## Layout
+The **Evidence** column records human review: 90 signals are reviewed (66
+Observed, 21 Correlated, and 3 Validated, all replayed); the rest are
+Candidate, meaning the database row stands unreviewed. Confidence words follow
+the toolkit's method.
+
+State and switch signals are given as raw values. Their meanings (which gear,
+which mode) are not yet extracted from the database.
+
+## Repository layout
 
 | Path | Contents |
 |---|---|
+| [`result/`](result/) | Exported result generations and the current pointer. |
 | [`config/`](config/) | Exported transport, collection policy, and catalog manifest. |
-| [`review/`](review/) | Exported signal identities, decode corrections, evidence states, and notes. |
-| [`result/`](result/) | Exported, immutable, privacy-minimized result generations and the current pointer. |
-| [`docs/findings/`](docs/findings/) | How endpoints, transport, and formulas were established. |
-| [`docs/evidence/`](docs/evidence/) | Capture integrity and correlation results per campaign. |
+| [`review/`](review/) | Exported signal review: identity choices, decode corrections, evidence, notes. |
+| [`docs/findings/`](docs/findings/) | How the endpoints, transport, and formulas were established. |
+| [`docs/evidence/`](docs/evidence/) | Results of past collection campaigns. |
 | [`docs/hardware/`](docs/hardware/) | The CAN adapter, wiring, and measured timing. |
-| [`docs/validation/`](docs/validation/) | Scope, policy, and campaign status. |
 
-`config/`, `review/`, and `result/` are written by `telemetry export`. Do not
-edit them by hand: change the workspace and export again.
-
-## Hardware
-
-The current route is a CANable v1.0 with PCAN-compatible firmware connected to
-DLC3 pins 5, 6, and 14 only. A genuine PEAK PCAN-USB uses the same backend.
-See [CAN adapter](docs/hardware/can-adapter.md).
-
-The original XHorse J2534 adapter failed electrically partway through the
-project. Its conclusions remain in
-[the data-path findings](docs/findings/diagnostic-data-path.md); no proprietary
-adapter DLL is stored here.
+`result/`, `config/`, and `review/` are written by `telemetry export` from a
+private workspace; do not edit them by hand. The method and tools that
+produced them live in
+[`70Y074-telemetry-tools`](https://github.com/4piu/70Y074-telemetry-tools).
+This repository holds no programs and no raw recordings.
 
 ## Safety and scope
 
-The method, including
-[scope and safety](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/method/00-scope-safety.md),
-lives with the toolkit. Only its verification and collection operations
-transmit; both show their exact finite scope and need explicit confirmation,
-and collection starts only from an automatically readiness-checked scope. The
-private vehicle-facing worker applies the built-in read-only telemetry guard to
-every resolved request.
+Read-only diagnostics only: no vehicle control, coding, security access, DTC
+clearing, memory operations, or programming. Never use these signals as input
+to vehicle control or a safety-critical warning. Collection rules are in the
+toolkit's
+[scope and safety](https://github.com/4piu/70Y074-telemetry-tools/blob/main/docs/method/00-scope-safety.md).
 
-Do not use this work for vehicle control, coding, security access, DTC
-clearing, memory operations, or programming. Validate stationary; road tests
-require a passenger or an unattended logger. Do not operate the computer while
-driving.
-
-Raw captures are not published. Read [PRIVATE_DATA.md](PRIVATE_DATA.md) before
-adding evidence or vehicle identifiers.
+Read [PRIVATE_DATA.md](PRIVATE_DATA.md) before adding evidence.
