@@ -79,10 +79,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x101D",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x101F",
@@ -156,10 +156,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1045",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1046",
@@ -198,10 +198,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x105E",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1062",
@@ -254,17 +254,17 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1074",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1078",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x107C",
@@ -275,10 +275,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x107D",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x107F",
@@ -345,17 +345,17 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1098",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x109D",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x10A0",
@@ -408,10 +408,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x10B0",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x10B1",
@@ -429,10 +429,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x10B3",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x10C0",
@@ -499,10 +499,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x10CD",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x10D2",
@@ -730,10 +730,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F05",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F06",
@@ -772,10 +772,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F0F",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F10",
@@ -835,10 +835,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F33",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F34",
@@ -856,17 +856,17 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F3C",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F3E",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F41",
@@ -905,10 +905,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F46",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F47",
@@ -947,10 +947,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F54",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F55",
@@ -968,10 +968,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F5C",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F62",
@@ -989,24 +989,24 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F69",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F6D",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F87",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x1F8E",
@@ -1052,17 +1052,17 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2805",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2807",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2808",
@@ -1073,10 +1073,10 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x280E",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x280F",
@@ -1094,24 +1094,24 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2811",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2826",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2827",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x282C",
@@ -1122,17 +1122,17 @@
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2843",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2848",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 11400,
+      "priority": 40,
+      "target_interval_ms": 3800
     },
     {
       "acquisition_id": "700-708-session-f58c3048ae0f/0x2BFF",
@@ -1430,9 +1430,9 @@
     },
     {
       "acquisition_id": "724-72c-session-f58c3048ae0f/0x1209",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
+      "included": true,
+      "maximum_interval_ms": 3000,
+      "priority": 40,
       "target_interval_ms": 1000
     },
     {
@@ -2102,17 +2102,17 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1003",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1004",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1005",
@@ -2123,10 +2123,10 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1006",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1007",
@@ -2137,10 +2137,10 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1008",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1009",
@@ -2228,10 +2228,10 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1022",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1023",
@@ -2305,24 +2305,24 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1035",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1036",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1038",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1039",
@@ -2340,17 +2340,17 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x103C",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x103D",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1041",
@@ -2396,17 +2396,17 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x104B",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x104C",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1052",
@@ -2417,17 +2417,17 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1054",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1055",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1058",
@@ -2438,10 +2438,10 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x105C",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1073",
@@ -2452,10 +2452,10 @@
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x1076",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 6000,
+      "priority": 40,
+      "target_interval_ms": 2000
     },
     {
       "acquisition_id": "7b0-7b8-session-f58c3048ae0f/0x10B6",
@@ -2844,17 +2844,17 @@
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x1039",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x103A",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x103B",
@@ -2872,10 +2872,10 @@
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x1040",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x1042",
@@ -3026,10 +3026,10 @@
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x106A",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x106B",
@@ -3110,10 +3110,10 @@
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x1078",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x1079",
@@ -3285,10 +3285,10 @@
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x10B2",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x10B4",
@@ -3376,17 +3376,17 @@
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x15EC",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x15ED",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x15EE",
@@ -3460,10 +3460,10 @@
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x1807",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x1809",
@@ -3488,10 +3488,10 @@
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x180D",
-      "included": false,
-      "maximum_interval_ms": 5000,
-      "priority": 50,
-      "target_interval_ms": 1000
+      "included": true,
+      "maximum_interval_ms": 3900,
+      "priority": 40,
+      "target_interval_ms": 1300
     },
     {
       "acquisition_id": "7d2-7da-session-f58c3048ae0f/0x180F",
@@ -3738,6 +3738,438 @@
     {
       "condition": null,
       "included": true,
+      "minimum_difference": 0.001953125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x101D/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1045/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x105E/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.078125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1074/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.0625,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1078/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.0625,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1078/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.0625,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1078/16..23"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.0625,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1078/24..31"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.03125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x107D/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.625,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1098/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.625,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1098/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.78125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x109D/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.78125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x109D/16..31"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.78125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x109D/32..47"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.78125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x109D/48..63"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.78125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x109D/64..79"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.022,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x10B0/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.022,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x10B0/16..31"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.00078125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x10B3/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.1,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x10CD/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F05/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F0F/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F33/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.1,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F3C/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.1,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F3E/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F46/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.001,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F54/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F5C/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.392156862745,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F69/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.392156862745,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F69/16..23"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.392156862745,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F69/32..39"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.392156862745,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F69/40..47"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 10.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F6D/8..23"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 10.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F6D/24..39"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 10.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F6D/48..63"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 10.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F6D/64..79"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.03125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x1F87/8..23"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x2805/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x2807/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x280E/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.1953125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x2811/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.006103515625,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x2826/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 40.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x2827/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x2843/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.076293945312,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "372/0x2848/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.01953125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "395/0x1209/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "397/0x103A/16..23"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "397/0x1040/16..23"
+    },
+    {
+      "condition": null,
+      "included": true,
       "requirements": {
         "minimum_runs": 3,
         "minimum_transitions": 10,
@@ -3791,6 +4223,24 @@
     {
       "condition": null,
       "included": true,
+      "minimum_difference": 0.125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "397/0x106A/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "397/0x106A/16..31"
+    },
+    {
+      "condition": null,
+      "included": true,
       "minimum_difference": 1.0,
       "requirements": {
         "minimum_changes": 100,
@@ -3835,6 +4285,15 @@
     {
       "condition": null,
       "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "397/0x1078/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
       "minimum_difference": 10.0,
       "requirements": {
         "minimum_changes": 30,
@@ -3863,6 +4322,33 @@
         "minimum_span_seconds": 900.0
       },
       "signal_ref": "397/0x10A1/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.01,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "397/0x1807/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.01,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "397/0x1807/16..31"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.5,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "397/0x180D/0..7"
     },
     {
       "condition": null,
@@ -3914,6 +4400,294 @@
         "minimum_runs": 3
       },
       "signal_ref": "397/0x1F9A/32..47"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "399/0x15EC/56..63"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.001907348633,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "399/0x15ED/16..31"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.0004,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "399/0x15ED/32..47"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.0004,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "399/0x15ED/48..63"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.569064,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1003/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.569064,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1003/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.569064,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1003/16..23"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.569064,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1003/24..31"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.098,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1004/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1006/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.196133,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1008/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.196133,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1008/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.078431372549,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1022/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.078431372549,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1022/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.078431372549,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1022/16..23"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.078431372549,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1022/24..31"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.1,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1035/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.1,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1035/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.1,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1036/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.1,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1036/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1038/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.217790811339,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x103C/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.054447702835,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x103D/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.054447702835,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x103D/8..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.019607843137,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x104B/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x104C/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 16.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1054/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 16.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1055/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.021568627451,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x105C/0..7"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.01953125,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "435/0x1076/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 0.006103515625,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "5013/0x1039/0..15"
+    },
+    {
+      "condition": null,
+      "included": true,
+      "minimum_difference": 1.0,
+      "requirements": {
+        "minimum_changes": 5
+      },
+      "signal_ref": "5013/0x10B2/0..7"
     }
   ]
 }

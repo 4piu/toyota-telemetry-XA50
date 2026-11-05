@@ -59,7 +59,7 @@ Techstream ECU databases aggregate records used by more than one ECU software/ca
 - a named row does not prove that this vehicle implements the DID;
 - a direct `22 xxxx` record may return a UDS negative response on the exact vehicle;
 - several names may describe the same DID slice or alternate calibration;
-- byte order, signedness, enumeration labels, invalid sentinels, and availability conditions are not yet fully represented;
+- byte order, signedness, invalid sentinels beyond the labelled special values, and availability conditions are not yet fully represented; state text now comes from the database's state table (see below);
 - some values may require a different diagnostic session or initialization sequence.
 
 No bulk DID scan should be sent to the vehicle. Select one useful candidate, create a byte-exact allowlist, establish the endpoint/session conservatively, and validate a small number of controlled samples.
@@ -68,7 +68,7 @@ No bulk DID scan should be sent to the vehicle. Select one useful candidate, cre
 
 1. Extract the complete installed-ECU list from an actual Health Check or another saved session. The existing `.TSE` contains only three opened ECU sections; `inspect-techstream-session.py` can inventory those sections without printing vehicle identifiers.
 2. Decode the protocol/communication-set records beyond the physical tester ID: response routing, initialization mode, session requirements, timeouts, and keep-alives.
-3. Decode enumeration resources and unavailable/invalid value rules. Numeric coefficient coverage is complete for the initial four datasets, but identity formulas such as switch bits still need their display labels.
+3. ~~Decode enumeration resources.~~ Done 2026-11-05: each data-monitor record names a state set (offset 0x32; display kind at 0x3A: 1 state text, 2 number, 13 number with labelled special values), and table 0x020E maps the set's raw values to text. The catalog rows carry it as `states`. Unavailable/invalid value rules beyond those labels remain open.
 4. Identify duplicate/variant monitor records so the map can rank likely-supported entries before live testing.
 5. Extend the profile to HV Battery and other installed XA50 modules only when vehicle evidence confirms the relevant Techstream key.
 

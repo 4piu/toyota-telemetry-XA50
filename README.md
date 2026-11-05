@@ -45,8 +45,11 @@ Observed, 21 Correlated, and 3 Validated, all replayed); the rest are
 Candidate, meaning the database row stands unreviewed. Confidence words follow
 the toolkit's method.
 
-State and switch signals are given as raw values. Their meanings (which gear,
-which mode) are not yet extracted from the database.
+State and switch signals carry the text Techstream shows for each raw value in
+the **States** column, for example Shift Position `0=P, 2=R, 4=N, 6=D, 8=B`,
+for 899 signals. Some switches are inverted (`0=ON, 1=OFF`), so read the
+column rather than assuming. The text comes from the database; where a
+recording agrees with it, the signal's review note says so.
 
 ## Repository layout
 

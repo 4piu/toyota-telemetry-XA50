@@ -329,7 +329,7 @@
       "evidence_refs": [],
       "evidence_state": "Correlated and replayed",
       "formula_override": null,
-      "notes": "Raw state changed from 0 during Park qualification to 6 throughout the road-drive batch; enum labels remain pending.",
+      "notes": "Raw state changed from 0 during Park qualification to 6 throughout the road-drive batch, matching Techstream's labels 0=P and 6=D.",
       "signal_ref": "397/0x1061/0..7",
       "unit_override": null
     },
@@ -339,7 +339,7 @@
       "evidence_refs": [],
       "evidence_state": "Correlated and replayed",
       "formula_override": null,
-      "notes": "Raw state changed from 1 during Park qualification to 8 throughout the road-drive batch; enum labels remain pending.",
+      "notes": "Raw state changed from 1 during Park qualification to 8 throughout the road-drive batch, matching Techstream's labels 1=P and 8=D.",
       "signal_ref": "397/0x1061/8..15",
       "unit_override": null
     },
@@ -349,7 +349,7 @@
       "evidence_refs": [],
       "evidence_state": "Observed and replayed",
       "formula_override": null,
-      "notes": "Raw state 3 throughout stationary qualification and the powertrain road batch; enum meaning remains unverified.",
+      "notes": "Raw state 3 (Techstream: Running) throughout stationary qualification and the powertrain road batch; the label is not yet checked against an engine stop.",
       "signal_ref": "397/0x1063/0..7",
       "unit_override": null
     },
@@ -579,7 +579,7 @@
       "evidence_refs": [],
       "evidence_state": "Observed and replayed",
       "formula_override": null,
-      "notes": "Raw states 3 through 5 observed; enum and physical frequency mapping remain pending.",
+      "notes": "Raw states 3 through 5 observed; Techstream has no labels for this field, so the enum and physical frequency mapping remain pending.",
       "signal_ref": "397/0x10A0/32..39",
       "unit_override": null
     },
@@ -589,7 +589,7 @@
       "evidence_refs": [],
       "evidence_state": "Observed and replayed",
       "formula_override": null,
-      "notes": "Raw states 0 and 2 observed; enum mapping remains pending.",
+      "notes": "Raw states 0 and 2 observed (Techstream: Sine Wave, Square Wave); the labels are not yet checked against an independent reference.",
       "signal_ref": "397/0x10A0/40..47",
       "unit_override": null
     },
@@ -609,7 +609,7 @@
       "evidence_refs": [],
       "evidence_state": "Observed and replayed",
       "formula_override": null,
-      "notes": "Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.",
+      "notes": "Raw state 4 (Techstream: Output Torque) was constant in stationary and pilot road observations; other labels unobserved.",
       "signal_ref": "397/0x10A0/64..71",
       "unit_override": null
     },
@@ -639,7 +639,7 @@
       "evidence_refs": [],
       "evidence_state": "Observed and replayed",
       "formula_override": null,
-      "notes": "Raw states 1 and 3 observed; enum and physical frequency mapping remain pending.",
+      "notes": "Raw states 1 and 3 observed; Techstream has no labels for this field, so the enum and physical frequency mapping remain pending.",
       "signal_ref": "397/0x10A1/32..39",
       "unit_override": null
     },
@@ -649,7 +649,7 @@
       "evidence_refs": [],
       "evidence_state": "Observed and replayed",
       "formula_override": null,
-      "notes": "Raw states 0 and 1 observed; enum mapping remains pending.",
+      "notes": "Raw states 0 and 1 observed (Techstream: Sine Wave, Overmodulation); the labels are not yet checked against an independent reference.",
       "signal_ref": "397/0x10A1/40..47",
       "unit_override": null
     },
@@ -669,7 +669,7 @@
       "evidence_refs": [],
       "evidence_state": "Observed and replayed",
       "formula_override": null,
-      "notes": "Raw state 4 was constant in stationary and pilot road observations; enum mapping remains pending.",
+      "notes": "Raw state 4 (Techstream: Output Torque) was constant in stationary and pilot road observations; other labels unobserved.",
       "signal_ref": "397/0x10A1/64..71",
       "unit_override": null
     },
