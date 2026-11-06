@@ -1,30 +1,14 @@
-# Machine-local configuration
-.codex/
+# Editor and OS files
 .vscode/
 .idea/
-.env
-.env.*
-*.local.*
-tools.txt
+.DS_Store
+Thumbs.db
+Desktop.ini
 
-# Private working data belongs in the project workspace outside this
-# repository; these patterns only guard against accidental copies.
-/scratch/
-
-# Build/cache output
-__pycache__/
-*.py[cod]
-.venv/
-**/bin/
-**/obj/
-*.exe
-*.pdb
-*.dll
-*.cache
-
-# Captures and sessions
+# Never commit recordings, logs, or local settings
 captures/
 private/
+scratch/
 logs/
 *.log
 *.trc
@@ -32,21 +16,5 @@ logs/
 *.blf
 *.pcap
 *.pcapng
-*.tse
-*.TSE
-*.reg
-
-# Vendor/reverse-engineering artifacts
-*.ddb
-*.DDB
-ghidra-proj/
-*.gpr
-*.rep/
-*.gbf
-*.lock
-*.lock~
-
-# OS/editor noise
-.DS_Store
-Thumbs.db
-Desktop.ini
+*.env
+*.local.*
