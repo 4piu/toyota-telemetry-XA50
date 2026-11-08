@@ -94,7 +94,7 @@ module behind the gateway:
 |---|---|---|
 | `22 HH LL` | `03 22 HH LL 00 00 00 00` | `62 HH LL <data ...>` |
 | `21 LL` | `02 21 LL 00 00 00 00 00` | `61 LL <data ...>` |
-| `21 LL`, address `2A` | `2A 02 21 LL 00 00 00 00` | `61 LL <data ...>` (in frames starting `2A`) |
+| `21 LL`, address `2A` | `2A 02 21 LL 00 00 00 00` | `61 LL <data ...>`; every reply frame starts with `2A`, which is not part of the message (section 2) |
 
 `data` is everything after the echo: three bytes (`62 HH LL`) or two (`61 LL`).
 Short replies arrive in a single frame; longer ones arrive as first frame plus
@@ -106,6 +106,7 @@ A negative reply is `7F 22 <code>` or `7F 21 <code>`:
 | Code | Meaning | What to do |
 |---|---|---|
 | `78` | Still working | Keep waiting; the real reply follows (allow up to 10 s). |
+| `21` | Busy | Wait longer before the next request to this module (section 6). |
 | `31` | Not available | This module does not have it. |
 | `11` | Request type not supported | Check the **Read** column: older modules need `21`. |
 | `22`, `7E`, `7F` | Not allowed right now | Open the session again (section 3). |
@@ -142,15 +143,40 @@ all of them.
 
 ## 6. Pace
 
-- One request at a time per module: wait for the reply, or the timeout, before
-  sending the next.
-- Leave at least 100 ms between the starts of two requests to the same module.
-  That gives up to 10 reads per second per module; about 8 is comfortable.
-- Different modules can be read in turn on the same bus.
+Pacing keeps requests from overrunning a module or the gateway, and keeps each
+reply matched to the request that asked for it.
+
+- **One request in flight per request ID.** Wait for the reply, or the
+  timeout, before sending the next request on the same ID. Replies carry no
+  request number, so a second request in flight makes them ambiguous.
+- **The modules behind the gateway share request ID `0x750`.** Treat them as
+  one module: one request in flight on `0x750` at a time, whichever address it
+  is for. Parallel requests to different addresses have not been tried.
+- **Tested rate:** 100 to 125 ms between the starts of two requests to the
+  same module, about 8 requests per second overall. Faster has not been
+  tried; if you go faster, watch for the signs below.
+- **Back off when a module says so.** Leave more time before the next request
+  to a module that answers busy (`7F 22 21` or `7F 21 21`) or starts timing
+  out. A `78` reply (still working, section 4) is not a sign of overload.
+- Different request IDs can be read in turn on the same bus. Requests reach
+  the vehicle's internal networks through its gateway, so read what you need
+  at the rate you need it, rather than everything as fast as possible.
 
 ## Stay read-only
 
-Send only `3E 00`, `10 01`, `10 03`, `22 HH LL`, and `21 LL`, plus the
-flow-control frame. Other diagnostic services can change how the vehicle
-behaves. Never use these readings to control the vehicle or as a safety
-warning.
+Diagnostic services can do far more than read: change coding and settings,
+clear stored codes, run actuator tests, unlock security, and write or
+reprogram module memory. This page uses only services that read or keep a
+session open, so following it cannot change the vehicle:
+
+| Send | Use |
+|---|---|
+| `3E 00` | Tester present |
+| `10 01`, `10 03` | Default and extended session (they change what the module answers, not its configuration) |
+| `22 HH LL`, `21 LL` | Read a signal |
+| `01 00` on `0x7DF` | Wiring check (section 1) |
+| `30 00 ...` | Flow control for long replies (section 2) |
+
+Every read on this page may be sent, whether or not its signal is marked
+verified. Send nothing else. Never use these readings to control the vehicle
+or as a safety warning.

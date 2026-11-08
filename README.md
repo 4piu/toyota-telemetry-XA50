@@ -62,7 +62,7 @@ Cruise Control and EV. Each has its own section in that module's file.
 | Bits | Position `a..b` of the value in the reply data, as described in [PROTOCOL.md](PROTOCOL.md#5-decode). |
 | Formula | Converts `raw`, the number held in those bits, to the value. |
 | Unit / Values | The unit, and names for raw values where the signal has them (`0 = OFF; 1 = ON`). |
-| Verified | **Y**: read from the vehicle and seen to change. **N**: the module answers the read, but the value has not been seen to change, so the formula is unconfirmed. |
+| Verified | **Y**: read from the vehicle and seen to change. **N**: the module answers the read, but the value has not been seen to change, so the formula is unconfirmed. N rows are usable: check the value against a known reading (the instrument cluster, for example) before relying on it. |
 | Comment | For N rows, why, where known. "Answers; not recorded yet": the read works, but the value has not been logged while driving. "Older ECU: formula and unit not established yet": the position is known, the conversion is not. |
 
 Every signal in the list answered its read on this vehicle; reads the
