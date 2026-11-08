@@ -7,12 +7,14 @@ read-only: send only the requests shown on this page.
 
 | Blank | Where to find it | Example |
 |---|---|---|
-| `<REQUEST ID>` | Top of the ECU's file in [`signals/`](signals/) | `0x7D2` |
-| `<RESPONSE ID>` | Top of the ECU's file | `0x7DA` |
-| `<DID HI> <DID LO>` | The signal's **DID** column, split into two bytes | `0x1F9A` → `1F 9A` |
+| `<REQUEST ID>` | Top of the module's file in [`signals/`](signals/) | `0x7D2` |
+| `<RESPONSE ID>` | Top of the module's file | `0x7DA` |
+| `<ADDRESS>` | Top of the module's file, for modules behind the gateway only | `0x2A` |
+| `<READ>` | The signal's **Read** column | `22 1F 9A` or `21 30` |
 | `a..b` | The signal's **Bits** column | `32..47` |
 
-The response ID is always the request ID plus 8.
+The response ID is always the request ID plus 8. Most modules have no
+address; skip everything about `<ADDRESS>` for them.
 
 ## 1. Connect
 
@@ -47,10 +49,27 @@ Every message travels in 8-byte CAN frames (ISO-TP). Pad unused bytes with
   3. The ECU sends consecutive frames `21`, `22`, … `2F`, `20`, `21`, … each
      with the next 7 bytes, until the length is reached.
 
+### Behind the gateway
+
+Modules with an `<ADDRESS>` share request ID `0x750` and response ID `0x758`.
+The first byte of **every** frame, in both directions, is the module's
+address; the frame described above follows it, one byte shorter:
+
+| Frame | Layout |
+|---|---|
+| Single frame | `<ADDRESS> 0L` + up to 6 bytes of message |
+| First frame | `<ADDRESS> 1L LL` + the first 5 bytes |
+| Consecutive frame | `<ADDRESS> 2n` + the next 6 bytes |
+| Your flow control | `<ADDRESS> 30 00 00 00 00 00 00` |
+
+Other modules may answer on `0x758` at the same time: ignore frames whose first
+byte is not your `<ADDRESS>`.
+
 ## 3. Open a session
 
-Once per ECU, send these three on `<REQUEST ID>`. Wait for each reply on
-`<RESPONSE ID>` before sending the next.
+The top of each module's file lists the requests that open its session, in
+order. Send them on `<REQUEST ID>` and wait for each reply on `<RESPONSE ID>`
+before sending the next. Most modules use these three:
 
 | Send | Reply starts with | Meaning |
 |---|---|---|
@@ -58,35 +77,39 @@ Once per ECU, send these three on `<REQUEST ID>`. Wait for each reply on
 | `02 10 01 00 00 00 00 00` | `06 50 01` | Default session. |
 | `02 10 03 00 00 00 00 00` | `06 50 03` | Extended session. |
 
+Older modules (those read with `21`) differ: they refuse tester present
+(`7F 3E 12`, fine), some answer the default session with a bare `50`, some
+refuse the extended session (fine), and some need nothing but tester present.
+Follow the module's file.
+
 Reading every few seconds keeps the session open. After a longer pause, or if
-reads start getting negative replies, send the three again.
+reads start getting negative replies, open it again.
 
 ## 4. Read
 
-Send on `<REQUEST ID>`:
+Send `<READ>` on `<REQUEST ID>` as a single frame, with `<ADDRESS>` first for a
+module behind the gateway:
 
-```text
-03 22 <DID HI> <DID LO> 00 00 00 00
-```
+| Read | Request frame | Reply message |
+|---|---|---|
+| `22 HH LL` | `03 22 HH LL 00 00 00 00` | `62 HH LL <data ...>` |
+| `21 LL` | `02 21 LL 00 00 00 00 00` | `61 LL <data ...>` |
+| `21 LL`, address `2A` | `2A 02 21 LL 00 00 00 00` | `61 LL <data ...>` (in frames starting `2A`) |
 
-The reply on `<RESPONSE ID>` is the message:
+`data` is everything after the echo: three bytes (`62 HH LL`) or two (`61 LL`).
+Short replies arrive in a single frame; longer ones arrive as first frame plus
+consecutive frames (section 2). Modules usually answer within 20 ms. Allow 1
+second.
 
-```text
-62 <DID HI> <DID LO> <data ...>
-```
-
-`data` is everything after those three bytes. Short replies arrive in a single
-frame; longer ones arrive as first frame plus consecutive frames (section 2).
-The ECU usually answers within 20 ms. Allow 1 second.
-
-A negative reply is `7F 22 <code>`:
+A negative reply is `7F 22 <code>` or `7F 21 <code>`:
 
 | Code | Meaning | What to do |
 |---|---|---|
 | `78` | Still working | Keep waiting; the real reply follows (allow up to 10 s). |
-| `31` | DID not available | This ECU does not have it. |
+| `31` | Not available | This module does not have it. |
+| `11` | Request type not supported | Check the **Read** column: older modules need `21`. |
 | `22`, `7E`, `7F` | Not allowed right now | Open the session again (section 3). |
-| `13` | Wrong length | Check the request bytes. |
+| `12`, `13` | Wrong request | Check the request bytes. |
 
 ## 5. Decode
 
@@ -108,24 +131,26 @@ A negative reply is `7F 22 <code>`:
    width. The result is in the **Unit** shown.
 
 **Example.** Bits `16..31`, formula `signed(raw) * 0.1`, unit `A`, and the reply
-`62 <DID HI> <DID LO> 12 34 FF 38`:
+`62 HH LL 12 34 FF 38`:
 
 - `data` is `12 34 FF 38`; bits 16–31 are bytes 2 and 3, so `raw = 0xFF38`.
 - As a signed 16-bit number that is −200.
 - −200 × 0.1 = **−20.0 A**.
 
-Signals that share a DID come from the same reply. One read gives all of them.
+Signals that share a **Read** request come from the same reply. One read gives
+all of them.
 
 ## 6. Pace
 
-- One request at a time per ECU: wait for the reply, or the timeout, before
+- One request at a time per module: wait for the reply, or the timeout, before
   sending the next.
-- Leave at least 100 ms between the starts of two requests to the same ECU.
-  That gives up to 10 reads per second per ECU; about 8 is comfortable.
-- Different ECUs can be read in turn on the same bus.
+- Leave at least 100 ms between the starts of two requests to the same module.
+  That gives up to 10 reads per second per module; about 8 is comfortable.
+- Different modules can be read in turn on the same bus.
 
 ## Stay read-only
 
-Send only `3E 00`, `10 01`, `10 03`, and `22 <DID>`, plus the flow-control
-frame. Other diagnostic services can change how the vehicle behaves. Never use
-these readings to control the vehicle or as a safety warning.
+Send only `3E 00`, `10 01`, `10 03`, `22 HH LL`, and `21 LL`, plus the
+flow-control frame. Other diagnostic services can change how the vehicle
+behaves. Never use these readings to control the vehicle or as a safety
+warning.
